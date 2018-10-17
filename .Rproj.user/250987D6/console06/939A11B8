@@ -808,3 +808,66 @@ nothing added to commit but untracked files present (use "git add" to track)
 
  [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m[git:master] 
 [0m->git add .
+
+HEAD is now at b295cd3 first commit
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m[git:master] 
+[0m->git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/250987D6/console06/939A11B8[m
+	[31mmodified:   .Rproj.user/250987D6/sources/prop/29E76BDC[m
+	[31mmodified:   .Rproj.user/250987D6/sources/prop/A6DCAE84[m
+	[31mmodified:   .Rproj.user/250987D6/sources/prop/INDEX[m
+	[31mmodified:   .Rproj.user/shared/notebooks/paths[m
+	[31mmodified:   config.toml[m
+	[31mmodified:   content/post/2018-10-14-exploring-the-cost-function-of-logistic-regression.Rmd[m
+	[31mmodified:   content/post/2018-10-14-exploring-the-cost-function-of-logistic-regression.html[m
+	[31mmodified:   public/index.html[m
+	[31mmodified:   public/post/2018-10-14-exploring-the-cost-function-of-logistic-regression.Rmd[m
+	[31mmodified:   public/post/index.html[m
+	[31mmodified:   public/tags/cost-function/index.html[m
+	[31mmodified:   public/tags/data-visualisation/index.html[m
+	[31mmodified:   public/tags/dataframe/index.html[m
+	[31mmodified:   public/tags/function/index.html[m
+	[31mmodified:   public/tags/index.html[m
+	[31mmodified:   public/tags/logistic-regression/index.html[m
+	[31mmodified:   public/tags/page/2/index.html[m
+	[31mmodified:   public/tags/regression/index.html[m
+	[31mmodified:   public/tags/rprogramming/index.html[m
+	[31mmodified:   public/tags/rstats/index.html[m
+	[31mmodified:   public/tags/spss/index.html[m
+	[31mmodified:   public/tags/survey-data/index.html[m
+	[31mmodified:   themes/kiss/layouts/index.html[m
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.Rproj.user/250987D6/sources/prop/23532269[m
+	[31m.Rproj.user/250987D6/sources/prop/26E09883[m
+	[31m.Rproj.user/250987D6/sources/prop/435DC803[m
+	[31m.Rproj.user/250987D6/sources/prop/6672F25[m
+	[31m.Rproj.user/250987D6/sources/prop/78EB573B[m
+	[31m.Rproj.user/250987D6/sources/prop/8244D772[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/11F284CD[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/11F284CD-contents[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/3AEFF989[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/3AEFF989-contents[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/4F8727D4[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/4F8727D4-contents[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/88E4C69F-contents[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/8B079FEA-contents[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/8FA2D5BC-contents[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/9ED1F95C-contents[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/F60091F4[m
+	[31m.Rproj.user/250987D6/sources/s-D88ACE82/F60091F4-contents[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m[git:master] 
+[0m->git[K[K[Kgit add .
