@@ -1,4 +1,4 @@
-baseurl = "https://www.example.com"
+baseurl = "http://sciphy.netlify.com"
 languageCode = "en"
 title = "Science and Physiotherapy"
 theme = "kiss"
