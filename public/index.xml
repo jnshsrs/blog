@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Science and Physiotherapy</title>
+    <link>/</link>
+    <description>Recent content on Science and Physiotherapy</description>
+    <generator>Hugo - gohugo.io</generator>
+    <language>en</language>
+    <contact>jenshuesers@gmail.com</contact>
+    <copyright>&copy; <a href="https://github.com/jnshsrs">Jens Hüsers</a> 2018</copyright>
+    
+        <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploring the Cost Function of Logistic Regression</title>
+      <link>/post/exploring-the-cost-function-of-logistic-regression/</link>
+      <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/exploring-the-cost-function-of-logistic-regression/</guid>
+      <description></description>
+      
+      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+&lt;!-- Just one possible MathJax CDN below. You may use others. --&gt;
+&lt;script async
+  src=&#34;//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
+&lt;/script&gt;
+&lt;p&gt;This post is about exploring the cost function and its connection to the logistic regression function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::opts_chunk$set(echo = TRUE, warning=F, message=FALSE, fig.align=&amp;#39;center&amp;#39;)
+library(tidyverse)
+library(plotly)
+library(latex2exp)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I want to get a deeper understanding of the connection between the logistic regresssion and its cost function. Therefore I created a function in R and conducted a grid approximation with this function. The results are presented below.&lt;/p&gt;
+&lt;p&gt;The logistic regression can be applied to data where the dependent variable is coded binary where the referent class is coded as a 1 and as 0 otherwise. We can model the relationship of this binary outcome variable with metric and categorical predictor variables. As a result, we can then compute the predicted probability that a datapoint is a member of the referent class coded as 1.&lt;/p&gt;
+&lt;p&gt;The logistic regression model with an intercept and one depentent variable is as follows:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\log(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This formula models the Logarithm of the Odds-Ratio. This is the logistic regression model with an intercept and one predictor variable. To find the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) + (1 - y_i)\log(p(x_i)))}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Since the linear equation of logistic regression predicts the Logit, this equation can be rearranged to get a prediction of &lt;span class=&#34;math inline&#34;&gt;\(p(x)\)&lt;/span&gt; which is basically the probability that a observation belongs to the reference group:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[p(x) = \frac{1}{(1 + e^{-(\beta_0 + \beta_1x_i)})}\]&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Logistic function to predict p(x)
+logistic_function &amp;lt;- function(D, b) {
+  1 / (1 + (1 / exp(D %*% b)))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can then create the cost function and put the logistic-function in the cost-function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cost function for logistic regression
+logistic_cost &amp;lt;- function(y, D, b){
+  y_hat &amp;lt;- logistic_function(D, b)
+  1/length(y_hat) * sum(y * -log(y_hat) + (1 - y) * -log((1 - y_hat)))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To conduct the grid approximation, I write another function that takes the grid containing parameters, the predictor matrix and the outcome variable y as arguments and them computes the cost for every parameter combination. The function returns a matrix containing the grid and the corresponding cost.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Compute the cost for different combinations of regression weights
+# Returns the costs in a vector
+grid_approx_logistic &amp;lt;- function(grid, data, outcome) {
+  cost &amp;lt;- NULL
+  for(i in seq(nrow(grid))) {
+    betas &amp;lt;- as.numeric(grid[i, ])
+    betas &amp;lt;- create_weight_matrix(betas)
+    cost[i] &amp;lt;- logistic_cost(y = outcome, D = data, b = betas)    
+  }
+  cost_grid &amp;lt;- as.matrix(cbind(grid, cost))
+  return(cost_grid)
+}
+
+# Create helper function to construct the weight matrix given a vector with proposed weights
+# Used in the grid_approx_logistic function
+create_weight_matrix &amp;lt;- function(weights) {
+  betas &amp;lt;- matrix(weights, nrow = length(weights))
+  return(betas)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I will use the &lt;code&gt;mtcars&lt;/code&gt; dataset and I choose to model the probability beeing an automatic car as a function of miles per hour. First I set the grid with plausible values (I got them from running the glm function in the first place).&lt;/p&gt;
+&lt;p&gt;After that I create the predictor matrix, containing the intercept and the &lt;code&gt;mpg&lt;/code&gt; data, and subset the variable &lt;code&gt;am&lt;/code&gt; as outcome &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create grid
+grid &amp;lt;- expand.grid(seq(-20, 0, length.out = 50), seq(0, 1, length.out = 50))
+
+# set intercept
+mtcars$intercept &amp;lt;- 1
+# subset prediction matrix
+data &amp;lt;- as.matrix(mtcars[, c(&amp;quot;intercept&amp;quot;, &amp;quot;mpg&amp;quot;)])
+# subset dependent variable
+y &amp;lt;- mtcars$am&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next I run the &lt;code&gt;grid_approx_logistic&lt;/code&gt; function which computes the cost for every combination.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# compute cost for each parameter combination
+cost &amp;lt;- grid_approx_logistic(grid = grid, data = data, outcome = y)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I visulize the result with a combination of a raster and contour plot to visualize the parameter combination with the hightes likelihood.&lt;/p&gt;
+&lt;p&gt;Furthermore I added the regression weights computed by the &lt;code&gt;glm&lt;/code&gt; function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# compute the logistic regression with base r function glm
+model &amp;lt;- glm(am ~ mpg, family = &amp;quot;binomial&amp;quot;, data = mtcars)  
+coefs &amp;lt;- as.data.frame(map(coef(model), list)) %&amp;gt;% set_names(c(&amp;quot;beta0&amp;quot;, &amp;quot;beta1&amp;quot;))
+
+# visualize the regession combinations vs the computed cost
+as.data.frame(cost) %&amp;gt;% 
+  ggplot(aes(x = Var1, y = Var2, z = cost, color = cost, fill = cost)) +
+  geom_raster(interpolate = FALSE) +
+  geom_contour(bins = 30) + 
+  geom_point(data = coefs, aes(x = beta0, y = beta1), size = 4, color = &amp;quot;white&amp;quot;, inherit.aes = F) +
+  geom_label(data = coefs, aes(x = beta0, y = beta1), 
+             label = TeX(&amp;quot;$\\beta_0, \\beta_1 = (-6.6, 0.3)$&amp;quot;),
+             inherit.aes = F,
+             nudge_x = 1, nudge_y = .05, size = 5) +
+  theme_classic() +
+  scale_fill_continuous(&amp;quot;Cost-Function&amp;quot;) +
+  scale_color_continuous(&amp;quot;Cost-Function&amp;quot;) +
+  xlab(TeX(&amp;quot;$\\beta_0$ (Intercept)&amp;quot;)) +
+  ylab(TeX(&amp;quot;$\\beta_1$ (Regressionsgewicht für Miles per Hour)&amp;quot;)) +
+  ggtitle(&amp;quot;Minimizing the Likelihood Function&amp;quot;, sub = &amp;quot;Grid Approximation&amp;quot;) +
+  theme(text = element_text(family = &amp;quot;Times&amp;quot;),
+        title = element_text(size = 14), 
+        axis.text = element_text(size = 12))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files/figure-html/visualize-ml-1.png&#34; width=&#34;960&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can see that the area with the hightest density, resp highest likelihood, correspondes with the computed coefficents.&lt;/p&gt;
+&lt;p&gt;However, we can also see, that there is a area corresponding to low values of the cost function which maybe leads to unstable estimates of the regression coeficients.&lt;/p&gt;
+&lt;p&gt;Since I started with a grid that mirrors the result of the glm function, grid approximation is often a bad approach to find the best parameter combination of a logistic model.&lt;/p&gt;
+&lt;p&gt;Other approaches use the gradient decent algorithm, which is computational much cheaper and therefore faster.&lt;/p&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title>Join by rows</title>
+      <link>/post/join-by-rows/</link>
+      <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/join-by-rows/</guid>
+      <description></description>
+      
+      <content>&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
+&lt;p&gt;Some of them share the same information stored in columns and I had to combine them in a single dataframe.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)  &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create two dataframes
+widths &amp;lt;- iris %&amp;gt;% 
+  select(Species, ends_with(&amp;quot;Width&amp;quot;))
+
+lengths &amp;lt;- iris %&amp;gt;% 
+  select(Species, ends_with(&amp;quot;Length&amp;quot;))
+
+
+# dplyr::union(widths, lengths) # fails since not all columns are in both data.frames
+# dplyr::intersect(widths, lengths) # fails since not all columns are in both data.frame
+# dplyr::setdiff(widths, lengths) # fails since not all columns are in both data.frame
+# dplyr::setequal(widths, lengths) # fails since not all columns are in both data.frame
+dplyr::union_all(widths, lengths) %&amp;gt;% head # works, combines data.frames and fills with NA if column is not in one of the data.frames&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   Species Sepal.Width Petal.Width Sepal.Length Petal.Length
+## 1  setosa         3.5         0.2           NA           NA
+## 2  setosa         3.0         0.2           NA           NA
+## 3  setosa         3.2         0.2           NA           NA
+## 4  setosa         3.1         0.2           NA           NA
+## 5  setosa         3.6         0.2           NA           NA
+## 6  setosa         3.9         0.4           NA           NA&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since this set operations work in most of the cases, it will not in the case that I want to combine dataframes and only keep columns which are present in each dataframe.&lt;/p&gt;
+&lt;p&gt;Therefore, I wrote the following function to handle this special case, which occures multiple times in my current project.&lt;/p&gt;
+&lt;p&gt;The function &lt;code&gt;join_rows&lt;/code&gt; takes two or more data.frames and combines them in the fashion described above. Although the name might be misleading, since it is not a join by itself, for me it is a good description the task it does.&lt;/p&gt;
+&lt;p&gt;The function takes multiple data.frames and returns a data.frame containing all columns which all data.frame share. The function furthermore adds an ID column to keep the source dataset.&lt;/p&gt;
+&lt;p&gt;Notice that it does not reduce any duplicated rows, but keeps them.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join_rows &amp;lt;- function(...) {
+  dots &amp;lt;- rlang::exprs(...)
+  data_frame_names &amp;lt;- paste(purrr::map(dots, rlang::expr_name))
+  data_frames &amp;lt;- list(...)
+  cols &amp;lt;- purrr::map(data_frames, names)
+  cols &amp;lt;- purrr::reduce(cols, intersect)
+  data_frames &amp;lt;- map(data_frames, select, cols)
+  data_frames &amp;lt;- data_frames %&amp;gt;% set_names(data_frame_names)
+  bind_rows(data_frames, .id = &amp;quot;id&amp;quot;)
+}
+
+# gives us one column (species) since that is the only column(-name) that is shared across both dataframes
+join_rows(lengths, widths) %&amp;gt;% head&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        id Species
+## 1 lengths  setosa
+## 2 lengths  setosa
+## 3 lengths  setosa
+## 4 lengths  setosa
+## 5 lengths  setosa
+## 6 lengths  setosa&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# will fail since 1 is not a data.frame
+# join_rows(lengths, 1)&lt;/code&gt;&lt;/pre&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title>Import ordered SPSS factors into R</title>
+      <link>/post/import-ordered-spss-factors-into-r/</link>
+      <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/import-ordered-spss-factors-into-r/</guid>
+      <description></description>
+      
+      <content>&lt;div id=&#34;spss-factor-variables&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;SPSS Factor Variables&lt;/h2&gt;
+&lt;p&gt;Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the &lt;code&gt;haven&lt;/code&gt; package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means. For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female. Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string. R people know this as factor varible where numeric numbers are mapped to the factor labels.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;haven&lt;/code&gt; package is able to read the associated labels with a numeric value of a factor variable, we can map both. Since I didn’t find an option to do this mapping and convertion with the functions in the &lt;code&gt;haven&lt;/code&gt; package, I wrote a function to complete the desired task.&lt;/p&gt;
+&lt;p&gt;I created the following work around to directly import ordered SPSS factors as factors in R with its associated factor order and factor label.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# load magrittr to enable pipe operator
+library(magrittr)
+
+relabel_spss_variable &amp;lt;- function(x) {
+  a &amp;lt;- base::attr(x = x, &amp;quot;labels&amp;quot;) 
+  if(!is.null(a)) {
+    labels = base::names(a)
+    levels = base::as.character(a)
+    base::factor(x = x, levels = levels, labels = labels, ordered = TRUE) 
+  } else {
+    warning(&amp;quot;x is not label. No relabelling done.&amp;quot;)
+    x
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# read spss file
+# dataset from http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/data-files.html
+spss_file_url &amp;lt;- &amp;quot;http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/Files/sleep.zip&amp;quot;
+temp &amp;lt;- base::tempfile()
+utils::download.file(spss_file_url, temp)
+file &amp;lt;- base::unz(temp, &amp;quot;sleep.sav&amp;quot;)
+spss &amp;lt;- haven::read_sav(file)
+base::unlink(temp)
+
+# subset spss dataset for presentation purpose
+spss &amp;lt;- spss %&amp;gt;% dplyr::select(id:edlevel)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can use the &lt;code&gt;$&lt;/code&gt; sign notation to convert one specific variable.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# convert variable
+spss$edlevel_converted &amp;lt;- spss$edlevel %&amp;gt;% relabel_spss_variable
+# numeric vector without factor labels
+base::table(spss$edlevel)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##   1   2   3   4   5 
+##   3  33  30  71 132&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# factor variable with (ordered) labels
+base::table(spss$edlevel_converted)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##                          primary school 
+##                                       3 
+##                        secondary school 
+##                                      33 
+## trade training/ post secondary training 
+##                                      30 
+##                    undergraduate degree 
+##                                      71 
+##                     postgraduate degree 
+##                                     132&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can use functional programming to relabel every labeled variable in the dataframe.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;purrr::map_df(spss, relabel_spss_variable) %&amp;gt;% head&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.
+
+## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.
+
+## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 6
+##      id sex      age marital        edlevel            edlevel_converted  
+##   &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;          &amp;lt;ord&amp;gt;              &amp;lt;ord&amp;gt;              
+## 1    83 female    42 married/defac… secondary school   secondary school   
+## 2   294 female    54 married/defac… postgraduate degr… postgraduate degree
+## 3   425 male      NA married/defac… secondary school   secondary school   
+## 4    64 female    41 married/defac… postgraduate degr… postgraduate degree
+## 5   536 female    39 married/defac… postgraduate degr… postgraduate degree
+## 6    57 female    66 married/defac… undergraduate deg… undergraduate degr…&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+  </channel>
+</rss>

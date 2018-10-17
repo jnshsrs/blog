@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Import ordered SPSS factors into R | Science and Physiotherapy</title>
+
+
+
+<link href="/index.xml" rel="alternate" type="application/rss+xml" title="Science and Physiotherapy" />
+
+<link rel="stylesheet" href="/css/style.css"/><link rel='stylesheet' href='/css/custom.css'><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="/"><h1 class="title is-4">Science and Physiotherapy</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="github" href='https://github.com/jnshsrs' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/jnshsrs' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/jnshsrs' target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/function">#function</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/rstats">#rstats</a>
+  
+  | <a class="subtitle is-6" href="/tags/spss">#spss</a>
+  
+  | <a class="subtitle is-6" href="/tags/survey-data">#survey-data</a>
+  
+
+      
+    </div>
+    <h2 class="subtitle is-6">July 18, 2018</h2>
+    <h1 class="title">Import ordered SPSS factors into R</h1>
+    
+    <div class="content">
+      <div id="spss-factor-variables" class="section level2">
+<h2>SPSS Factor Variables</h2>
+<p>Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the <code>haven</code> package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means. For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female. Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string. R people know this as factor varible where numeric numbers are mapped to the factor labels.</p>
+<p>The <code>haven</code> package is able to read the associated labels with a numeric value of a factor variable, we can map both. Since I didn’t find an option to do this mapping and convertion with the functions in the <code>haven</code> package, I wrote a function to complete the desired task.</p>
+<p>I created the following work around to directly import ordered SPSS factors as factors in R with its associated factor order and factor label.</p>
+<pre class="r"><code># load magrittr to enable pipe operator
+library(magrittr)
+
+relabel_spss_variable &lt;- function(x) {
+  a &lt;- base::attr(x = x, &quot;labels&quot;) 
+  if(!is.null(a)) {
+    labels = base::names(a)
+    levels = base::as.character(a)
+    base::factor(x = x, levels = levels, labels = labels, ordered = TRUE) 
+  } else {
+    warning(&quot;x is not label. No relabelling done.&quot;)
+    x
+  }
+}</code></pre>
+<pre class="r"><code># read spss file
+# dataset from http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/data-files.html
+spss_file_url &lt;- &quot;http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/Files/sleep.zip&quot;
+temp &lt;- base::tempfile()
+utils::download.file(spss_file_url, temp)
+file &lt;- base::unz(temp, &quot;sleep.sav&quot;)
+spss &lt;- haven::read_sav(file)
+base::unlink(temp)
+
+# subset spss dataset for presentation purpose
+spss &lt;- spss %&gt;% dplyr::select(id:edlevel)</code></pre>
+<p>We can use the <code>$</code> sign notation to convert one specific variable.</p>
+<pre class="r"><code># convert variable
+spss$edlevel_converted &lt;- spss$edlevel %&gt;% relabel_spss_variable
+# numeric vector without factor labels
+base::table(spss$edlevel)</code></pre>
+<pre><code>## 
+##   1   2   3   4   5 
+##   3  33  30  71 132</code></pre>
+<pre class="r"><code># factor variable with (ordered) labels
+base::table(spss$edlevel_converted)</code></pre>
+<pre><code>## 
+##                          primary school 
+##                                       3 
+##                        secondary school 
+##                                      33 
+## trade training/ post secondary training 
+##                                      30 
+##                    undergraduate degree 
+##                                      71 
+##                     postgraduate degree 
+##                                     132</code></pre>
+<p>We can use functional programming to relabel every labeled variable in the dataframe.</p>
+<pre class="r"><code>purrr::map_df(spss, relabel_spss_variable) %&gt;% head</code></pre>
+<pre><code>## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.
+
+## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.
+
+## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##      id sex      age marital        edlevel            edlevel_converted  
+##   &lt;dbl&gt; &lt;ord&gt;  &lt;dbl&gt; &lt;ord&gt;          &lt;ord&gt;              &lt;ord&gt;              
+## 1    83 female    42 married/defac… secondary school   secondary school   
+## 2   294 female    54 married/defac… postgraduate degr… postgraduate degree
+## 3   425 male      NA married/defac… secondary school   secondary school   
+## 4    64 female    41 married/defac… postgraduate degr… postgraduate degree
+## 5   536 female    39 married/defac… postgraduate degr… postgraduate degree
+## 6    57 female    66 married/defac… undergraduate deg… undergraduate degr…</code></pre>
+</div>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'shortname';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p>&copy; <a href="https://github.com/jnshsrs">Jens Hüsers</a> 2018</p>
+    
+      <p>Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/ribice/kiss">Kiss</a>.</p>
+    
+  </div>
+</section>
+
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="\/\/matomo.example.com\/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript>
+  <img src="//matomo.example.com/piwik.php?idsite=1&amp;rec=1" style="border:0" alt="" />
+</noscript>
+
+<script>
+    (function(f, a, t, h, o, m){
+        a[h]=a[h]||function(){
+            (a[h].q=a[h].q||[]).push(arguments)
+        };
+        o=f.createElement('script'),
+        m=f.getElementsByTagName('script')[0];
+        o.async=1; o.src=t; o.id='fathom-script';
+        m.parentNode.insertBefore(o,m)
+    })(document, window, '\/\/fathom.example.com\/tracker.js', 'fathom');
+    fathom('trackPageview');
+</script>
+</body>
+</html>
+

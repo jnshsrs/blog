@@ -1,0 +1,87 @@
+---
+title: Import ordered SPSS factors into R
+author: Jens Hüsers
+date: '2018-07-18'
+categories:
+  - Data-import
+  - Factors
+  - R
+  - SPSS
+tags:
+  - function
+  - rstats
+  - spss
+  - survey-data
+slug: import-ordered-spss-factors-into-r
+---
+
+
+
+<div id="spss-factor-variables" class="section level2">
+<h2>SPSS Factor Variables</h2>
+<p>Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the <code>haven</code> package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means. For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female. Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string. R people know this as factor varible where numeric numbers are mapped to the factor labels.</p>
+<p>The <code>haven</code> package is able to read the associated labels with a numeric value of a factor variable, we can map both. Since I didn’t find an option to do this mapping and convertion with the functions in the <code>haven</code> package, I wrote a function to complete the desired task.</p>
+<p>I created the following work around to directly import ordered SPSS factors as factors in R with its associated factor order and factor label.</p>
+<pre class="r"><code># load magrittr to enable pipe operator
+library(magrittr)
+
+relabel_spss_variable &lt;- function(x) {
+  a &lt;- base::attr(x = x, &quot;labels&quot;) 
+  if(!is.null(a)) {
+    labels = base::names(a)
+    levels = base::as.character(a)
+    base::factor(x = x, levels = levels, labels = labels, ordered = TRUE) 
+  } else {
+    warning(&quot;x is not label. No relabelling done.&quot;)
+    x
+  }
+}</code></pre>
+<pre class="r"><code># read spss file
+# dataset from http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/data-files.html
+spss_file_url &lt;- &quot;http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/Files/sleep.zip&quot;
+temp &lt;- base::tempfile()
+utils::download.file(spss_file_url, temp)
+file &lt;- base::unz(temp, &quot;sleep.sav&quot;)
+spss &lt;- haven::read_sav(file)
+base::unlink(temp)
+
+# subset spss dataset for presentation purpose
+spss &lt;- spss %&gt;% dplyr::select(id:edlevel)</code></pre>
+<p>We can use the <code>$</code> sign notation to convert one specific variable.</p>
+<pre class="r"><code># convert variable
+spss$edlevel_converted &lt;- spss$edlevel %&gt;% relabel_spss_variable
+# numeric vector without factor labels
+base::table(spss$edlevel)</code></pre>
+<pre><code>## 
+##   1   2   3   4   5 
+##   3  33  30  71 132</code></pre>
+<pre class="r"><code># factor variable with (ordered) labels
+base::table(spss$edlevel_converted)</code></pre>
+<pre><code>## 
+##                          primary school 
+##                                       3 
+##                        secondary school 
+##                                      33 
+## trade training/ post secondary training 
+##                                      30 
+##                    undergraduate degree 
+##                                      71 
+##                     postgraduate degree 
+##                                     132</code></pre>
+<p>We can use functional programming to relabel every labeled variable in the dataframe.</p>
+<pre class="r"><code>purrr::map_df(spss, relabel_spss_variable) %&gt;% head</code></pre>
+<pre><code>## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.
+
+## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.
+
+## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##      id sex      age marital        edlevel            edlevel_converted  
+##   &lt;dbl&gt; &lt;ord&gt;  &lt;dbl&gt; &lt;ord&gt;          &lt;ord&gt;              &lt;ord&gt;              
+## 1    83 female    42 married/defac… secondary school   secondary school   
+## 2   294 female    54 married/defac… postgraduate degr… postgraduate degree
+## 3   425 male      NA married/defac… secondary school   secondary school   
+## 4    64 female    41 married/defac… postgraduate degr… postgraduate degree
+## 5   536 female    39 married/defac… postgraduate degr… postgraduate degree
+## 6    57 female    66 married/defac… undergraduate deg… undergraduate degr…</code></pre>
+</div>

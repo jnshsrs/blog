@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1539774802977.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "24414B8D",
+    "lastKnownWriteTime" : 1539779658,
+    "last_content_update" : 1539779658667,
+    "path" : "~/r-projects/proj_blog/sciphy-blog/config.toml",
+    "project_path" : "config.toml",
+    "properties" : {
+        "cursorPosition" : "10,10",
+        "marks" : "<:9,22\n>:9,22",
+        "scrollLine" : "3"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "toml"
+}

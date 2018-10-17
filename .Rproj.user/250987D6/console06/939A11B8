@@ -1,0 +1,810 @@
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m[?1034h->[K->pwd
+/Users/jens/r-projects/proj_blog/sciphy-blog
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->find . "css"
+.
+./index.Rmd
+./sciphy-blog.Rproj
+./content
+./content/post
+./content/post/2015-07-23-r-rmarkdown.html
+./content/post/2015-07-23-r-rmarkdown.Rmd
+./content/post/creating-a-new-theme.md
+./content/post/migrate-from-jekyll.md
+./content/post/hugoisforlovers.md
+./content/post/goisforlovers.md
+./content/about.md
+./public
+./public/favicon-16x16.png
+./public/page
+./public/page/1
+./public/page/1/index.html
+./public/page/2
+./public/page/2/index.html
+./public/favicon.ico
+./public/index.html
+./public/post
+./public/post/goisforlovers
+./public/post/goisforlovers/index.html
+./public/post/page
+./public/post/page/1
+./public/post/page/1/index.html
+./public/post/index.html
+./public/post/index.xml
+./public/post/2015-07-23-r-rmarkdown.Rmd
+./public/post/hugoisforlovers
+./public/post/hugoisforlovers/index.html
+./public/post/2015-07-23-r-rmarkdown
+./public/post/2015-07-23-r-rmarkdown/index.html
+./public/post/creating-a-new-theme
+./public/post/creating-a-new-theme/index.html
+./public/post/migrate-from-jekyll
+./public/post/migrate-from-jekyll/index.html
+./public/post/2015-07-23-r-rmarkdown_files
+./public/post/2015-07-23-r-rmarkdown_files/figure-html
+./public/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+./public/index.xml
+./public/android-chrome-192x192.png
+./public/apple-touch-icon.png
+./public/css
+./public/css/custom.css
+./public/css/style.css
+./public/404.html
+./public/about
+./public/about/index.html
+./public/tags
+./public/tags/page
+./public/tags/page/1
+./public/tags/page/1/index.html
+./public/tags/page/2
+./public/tags/page/2/index.html
+./public/tags/index.html
+./public/tags/go
+./public/tags/go/page
+./public/tags/go/page/1
+./public/tags/go/page/1/index.html
+./public/tags/go/index.html
+./public/tags/go/index.xml
+./public/tags/index.xml
+./public/tags/hugo
+./public/tags/hugo/page
+./public/tags/hugo/page/1
+./public/tags/hugo/page/1/index.html
+./public/tags/hugo/index.html
+./public/tags/hugo/index.xml
+./public/tags/plot
+./public/tags/plot/page
+./public/tags/plot/page/1
+./public/tags/plot/page/1/index.html
+./public/tags/plot/index.html
+./public/tags/plot/index.xml
+./public/tags/golang
+./public/tags/golang/page
+./public/tags/golang/page/1
+./public/tags/golang/page/1/index.html
+./public/tags/golang/index.html
+./public/tags/golang/index.xml
+./public/tags/development
+./public/tags/development/page
+./public/tags/development/page/1
+./public/tags/development/page/1/index.html
+./public/tags/development/index.html
+./public/tags/development/index.xml
+./public/tags/r-markdown
+./public/tags/r-markdown/page
+./public/tags/r-markdown/page/1
+./public/tags/r-markdown/page/1/index.html
+./public/tags/r-markdown/index.html
+./public/tags/r-markdown/index.xml
+./public/tags/templates
+./public/tags/templates/page
+./public/tags/templates/page/1
+./public/tags/templates/page/1/index.html
+./public/tags/templates/index.html
+./public/tags/templates/index.xml
+./public/tags/regression
+./public/tags/regression/page
+./public/tags/regression/page/1
+./public/tags/regression/page/1/index.html
+./public/tags/regression/index.html
+./public/tags/regression/index.xml
+./public/tags/themes
+./public/tags/themes/page
+./public/tags/themes/page/1
+./public/tags/themes/page/1/index.html
+./public/tags/themes/index.html
+./public/tags/themes/index.xml
+./public/android-chrome-512x512.png
+./public/site.webmanifest
+./public/sitemap.xml
+./public/robots.txt
+./public/mstile-150x150.png
+./public/browserconfig.xml
+./public/favicon-32x32.png
+./static
+./static/post
+./static/post/2015-07-23-r-rmarkdown_files
+./static/post/2015-07-23-r-rmarkdown_files/figure-html
+./static/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+./config.toml
+./themes
+./themes/kiss
+./themes/kiss/LICENSE.md
+./themes/kiss/exampleSite
+./themes/kiss/exampleSite/content
+./themes/kiss/exampleSite/content/post
+./themes/kiss/exampleSite/content/post/creating-a-new-theme.md
+./themes/kiss/exampleSite/content/post/migrate-from-jekyll.md
+./themes/kiss/exampleSite/content/post/hugoisforlovers.md
+./themes/kiss/exampleSite/content/post/goisforlovers.md
+./themes/kiss/exampleSite/content/about.md
+./themes/kiss/exampleSite/config.toml
+./themes/kiss/images
+./themes/kiss/images/screenshot.png
+./themes/kiss/images/tn.png
+./themes/kiss/archetypes
+./themes/kiss/archetypes/default.md
+./themes/kiss/README.md
+./themes/kiss/.gitignore
+./themes/kiss/layouts
+./themes/kiss/layouts/index.html
+./themes/kiss/layouts/404.html
+./themes/kiss/layouts/_default
+./themes/kiss/layouts/_default/single.html
+./themes/kiss/layouts/_default/list.html
+./themes/kiss/layouts/_default/index.rss.xml
+./themes/kiss/layouts/robots.txt
+./themes/kiss/layouts/partials
+./themes/kiss/layouts/partials/svg
+./themes/kiss/layouts/partials/svg/icons.html
+./themes/kiss/layouts/partials/tags.html
+./themes/kiss/layouts/partials/pager.html
+./themes/kiss/layouts/partials/disqus.html
+./themes/kiss/layouts/partials/social
+./themes/kiss/layouts/partials/social/twitter.html
+./themes/kiss/layouts/partials/social/opengraph.html
+./themes/kiss/layouts/partials/related.html
+./themes/kiss/layouts/partials/adsense.html
+./themes/kiss/layouts/partials/footer.html
+./themes/kiss/layouts/partials/data
+./themes/kiss/layouts/partials/data/title
+./themes/kiss/layouts/partials/data/description
+./themes/kiss/layouts/partials/header.html
+./themes/kiss/layouts/partials/nav.html
+./themes/kiss/layouts/partials/analytics
+./themes/kiss/layouts/partials/analytics/matomo.html
+./themes/kiss/layouts/partials/analytics/fathom.html
+./themes/kiss/static
+./themes/kiss/static/favicon-16x16.png
+./themes/kiss/static/favicon.ico
+./themes/kiss/static/android-chrome-192x192.png
+./themes/kiss/static/apple-touch-icon.png
+./themes/kiss/static/css
+./themes/kiss/static/css/custom.css
+./themes/kiss/static/css/style.css
+./themes/kiss/static/android-chrome-512x512.png
+./themes/kiss/static/site.webmanifest
+./themes/kiss/static/mstile-150x150.png
+./themes/kiss/static/browserconfig.xml
+./themes/kiss/static/favicon-32x32.png
+./themes/kiss/theme.toml
+./themes/kiss/data
+./themes/kiss/data/theme.toml
+./.Rproj.user
+./.Rproj.user/shared
+./.Rproj.user/shared/notebooks
+./.Rproj.user/shared/notebooks/patch-chunk-names
+./.Rproj.user/250987D6
+./.Rproj.user/250987D6/explorer-cache
+./.Rproj.user/250987D6/console06
+./.Rproj.user/250987D6/console06/INDEX001
+./.Rproj.user/250987D6/console06/939A11B8
+./.Rproj.user/250987D6/sources
+./.Rproj.user/250987D6/sources/s-D88ACE82
+./.Rproj.user/250987D6/sources/s-D88ACE82/lock_file
+./.Rproj.user/250987D6/profiles-cache
+./.Rproj.user/250987D6/ctx
+./.Rproj.user/250987D6/viewer-cache
+./.Rproj.user/250987D6/presentation
+find: css: No such file or directory
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->ö[Kfind . "css[K->find . "css/custom.s[Kcss"
+.
+./index.Rmd
+./sciphy-blog.Rproj
+./content
+./content/post
+./content/post/2015-07-23-r-rmarkdown.html
+./content/post/2015-07-23-r-rmarkdown.Rmd
+./content/post/creating-a-new-theme.md
+./content/post/migrate-from-jekyll.md
+./content/post/hugoisforlovers.md
+./content/post/goisforlovers.md
+./content/about.md
+./public
+./public/favicon-16x16.png
+./public/page
+./public/page/1
+./public/page/1/index.html
+./public/page/2
+./public/page/2/index.html
+./public/favicon.ico
+./public/index.html
+./public/post
+./public/post/goisforlovers
+./public/post/goisforlovers/index.html
+./public/post/page
+./public/post/page/1
+./public/post/page/1/index.html
+./public/post/index.html
+./public/post/index.xml
+./public/post/2015-07-23-r-rmarkdown.Rmd
+./public/post/hugoisforlovers
+./public/post/hugoisforlovers/index.html
+./public/post/2015-07-23-r-rmarkdown
+./public/post/2015-07-23-r-rmarkdown/index.html
+./public/post/creating-a-new-theme
+./public/post/creating-a-new-theme/index.html
+./public/post/migrate-from-jekyll
+./public/post/migrate-from-jekyll/index.html
+./public/post/2015-07-23-r-rmarkdown_files
+./public/post/2015-07-23-r-rmarkdown_files/figure-html
+./public/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+./public/index.xml
+./public/android-chrome-192x192.png
+./public/apple-touch-icon.png
+./public/css
+./public/css/custom.css
+./public/css/style.css
+./public/404.html
+./public/about
+./public/about/index.html
+./public/tags
+./public/tags/page
+./public/tags/page/1
+./public/tags/page/1/index.html
+./public/tags/page/2
+./public/tags/page/2/index.html
+./public/tags/index.html
+./public/tags/go
+./public/tags/go/page
+./public/tags/go/page/1
+./public/tags/go/page/1/index.html
+./public/tags/go/index.html
+./public/tags/go/index.xml
+./public/tags/index.xml
+./public/tags/hugo
+./public/tags/hugo/page
+./public/tags/hugo/page/1
+./public/tags/hugo/page/1/index.html
+./public/tags/hugo/index.html
+./public/tags/hugo/index.xml
+./public/tags/plot
+./public/tags/plot/page
+./public/tags/plot/page/1
+./public/tags/plot/page/1/index.html
+./public/tags/plot/index.html
+./public/tags/plot/index.xml
+./public/tags/golang
+./public/tags/golang/page
+./public/tags/golang/page/1
+./public/tags/golang/page/1/index.html
+./public/tags/golang/index.html
+./public/tags/golang/index.xml
+./public/tags/development
+./public/tags/development/page
+./public/tags/development/page/1
+./public/tags/development/page/1/index.html
+./public/tags/development/index.html
+./public/tags/development/index.xml
+./public/tags/r-markdown
+./public/tags/r-markdown/page
+./public/tags/r-markdown/page/1
+./public/tags/r-markdown/page/1/index.html
+./public/tags/r-markdown/index.html
+./public/tags/r-markdown/index.xml
+./public/tags/templates
+./public/tags/templates/page
+./public/tags/templates/page/1
+./public/tags/templates/page/1/index.html
+./public/tags/templates/index.html
+./public/tags/templates/index.xml
+./public/tags/regression
+./public/tags/regression/page
+./public/tags/regression/page/1
+./public/tags/regression/page/1/index.html
+./public/tags/regression/index.html
+./public/tags/regression/index.xml
+./public/tags/themes
+./public/tags/themes/page
+./public/tags/themes/page/1
+./public/tags/themes/page/1/index.html
+./public/tags/themes/index.html
+./public/tags/themes/index.xml
+./public/android-chrome-512x512.png
+./public/site.webmanifest
+./public/sitemap.xml
+./public/robots.txt
+./public/mstile-150x150.png
+./public/browserconfig.xml
+./public/favicon-32x32.png
+./static
+./static/post
+./static/post/2015-07-23-r-rmarkdown_files
+./static/post/2015-07-23-r-rmarkdown_files/figure-html
+./static/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+./config.toml
+./themes
+./themes/kiss
+./themes/kiss/LICENSE.md
+./themes/kiss/exampleSite
+./themes/kiss/exampleSite/content
+./themes/kiss/exampleSite/content/post
+./themes/kiss/exampleSite/content/post/creating-a-new-theme.md
+./themes/kiss/exampleSite/content/post/migrate-from-jekyll.md
+./themes/kiss/exampleSite/content/post/hugoisforlovers.md
+./themes/kiss/exampleSite/content/post/goisforlovers.md
+./themes/kiss/exampleSite/content/about.md
+./themes/kiss/exampleSite/config.toml
+./themes/kiss/images
+./themes/kiss/images/screenshot.png
+./themes/kiss/images/tn.png
+./themes/kiss/archetypes
+./themes/kiss/archetypes/default.md
+./themes/kiss/README.md
+./themes/kiss/.gitignore
+./themes/kiss/layouts
+./themes/kiss/layouts/index.html
+./themes/kiss/layouts/404.html
+./themes/kiss/layouts/_default
+./themes/kiss/layouts/_default/single.html
+./themes/kiss/layouts/_default/list.html
+./themes/kiss/layouts/_default/index.rss.xml
+./themes/kiss/layouts/robots.txt
+./themes/kiss/layouts/partials
+./themes/kiss/layouts/partials/svg
+./themes/kiss/layouts/partials/svg/icons.html
+./themes/kiss/layouts/partials/tags.html
+./themes/kiss/layouts/partials/pager.html
+./themes/kiss/layouts/partials/disqus.html
+./themes/kiss/layouts/partials/social
+./themes/kiss/layouts/partials/social/twitter.html
+./themes/kiss/layouts/partials/social/opengraph.html
+./themes/kiss/layouts/partials/related.html
+./themes/kiss/layouts/partials/adsense.html
+./themes/kiss/layouts/partials/footer.html
+./themes/kiss/layouts/partials/data
+./themes/kiss/layouts/partials/data/title
+./themes/kiss/layouts/partials/data/description
+./themes/kiss/layouts/partials/header.html
+./themes/kiss/layouts/partials/nav.html
+./themes/kiss/layouts/partials/analytics
+./themes/kiss/layouts/partials/analytics/matomo.html
+./themes/kiss/layouts/partials/analytics/fathom.html
+./themes/kiss/static
+./themes/kiss/static/favicon-16x16.png
+./themes/kiss/static/favicon.ico
+./themes/kiss/static/android-chrome-192x192.png
+./themes/kiss/static/apple-touch-icon.png
+./themes/kiss/static/css
+./themes/kiss/static/css/custom.css
+./themes/kiss/static/css/style.css
+./themes/kiss/static/android-chrome-512x512.png
+./themes/kiss/static/site.webmanifest
+./themes/kiss/static/mstile-150x150.png
+./themes/kiss/static/browserconfig.xml
+./themes/kiss/static/favicon-32x32.png
+./themes/kiss/theme.toml
+./themes/kiss/data
+./themes/kiss/data/theme.toml
+./.Rproj.user
+./.Rproj.user/shared
+./.Rproj.user/shared/notebooks
+./.Rproj.user/shared/notebooks/patch-chunk-names
+./.Rproj.user/250987D6
+./.Rproj.user/250987D6/explorer-cache
+./.Rproj.user/250987D6/console06
+./.Rproj.user/250987D6/console06/INDEX001
+./.Rproj.user/250987D6/console06/939A11B8
+./.Rproj.user/250987D6/sources
+./.Rproj.user/250987D6/sources/s-D88ACE82
+./.Rproj.user/250987D6/sources/s-D88ACE82/24414B8D-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/24414B8D
+./.Rproj.user/250987D6/sources/s-D88ACE82/lock_file
+./.Rproj.user/250987D6/sources/prop
+./.Rproj.user/250987D6/sources/prop/A6DCAE84
+./.Rproj.user/250987D6/sources/prop/INDEX
+./.Rproj.user/250987D6/profiles-cache
+./.Rproj.user/250987D6/ctx
+./.Rproj.user/250987D6/viewer-cache
+./.Rproj.user/250987D6/presentation
+find: css/custom.css: No such file or directory
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->ls *css
+ls: *css: No such file or directory
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->ls -r *css
+ls: *css: No such file or directory
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->J[Kmv r-pro[K[K[K[K[K../
+.DS_Store          .Rhistory          .Rproj.user/       jnshsrs.github.io/ proj_blog.Rproj    sciphy/            sciphy-blog/
+->mv ../jnshsrs.github.io/
+.Rhistory                404.md                   _Rmd/                    _posts/                  images/
+.Rproj.user/             CNAME                    _config.yml              _sass/                   index.html
+.git/                    LICENSE                  _includes/               about.md                 jnshsrs.github.io.Rproj
+.gitignore               README.md                _layouts/                assets/                  style.scss
+->mv ../jnshsrs.github.io/_po[K[KRmd/
+2018-10-15-explore-logistic-cost-with-grid.Rmd    2018-7-26-join-rows.Rmd
+2018-10-15-explore-logistic-cost-with-grid.md     2018-8-1-relabel-spss-dataset.Rmd
+2018-10-15-explore-logistic-cost-with-grid_files/ blog.Rmd
+->mv ../jnshsrs.github.io/_Rmd/Ü[K*.Rmd[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kvim [K[K[K[Kclear
+[H[2J
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->find . hea[K[K[Khead_co[Kustom.html
+.
+./index.Rmd
+./sciphy-blog.Rproj
+./content
+./content/post
+./content/post/2015-07-23-r-rmarkdown.html
+./content/post/2015-07-23-r-rmarkdown.Rmd
+./content/post/2018-10-17-erster-blogpost.Rmd
+./content/post/creating-a-new-theme.md
+./content/post/2018-10-17-erster-blogpost.html
+./content/post/migrate-from-jekyll.md
+./content/post/hugoisforlovers.md
+./content/post/2018-10-14-exploring-the-cost-function-of-logistic-regression.Rmd
+./content/post/2018-10-14-exploring-the-cost-function-of-logistic-regression.html
+./content/post/goisforlovers.md
+./content/about.md
+./public
+./public/favicon-16x16.png
+./public/page
+./public/page/1
+./public/page/1/index.html
+./public/page/2
+./public/page/2/index.html
+./public/favicon.ico
+./public/index.html
+./public/post
+./public/post/goisforlovers
+./public/post/goisforlovers/index.html
+./public/post/erster-blogpost
+./public/post/erster-blogpost/index.html
+./public/post/page
+./public/post/page/1
+./public/post/page/1/index.html
+./public/post/page/2
+./public/post/page/2/index.html
+./public/post/index.html
+./public/post/index.xml
+./public/post/2018-10-17-erster-blogpost_files
+./public/post/2018-10-17-erster-blogpost_files/figure-html
+./public/post/2018-10-17-erster-blogpost_files/figure-html/unnamed-chunk-1-1.png
+./public/post/2015-07-23-r-rmarkdown.Rmd
+./public/post/2018-10-17-erster-blogpost.Rmd
+./public/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files
+./public/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files/figure-html
+./public/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files/figure-html/unnamed-chunk-6-1.png
+./public/post/hugoisforlovers
+./public/post/hugoisforlovers/index.html
+./public/post/2018-10-14-exploring-the-cost-function-of-logistic-regression.Rmd
+./public/post/2015-07-23-r-rmarkdown
+./public/post/2015-07-23-r-rmarkdown/index.html
+./public/post/creating-a-new-theme
+./public/post/creating-a-new-theme/index.html
+./public/post/migrate-from-jekyll
+./public/post/migrate-from-jekyll/index.html
+./public/post/2015-07-23-r-rmarkdown_files
+./public/post/2015-07-23-r-rmarkdown_files/figure-html
+./public/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+./public/post/exploring-the-cost-function-of-logistic-regression
+./public/post/exploring-the-cost-function-of-logistic-regression/index.html
+./public/index.xml
+./public/android-chrome-192x192.png
+./public/apple-touch-icon.png
+./public/css
+./public/css/custom.css
+./public/css/style.css
+./public/404.html
+./public/about
+./public/about/index.html
+./public/tags
+./public/tags/page
+./public/tags/page/1
+./public/tags/page/1/index.html
+./public/tags/page/2
+./public/tags/page/2/index.html
+./public/tags/index.html
+./public/tags/go
+./public/tags/go/page
+./public/tags/go/page/1
+./public/tags/go/page/1/index.html
+./public/tags/go/index.html
+./public/tags/go/index.xml
+./public/tags/index.xml
+./public/tags/hugo
+./public/tags/hugo/page
+./public/tags/hugo/page/1
+./public/tags/hugo/page/1/index.html
+./public/tags/hugo/index.html
+./public/tags/hugo/index.xml
+./public/tags/plot
+./public/tags/plot/page
+./public/tags/plot/page/1
+./public/tags/plot/page/1/index.html
+./public/tags/plot/index.html
+./public/tags/plot/index.xml
+./public/tags/golang
+./public/tags/golang/page
+./public/tags/golang/page/1
+./public/tags/golang/page/1/index.html
+./public/tags/golang/index.html
+./public/tags/golang/index.xml
+./public/tags/development
+./public/tags/development/page
+./public/tags/development/page/1
+./public/tags/development/page/1/index.html
+./public/tags/development/index.html
+./public/tags/development/index.xml
+./public/tags/r-markdown
+./public/tags/r-markdown/page
+./public/tags/r-markdown/page/1
+./public/tags/r-markdown/page/1/index.html
+./public/tags/r-markdown/index.html
+./public/tags/r-markdown/index.xml
+./public/tags/templates
+./public/tags/templates/page
+./public/tags/templates/page/1
+./public/tags/templates/page/1/index.html
+./public/tags/templates/index.html
+./public/tags/templates/index.xml
+./public/tags/regression
+./public/tags/regression/page
+./public/tags/regression/page/1
+./public/tags/regression/page/1/index.html
+./public/tags/regression/index.html
+./public/tags/regression/index.xml
+./public/tags/themes
+./public/tags/themes/page
+./public/tags/themes/page/1
+./public/tags/themes/page/1/index.html
+./public/tags/themes/index.html
+./public/tags/themes/index.xml
+./public/android-chrome-512x512.png
+./public/site.webmanifest
+./public/sitemap.xml
+./public/robots.txt
+./public/mstile-150x150.png
+./public/browserconfig.xml
+./public/favicon-32x32.png
+./static
+./static/post
+./static/post/2018-10-17-erster-blogpost_files
+./static/post/2018-10-17-erster-blogpost_files/figure-html
+./static/post/2018-10-17-erster-blogpost_files/figure-html/unnamed-chunk-1-1.png
+./static/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files
+./static/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files/figure-html
+./static/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files/figure-html/unnamed-chunk-6-1.png
+./static/post/2015-07-23-r-rmarkdown_files
+./static/post/2015-07-23-r-rmarkdown_files/figure-html
+./static/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+./config.toml
+./themes
+./themes/kiss
+./themes/kiss/LICENSE.md
+./themes/kiss/exampleSite
+./themes/kiss/exampleSite/content
+./themes/kiss/exampleSite/content/post
+./themes/kiss/exampleSite/content/post/creating-a-new-theme.md
+./themes/kiss/exampleSite/content/post/migrate-from-jekyll.md
+./themes/kiss/exampleSite/content/post/hugoisforlovers.md
+./themes/kiss/exampleSite/content/post/goisforlovers.md
+./themes/kiss/exampleSite/content/about.md
+./themes/kiss/exampleSite/config.toml
+./themes/kiss/images
+./themes/kiss/images/screenshot.png
+./themes/kiss/images/tn.png
+./themes/kiss/archetypes
+./themes/kiss/archetypes/default.md
+./themes/kiss/README.md
+./themes/kiss/.gitignore
+./themes/kiss/layouts
+./themes/kiss/layouts/index.html
+./themes/kiss/layouts/404.html
+./themes/kiss/layouts/_default
+./themes/kiss/layouts/_default/single.html
+./themes/kiss/layouts/_default/list.html
+./themes/kiss/layouts/_default/index.rss.xml
+./themes/kiss/layouts/robots.txt
+./themes/kiss/layouts/partials
+./themes/kiss/layouts/partials/svg
+./themes/kiss/layouts/partials/svg/icons.html
+./themes/kiss/layouts/partials/tags.html
+./themes/kiss/layouts/partials/pager.html
+./themes/kiss/layouts/partials/disqus.html
+./themes/kiss/layouts/partials/social
+./themes/kiss/layouts/partials/social/twitter.html
+./themes/kiss/layouts/partials/social/opengraph.html
+./themes/kiss/layouts/partials/related.html
+./themes/kiss/layouts/partials/adsense.html
+./themes/kiss/layouts/partials/footer.html
+./themes/kiss/layouts/partials/data
+./themes/kiss/layouts/partials/data/title
+./themes/kiss/layouts/partials/data/description
+./themes/kiss/layouts/partials/header.html
+./themes/kiss/layouts/partials/nav.html
+./themes/kiss/layouts/partials/analytics
+./themes/kiss/layouts/partials/analytics/matomo.html
+./themes/kiss/layouts/partials/analytics/fathom.html
+./themes/kiss/static
+./themes/kiss/static/favicon-16x16.png
+./themes/kiss/static/favicon.ico
+./themes/kiss/static/android-chrome-192x192.png
+./themes/kiss/static/apple-touch-icon.png
+./themes/kiss/static/css
+./themes/kiss/static/css/custom.css
+./themes/kiss/static/css/style.css
+./themes/kiss/static/android-chrome-512x512.png
+./themes/kiss/static/site.webmanifest
+./themes/kiss/static/mstile-150x150.png
+./themes/kiss/static/browserconfig.xml
+./themes/kiss/static/favicon-32x32.png
+./themes/kiss/theme.toml
+./themes/kiss/data
+./themes/kiss/data/theme.toml
+./.Rproj.user
+./.Rproj.user/shared
+./.Rproj.user/shared/notebooks
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/250987D6D88ACE82
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/250987D6D88ACE82/chunks.json
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/s
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/s/cc83fwu7aczyr
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/s/cc83fwu7aczyr/000008.png
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/s/cc83fwu7aczyr/000008.snapshot
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/s/cc83fwu7aczyr/000008.metadata
+./.Rproj.user/shared/notebooks/C73CAE71-2018-10-17-erster-blogpost/1/s/chunks.json
+./.Rproj.user/shared/notebooks/paths
+./.Rproj.user/shared/notebooks/550FACE6-2015-07-23-r-rmarkdown
+./.Rproj.user/shared/notebooks/550FACE6-2015-07-23-r-rmarkdown/1
+./.Rproj.user/shared/notebooks/550FACE6-2015-07-23-r-rmarkdown/1/250987D6D88ACE82
+./.Rproj.user/shared/notebooks/550FACE6-2015-07-23-r-rmarkdown/1/250987D6D88ACE82/chunks.json
+./.Rproj.user/shared/notebooks/550FACE6-2015-07-23-r-rmarkdown/1/s
+./.Rproj.user/shared/notebooks/550FACE6-2015-07-23-r-rmarkdown/1/s/chunks.json
+./.Rproj.user/shared/notebooks/patch-chunk-names
+./.Rproj.user/shared/notebooks/BDC7AE64-2018-10-14-exploring-the-cost-function-of-logistic-regression
+./.Rproj.user/shared/notebooks/BDC7AE64-2018-10-14-exploring-the-cost-function-of-logistic-regression/1
+./.Rproj.user/shared/notebooks/BDC7AE64-2018-10-14-exploring-the-cost-function-of-logistic-regression/1/250987D6D88ACE82
+./.Rproj.user/shared/notebooks/BDC7AE64-2018-10-14-exploring-the-cost-function-of-logistic-regression/1/250987D6D88ACE82/chunks.json
+./.Rproj.user/shared/notebooks/BDC7AE64-2018-10-14-exploring-the-cost-function-of-logistic-regression/1/s
+./.Rproj.user/shared/notebooks/BDC7AE64-2018-10-14-exploring-the-cost-function-of-logistic-regression/1/s/chunks.json
+./.Rproj.user/250987D6
+./.Rproj.user/250987D6/explorer-cache
+./.Rproj.user/250987D6/console06
+./.Rproj.user/250987D6/console06/INDEX001
+./.Rproj.user/250987D6/console06/939A11B8
+./.Rproj.user/250987D6/sources
+./.Rproj.user/250987D6/sources/s-D88ACE82
+./.Rproj.user/250987D6/sources/s-D88ACE82/2DEBD15C-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/B8AA8F38-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/15793D79
+./.Rproj.user/250987D6/sources/s-D88ACE82/D714111F-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/24414B8D-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/15793D79-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/6FEA8C10
+./.Rproj.user/250987D6/sources/s-D88ACE82/D714111F
+./.Rproj.user/250987D6/sources/s-D88ACE82/3B95DF27
+./.Rproj.user/250987D6/sources/s-D88ACE82/3B95DF27-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/24414B8D
+./.Rproj.user/250987D6/sources/s-D88ACE82/C6E7AD10
+./.Rproj.user/250987D6/sources/s-D88ACE82/6FEA8C10-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/C6E7AD10-contents
+./.Rproj.user/250987D6/sources/s-D88ACE82/2DEBD15C
+./.Rproj.user/250987D6/sources/s-D88ACE82/lock_file
+./.Rproj.user/250987D6/sources/prop
+./.Rproj.user/250987D6/sources/prop/5531572
+./.Rproj.user/250987D6/sources/prop/9822CB20
+./.Rproj.user/250987D6/sources/prop/4F5625D7
+./.Rproj.user/250987D6/sources/prop/5CF40DC6
+./.Rproj.user/250987D6/sources/prop/A61F1C75
+./.Rproj.user/250987D6/sources/prop/A6DCAE84
+./.Rproj.user/250987D6/sources/prop/29E76BDC
+./.Rproj.user/250987D6/sources/prop/INDEX
+./.Rproj.user/250987D6/sources/prop/459D561C
+./.Rproj.user/250987D6/profiles-cache
+./.Rproj.user/250987D6/ctx
+./.Rproj.user/250987D6/viewer-cache
+./.Rproj.user/250987D6/presentation
+find: head_custom.html: No such file or directory
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->ls *head_custom*
+ls: *head_custom*: No such file or directory
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->cp ~/r-projects/proj_blog/git[K[K[Kjnshsrs.github.io/
+.Rhistory                404.md                   _Rmd/                    _posts/                  images/
+.Rproj.user/             CNAME                    _config.yml              _sass/                   index.html
+.git/                    LICENSE                  _includes/               about.md                 jnshsrs.github.io.Rproj
+.gitignore               README.md                _layouts/                assets/                  style.scss
+->cp ~/r-projects/proj_blog/jnshsrs.github.io/_ass[K[K[K[Kassets/Rfig/[K[K[K[K[K[K[K[K[K[K[K[K
+.Rhistory                404.md                   _Rmd/                    _posts/                  images/
+.Rproj.user/             CNAME                    _config.yml              _sass/                   index.html
+.git/                    LICENSE                  _includes/               about.md                 jnshsrs.github.io.Rproj
+.gitignore               README.md                _layouts/                assets/                  style.scss
+->cp ~/r-projects/proj_blog/jnshsrs.github.io/images/
+404.jpg                          first-post.png                   jekyll-now-theme-screenshot.jpg  
+config.png                       jekyll-logo.png                  step1.gif                        
+->cp ~/r-projects/proj_blog/jnshsrs.github.io/images/[K[K[K[K[K[K[K
+.DS_Store                404.md                   _config.yml              about.md                 style.scss
+.Rhistory                CNAME                    _includes/               assets/                  
+.Rproj.user/             LICENSE                  _layouts/                images/                  
+.git/                    README.md                _posts/                  index.html               
+.gitignore               _Rmd/                    _sass/                   jnshsrs.github.io.Rproj  
+->cp ~/r-projects/proj_blog/jnshsrs.github.io/
+usage: cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file target_file
+       cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file ... target_directory
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->l[Kgit status
+fatal: not a git repository (or any of the parent directories): .git
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->git log[K[K[Klog
+fatal: not a git repository (or any of the parent directories): .git
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m
+[0m->git init
+Initialized empty Git repository in /Users/jens/r-projects/proj_blog/sciphy-blog/.git/
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m[git:master] 
+[0m->git add[K[K[Kstatsu[K[Kus
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.Rproj.user/[m
+	[31mconfig.toml[m
+	[31mcontent/[m
+	[31mindex.Rmd[m
+	[31mpublic/[m
+	[31msciphy-blog.Rproj[m
+	[31mstatic/[m
+	[31mthemes/[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m[git:master] 
+[0m->git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	[31m.Rproj.user/[m
+	[31mconfig.toml[m
+	[31mcontent/[m
+	[31mindex.Rmd[m
+	[31mpublic/[m
+	[31msciphy-blog.Rproj[m
+	[31mstatic/[m
+	[31mthemes/[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+ [0;31mjens: [1;32m/Users/jens/r-projects/proj_blog/sciphy-blog [0;35m[git:master] 
+[0m->git add .

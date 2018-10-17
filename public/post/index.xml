@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Science and Physiotherapy</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Science and Physiotherapy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
+    <lastBuildDate>Sun, 14 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploring the Cost Function of Logistic Regression</title>
+      <link>/post/exploring-the-cost-function-of-logistic-regression/</link>
+      <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/exploring-the-cost-function-of-logistic-regression/</guid>
+      <description>This post is about exploring the cost function and its connection to the logistic regression function.
+knitr::opts_chunk$set(echo = TRUE, warning=F, message=FALSE, fig.align=&amp;#39;center&amp;#39;) library(tidyverse) library(plotly) library(latex2exp) I want to get a deeper understanding of the connection between the logistic regresssion and its cost function. Therefore I created a function in R and conducted a grid approximation with this function. The results are presented below.
+The logistic regression can be applied to data where the dependent variable is coded binary where the referent class is coded as a 1 and as 0 otherwise.</description>
+    </item>
+    
+    <item>
+      <title>Join by rows</title>
+      <link>/post/join-by-rows/</link>
+      <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/join-by-rows/</guid>
+      <description>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.
+Some of them share the same information stored in columns and I had to combine them in a single dataframe.
+library(tidyverse)  ## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
+    </item>
+    
+    <item>
+      <title>Import ordered SPSS factors into R</title>
+      <link>/post/import-ordered-spss-factors-into-r/</link>
+      <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/import-ordered-spss-factors-into-r/</guid>
+      <description>SPSS Factor Variables Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the haven package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means.</description>
+    </item>
+    
+  </channel>
+</rss>

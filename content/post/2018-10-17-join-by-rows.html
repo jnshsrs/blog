@@ -1,0 +1,73 @@
+---
+title: Join by rows
+author: Jens Hüsers
+date: '2018-08-03'
+categories:
+  - dplyr
+  - rprogramming
+tags:
+  - dataframe
+  - rprogramming
+slug: join-by-rows
+---
+
+
+
+<p>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.</p>
+<p>Some of them share the same information stored in columns and I had to combine them in a single dataframe.</p>
+<pre class="r"><code>library(tidyverse)  </code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0</code></pre>
+<pre><code>## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code># create two dataframes
+widths &lt;- iris %&gt;% 
+  select(Species, ends_with(&quot;Width&quot;))
+
+lengths &lt;- iris %&gt;% 
+  select(Species, ends_with(&quot;Length&quot;))
+
+
+# dplyr::union(widths, lengths) # fails since not all columns are in both data.frames
+# dplyr::intersect(widths, lengths) # fails since not all columns are in both data.frame
+# dplyr::setdiff(widths, lengths) # fails since not all columns are in both data.frame
+# dplyr::setequal(widths, lengths) # fails since not all columns are in both data.frame
+dplyr::union_all(widths, lengths) %&gt;% head # works, combines data.frames and fills with NA if column is not in one of the data.frames</code></pre>
+<pre><code>##   Species Sepal.Width Petal.Width Sepal.Length Petal.Length
+## 1  setosa         3.5         0.2           NA           NA
+## 2  setosa         3.0         0.2           NA           NA
+## 3  setosa         3.2         0.2           NA           NA
+## 4  setosa         3.1         0.2           NA           NA
+## 5  setosa         3.6         0.2           NA           NA
+## 6  setosa         3.9         0.4           NA           NA</code></pre>
+<p>Since this set operations work in most of the cases, it will not in the case that I want to combine dataframes and only keep columns which are present in each dataframe.</p>
+<p>Therefore, I wrote the following function to handle this special case, which occures multiple times in my current project.</p>
+<p>The function <code>join_rows</code> takes two or more data.frames and combines them in the fashion described above. Although the name might be misleading, since it is not a join by itself, for me it is a good description the task it does.</p>
+<p>The function takes multiple data.frames and returns a data.frame containing all columns which all data.frame share. The function furthermore adds an ID column to keep the source dataset.</p>
+<p>Notice that it does not reduce any duplicated rows, but keeps them.</p>
+<pre class="r"><code>join_rows &lt;- function(...) {
+  dots &lt;- rlang::exprs(...)
+  data_frame_names &lt;- paste(purrr::map(dots, rlang::expr_name))
+  data_frames &lt;- list(...)
+  cols &lt;- purrr::map(data_frames, names)
+  cols &lt;- purrr::reduce(cols, intersect)
+  data_frames &lt;- map(data_frames, select, cols)
+  data_frames &lt;- data_frames %&gt;% set_names(data_frame_names)
+  bind_rows(data_frames, .id = &quot;id&quot;)
+}
+
+# gives us one column (species) since that is the only column(-name) that is shared across both dataframes
+join_rows(lengths, widths) %&gt;% head</code></pre>
+<pre><code>##        id Species
+## 1 lengths  setosa
+## 2 lengths  setosa
+## 3 lengths  setosa
+## 4 lengths  setosa
+## 5 lengths  setosa
+## 6 lengths  setosa</code></pre>
+<pre class="r"><code># will fail since 1 is not a data.frame
+# join_rows(lengths, 1)</code></pre>

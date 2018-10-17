@@ -1,0 +1,76 @@
+---
+author: "Jens Hüsers"
+date: "1 8 2018"
+output:
+  github_document:
+editor_options: 
+  chunk_output_type: console
+categories: [spss, survey-data, rstats, function]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
+```
+
+## SPSS Factor Variables
+
+Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables.
+Since I work with R, I have to import them.
+On the one hand, fortunatly, there is the `haven` package, which makes importing SPSS files an easy taks. 
+On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label.
+In consequence, it is very hard to tell what a integer value of a factor variable means.
+For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female.
+Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string.
+R people know this as factor varible where numeric numbers are mapped to the factor labels.
+
+The `haven` package is able to read the associated labels with a numeric value of a factor variable, we can map both. Since I didn't find an option to do this mapping and convertion with the functions in the `haven` package, I wrote a function to complete the desired task.
+
+I created the following work around to directly import ordered SPSS factors as factors in R with its associated factor order and factor label.
+
+```{r}
+relabel_spss_variable <- function(x) {
+  a <- base::attr(x = x, "labels") 
+  if(!is.null(a)) {
+    labels = base::names(a)
+    levels = base::as.character(a)
+    base::factor(x = x, levels = levels, labels = labels, ordered = TRUE) 
+  } else {
+    warning("x is not label. No relabelling done.")
+    x
+  }
+}
+```
+
+
+```{r}
+# read spss file
+# dataset from http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/data-files.html
+spss_file_url <- "http://spss.allenandunwin.com.s3-website-ap-southeast-2.amazonaws.com/Files/sleep.zip"
+temp <- base::tempfile()
+utils::download.file(spss_file_url, temp)
+file <- base::unz(temp, "sleep.sav")
+spss <- haven::read_sav(file)
+base::unlink(temp)
+
+# subset spss dataset for presentation purpose
+spss <- spss %>% dplyr::select(id:edlevel)
+```
+
+We can use the `$` sign notation to convert one specific variable.
+
+```{r}
+# convert variable
+spss$edlevel_converted <- spss$edlevel %>% relabel_spss_variable
+# numeric vector without factor labels
+base::table(spss$edlevel)
+# factor variable with (ordered) labels
+base::table(spss$edlevel_converted)
+```
+
+We can use functional programming to relabel every labeled variable in the dataframe.
+
+```{r}
+purrr::map_df(spss, relabel_spss_variable) %>% head
+```
+
