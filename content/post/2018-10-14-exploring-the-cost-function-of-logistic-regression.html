@@ -28,7 +28,7 @@ library(latex2exp)</code></pre>
 <p>The logistic regression model with an intercept and one depentent variable is as follows:</p>
 <p><span class="math display">\[\log(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\]</span></p>
 <p>This formula models the Logarithm of the Odds-Ratio. This is the logistic regression model with an intercept and one predictor variable. To find the <span class="math inline">\(\beta\)</span>-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.</p>
-<p><span class="math display">\[Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) + (1 - y_i)\log(p(x_i)))}\]</span></p>
+<p><span class="math display">\[Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) - (1 - y_i)\log(p(x_i)))}\]</span></p>
 <p>Since the linear equation of logistic regression predicts the Logit, this equation can be rearranged to get a prediction of <span class="math inline">\(p(x)\)</span> which is basically the probability that a observation belongs to the reference group:</p>
 <p><span class="math display">\[p(x) = \frac{1}{(1 + e^{-(\beta_0 + \beta_1x_i)})}\]</span></p>
 <pre class="r"><code># Logistic function to predict p(x)
@@ -39,7 +39,7 @@ logistic_function &lt;- function(D, b) {
 <pre class="r"><code># Cost function for logistic regression
 logistic_cost &lt;- function(y, D, b){
   y_hat &lt;- logistic_function(D, b)
-  1/length(y_hat) * sum(y * -log(y_hat) + (1 - y) * -log((1 - y_hat)))
+  1/length(y_hat) * sum(-y * -log(y_hat) - (1 - y) * -log((1 - y_hat)))
 }</code></pre>
 <p>To conduct the grid approximation, I write another function that takes the grid containing parameters, the predictor matrix and the outcome variable y as arguments and them computes the cost for every parameter combination. The function returns a matrix containing the grid and the corresponding cost.</p>
 <pre class="r"><code># Compute the cost for different combinations of regression weights
@@ -96,7 +96,7 @@ as.data.frame(cost) %&gt;%
   scale_color_continuous(&quot;Cost-Function&quot;) +
   xlab(TeX(&quot;$\\beta_0$ (Intercept)&quot;)) +
   ylab(TeX(&quot;$\\beta_1$ (Regressionsgewicht für Miles per Hour)&quot;)) +
-  ggtitle(&quot;Minimizing the Likelihood Function&quot;, sub = &quot;Grid Approximation&quot;) +
+  ggtitle(&quot;Maximizing the negative Log-Likelihood Function&quot;, sub = &quot;Grid Approximation&quot;) +
   theme(text = element_text(family = &quot;Times&quot;),
         title = element_text(size = 14), 
         axis.text = element_text(size = 12))</code></pre>

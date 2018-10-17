@@ -42,7 +42,7 @@ This formula models the Logarithm of the Odds-Ratio.
 This is the logistic regression model with an intercept and one predictor variable.
 To find the $\beta$-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.
 
-$$Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) + (1 - y_i)\log(p(x_i)))}$$
+$$Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) - (1 - y_i)\log(p(x_i)))}$$
 
 Since the linear equation of logistic regression predicts the Logit, this equation can be rearranged to get a prediction of $p(x)$ which is basically the probability that a observation belongs to the reference group:
 
@@ -61,7 +61,7 @@ We can then create the cost function and put the logistic-function in the cost-f
 # Cost function for logistic regression
 logistic_cost <- function(y, D, b){
   y_hat <- logistic_function(D, b)
-  1/length(y_hat) * sum(y * -log(y_hat) + (1 - y) * -log((1 - y_hat)))
+  1/length(y_hat) * sum(-y * -log(y_hat) - (1 - y) * -log((1 - y_hat)))
 }
 ```
 
@@ -140,7 +140,7 @@ as.data.frame(cost) %>%
   scale_color_continuous("Cost-Function") +
   xlab(TeX("$\\beta_0$ (Intercept)")) +
   ylab(TeX("$\\beta_1$ (Regressionsgewicht für Miles per Hour)")) +
-  ggtitle("Minimizing the Likelihood Function", sub = "Grid Approximation") +
+  ggtitle("Maximizing the negative Log-Likelihood Function", sub = "Grid Approximation") +
   theme(text = element_text(family = "Times"),
         title = element_text(size = 14), 
         axis.text = element_text(size = 12))

@@ -1,8 +1,0 @@
-"0","# create grid"
-"0","grid <- expand.grid(seq(-20, 0, length.out = 50), seq(0, 1, length.out = 50))"
-"0","# set intercept"
-"0","mtcars$intercept <- 1"
-"0","# subset prediction matrix"
-"0","data <- as.matrix(mtcars[, c(""intercept"", ""mpg"")])"
-"0","# subset dependent variable"
-"0","y <- mtcars$am"

@@ -1,5 +1,0 @@
-"0","# Cost function for logistic regression"
-"0","logistic_cost <- function(y, D, b){"
-"0","  y_hat <- logistic_function(D, b)"
-"0","  1/length(y_hat) * sum(-1 * y * -log(y_hat) - (1 - y) * -log((1 - y_hat)))"
-"0","}"

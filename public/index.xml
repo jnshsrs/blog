@@ -35,7 +35,7 @@ library(latex2exp)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The logistic regression model with an intercept and one depentent variable is as follows:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\log(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;This formula models the Logarithm of the Odds-Ratio. This is the logistic regression model with an intercept and one predictor variable. To find the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) + (1 - y_i)\log(p(x_i)))}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) - (1 - y_i)\log(p(x_i)))}\]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Since the linear equation of logistic regression predicts the Logit, this equation can be rearranged to get a prediction of &lt;span class=&#34;math inline&#34;&gt;\(p(x)\)&lt;/span&gt; which is basically the probability that a observation belongs to the reference group:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[p(x) = \frac{1}{(1 + e^{-(\beta_0 + \beta_1x_i)})}\]&lt;/span&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Logistic function to predict p(x)
@@ -46,7 +46,7 @@ logistic_function &amp;lt;- function(D, b) {
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Cost function for logistic regression
 logistic_cost &amp;lt;- function(y, D, b){
   y_hat &amp;lt;- logistic_function(D, b)
-  1/length(y_hat) * sum(y * -log(y_hat) + (1 - y) * -log((1 - y_hat)))
+  1/length(y_hat) * sum(-y * -log(y_hat) - (1 - y) * -log((1 - y_hat)))
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To conduct the grid approximation, I write another function that takes the grid containing parameters, the predictor matrix and the outcome variable y as arguments and them computes the cost for every parameter combination. The function returns a matrix containing the grid and the corresponding cost.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Compute the cost for different combinations of regression weights
@@ -103,7 +103,7 @@ as.data.frame(cost) %&amp;gt;%
   scale_color_continuous(&amp;quot;Cost-Function&amp;quot;) +
   xlab(TeX(&amp;quot;$\\beta_0$ (Intercept)&amp;quot;)) +
   ylab(TeX(&amp;quot;$\\beta_1$ (Regressionsgewicht für Miles per Hour)&amp;quot;)) +
-  ggtitle(&amp;quot;Minimizing the Likelihood Function&amp;quot;, sub = &amp;quot;Grid Approximation&amp;quot;) +
+  ggtitle(&amp;quot;Maximizing the negative Log-Likelihood Function&amp;quot;, sub = &amp;quot;Grid Approximation&amp;quot;) +
   theme(text = element_text(family = &amp;quot;Times&amp;quot;),
         title = element_text(size = 14), 
         axis.text = element_text(size = 12))&lt;/code&gt;&lt;/pre&gt;

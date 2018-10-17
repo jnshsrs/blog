@@ -1,4 +1,0 @@
-"0","# Logistic function to predict p(x)"
-"0","logistic_function <- function(D, b) {"
-"0","  1 / (1 + (1 / exp(D %*% b)))"
-"0","}"
