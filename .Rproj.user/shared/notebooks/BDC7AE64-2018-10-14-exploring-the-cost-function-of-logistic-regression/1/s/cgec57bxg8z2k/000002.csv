@@ -1,0 +1,2 @@
+"0","# compute cost for each parameter combination"
+"0","cost <- grid_approx_logistic(grid = grid, data = data, outcome = y)"

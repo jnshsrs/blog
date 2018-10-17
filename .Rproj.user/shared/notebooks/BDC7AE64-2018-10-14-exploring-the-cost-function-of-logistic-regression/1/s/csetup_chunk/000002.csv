@@ -1,0 +1,4 @@
+"0","knitr::opts_chunk$set(echo = TRUE, warning=F, message=FALSE, fig.align='center')"
+"0","library(tidyverse)"
+"0","library(plotly)"
+"0","library(latex2exp)"
