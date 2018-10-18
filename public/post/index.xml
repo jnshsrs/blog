@@ -24,6 +24,17 @@ The logistic regression can be applied to data where the dependent variable is c
     </item>
     
     <item>
+      <title>Der Einstieg in die Programmiersprache R</title>
+      <link>/post/workbook-rstats-gmds18-solution/</link>
+      <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/workbook-rstats-gmds18-solution/</guid>
+      <description>Preface Dieser Post enthält das Skript sowie die Aufgaben inklusive Lösungen meines Tutoriums “Einstieg in die Programmiersprache R” auf der 63. Jahrestagung der GMDS e.V. in Osnabrück am 6.9.2018. Das Skript mit den Aufgaben ohne Lösungen sind in der Datei workbook-rstats-gmds18-aufgaben.Rmd auf Github verfügbar.
+Installation In diesem Kurs werden wir mit R und RStudio als Programmierumgebung (IDE) arbeiten. Beide Programme stehen kostenlos zur Verfügung.
+Zunächst muss die Programmiersprache R installiert werden.</description>
+    </item>
+    
+    <item>
       <title>Join by rows</title>
       <link>/post/join-by-rows/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
