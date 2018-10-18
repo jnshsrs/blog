@@ -122,7 +122,7 @@ as.data.frame(cost) %&amp;gt;%
       <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
       <guid>/post/gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2/</guid>
-      <description></description>
+      <description>Workbook of my tutorial on ‘Data Visualisation in R with ggplot2’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück.</description>
       
       <content>&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# laden von ggplot2
 library(ggplot2)
