@@ -118,10 +118,10 @@ as.data.frame(cost) %&amp;gt;%
     
     <item>
       <title>Der Einstieg in die Programmiersprache R</title>
-      <link>/post/workbook-rstats-gmds18-solution/</link>
+      <link>/post/2018-09-06-workbook-rstats-gmds18-solution/</link>
       <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
-      <guid>/post/workbook-rstats-gmds18-solution/</guid>
+      <guid>/post/2018-09-06-workbook-rstats-gmds18-solution/</guid>
       <description>My tutorial on &#39;Introduction in R&#39; at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018.</description>
       
       <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
@@ -369,7 +369,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fd28844cd20&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fac07958d90&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -739,18 +739,18 @@ print(auslastung_pro_boot) &lt;/code&gt;&lt;/pre&gt;
 # Bivariate Darstellung des Alters und des Preises 
 plot(titanic$age, titanic$fare) 
 plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow = c(1, 1)) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;histogramme&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Histogramme&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hist(titanic$age) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;boxplots&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Boxplots&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;boxplot(titanic$age) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ruckblick-und-ausblick&#34; class=&#34;section level1&#34;&gt;
@@ -773,8 +773,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.4
-## 2 male    32.6  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
+## 1 female  31.9  33.2  34.5
+## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
@@ -799,14 +799,14 @@ titanic %&amp;gt;%
 
 ## Warning: Removed 68 rows containing non-finite values (stat_summary).&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 68 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;train &amp;lt;- titanic %&amp;gt;% select(survived, sex, age, pclass)
 decision_tree &amp;lt;- rpart(survived ~ .,
                  data = train,
                  method =&amp;quot;class&amp;quot;)
 
 fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welche Personen haben den Titanic-Untergang überlebt?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-23-2.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-23-2.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </content>
       

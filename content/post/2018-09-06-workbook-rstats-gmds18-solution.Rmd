@@ -2,16 +2,7 @@
 title: "Der Einstieg in die Programmiersprache R"
 author: "Jens Hüsers"
 date: '2018-09-06'
-output:
-  github_document:
-    css: css/style-workbook.css
-    df_print: tibble
-    toc: yes
-  pdf_document:
-    toc: yes
 subtitle: Tutorial auf der 63. Jahrestagung der GMDS e.V. in Osnabrück
-editor_options:
-  chunk_output_type: console
 description: "My tutorial on 'Introduction in R' at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018."
 ---
 
