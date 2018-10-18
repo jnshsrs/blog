@@ -1,15 +1,15 @@
 ---
-title: "Der Einstieg in die Programmiersprache R"
-author: "Jens Hüsers"
+title: R Tutorium GMDS 2018
+author: Jens Hüsers
 date: '2018-09-06'
-subtitle: Tutorial auf der 63. Jahrestagung der GMDS e.V. in Osnabrück
-description: "My tutorial on 'Introduction in R' at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018."
+slug: r-tutorium-gmds-2018
 categories:
+  - R
   - tutorial
-  - rprogramming
 tags:
-  - rprogramming
+  - rstats
 ---
+
 
 <script src="//yihui.name/js/math-code.js"></script>
 <!-- Just one possible MathJax CDN below. You may use others. -->

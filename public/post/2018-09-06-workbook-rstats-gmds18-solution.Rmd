@@ -4,6 +4,11 @@ author: "Jens Hüsers"
 date: '2018-09-06'
 subtitle: Tutorial auf der 63. Jahrestagung der GMDS e.V. in Osnabrück
 description: "My tutorial on 'Introduction in R' at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018."
+categories:
+  - tutorial
+  - rprogramming
+tags:
+  - rprogramming
 ---
 
 <script src="//yihui.name/js/math-code.js"></script>

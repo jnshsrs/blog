@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Der Einstieg in die Programmiersprache R | Science, Physiotherapy and Stats</title>
+<title>R Tutorium GMDS 2018 | Science, Physiotherapy and Stats</title>
 
 
 
@@ -77,14 +77,14 @@
     <div class="subtitle tags is-6 is-pulled-right">
       
       
-<a class="subtitle is-6" href="/tags/rprogramming">#rprogramming</a>
+<a class="subtitle is-6" href="/tags/rstats">#rstats</a>
 
 
 
       
     </div>
     <h2 class="subtitle is-6">September 6, 2018</h2>
-    <h1 class="title">Der Einstieg in die Programmiersprache R</h1>
+    <h1 class="title">R Tutorium GMDS 2018</h1>
     
     <div class="content">
       <script src="//yihui.name/js/math-code.js"></script>
@@ -332,7 +332,7 @@ str(sinnlosse_beispielliste)</code></pre>
 ##   ..$ : chr &quot;B&quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &quot;srcref&quot;)= &#39;srcref&#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7faa443a5b30&gt;</code></pre>
+##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7ff6bdae1820&gt;</code></pre>
 </div>
 <div id="datensatz-aka-data.frame" class="section level2">
 <h2>Datensatz aka data.frame</h2>
@@ -702,18 +702,18 @@ print(auslastung_pro_boot) </code></pre>
 # Bivariate Darstellung des Alters und des Preises 
 plot(titanic$age, titanic$fare) 
 plot(titanic$age, titanic$fare, col = titanic$pclass) </code></pre>
-<p><img src="/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>par(mfrow = c(1, 1)) </code></pre>
 </div>
 <div id="histogramme" class="section level3">
 <h3>Histogramme</h3>
 <pre class="r"><code>hist(titanic$age) </code></pre>
-<p><img src="/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="boxplots" class="section level3">
 <h3>Boxplots</h3>
 <pre class="r"><code>boxplot(titanic$age) </code></pre>
-<p><img src="/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="ruckblick-und-ausblick" class="section level1">
@@ -736,8 +736,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) </code></pre>
 <pre><code>## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 female  31.8  33.2  34.5
-## 2 male    32.6  33.6  34.7</code></pre>
+## 1 female  31.9  33.2  34.4
+## 2 male    32.7  33.6  34.6</code></pre>
 <img src="/img/tut1-example-plot.png" />
 <hr>
 <div class="figure">
@@ -762,14 +762,14 @@ titanic %&gt;%
 
 ## Warning: Removed 68 rows containing non-finite values (stat_summary).</code></pre>
 <pre><code>## Warning: Removed 68 rows containing missing values (geom_point).</code></pre>
-<p><img src="/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>train &lt;- titanic %&gt;% select(survived, sex, age, pclass)
 decision_tree &lt;- rpart(survived ~ .,
                  data = train,
                  method =&quot;class&quot;)
 
 fancyRpartPlot(decision_tree, main = &quot;&quot;, sub = &quot;Welche Personen haben den Titanic-Untergang überlebt?&quot;)</code></pre>
-<p><img src="/post/2018-09-06-workbook-rstats-gmds18-solution_files/figure-html/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 
       
@@ -778,7 +778,7 @@ fancyRpartPlot(decision_tree, main = &quot;&quot;, sub = &quot;Welche Personen h
 <h3>Similar articles:</h3>
 <ul>
 	
-	<li><a href="/post/join-by-rows/">Join by rows</a></li>
+	<li><a href="/post/import-ordered-spss-factors-into-r/">Import ordered SPSS factors into R</a></li>
 	
 </ul>
 </div>
