@@ -2,103 +2,103 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Science, Physiotherapy and Stats</title>
-    <link>/sciphy-stats.netlify.com/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Science, Physiotherapy and Stats</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
     <lastBuildDate>Sun, 14 Oct 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/sciphy-stats.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Cost Function</title>
-      <link>/sciphy-stats.netlify.com/tags/cost-function/</link>
+      <link>/tags/cost-function/</link>
       <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/cost-function/</guid>
+      <guid>/tags/cost-function/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Visualisation</title>
-      <link>/sciphy-stats.netlify.com/tags/data-visualisation/</link>
+      <link>/tags/data-visualisation/</link>
       <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/data-visualisation/</guid>
+      <guid>/tags/data-visualisation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dataframe</title>
-      <link>/sciphy-stats.netlify.com/tags/dataframe/</link>
+      <link>/tags/dataframe/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/dataframe/</guid>
+      <guid>/tags/dataframe/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Function</title>
-      <link>/sciphy-stats.netlify.com/tags/function/</link>
+      <link>/tags/function/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/function/</guid>
+      <guid>/tags/function/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Logistic Regression</title>
-      <link>/sciphy-stats.netlify.com/tags/logistic-regression/</link>
+      <link>/tags/logistic-regression/</link>
       <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/logistic-regression/</guid>
+      <guid>/tags/logistic-regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Regression</title>
-      <link>/sciphy-stats.netlify.com/tags/regression/</link>
+      <link>/tags/regression/</link>
       <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/regression/</guid>
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rprogramming</title>
-      <link>/sciphy-stats.netlify.com/tags/rprogramming/</link>
+      <link>/tags/rprogramming/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/rprogramming/</guid>
+      <guid>/tags/rprogramming/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rstats</title>
-      <link>/sciphy-stats.netlify.com/tags/rstats/</link>
+      <link>/tags/rstats/</link>
       <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/rstats/</guid>
+      <guid>/tags/rstats/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spss</title>
-      <link>/sciphy-stats.netlify.com/tags/spss/</link>
+      <link>/tags/spss/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/spss/</guid>
+      <guid>/tags/spss/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Survey Data</title>
-      <link>/sciphy-stats.netlify.com/tags/survey-data/</link>
+      <link>/tags/survey-data/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/sciphy-stats.netlify.com/tags/survey-data/</guid>
+      <guid>/tags/survey-data/</guid>
       <description></description>
     </item>
     
