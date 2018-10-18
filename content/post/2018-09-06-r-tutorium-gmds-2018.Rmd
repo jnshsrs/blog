@@ -1,14 +1,14 @@
 ---
-title: R Tutorium GMDS 2018
-author: Jens Hüsers
+title: "Der Einstieg in die Programmiersprache R"
+author: "Jens Hüsers"
 date: '2018-09-06'
 slug: r-tutorium-gmds-2018
 categories:
-  - R
+  - r
   - tutorial
 tags:
   - rstats
-description: "New Descripiton"
+description: "My tutorial on ‘Introduction in R’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018."
 ---
 
 <script src="//yihui.name/js/math-code.js"></script>
@@ -190,7 +190,6 @@ print(temperaturen_fahrenheit)
 
 </p>
 </div>
-
 
 # Kapitel 2 - Funktionen
 

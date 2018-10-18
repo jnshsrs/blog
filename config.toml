@@ -1,4 +1,4 @@
-baseurl = ""
+baseurl = "http://sciphy-stats.netlify.com"
 languageCode = "en"
 title = "Science, Physiotherapy and Stats"
 theme = "kiss"
@@ -14,7 +14,7 @@ math = true
     summary_length = 300
 
 [params.assets]
-customCSS = ["css/custom.css"]
+customCSS = ["/css/custom.css"]
 
 [params.rss]
 
