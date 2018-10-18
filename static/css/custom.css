@@ -1,0 +1,27 @@
+div.task {
+	font-size: 16px;
+	background-color: #e6f2ff;
+	border-left: 6px solid rgba(28,110,164,0.47);
+	border-top: 10px;
+	padding-top: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 5%;
+	margin-top: 5%;
+
+   }
+
+div.task pre {
+	margin-right: 10px;
+}	
+
+.figure {
+   float: center;
+       text-align: center;
+	 font-style: italic;
+	   font-size: smaller;
+	     text-indent: 0;
+		 margin: 0.5em;
+		   padding: 0.5em;
+}
