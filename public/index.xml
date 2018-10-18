@@ -369,7 +369,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7faa443a5b30&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7f95b3ec4130&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -773,8 +773,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.5
-## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
+## 1 female  31.9  33.2  34.4
+## 2 male    32.6  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
@@ -818,9 +818,14 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
       <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
       <guid>/post/r-tutorium-gmds-2018/</guid>
-      <description></description>
+      <description>New Descripiton</description>
       
-      <content>&lt;div id=&#34;preface&#34; class=&#34;section level1&#34;&gt;
+      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+&lt;!-- Just one possible MathJax CDN below. You may use others. --&gt;
+&lt;script async
+  src=&#34;//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
+&lt;/script&gt;
+&lt;div id=&#34;preface&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Preface&lt;/h1&gt;
 &lt;p&gt;Dieser Post enthält das Skript sowie die Aufgaben inklusive Lösungen meines Tutoriums “Einstieg in die Programmiersprache R” auf der 63. Jahrestagung der GMDS e.V. in Osnabrück am 6.9.2018. Das Skript mit den Aufgaben ohne Lösungen sind in der Datei &lt;code&gt;workbook-rstats-gmds18-aufgaben.Rmd&lt;/code&gt; auf &lt;a href=&#34;https://github.com/jnshsrs/gmds18-tutorium-rstats&#34; title=&#34;Github Repository&#34;&gt;Github&lt;/a&gt; verfügbar.&lt;/p&gt;
 &lt;div id=&#34;installation&#34; class=&#34;section level2&#34;&gt;
@@ -1060,7 +1065,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fdc2896d5d8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fa1b7b61828&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1465,7 +1470,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
 ## 1 female  31.8  33.2  34.5
-## 2 male    32.7  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
+## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
