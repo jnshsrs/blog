@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Science, Physiotherapy and Stats</title>
-    <link>/</link>
+    <link>/sciphy-stats.netlify.com/</link>
     <description>Recent content on Science, Physiotherapy and Stats</description>
     <generator>Hugo - gohugo.io</generator>
     <language>en</language>
     <contact>jenshuesers@gmail.com</contact>
     <copyright>&copy; <a href="https://github.com/jnshsrs">Jens Hüsers</a> 2018</copyright>
     
-        <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/sciphy-stats.netlify.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Exploring the Cost Function of Logistic Regression</title>
-      <link>/post/exploring-the-cost-function-of-logistic-regression/</link>
+      <link>/sciphy-stats.netlify.com/post/exploring-the-cost-function-of-logistic-regression/</link>
       <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
-      <guid>/post/exploring-the-cost-function-of-logistic-regression/</guid>
+      <guid>/sciphy-stats.netlify.com/post/exploring-the-cost-function-of-logistic-regression/</guid>
       <description></description>
       
       <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
@@ -107,7 +107,7 @@ as.data.frame(cost) %&amp;gt;%
   theme(text = element_text(family = &amp;quot;Times&amp;quot;),
         title = element_text(size = 14), 
         axis.text = element_text(size = 12))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files/figure-html/visualize-ml-1.png&#34; width=&#34;960&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.com/post/2018-10-14-exploring-the-cost-function-of-logistic-regression_files/figure-html/visualize-ml-1.png&#34; width=&#34;960&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can see that the area with the hightest density, resp highest likelihood, correspondes with the computed coefficents.&lt;/p&gt;
 &lt;p&gt;However, we can also see, that there is a area corresponding to low values of the cost function which maybe leads to unstable estimates of the regression coeficients.&lt;/p&gt;
 &lt;p&gt;Since I started with a grid that mirrors the result of the glm function, grid approximation is often a bad approach to find the best parameter combination of a logistic model.&lt;/p&gt;
@@ -118,16 +118,15 @@ as.data.frame(cost) %&amp;gt;%
     
     <item>
       <title>Der Einstieg in die Programmiersprache R</title>
-      <link>/post/r-tutorium-gmds-2018/</link>
+      <link>/sciphy-stats.netlify.com/post/r-tutorium-gmds-2018/</link>
       <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
-      <guid>/post/r-tutorium-gmds-2018/</guid>
-      <description>My tutorial on ‘Introduction in R’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018.</description>
+      <guid>/sciphy-stats.netlify.com/post/r-tutorium-gmds-2018/</guid>
+      <description>My tutorial on ‘Introduction in R’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück.</description>
       
       <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
 &lt;!-- Just one possible MathJax CDN below. You may use others. --&gt;
-&lt;script async
-  src=&#34;//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
+&lt;script async src=&#34;//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
 &lt;/script&gt;
 &lt;div id=&#34;preface&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Preface&lt;/h1&gt;
@@ -271,7 +270,7 @@ print(temperaturen_fahrenheit)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;kapitel-2---funktionen&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Kapitel 2 - Funktionen&lt;/h1&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/tut1-r-function.png&#34; alt=&#34;Syntaktische Aufbau einer Funktion in R&#34; /&gt;
+&lt;img src=&#34;/sciphy-stats.netlify.com/img/tut1-r-function.png&#34; alt=&#34;Syntaktische Aufbau einer Funktion in R&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Syntaktische Aufbau einer Funktion in R&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;anwendungsbeispiel-mittelwert&#34; class=&#34;section level2&#34;&gt;
@@ -369,7 +368,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7f844c1e3d30&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fcf02dc7f58&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -413,12 +412,12 @@ temperaturen$temperaturen_kairo &amp;lt;- c(36, 35, 37, 37, 36, 35, 34, 34)&lt;/
 &lt;/div&gt;
 &lt;div id=&#34;importieren-eines-datensatzes&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Importieren eines Datensatzes&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;/img/tut1-r-csv-rows.png&#34; style=&#34;width:45.0%&#34; /&gt; &lt;img src=&#34;/img/tut1-r-csv-columns.png&#34; style=&#34;width:45.0%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.com/img/tut1-r-csv-rows.png&#34; style=&#34;width:45.0%&#34; /&gt; &lt;img src=&#34;/sciphy-stats.netlify.com/img/tut1-r-csv-columns.png&#34; style=&#34;width:45.0%&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Der Datensatz, in R als &lt;code&gt;data.frame&lt;/code&gt; bezeichnet, ist eine zentrale Datenstruktur, die bei Datenanalysen zum Einsatz kommt. Viele Datensätze sind so formatiert, dass sie direkt in R importiert werden können. So können zum Beispiel &lt;code&gt;data.frames&lt;/code&gt; aus Excel, SPSS oder SAS direkt importiert werden.&lt;/p&gt;
 &lt;p&gt;Häufig liegen diese Daten jedoch in Textdateien im CSV-Format vor. CSV steht für Komma-separierte-Werte (engl. comma-separated-values). Mit Hilfe der Funktion &lt;code&gt;read.csv&lt;/code&gt; können Dateien im CSV-Format in R eingelesen werden.&lt;/p&gt;
 &lt;p&gt;Wir verwenden in diesem Tutorial den &lt;a href=&#34;https://www.kaggle.com/c/titanic&#34;&gt;Titanic Datensatz&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/titanic-new-york-herald.jpeg&#34; alt=&#34;Headline of THE NEW YORK HERALD 15th of April 1912&#34; /&gt;
+&lt;img src=&#34;/sciphy-stats.netlify.com/img/titanic-new-york-herald.jpeg&#34; alt=&#34;Headline of THE NEW YORK HERALD 15th of April 1912&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Headline of THE NEW YORK HERALD 15th of April 1912&lt;/p&gt;
 &lt;/div&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic &amp;lt;- read.csv(&amp;quot;data/titanic.csv&amp;quot;)
@@ -567,7 +566,7 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Das tidyverse bedient sich einer einfachen Syntax und 5 zentralen Funktionen. Das besondere der Syntax ist das aneinanderreihen von (tidyverse) Funktionen. Der Pipe-Operator verbindet Funktionen und gibt den Funktionsoutput der vorangegangenen Funktion in die folgende Funktion als Funktionsinput weiter. Der Pipe Operator wird mit der Syntax &lt;code&gt;%&amp;gt;%&lt;/code&gt; (Prozentzeichen, größer-Zeichen, Prozentzeichen) verwendet. Fast alle Funktionen im tidyverse erwarten einen &lt;code&gt;data.frame&lt;/code&gt; als Funktionsinput und geben einen manipulierten &lt;code&gt;data.frame&lt;/code&gt; zurück.&lt;/p&gt;
 &lt;p&gt;Die fünf zentralen Funktionen sind Verben, die ausdrücken, was die jeweilige Funktion “tut”.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/tut1-r-dplyr-functions.png&#34; alt=&#34;Auswahl wichtiger dplyr-Funktionen&#34; /&gt;
+&lt;img src=&#34;/sciphy-stats.netlify.com/img/tut1-r-dplyr-functions.png&#34; alt=&#34;Auswahl wichtiger dplyr-Funktionen&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Auswahl wichtiger dplyr-Funktionen&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;beispiele&#34; class=&#34;section level4&#34;&gt;
@@ -739,18 +738,18 @@ print(auslastung_pro_boot) &lt;/code&gt;&lt;/pre&gt;
 # Bivariate Darstellung des Alters und des Preises 
 plot(titanic$age, titanic$fare) 
 plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.com/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow = c(1, 1)) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;histogramme&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Histogramme&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hist(titanic$age) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.com/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;boxplots&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Boxplots&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;boxplot(titanic$age) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.com/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ruckblick-und-ausblick&#34; class=&#34;section level1&#34;&gt;
@@ -773,12 +772,12 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.4
-## 2 male    32.6  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
+## 1 female  31.9  33.2  34.4
+## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&#34;/sciphy-stats.netlify.com/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/tut1-r-decision-tree.png&#34; /&gt;
+&lt;img src=&#34;/sciphy-stats.netlify.com/img/tut1-r-decision-tree.png&#34; /&gt;
 
 &lt;/div&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rpart) # Paket mit dem Entscheidungsbäume erstellt werden können
@@ -799,14 +798,14 @@ titanic %&amp;gt;%
 
 ## Warning: Removed 68 rows containing non-finite values (stat_summary).&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 68 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.com/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;train &amp;lt;- titanic %&amp;gt;% select(survived, sex, age, pclass)
 decision_tree &amp;lt;- rpart(survived ~ .,
                  data = train,
                  method =&amp;quot;class&amp;quot;)
 
 fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welche Personen haben den Titanic-Untergang überlebt?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-2.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.com/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-2.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </content>
       
@@ -814,10 +813,10 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
     
     <item>
       <title>Join by rows</title>
-      <link>/post/join-by-rows/</link>
+      <link>/sciphy-stats.netlify.com/post/join-by-rows/</link>
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
-      <guid>/post/join-by-rows/</guid>
+      <guid>/sciphy-stats.netlify.com/post/join-by-rows/</guid>
       <description></description>
       
       <content>&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
@@ -884,10 +883,10 @@ join_rows(lengths, widths) %&amp;gt;% head&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Import ordered SPSS factors into R</title>
-      <link>/post/import-ordered-spss-factors-into-r/</link>
+      <link>/sciphy-stats.netlify.com/post/import-ordered-spss-factors-into-r/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
-      <guid>/post/import-ordered-spss-factors-into-r/</guid>
+      <guid>/sciphy-stats.netlify.com/post/import-ordered-spss-factors-into-r/</guid>
       <description></description>
       
       <content>&lt;div id=&#34;spss-factor-variables&#34; class=&#34;section level2&#34;&gt;

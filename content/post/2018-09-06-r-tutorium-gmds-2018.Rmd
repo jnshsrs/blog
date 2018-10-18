@@ -8,13 +8,12 @@ categories:
   - tutorial
 tags:
   - rstats
-description: "My tutorial on ‘Introduction in R’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018."
+description: "My tutorial on ‘Introduction in R’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück."
 ---
 
 <script src="//yihui.name/js/math-code.js"></script>
 <!-- Just one possible MathJax CDN below. You may use others. -->
-<script async
-  src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
 
