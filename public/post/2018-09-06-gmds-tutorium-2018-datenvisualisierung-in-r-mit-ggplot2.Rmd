@@ -1,0 +1,200 @@
+---
+title: "GMDS Tutorium 2018 - Datenvisualisierung in R mit ggplot2"
+author: Jens Hüsers
+date: '2018-09-06'
+slug: gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2
+categories: []
+tags: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE, cache = FALSE, fig.align = 'center')
+```
+
+```{r import-package-and-data, eval=TRUE}
+# laden von ggplot2
+library(ggplot2)
+
+# Wir können ggplot2 auch mit dem tidyverse Paket laden
+# In dem Fall werden weitere Pakete des wie z.B. dplyr geladen
+library(tidyverse)
+
+```
+
+# Scatterplot
+
+<div class="task">
+
+**Aufgabe**
+
+1. Nutzen Sie dazu die Daten des `titanic`- Datensatzes.
+Laden Sie zunächst den Datensatz mit der Funktion `read_csv` und speichern sie diesen im einem Objekt mit dem Namen `titanic`.
+Die Daten liegen im `csv`-Format vor und sind im Ordner `data/titanic.csv` gespeichert.
+
+2. Geben Sie die ersten 6 Zeilen des Datensatzes aus.
+
+3. Erstellen Sie einen Scatterplot mit `ggplot2`. Nutzen Sie dazu als Daten den `titanic`-Datensatz.
+Verknüpfen (mappen) Sie die Variable `age` mit der x-Achse und `fare` mit der y-Achse (Aesthetics).
+Nutzen sie als Geom `geom_point`.
+
+4. Verknüpfen Sie die Farbe der Punkte mit der Klasse des Passagiers
+
+```{r scatter-plot, eval=TRUE}
+# laden der Titanic Daten
+titanic <- read_csv("data/titanic.csv")
+
+# Anzeigen der ersten 6 Zeilen des Datensatzes
+head(titanic)
+
+ggplot(data = titanic, 
+       mapping = aes(x = age, y = fare, col = pclass)) + 
+  geom_point() 
+
+```
+
+</div>
+
+Tipp:
+Die jeweiligen geometischen Element wie z.B. `geom_point` und `geom_histogram` können bestimmte aestetische Elemente verstehten.
+Das geometrisch Element `geom_point` kann aestetische Elemente wie `x`, `y` sowie `color`, `size` und weitere Verknüpfungen verarbeiten.
+
+Einige geometrische Elemente sind zwingend erforderlich. Beim geometrischen Element `geom_point` sind die `x` und `y` Achse erforderlich, alle weitern optional.
+
+Eine Übersicht über die aesterischen Elemente, die ein geometrisches Element versteht, kann in der Dokumentation der jeweiligen Geome eingesehen werden.
+In der R-Konsole kann die Dokumentation mit folgdendem Code aufgerufen werden: `?geom_point`.
+
+
+<div class="task">
+**Aufgabe**
+
+Erstellen Sie erneut ein Punktdiagramm, wie oben beschrieben jedoch ohne die `color` zu verknüpfen.
+Fügen Sie nun zusätzlich das geometrische Element `geom_smooth` hinzu und spezifizieren sie das Funktionsargument wie folgt: `method = "lm"` um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.
+
+Besteht ein Zusammenhang zwischen diesen beiden Variablen?
+
+```{r eval=TRUE}
+ggplot(data = titanic,
+       mapping = aes(x = age, y = fare)
+       ) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+
+
+</div>
+# Barplots
+
+<div class="task">
+
+Erstellen Sie ein Balkendiagramm.
+Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen.
+Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.
+
+1. Erstellen Sie ein entprechendes Balkendiagramm mit ggplot2 in dem sie die x-Achse mit der entsprechenden Variablen verknüpfen.
+2. Verknüpfen Sie die 'fill-aesthetic' mit der Variable `survived`.
+3. Nutzen sie den Funktionsparameter `position` der Funktion `geom_bar` und setzten ihn auf `"fill"`.
+
+Was ist der Unterschied zwischen beiden Grafiken? Welche Vor- und Nachteile entstehten durch den Einsatz der Option `"fill"`?
+
+```{r eval=TRUE}
+
+ggplot(data = titanic, 
+       mapping = aes(x = pclass, fill = survived)) +
+  geom_bar()
+
+```
+
+```{r eval=TRUE}
+ggplot(data = titanic, 
+       mapping = aes(x = pclass, fill = survived)) +
+  geom_bar(position = "fill")
+
+```
+
+</div>
+
+
+# Boxplots
+
+<div class='task'>
+
+**Aufgabe**
+
+Stellen Sie die Verteilung des Preises für die jeweiligen Passagierklassen dar.
+Nutzen Sie dafür Boxplots.
+
+```{r eval=TRUE}
+
+ggplot(data = titanic, 
+       mapping = aes(x = pclass, y = fare)) +
+  geom_boxplot() 
+
+```
+
+</div>
+
+
+<div class='task'>
+# Histogramme
+
+**Aufgabe** 
+
+Erstelle ein Histogramm um die Verteilung der Variablen `age` darzustellen.
+Experimentieren mit den Funktionsparameter `bins`, der die Anzahl der Balken des Diagramms definiert. 
+
+Um die Balkenfarbe zu ändern setze den Parameter `fill="darkgrey"` direkt in der Funktion `geom_histogram`. 
+
+Zusätzlich füge die Funktion `theme_minimal()` dem Plot hinzu um das Aussehen des Histogramms zu ändern.
+
+```{r eval=TRUE}
+
+ggplot(data = titanic,
+       mapping = aes(x = age)) +
+  geom_histogram(bins = 20, fill = "darkgrey") +
+  theme_minimal()
+
+```
+</div>
+# Exkurs: Statistische Berechnungen mit ggplot2
+
+```{r eval=TRUE}
+ggplot(data = titanic,
+       mapping = aes(x = sex, y = fare)) +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = .2)  +
+  stat_summary(fun.y = "mean", geom = "point")  +
+  facet_grid(~pclass)
+  
+```
+
+# Publication Ready Plots
+
+```{r eval = TRUE}
+MASS::mammals %>% 
+  ggplot(aes(x = body, y = brain)) +
+  geom_point(alpha = 0.6) +
+  stat_smooth(method = "lm", col = "red", se = FALSE)
+```
+
+
+```{r eval=TRUE}
+library(scales)
+
+MASS::mammals %>% 
+  ggplot(aes(x = body, y = brain)) +
+  geom_point(alpha = .6) +
+  geom_smooth(method = "lm", se = FALSE, col = "red") +
+  scale_x_log10(expression("Body weight (log"["10"]*"(Kg))"),
+                breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x))) +
+  scale_y_log10(expression("Brain weight (log"["10"]*"(g))"),
+                breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x))) +
+  annotation_logticks() +
+  theme_classic() +
+  coord_fixed(xlim = c(1e-3, 1e4), ylim = c(1e-1, 1e4)) +
+  theme(text = element_text(family = "Times"))
+
+```
+

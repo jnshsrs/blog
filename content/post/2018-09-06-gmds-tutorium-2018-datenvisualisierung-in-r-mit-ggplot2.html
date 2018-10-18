@@ -1,0 +1,139 @@
+---
+title: "GMDS Tutorium 2018 - Datenvisualisierung in R mit ggplot2"
+author: Jens Hüsers
+date: '2018-09-06'
+slug: gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2
+categories: []
+tags: []
+---
+
+
+
+<pre class="r"><code># laden von ggplot2
+library(ggplot2)
+
+# Wir können ggplot2 auch mit dem tidyverse Paket laden
+# In dem Fall werden weitere Pakete des wie z.B. dplyr geladen
+library(tidyverse)</code></pre>
+<div id="scatterplot" class="section level1">
+<h1>Scatterplot</h1>
+<div class="task">
+<p><strong>Aufgabe</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Nutzen Sie dazu die Daten des <code>titanic</code>- Datensatzes. Laden Sie zunächst den Datensatz mit der Funktion <code>read_csv</code> und speichern sie diesen im einem Objekt mit dem Namen <code>titanic</code>. Die Daten liegen im <code>csv</code>-Format vor und sind im Ordner <code>data/titanic.csv</code> gespeichert.</p></li>
+<li><p>Geben Sie die ersten 6 Zeilen des Datensatzes aus.</p></li>
+<li><p>Erstellen Sie einen Scatterplot mit <code>ggplot2</code>. Nutzen Sie dazu als Daten den <code>titanic</code>-Datensatz. Verknüpfen (mappen) Sie die Variable <code>age</code> mit der x-Achse und <code>fare</code> mit der y-Achse (Aesthetics). Nutzen sie als Geom <code>geom_point</code>.</p></li>
+<li><p>Verknüpfen Sie die Farbe der Punkte mit der Klasse des Passagiers</p></li>
+</ol>
+<pre class="r"><code># laden der Titanic Daten
+titanic &lt;- read_csv(&quot;data/titanic.csv&quot;)
+
+# Anzeigen der ersten 6 Zeilen des Datensatzes
+head(titanic)</code></pre>
+<pre><code>## # A tibble: 6 x 14
+##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
+##    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
+## 1      1        1 Alle… fema… 29        0     0 24160  211.  B5    S       
+## 2      1        1 Alli… male   0.92     1     2 113781 152.  C22 … S       
+## 3      1        0 Alli… fema…  2        1     2 113781 152.  C22 … S       
+## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
+## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
+## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
+## # ... with 3 more variables: boat &lt;int&gt;, body &lt;int&gt;, home.dest &lt;chr&gt;</code></pre>
+<pre class="r"><code>ggplot(data = titanic, 
+       mapping = aes(x = age, y = fare, col = pclass)) + 
+  geom_point() </code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/scatter-plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p>Tipp: Die jeweiligen geometischen Element wie z.B. <code>geom_point</code> und <code>geom_histogram</code> können bestimmte aestetische Elemente verstehten. Das geometrisch Element <code>geom_point</code> kann aestetische Elemente wie <code>x</code>, <code>y</code> sowie <code>color</code>, <code>size</code> und weitere Verknüpfungen verarbeiten.</p>
+<p>Einige geometrische Elemente sind zwingend erforderlich. Beim geometrischen Element <code>geom_point</code> sind die <code>x</code> und <code>y</code> Achse erforderlich, alle weitern optional.</p>
+<p>Eine Übersicht über die aesterischen Elemente, die ein geometrisches Element versteht, kann in der Dokumentation der jeweiligen Geome eingesehen werden. In der R-Konsole kann die Dokumentation mit folgdendem Code aufgerufen werden: <code>?geom_point</code>.</p>
+<div class="task">
+<p><strong>Aufgabe</strong></p>
+<p>Erstellen Sie erneut ein Punktdiagramm, wie oben beschrieben jedoch ohne die <code>color</code> zu verknüpfen. Fügen Sie nun zusätzlich das geometrische Element <code>geom_smooth</code> hinzu und spezifizieren sie das Funktionsargument wie folgt: <code>method = &quot;lm&quot;</code> um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.</p>
+<p>Besteht ein Zusammenhang zwischen diesen beiden Variablen?</p>
+<pre class="r"><code>ggplot(data = titanic,
+       mapping = aes(x = age, y = fare)
+       ) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="barplots" class="section level1">
+<h1>Barplots</h1>
+<div class="task">
+<p>Erstellen Sie ein Balkendiagramm. Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen. Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.</p>
+<ol style="list-style-type: decimal">
+<li>Erstellen Sie ein entprechendes Balkendiagramm mit ggplot2 in dem sie die x-Achse mit der entsprechenden Variablen verknüpfen.</li>
+<li>Verknüpfen Sie die ‘fill-aesthetic’ mit der Variable <code>survived</code>.</li>
+<li>Nutzen sie den Funktionsparameter <code>position</code> der Funktion <code>geom_bar</code> und setzten ihn auf <code>&quot;fill&quot;</code>.</li>
+</ol>
+<p>Was ist der Unterschied zwischen beiden Grafiken? Welche Vor- und Nachteile entstehten durch den Einsatz der Option <code>&quot;fill&quot;</code>?</p>
+<pre class="r"><code>ggplot(data = titanic, 
+       mapping = aes(x = pclass, fill = survived)) +
+  geom_bar()</code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = titanic, 
+       mapping = aes(x = pclass, fill = survived)) +
+  geom_bar(position = &quot;fill&quot;)</code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="boxplots" class="section level1">
+<h1>Boxplots</h1>
+<div class="task">
+<p><strong>Aufgabe</strong></p>
+<p>Stellen Sie die Verteilung des Preises für die jeweiligen Passagierklassen dar. Nutzen Sie dafür Boxplots.</p>
+<pre class="r"><code>ggplot(data = titanic, 
+       mapping = aes(x = pclass, y = fare)) +
+  geom_boxplot() </code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="task">
+<h1 id="histogramme">Histogramme</h1>
+<p><strong>Aufgabe</strong></p>
+<p>Erstelle ein Histogramm um die Verteilung der Variablen <code>age</code> darzustellen. Experimentieren mit den Funktionsparameter <code>bins</code>, der die Anzahl der Balken des Diagramms definiert.</p>
+<p>Um die Balkenfarbe zu ändern setze den Parameter <code>fill=&quot;darkgrey&quot;</code> direkt in der Funktion <code>geom_histogram</code>.</p>
+<p>Zusätzlich füge die Funktion <code>theme_minimal()</code> dem Plot hinzu um das Aussehen des Histogramms zu ändern.</p>
+<pre class="r"><code>ggplot(data = titanic,
+       mapping = aes(x = age)) +
+  geom_histogram(bins = 20, fill = &quot;darkgrey&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="exkurs-statistische-berechnungen-mit-ggplot2" class="section level1">
+<h1>Exkurs: Statistische Berechnungen mit ggplot2</h1>
+<pre class="r"><code>ggplot(data = titanic,
+       mapping = aes(x = sex, y = fare)) +
+  stat_summary(fun.data = &quot;mean_se&quot;, geom = &quot;errorbar&quot;, width = .2)  +
+  stat_summary(fun.y = &quot;mean&quot;, geom = &quot;point&quot;)  +
+  facet_grid(~pclass)</code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="publication-ready-plots" class="section level1">
+<h1>Publication Ready Plots</h1>
+<pre class="r"><code>MASS::mammals %&gt;% 
+  ggplot(aes(x = body, y = brain)) +
+  geom_point(alpha = 0.6) +
+  stat_smooth(method = &quot;lm&quot;, col = &quot;red&quot;, se = FALSE)</code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(scales)
+
+MASS::mammals %&gt;% 
+  ggplot(aes(x = body, y = brain)) +
+  geom_point(alpha = .6) +
+  geom_smooth(method = &quot;lm&quot;, se = FALSE, col = &quot;red&quot;) +
+  scale_x_log10(expression(&quot;Body weight (log&quot;[&quot;10&quot;]*&quot;(Kg))&quot;),
+                breaks = trans_breaks(&quot;log10&quot;, function(x) 10^x),
+                labels = trans_format(&quot;log10&quot;, math_format(10^.x))) +
+  scale_y_log10(expression(&quot;Brain weight (log&quot;[&quot;10&quot;]*&quot;(g))&quot;),
+                breaks = trans_breaks(&quot;log10&quot;, function(x) 10^x),
+                labels = trans_format(&quot;log10&quot;, math_format(10^.x))) +
+  annotation_logticks() +
+  theme_classic() +
+  coord_fixed(xlim = c(1e-3, 1e4), ylim = c(1e-1, 1e4)) +
+  theme(text = element_text(family = &quot;Times&quot;))</code></pre>
+<p><img src="/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>

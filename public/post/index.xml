@@ -24,7 +24,17 @@ The logistic regression can be applied to data where the dependent variable is c
     </item>
     
     <item>
-      <title>Der Einstieg in die Programmiersprache R</title>
+      <title>GMDS Tutorium 2018 - Datenvisualisierung in R mit ggplot2</title>
+      <link>/post/gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2/</link>
+      <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2/</guid>
+      <description># laden von ggplot2 library(ggplot2) # Wir können ggplot2 auch mit dem tidyverse Paket laden # In dem Fall werden weitere Pakete des wie z.B. dplyr geladen library(tidyverse) Scatterplot Aufgabe
+Nutzen Sie dazu die Daten des titanic- Datensatzes. Laden Sie zunächst den Datensatz mit der Funktion read_csv und speichern sie diesen im einem Objekt mit dem Namen titanic. Die Daten liegen im csv-Format vor und sind im Ordner data/titanic.csv gespeichert.</description>
+    </item>
+    
+    <item>
+      <title>GMDS Tutorium 2018 - Der Einstieg in die Programmiersprache R</title>
       <link>/post/r-tutorium-gmds-2018/</link>
       <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
       

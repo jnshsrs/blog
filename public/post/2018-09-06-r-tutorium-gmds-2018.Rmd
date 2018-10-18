@@ -1,5 +1,5 @@
 ---
-title: "Der Einstieg in die Programmiersprache R"
+title: "GMDS Tutorium 2018 - Der Einstieg in die Programmiersprache R"
 author: "Jens Hüsers"
 date: '2018-09-06'
 slug: r-tutorium-gmds-2018

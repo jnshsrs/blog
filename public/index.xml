@@ -117,7 +117,147 @@ as.data.frame(cost) %&amp;gt;%
     </item>
     
     <item>
-      <title>Der Einstieg in die Programmiersprache R</title>
+      <title>GMDS Tutorium 2018 - Datenvisualisierung in R mit ggplot2</title>
+      <link>/post/gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2/</link>
+      <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2/</guid>
+      <description></description>
+      
+      <content>&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# laden von ggplot2
+library(ggplot2)
+
+# Wir können ggplot2 auch mit dem tidyverse Paket laden
+# In dem Fall werden weitere Pakete des wie z.B. dplyr geladen
+library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;scatterplot&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Scatterplot&lt;/h1&gt;
+&lt;div class=&#34;task&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Nutzen Sie dazu die Daten des &lt;code&gt;titanic&lt;/code&gt;- Datensatzes. Laden Sie zunächst den Datensatz mit der Funktion &lt;code&gt;read_csv&lt;/code&gt; und speichern sie diesen im einem Objekt mit dem Namen &lt;code&gt;titanic&lt;/code&gt;. Die Daten liegen im &lt;code&gt;csv&lt;/code&gt;-Format vor und sind im Ordner &lt;code&gt;data/titanic.csv&lt;/code&gt; gespeichert.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Geben Sie die ersten 6 Zeilen des Datensatzes aus.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Erstellen Sie einen Scatterplot mit &lt;code&gt;ggplot2&lt;/code&gt;. Nutzen Sie dazu als Daten den &lt;code&gt;titanic&lt;/code&gt;-Datensatz. Verknüpfen (mappen) Sie die Variable &lt;code&gt;age&lt;/code&gt; mit der x-Achse und &lt;code&gt;fare&lt;/code&gt; mit der y-Achse (Aesthetics). Nutzen sie als Geom &lt;code&gt;geom_point&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Verknüpfen Sie die Farbe der Punkte mit der Klasse des Passagiers&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# laden der Titanic Daten
+titanic &amp;lt;- read_csv(&amp;quot;data/titanic.csv&amp;quot;)
+
+# Anzeigen der ersten 6 Zeilen des Datensatzes
+head(titanic)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 14
+##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
+##    &amp;lt;int&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
+## 1      1        1 Alle… fema… 29        0     0 24160  211.  B5    S       
+## 2      1        1 Alli… male   0.92     1     2 113781 152.  C22 … S       
+## 3      1        0 Alli… fema…  2        1     2 113781 152.  C22 … S       
+## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
+## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
+## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
+## # ... with 3 more variables: boat &amp;lt;int&amp;gt;, body &amp;lt;int&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
+       mapping = aes(x = age, y = fare, col = pclass)) + 
+  geom_point() &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/scatter-plot-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Tipp: Die jeweiligen geometischen Element wie z.B. &lt;code&gt;geom_point&lt;/code&gt; und &lt;code&gt;geom_histogram&lt;/code&gt; können bestimmte aestetische Elemente verstehten. Das geometrisch Element &lt;code&gt;geom_point&lt;/code&gt; kann aestetische Elemente wie &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt; sowie &lt;code&gt;color&lt;/code&gt;, &lt;code&gt;size&lt;/code&gt; und weitere Verknüpfungen verarbeiten.&lt;/p&gt;
+&lt;p&gt;Einige geometrische Elemente sind zwingend erforderlich. Beim geometrischen Element &lt;code&gt;geom_point&lt;/code&gt; sind die &lt;code&gt;x&lt;/code&gt; und &lt;code&gt;y&lt;/code&gt; Achse erforderlich, alle weitern optional.&lt;/p&gt;
+&lt;p&gt;Eine Übersicht über die aesterischen Elemente, die ein geometrisches Element versteht, kann in der Dokumentation der jeweiligen Geome eingesehen werden. In der R-Konsole kann die Dokumentation mit folgdendem Code aufgerufen werden: &lt;code&gt;?geom_point&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;task&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Erstellen Sie erneut ein Punktdiagramm, wie oben beschrieben jedoch ohne die &lt;code&gt;color&lt;/code&gt; zu verknüpfen. Fügen Sie nun zusätzlich das geometrische Element &lt;code&gt;geom_smooth&lt;/code&gt; hinzu und spezifizieren sie das Funktionsargument wie folgt: &lt;code&gt;method = &amp;quot;lm&amp;quot;&lt;/code&gt; um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.&lt;/p&gt;
+&lt;p&gt;Besteht ein Zusammenhang zwischen diesen beiden Variablen?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
+       mapping = aes(x = age, y = fare)
+       ) +
+  geom_point() +
+  geom_smooth(method = &amp;quot;lm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;barplots&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Barplots&lt;/h1&gt;
+&lt;div class=&#34;task&#34;&gt;
+&lt;p&gt;Erstellen Sie ein Balkendiagramm. Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen. Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Erstellen Sie ein entprechendes Balkendiagramm mit ggplot2 in dem sie die x-Achse mit der entsprechenden Variablen verknüpfen.&lt;/li&gt;
+&lt;li&gt;Verknüpfen Sie die ‘fill-aesthetic’ mit der Variable &lt;code&gt;survived&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Nutzen sie den Funktionsparameter &lt;code&gt;position&lt;/code&gt; der Funktion &lt;code&gt;geom_bar&lt;/code&gt; und setzten ihn auf &lt;code&gt;&amp;quot;fill&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Was ist der Unterschied zwischen beiden Grafiken? Welche Vor- und Nachteile entstehten durch den Einsatz der Option &lt;code&gt;&amp;quot;fill&amp;quot;&lt;/code&gt;?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
+       mapping = aes(x = pclass, fill = survived)) +
+  geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
+       mapping = aes(x = pclass, fill = survived)) +
+  geom_bar(position = &amp;quot;fill&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;boxplots&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Boxplots&lt;/h1&gt;
+&lt;div class=&#34;task&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Stellen Sie die Verteilung des Preises für die jeweiligen Passagierklassen dar. Nutzen Sie dafür Boxplots.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
+       mapping = aes(x = pclass, y = fare)) +
+  geom_boxplot() &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;task&#34;&gt;
+&lt;h1 id=&#34;histogramme&#34;&gt;Histogramme&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Erstelle ein Histogramm um die Verteilung der Variablen &lt;code&gt;age&lt;/code&gt; darzustellen. Experimentieren mit den Funktionsparameter &lt;code&gt;bins&lt;/code&gt;, der die Anzahl der Balken des Diagramms definiert.&lt;/p&gt;
+&lt;p&gt;Um die Balkenfarbe zu ändern setze den Parameter &lt;code&gt;fill=&amp;quot;darkgrey&amp;quot;&lt;/code&gt; direkt in der Funktion &lt;code&gt;geom_histogram&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Zusätzlich füge die Funktion &lt;code&gt;theme_minimal()&lt;/code&gt; dem Plot hinzu um das Aussehen des Histogramms zu ändern.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
+       mapping = aes(x = age)) +
+  geom_histogram(bins = 20, fill = &amp;quot;darkgrey&amp;quot;) +
+  theme_minimal()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exkurs-statistische-berechnungen-mit-ggplot2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Exkurs: Statistische Berechnungen mit ggplot2&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
+       mapping = aes(x = sex, y = fare)) +
+  stat_summary(fun.data = &amp;quot;mean_se&amp;quot;, geom = &amp;quot;errorbar&amp;quot;, width = .2)  +
+  stat_summary(fun.y = &amp;quot;mean&amp;quot;, geom = &amp;quot;point&amp;quot;)  +
+  facet_grid(~pclass)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;publication-ready-plots&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Publication Ready Plots&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;MASS::mammals %&amp;gt;% 
+  ggplot(aes(x = body, y = brain)) +
+  geom_point(alpha = 0.6) +
+  stat_smooth(method = &amp;quot;lm&amp;quot;, col = &amp;quot;red&amp;quot;, se = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(scales)
+
+MASS::mammals %&amp;gt;% 
+  ggplot(aes(x = body, y = brain)) +
+  geom_point(alpha = .6) +
+  geom_smooth(method = &amp;quot;lm&amp;quot;, se = FALSE, col = &amp;quot;red&amp;quot;) +
+  scale_x_log10(expression(&amp;quot;Body weight (log&amp;quot;[&amp;quot;10&amp;quot;]*&amp;quot;(Kg))&amp;quot;),
+                breaks = trans_breaks(&amp;quot;log10&amp;quot;, function(x) 10^x),
+                labels = trans_format(&amp;quot;log10&amp;quot;, math_format(10^.x))) +
+  scale_y_log10(expression(&amp;quot;Brain weight (log&amp;quot;[&amp;quot;10&amp;quot;]*&amp;quot;(g))&amp;quot;),
+                breaks = trans_breaks(&amp;quot;log10&amp;quot;, function(x) 10^x),
+                labels = trans_format(&amp;quot;log10&amp;quot;, math_format(10^.x))) +
+  annotation_logticks() +
+  theme_classic() +
+  coord_fixed(xlim = c(1e-3, 1e4), ylim = c(1e-1, 1e4)) +
+  theme(text = element_text(family = &amp;quot;Times&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title>GMDS Tutorium 2018 - Der Einstieg in die Programmiersprache R</title>
       <link>/post/r-tutorium-gmds-2018/</link>
       <pubDate>Thu, 06 Sep 2018 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
@@ -368,7 +508,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fcf02dc7f58&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fe237236558&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -738,18 +878,18 @@ print(auslastung_pro_boot) &lt;/code&gt;&lt;/pre&gt;
 # Bivariate Darstellung des Alters und des Preises 
 plot(titanic$age, titanic$fare) 
 plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow = c(1, 1)) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;histogramme&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Histogramme&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hist(titanic$age) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-20-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;boxplots&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Boxplots&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;boxplot(titanic$age) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ruckblick-und-ausblick&#34; class=&#34;section level1&#34;&gt;
@@ -772,7 +912,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.9  33.2  34.4
+## 1 female  31.9  33.2  34.5
 ## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
@@ -798,14 +938,14 @@ titanic %&amp;gt;%
 
 ## Warning: Removed 68 rows containing non-finite values (stat_summary).&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 68 rows containing missing values (geom_point).&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;train &amp;lt;- titanic %&amp;gt;% select(survived, sex, age, pclass)
 decision_tree &amp;lt;- rpart(survived ~ .,
                  data = train,
                  method =&amp;quot;class&amp;quot;)
 
 fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welche Personen haben den Titanic-Untergang überlebt?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/sciphy-stats.netlify.compost/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-2.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-23-2.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 </content>
       
