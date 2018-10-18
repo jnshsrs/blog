@@ -1,6 +1,6 @@
-baseurl = "http://sciphy.netlify.com"
+baseurl = "http://sciphy-stats.netlify.com"
 languageCode = "en"
-title = "Science and Physiotherapy"
+title = "Science, Physiotherapy and Stats"
 theme = "kiss"
 copyright = "&copy; <a href=\"https://github.com/jnshsrs\">Jens Hüsers</a> 2018"
 disqusShortname = "shortname"
