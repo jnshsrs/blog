@@ -124,12 +124,23 @@ as.data.frame(cost) %&amp;gt;%
       <guid>/post/gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2/</guid>
       <description>Workbook of my tutorial on ‘Data Visualisation in R with ggplot2’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück.</description>
       
-      <content>&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# laden von ggplot2
+      <content>&lt;p&gt;Dieses Dokument enthält die Aufgaben zu meinem Tutorial “Datenvisualisierung in R mit ggplot2” auf der 63. Jahrestagung der GMDS am 6. September 2018 in Osnabrück.&lt;/p&gt;
+&lt;p&gt;Die Präsentation zum Workshop sind &lt;a href=&#34;https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html&#34; title=&#34;Slides des Tutoriums&#34;&gt;hier&lt;/a&gt; zu finden. Das Repository mit den Dateien sind &lt;a href=&#34;github.com/jnshsrs/gmds18-tutorium-ggplot2&#34;&gt;hier&lt;/a&gt; zu finden.&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+&lt;iframe src=&#34;https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html&#34; width=&#34;720&#34; height=&#34;450&amp;quot;&#34;&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setup&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Setup&lt;/h1&gt;
+&lt;p&gt;Laden der benötigten R-Pakete für dieses Tutorium.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# laden von ggplot2
 library(ggplot2)
 
 # Wir können ggplot2 auch mit dem tidyverse Paket laden
 # In dem Fall werden weitere Pakete des wie z.B. dplyr geladen
 library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Im folgenden werden die wichtigsten und populärsten Typen in der wissenschaftlichen Datenanalyse vorgestellt und Übungen zu deren Erstellung vorgeschlagen.&lt;/p&gt;
+&lt;/div&gt;
 &lt;div id=&#34;scatterplot&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Scatterplot&lt;/h1&gt;
 &lt;div class=&#34;task&#34;&gt;
@@ -148,12 +159,12 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
 ##    &amp;lt;int&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
-## 1      1        1 Alle… fema… 29        0     0 24160  211.  B5    S       
-## 2      1        1 Alli… male   0.92     1     2 113781 152.  C22 … S       
-## 3      1        0 Alli… fema…  2        1     2 113781 152.  C22 … S       
-## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
-## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
-## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
+## 1      1        1 Alle~ fema~ 29        0     0 24160  211.  B5    S       
+## 2      1        1 Alli~ male   0.92     1     2 113781 152.  C22 ~ S       
+## 3      1        0 Alli~ fema~  2        1     2 113781 152.  C22 ~ S       
+## 4      1        0 Alli~ male  30        1     2 113781 152.  C22 ~ S       
+## 5      1        0 Alli~ fema~ 25        1     2 113781 152.  C22 ~ S       
+## 6      1        1 Ande~ male  48        0     0 19952   26.6 E12   S       
 ## # ... with 3 more variables: boat &amp;lt;int&amp;gt;, body &amp;lt;int&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
        mapping = aes(x = age, y = fare, col = pclass)) + 
@@ -205,8 +216,10 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
   geom_boxplot() &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;histogramme&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Histogramme&lt;/h1&gt;
 &lt;div class=&#34;task&#34;&gt;
-&lt;h1 id=&#34;histogramme&#34;&gt;Histogramme&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Erstelle ein Histogramm um die Verteilung der Variablen &lt;code&gt;age&lt;/code&gt; darzustellen. Experimentieren mit den Funktionsparameter &lt;code&gt;bins&lt;/code&gt;, der die Anzahl der Balken des Diagramms definiert.&lt;/p&gt;
 &lt;p&gt;Um die Balkenfarbe zu ändern setze den Parameter &lt;code&gt;fill=&amp;quot;darkgrey&amp;quot;&lt;/code&gt; direkt in der Funktion &lt;code&gt;geom_histogram&lt;/code&gt;.&lt;/p&gt;
@@ -218,14 +231,17 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;exkurs-statistische-berechnungen-mit-ggplot2&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Exkurs: Statistische Berechnungen mit ggplot2&lt;/h1&gt;
+&lt;div id=&#34;exkurs&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Exkurs&lt;/h1&gt;
+&lt;div id=&#34;statistische-berechnungen-mit-ggplot2&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Statistische Berechnungen mit ggplot2&lt;/h2&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
        mapping = aes(x = sex, y = fare)) +
   stat_summary(fun.data = &amp;quot;mean_se&amp;quot;, geom = &amp;quot;errorbar&amp;quot;, width = .2)  +
   stat_summary(fun.y = &amp;quot;mean&amp;quot;, geom = &amp;quot;point&amp;quot;)  +
   facet_grid(~pclass)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;publication-ready-plots&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Publication Ready Plots&lt;/h1&gt;

@@ -8,9 +8,22 @@ tags: []
 description: "Workbook of my tutorial on ‘Data Visualisation in R with ggplot2’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück."
 ---
 
+Dieses Dokument enthält die Aufgaben zu meinem Tutorial "Datenvisualisierung in R mit ggplot2" auf der 63. Jahrestagung der GMDS am 6. September 2018 in Osnabrück.
+
+Die Präsentation zum Workshop sind [hier](https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html "Slides des Tutoriums") zu finden. Das Repository mit den Dateien sind [hier](github.com/jnshsrs/gmds18-tutorium-ggplot2) zu finden.
+
+<div align="center">
+<iframe src="https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html" width=720 height=450">
+</iframe>
+</div>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE, cache = FALSE, fig.align = 'center')
 ```
+
+# Setup
+
+Laden der benötigten R-Pakete für dieses Tutorium.
 
 ```{r import-package-and-data, eval=TRUE}
 # laden von ggplot2
@@ -21,6 +34,8 @@ library(ggplot2)
 library(tidyverse)
 
 ```
+
+Im folgenden werden die wichtigsten und populärsten Typen in der wissenschaftlichen Datenanalyse vorgestellt und Übungen zu deren Erstellung vorgeschlagen.
 
 # Scatterplot
 
@@ -85,6 +100,7 @@ ggplot(data = titanic,
 
 
 </div>
+
 # Barplots
 
 <div class="task">
@@ -136,9 +152,9 @@ ggplot(data = titanic,
 
 </div>
 
+# Histogramme
 
 <div class='task'>
-# Histogramme
 
 **Aufgabe** 
 
@@ -158,7 +174,9 @@ ggplot(data = titanic,
 
 ```
 </div>
-# Exkurs: Statistische Berechnungen mit ggplot2
+# Exkurs
+
+## Statistische Berechnungen mit ggplot2
 
 ```{r eval=TRUE}
 ggplot(data = titanic,
