@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/test/</loc>
+    <lastmod>2018-10-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/exploring-the-cost-function-of-logistic-regression/</loc>
     <lastmod>2018-10-14T00:00:00+00:00</lastmod>
   </url>
@@ -59,7 +64,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-10-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -83,7 +88,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-10-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
