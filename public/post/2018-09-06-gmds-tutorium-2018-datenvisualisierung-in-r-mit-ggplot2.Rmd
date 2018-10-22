@@ -12,7 +12,6 @@ Dieses Dokument enthält die Aufgaben zu meinem Tutorial "Datenvisualisierung in
 
 Die Präsentation zum Workshop sind [hier](https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html "Slides des Tutoriums") zu finden. Das Repository mit den Dateien sind [hier](github.com/jnshsrs/gmds18-tutorium-ggplot2) zu finden.
 
-
 <div align="center">
 <iframe src="https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html" width=720 height=450">
 </iframe>
@@ -98,13 +97,12 @@ ggplot(data = titanic,
 ```
 
 
-
-
 </div>
 
 # Barplots
 
 <div class="task">
+**Aufgabe**
 
 Erstellen Sie ein Balkendiagramm.
 Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen.

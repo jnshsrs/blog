@@ -189,6 +189,7 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;barplots&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Barplots&lt;/h1&gt;
 &lt;div class=&#34;task&#34;&gt;
+&lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Erstellen Sie ein Balkendiagramm. Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen. Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;Erstellen Sie ein entprechendes Balkendiagramm mit ggplot2 in dem sie die x-Achse mit der entsprechenden Variablen verknüpfen.&lt;/li&gt;

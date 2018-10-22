@@ -97,13 +97,12 @@ ggplot(data = titanic,
 ```
 
 
-
-
 </div>
 
 # Barplots
 
 <div class="task">
+**Aufgabe**
 
 Erstellen Sie ein Balkendiagramm.
 Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen.
