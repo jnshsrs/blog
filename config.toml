@@ -1,4 +1,4 @@
-baseurl = "https://sciphy-stats.com"
+baseurl = ""
 languageCode = "en"
 title = "Science, Physiotherapy and Stats"
 theme = "kiss"

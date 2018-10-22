@@ -13,21 +13,6 @@
     
     
     <item>
-      <title>test</title>
-      <link>/post/test/</link>
-      <pubDate>Mon, 22 Oct 2018 00:00:00 +0000</pubDate>
-      <author>Jens Hüsers</author>
-      <guid>/post/test/</guid>
-      <description></description>
-      
-      <content>
-
-&lt;h1 id=&#34;dies-ist-ein-einfacher-test&#34;&gt;Dies ist ein einfacher Test&lt;/h1&gt;
-</content>
-      
-    </item>
-    
-    <item>
       <title>Exploring the Cost Function of Logistic Regression</title>
       <link>/post/exploring-the-cost-function-of-logistic-regression/</link>
       <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
@@ -400,7 +385,7 @@ temperaturen &amp;lt;- c(27, 27, 22, 24, 13, 13, 13, 12)
 max_temp &amp;lt;- max(temperaturen)
 min_temp &amp;lt;- min(temperaturen)
 paste(&amp;quot;Der wärmste Tag wird&amp;quot;, max_temp, &amp;quot;Grad Celsius warm. Die kälteste&amp;quot;, min_temp, &amp;quot;Grad Celsius.&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Der wärmste Tag wird 27 Grad Celsius warm. Die kälteste 12 Grad Celsius.&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Der w&amp;lt;U+00E4&amp;gt;rmste Tag wird 27 Grad Celsius warm. Die k&amp;lt;U+00E4&amp;gt;lteste 12 Grad Celsius.&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;median(temperaturen) # Berechnen des Medians&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 17.5&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Extra Informationen: 
@@ -505,11 +490,11 @@ los_angeles &amp;lt;- c(29, 31, 31, 28, 26, 26, 26, 26)
 moskau &amp;lt;- c(19, 18, 10, 9, 9, 9, 8, 8)
   
 wettervorhersage(los_angeles)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Die geringste Temperatur ist: 26 und die höchste Temperatur 31 Grad Celsius.&amp;quot;
-## [1] &amp;quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) beträgt 2.23 Grad Celsius.&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Die geringste Temperatur ist: 26 und die h&amp;lt;U+00F6&amp;gt;chste Temperatur 31 Grad Celsius.&amp;quot;
+## [1] &amp;quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) betr&amp;lt;U+00E4&amp;gt;gt 2.23 Grad Celsius.&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;wettervorhersage(moskau)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Die geringste Temperatur ist: 8 und die höchste Temperatur 19 Grad Celsius.&amp;quot;
-## [1] &amp;quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) beträgt 4.53 Grad Celsius.&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Die geringste Temperatur ist: 8 und die h&amp;lt;U+00F6&amp;gt;chste Temperatur 19 Grad Celsius.&amp;quot;
+## [1] &amp;quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) betr&amp;lt;U+00E4&amp;gt;gt 4.53 Grad Celsius.&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -540,7 +525,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fe237236558&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fef147d58d0&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -681,12 +666,12 @@ head(titanic_sav) # ersten sechs Zeilen des Datensatzes&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
 ##    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
-## 1      1        1 Alle… fema… 29        0     0 24160  211.  B5    S       
-## 2      1        1 Alli… male   0.92     1     2 113781 152.  C22 … S       
-## 3      1        0 Alli… fema…  2        1     2 113781 152.  C22 … S       
-## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
-## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
-## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
+## 1      1        1 Alle~ fema~ 29        0     0 24160  211.  B5    S       
+## 2      1        1 Alli~ male   0.92     1     2 113781 152.  C22 ~ S       
+## 3      1        0 Alli~ fema~  2        1     2 113781 152.  C22 ~ S       
+## 4      1        0 Alli~ male  30        1     2 113781 152.  C22 ~ S       
+## 5      1        0 Alli~ fema~ 25        1     2 113781 152.  C22 ~ S       
+## 6      1        1 Ande~ male  48        0     0 19952   26.6 E12   S       
 ## # ... with 3 more variables: boat &amp;lt;chr&amp;gt;, body &amp;lt;dbl&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(titanic_sav) # Zusammenfassung des Datensatzes&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##      pclass         survived         name               sex           
@@ -750,12 +735,12 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
 ##    &amp;lt;int&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
-## 1      1        1 Fort… fema…  60       1     4 19950  2959. C23 … S       
-## 2      1        1 Card… male   36       0     1 PC 17… 5764. B51 … C       
-## 3      1        1 Card… fema…  58       0     1 PC 17… 5764. B51 … C       
-## 4      1        1 Lesu… male   35       0     0 PC 17… 5764. B101  C       
-## 5      1        1 Ward… fema…  35       0     0 PC 17… 5764. &amp;lt;NA&amp;gt;  C       
-## 6      3        0 Stor… male   60.5     0     0 3701     NA  &amp;lt;NA&amp;gt;  S       
+## 1      1        1 Fort~ fema~  60       1     4 19950  2959. C23 ~ S       
+## 2      1        1 Card~ male   36       0     1 PC 17~ 5764. B51 ~ C       
+## 3      1        1 Card~ fema~  58       0     1 PC 17~ 5764. B51 ~ C       
+## 4      1        1 Lesu~ male   35       0     0 PC 17~ 5764. B101  C       
+## 5      1        1 Ward~ fema~  35       0     0 PC 17~ 5764. &amp;lt;NA&amp;gt;  C       
+## 6      3        0 Stor~ male   60.5     0     0 3701     NA  &amp;lt;NA&amp;gt;  S       
 ## # ... with 3 more variables: boat &amp;lt;int&amp;gt;, body &amp;lt;int&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;em&gt;Die ältesten 3 überlebenden Passagiere&lt;/em&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic %&amp;gt;% 
@@ -945,7 +930,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
 ## 1 female  31.9  33.2  34.5
-## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
+## 2 male    32.7  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
@@ -994,14 +979,14 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
       <content>&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
 &lt;p&gt;Some of them share the same information stored in columns and I had to combine them in a single dataframe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)  &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-## ✔ readr   1.1.1     ✔ forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Attaching packages ------------------------------------------------------------------------------------------------------ tidyverse 1.2.1 --&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;lt;U+221A&amp;gt; ggplot2 3.0.0     &amp;lt;U+221A&amp;gt; purrr   0.2.5
+## &amp;lt;U+221A&amp;gt; tibble  1.4.2     &amp;lt;U+221A&amp;gt; dplyr   0.7.6
+## &amp;lt;U+221A&amp;gt; tidyr   0.8.1     &amp;lt;U+221A&amp;gt; stringr 1.3.1
+## &amp;lt;U+221A&amp;gt; readr   1.1.1     &amp;lt;U+221A&amp;gt; forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Conflicts --------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create two dataframes
 widths &amp;lt;- iris %&amp;gt;% 
   select(Species, ends_with(&amp;quot;Width&amp;quot;))
@@ -1122,12 +1107,12 @@ base::table(spss$edlevel_converted)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 6
 ##      id sex      age marital        edlevel            edlevel_converted  
 ##   &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;          &amp;lt;ord&amp;gt;              &amp;lt;ord&amp;gt;              
-## 1    83 female    42 married/defac… secondary school   secondary school   
-## 2   294 female    54 married/defac… postgraduate degr… postgraduate degree
-## 3   425 male      NA married/defac… secondary school   secondary school   
-## 4    64 female    41 married/defac… postgraduate degr… postgraduate degree
-## 5   536 female    39 married/defac… postgraduate degr… postgraduate degree
-## 6    57 female    66 married/defac… undergraduate deg… undergraduate degr…&lt;/code&gt;&lt;/pre&gt;
+## 1    83 female    42 married/defac~ secondary school   secondary school   
+## 2   294 female    54 married/defac~ postgraduate degr~ postgraduate degree
+## 3   425 male      NA married/defac~ secondary school   secondary school   
+## 4    64 female    41 married/defac~ postgraduate degr~ postgraduate degree
+## 5   536 female    39 married/defac~ postgraduate degr~ postgraduate degree
+## 6    57 female    66 married/defac~ undergraduate deg~ undergraduate degr~&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </content>
       

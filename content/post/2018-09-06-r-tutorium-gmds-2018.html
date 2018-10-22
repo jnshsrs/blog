@@ -117,7 +117,7 @@ temperaturen &lt;- c(27, 27, 22, 24, 13, 13, 13, 12)
 max_temp &lt;- max(temperaturen)
 min_temp &lt;- min(temperaturen)
 paste(&quot;Der wärmste Tag wird&quot;, max_temp, &quot;Grad Celsius warm. Die kälteste&quot;, min_temp, &quot;Grad Celsius.&quot;)</code></pre>
-<pre><code>## [1] &quot;Der wärmste Tag wird 27 Grad Celsius warm. Die kälteste 12 Grad Celsius.&quot;</code></pre>
+<pre><code>## [1] &quot;Der w&lt;U+00E4&gt;rmste Tag wird 27 Grad Celsius warm. Die k&lt;U+00E4&gt;lteste 12 Grad Celsius.&quot;</code></pre>
 <pre class="r"><code>median(temperaturen) # Berechnen des Medians</code></pre>
 <pre><code>## [1] 17.5</code></pre>
 <pre class="r"><code># Extra Informationen: 
@@ -222,11 +222,11 @@ los_angeles &lt;- c(29, 31, 31, 28, 26, 26, 26, 26)
 moskau &lt;- c(19, 18, 10, 9, 9, 9, 8, 8)
   
 wettervorhersage(los_angeles)</code></pre>
-<pre><code>## [1] &quot;Die geringste Temperatur ist: 26 und die höchste Temperatur 31 Grad Celsius.&quot;
-## [1] &quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) beträgt 2.23 Grad Celsius.&quot;</code></pre>
+<pre><code>## [1] &quot;Die geringste Temperatur ist: 26 und die h&lt;U+00F6&gt;chste Temperatur 31 Grad Celsius.&quot;
+## [1] &quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) betr&lt;U+00E4&gt;gt 2.23 Grad Celsius.&quot;</code></pre>
 <pre class="r"><code>wettervorhersage(moskau)</code></pre>
-<pre><code>## [1] &quot;Die geringste Temperatur ist: 8 und die höchste Temperatur 19 Grad Celsius.&quot;
-## [1] &quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) beträgt 4.53 Grad Celsius.&quot;</code></pre>
+<pre><code>## [1] &quot;Die geringste Temperatur ist: 8 und die h&lt;U+00F6&gt;chste Temperatur 19 Grad Celsius.&quot;
+## [1] &quot;Die Temperaturschwankung (gemessen durch die Standardabweichung) betr&lt;U+00E4&gt;gt 4.53 Grad Celsius.&quot;</code></pre>
 </div>
 </div>
 </div>
@@ -257,7 +257,7 @@ str(sinnlosse_beispielliste)</code></pre>
 ##   ..$ : chr &quot;B&quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &quot;srcref&quot;)= &#39;srcref&#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7fe237236558&gt;</code></pre>
+##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7fef147d58d0&gt;</code></pre>
 </div>
 <div id="datensatz-aka-data.frame" class="section level2">
 <h2>Datensatz aka data.frame</h2>
@@ -398,12 +398,12 @@ head(titanic_sav) # ersten sechs Zeilen des Datensatzes</code></pre>
 <pre><code>## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
 ##    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
-## 1      1        1 Alle… fema… 29        0     0 24160  211.  B5    S       
-## 2      1        1 Alli… male   0.92     1     2 113781 152.  C22 … S       
-## 3      1        0 Alli… fema…  2        1     2 113781 152.  C22 … S       
-## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
-## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
-## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
+## 1      1        1 Alle~ fema~ 29        0     0 24160  211.  B5    S       
+## 2      1        1 Alli~ male   0.92     1     2 113781 152.  C22 ~ S       
+## 3      1        0 Alli~ fema~  2        1     2 113781 152.  C22 ~ S       
+## 4      1        0 Alli~ male  30        1     2 113781 152.  C22 ~ S       
+## 5      1        0 Alli~ fema~ 25        1     2 113781 152.  C22 ~ S       
+## 6      1        1 Ande~ male  48        0     0 19952   26.6 E12   S       
 ## # ... with 3 more variables: boat &lt;chr&gt;, body &lt;dbl&gt;, home.dest &lt;chr&gt;</code></pre>
 <pre class="r"><code>summary(titanic_sav) # Zusammenfassung des Datensatzes</code></pre>
 <pre><code>##      pclass         survived         name               sex           
@@ -467,12 +467,12 @@ mean(titanic$age, na.rm = TRUE)</code></pre>
 <pre><code>## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
 ##    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
-## 1      1        1 Fort… fema…  60       1     4 19950  2959. C23 … S       
-## 2      1        1 Card… male   36       0     1 PC 17… 5764. B51 … C       
-## 3      1        1 Card… fema…  58       0     1 PC 17… 5764. B51 … C       
-## 4      1        1 Lesu… male   35       0     0 PC 17… 5764. B101  C       
-## 5      1        1 Ward… fema…  35       0     0 PC 17… 5764. &lt;NA&gt;  C       
-## 6      3        0 Stor… male   60.5     0     0 3701     NA  &lt;NA&gt;  S       
+## 1      1        1 Fort~ fema~  60       1     4 19950  2959. C23 ~ S       
+## 2      1        1 Card~ male   36       0     1 PC 17~ 5764. B51 ~ C       
+## 3      1        1 Card~ fema~  58       0     1 PC 17~ 5764. B51 ~ C       
+## 4      1        1 Lesu~ male   35       0     0 PC 17~ 5764. B101  C       
+## 5      1        1 Ward~ fema~  35       0     0 PC 17~ 5764. &lt;NA&gt;  C       
+## 6      3        0 Stor~ male   60.5     0     0 3701     NA  &lt;NA&gt;  S       
 ## # ... with 3 more variables: boat &lt;int&gt;, body &lt;int&gt;, home.dest &lt;chr&gt;</code></pre>
 <p><em>Die ältesten 3 überlebenden Passagiere</em></p>
 <pre class="r"><code>titanic %&gt;% 
@@ -662,7 +662,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) </code></pre>
 ##   sex    Lower  Mean Upper
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 female  31.9  33.2  34.5
-## 2 male    32.6  33.6  34.7</code></pre>
+## 2 male    32.7  33.6  34.7</code></pre>
 <img src="/img/tut1-example-plot.png" />
 <hr>
 <div class="figure">
