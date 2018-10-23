@@ -1,3 +1,3 @@
 # Blog
 
-You can find my blog on [sciphy-stats.com](sciphy-stats.com).
+You can find my blog on [https://sciphy-stats.com](sciphy-stats.com).
