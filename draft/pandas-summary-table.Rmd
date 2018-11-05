@@ -1,0 +1,46 @@
+---
+title: "Using Pandas to summarise tables in Rmarkdown"
+author: "Jens Hüsers"
+date: "31 10 2018"
+output:
+  word_document: default
+  html_document: default
+editor_options:
+  chunk_output_type: inline
+---
+
+Because `pandas` is able to work with multihierarchical row and column indicies on a `dataframe` I use it sometimes to summarise a (tidy) dataframe.
+Those multihierarchical tables are often used in scientific papers.
+Some might argue that they are not tidy, but in my opinion they don't have to, because tidy data is useful in the data analysis process.
+However, multihierachical tables can summarise information quite well and therefore are a good way to show your data to a broader audience.
+
+The tidyverse is all about the paradigm of tidy data and therefore makes data processing quite easy, it doesn't have the function of multihierarchical indicies.
+Pandas on the other side can handle those multihierarchical tables.
+Thats why I use them in one of the lasts steps when it comes to publication.
+At that point I have a clear picture of the table I want to present.
+After I got that idea, it is easy to use `pandas` to reshape your data in the way you want it to be.
+You find an example below.
+
+```{python, engine.path = '/Users/jens/anaconda/bin/python3', echo = T, eval = T}
+import feather
+import pandas as pd
+
+data = pd.read_feather("data/bass_tidy.feather")
+# data = data.pivot(index = "country", columns = "term")
+data = pd.melt(data, id_vars = ["country", "term"])
+# p and q must get column names
+# in r the command is spread, the key is term and value is value
+data = data.set_index(["country", "variable"]).pivot(columns = "term")
+data = data.reset_index()
+data = data.pivot(index = "country", columns = "variable")
+# df.set_index(['dt','site_id']).pivot(columns='eu')
+
+print(data)
+print(type(data))
+
+```
+
+The most interesting part is, that I can create the `pandas` table right in markdown.
+You just have to change the r flag at the start of the code chunk to python and maybe you add the `path.engine` in the options and you are good to go.
+
+

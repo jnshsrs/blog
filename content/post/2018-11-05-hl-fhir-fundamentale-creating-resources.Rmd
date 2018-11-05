@@ -1,0 +1,160 @@
+---
+title: HL7 FHIR Fundamentals - Creating Resources
+author: Jens Hüsers
+date: '2018-11-05'
+slug: hl-fhir-fundamentale-creating-resources
+categories:
+  - FHIR
+  - HL/
+tags: []
+---
+
+
+# FHIR Fundamentals Class
+
+On November 1st 2018 I started an online course on the HL7 FHIR Standard.
+This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.
+
+This standard used RESTful services and json or xml-documents to transfer information.
+
+As the name FHIR suggests this standard is all about resources which are the main building blocks in FHIR to capture information.
+Right now there are more than 100 resources and an example it the patient resource which is one of the most common resources.
+So this resource is used to capture information about a patient such as family name, given name, contact information or date of birth.
+
+In this course we were asked to create a patient resource on our own. 
+You can see the results in the appendix of this post.
+As you can see, FHIR used single elements which represent key value pairs to capture information.
+This elements capture the information about family name and so forth. 
+
+As we currently working on a digital document for wound care I was curious how to capture information about a wound of a patient.
+We can use the FHIR resource observation which is able to capture information about wounds.
+To accomplish this, we can use terminology codes, e.g. SNOMED CT or LOINC, to state what the observation resource captures in connection with an actual value.
+
+In this example I wanted to capture the with of a wound.
+So we use the SNOMED CT concept "401239006" wich is the "Width of Wound".
+We use the data element code to express the kind of observation.
+The actual value of the "Width of Wound" is stored in the "value" element.
+This element can capture the value in many ways but in this use case we use the element valueQuantity to represent the Width of Wound in centimeters.
+
+Most important we can use the element subject to refer to the patient with the wound. 
+The data type of this element is called reference since it refers to the Patient.
+In my example the subject of this observation is my patient resource.
+
+# Using FHIR Servers
+
+I used public available FHIR servers to upload my resources.
+Since they are public and the servers offer RESTful queries you can query them as well.
+
+To get my patient information you can use the lastname, given name or the id of the resource which is `428166`:
+
+[http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166](http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166)
+
+To get all the observations of this patients, you can use the id of the patient resource. 
+
+[http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166](http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166)
+
+# Appendix
+
+## Patient Resource
+
+```{r, eval=FALSE}
+{
+  "resourceType": "Patient",
+  "id": "428166",
+  "meta": {
+    "versionId": "1",
+    "lastUpdated": "2018-11-05T18:20:43.793+00:00"
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Jens <b>HÜSERS </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Address</td><td><span>3300 Washtenaw </span><br/><span>Ann Harbor </span><span>MI </span><span>US </span></td></tr><tr><td>Date of birth</td><td><span>25 June 1987</span></td></tr></tbody></table></div>"
+  },
+  "name": [
+    {
+      "use": "official",
+      "family": "Hüsers",
+      "given": [
+        "Jens"
+        ]
+    }
+    ],
+  "telecom": [
+    {
+      "value": "(03) 5555 67889",
+      "use": "home"
+    }
+    ],
+  "gender": "male",
+  "birthDate": "1987-06-25",
+  "address": [
+    {
+      "line": [
+        "3300 Washtenaw"
+        ],
+      "city": "Ann Harbor",
+      "district": "Washtenaw",
+      "state": "MI",
+      "postalCode": "48104",
+      "country": "US"
+    }
+    ]
+}
+```
+
+## Observation Resource
+
+```{r, eval = FALSE}
+{
+        "resourceType": "Observation",
+        "id": "428168",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2018-11-05T18:24:48.370+00:00"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/observation-category",
+                "code": "exam",
+                "display": "Exam"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "401239006",
+              "display": "Width of wound"
+            },
+            {
+              "system": "http://loinc.org",
+              "code": "39125-0",
+              "display": "Width of Wound"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/428166"
+        },
+        "valueQuantity": {
+          "value": 4,
+          "unit": "cm",
+          "system": "http://unitsofmeasure.org"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+```
+
+
+
+
+
+
+

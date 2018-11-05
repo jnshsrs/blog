@@ -1,0 +1,127 @@
+---
+title: HL7 FHIR Fundamentals - Creating Resources
+author: Jens Hüsers
+date: '2018-11-05'
+slug: hl-fhir-fundamentale-creating-resources
+categories:
+  - FHIR
+  - HL/
+tags: []
+---
+
+
+
+<div id="fhir-fundamentals-class" class="section level1">
+<h1>FHIR Fundamentals Class</h1>
+<p>On November 1st 2018 I started an online course on the HL7 FHIR Standard. This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.</p>
+<p>This standard used RESTful services and json or xml-documents to transfer information.</p>
+<p>As the name FHIR suggests this standard is all about resources which are the main building blocks in FHIR to capture information. Right now there are more than 100 resources and an example it the patient resource which is one of the most common resources. So this resource is used to capture information about a patient such as family name, given name, contact information or date of birth.</p>
+<p>In this course we were asked to create a patient resource on our own. You can see the results in the appendix of this post. As you can see, FHIR used single elements which represent key value pairs to capture information. This elements capture the information about family name and so forth.</p>
+<p>As we currently working on a digital document for wound care I was curious how to capture information about a wound of a patient. We can use the FHIR resource observation which is able to capture information about wounds. To accomplish this, we can use terminology codes, e.g. SNOMED CT or LOINC, to state what the observation resource captures in connection with an actual value.</p>
+<p>In this example I wanted to capture the with of a wound. So we use the SNOMED CT concept “401239006” wich is the “Width of Wound”. We use the data element code to express the kind of observation. The actual value of the “Width of Wound” is stored in the “value” element. This element can capture the value in many ways but in this use case we use the element valueQuantity to represent the Width of Wound in centimeters.</p>
+<p>Most important we can use the element subject to refer to the patient with the wound. The data type of this element is called reference since it refers to the Patient. In my example the subject of this observation is my patient resource.</p>
+</div>
+<div id="using-fhir-servers" class="section level1">
+<h1>Using FHIR Servers</h1>
+<p>I used public available FHIR servers to upload my resources. Since they are public and the servers offer RESTful queries you can query them as well.</p>
+<p>To get my patient information you can use the lastname, given name or the id of the resource which is <code>428166</code>:</p>
+<p><a href="http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166" class="uri">http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166</a></p>
+<p>To get all the observations of this patients, you can use the id of the patient resource.</p>
+<p><a href="http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166" class="uri">http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166</a></p>
+</div>
+<div id="appendix" class="section level1">
+<h1>Appendix</h1>
+<div id="patient-resource" class="section level2">
+<h2>Patient Resource</h2>
+<pre class="r"><code>{
+  &quot;resourceType&quot;: &quot;Patient&quot;,
+  &quot;id&quot;: &quot;428166&quot;,
+  &quot;meta&quot;: {
+    &quot;versionId&quot;: &quot;1&quot;,
+    &quot;lastUpdated&quot;: &quot;2018-11-05T18:20:43.793+00:00&quot;
+  },
+  &quot;text&quot;: {
+    &quot;status&quot;: &quot;generated&quot;,
+    &quot;div&quot;: &quot;&lt;div xmlns=\&quot;http://www.w3.org/1999/xhtml\&quot;&gt;&lt;div class=\&quot;hapiHeaderText\&quot;&gt;Jens &lt;b&gt;HÜSERS &lt;/b&gt;&lt;/div&gt;&lt;table class=\&quot;hapiPropertyTable\&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Address&lt;/td&gt;&lt;td&gt;&lt;span&gt;3300 Washtenaw &lt;/span&gt;&lt;br/&gt;&lt;span&gt;Ann Harbor &lt;/span&gt;&lt;span&gt;MI &lt;/span&gt;&lt;span&gt;US &lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Date of birth&lt;/td&gt;&lt;td&gt;&lt;span&gt;25 June 1987&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&quot;
+  },
+  &quot;name&quot;: [
+    {
+      &quot;use&quot;: &quot;official&quot;,
+      &quot;family&quot;: &quot;Hüsers&quot;,
+      &quot;given&quot;: [
+        &quot;Jens&quot;
+        ]
+    }
+    ],
+  &quot;telecom&quot;: [
+    {
+      &quot;value&quot;: &quot;(03) 5555 67889&quot;,
+      &quot;use&quot;: &quot;home&quot;
+    }
+    ],
+  &quot;gender&quot;: &quot;male&quot;,
+  &quot;birthDate&quot;: &quot;1987-06-25&quot;,
+  &quot;address&quot;: [
+    {
+      &quot;line&quot;: [
+        &quot;3300 Washtenaw&quot;
+        ],
+      &quot;city&quot;: &quot;Ann Harbor&quot;,
+      &quot;district&quot;: &quot;Washtenaw&quot;,
+      &quot;state&quot;: &quot;MI&quot;,
+      &quot;postalCode&quot;: &quot;48104&quot;,
+      &quot;country&quot;: &quot;US&quot;
+    }
+    ]
+}</code></pre>
+</div>
+<div id="observation-resource" class="section level2">
+<h2>Observation Resource</h2>
+<pre class="r"><code>{
+        &quot;resourceType&quot;: &quot;Observation&quot;,
+        &quot;id&quot;: &quot;428168&quot;,
+        &quot;meta&quot;: {
+          &quot;versionId&quot;: &quot;1&quot;,
+          &quot;lastUpdated&quot;: &quot;2018-11-05T18:24:48.370+00:00&quot;
+        },
+        &quot;status&quot;: &quot;final&quot;,
+        &quot;category&quot;: [
+          {
+            &quot;coding&quot;: [
+              {
+                &quot;system&quot;: &quot;http://hl7.org/fhir/observation-category&quot;,
+                &quot;code&quot;: &quot;exam&quot;,
+                &quot;display&quot;: &quot;Exam&quot;
+              }
+            ]
+          }
+        ],
+        &quot;code&quot;: {
+          &quot;coding&quot;: [
+            {
+              &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+              &quot;code&quot;: &quot;401239006&quot;,
+              &quot;display&quot;: &quot;Width of wound&quot;
+            },
+            {
+              &quot;system&quot;: &quot;http://loinc.org&quot;,
+              &quot;code&quot;: &quot;39125-0&quot;,
+              &quot;display&quot;: &quot;Width of Wound&quot;
+            }
+          ]
+        },
+        &quot;subject&quot;: {
+          &quot;reference&quot;: &quot;Patient/428166&quot;
+        },
+        &quot;valueQuantity&quot;: {
+          &quot;value&quot;: 4,
+          &quot;unit&quot;: &quot;cm&quot;,
+          &quot;system&quot;: &quot;http://unitsofmeasure.org&quot;
+        }
+      },
+      &quot;search&quot;: {
+        &quot;mode&quot;: &quot;match&quot;
+      }
+    }</code></pre>
+</div>
+</div>

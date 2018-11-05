@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Sun, 14 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HL7 FHIR Fundamentals - Creating Resources</title>
+      <link>/post/hl-fhir-fundamentale-creating-resources/</link>
+      <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/hl-fhir-fundamentale-creating-resources/</guid>
+      <description>FHIR Fundamentals Class On November 1st 2018 I started an online course on the HL7 FHIR Standard. This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.
+This standard used RESTful services and json or xml-documents to transfer information.
+As the name FHIR suggests this standard is all about resources which are the main building blocks in FHIR to capture information.</description>
+    </item>
     
     <item>
       <title>Exploring the Cost Function of Logistic Regression</title>

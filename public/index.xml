@@ -13,6 +13,132 @@
     
     
     <item>
+      <title>HL7 FHIR Fundamentals - Creating Resources</title>
+      <link>/post/hl-fhir-fundamentale-creating-resources/</link>
+      <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/hl-fhir-fundamentale-creating-resources/</guid>
+      <description></description>
+      
+      <content>&lt;div id=&#34;fhir-fundamentals-class&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;FHIR Fundamentals Class&lt;/h1&gt;
+&lt;p&gt;On November 1st 2018 I started an online course on the HL7 FHIR Standard. This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.&lt;/p&gt;
+&lt;p&gt;This standard used RESTful services and json or xml-documents to transfer information.&lt;/p&gt;
+&lt;p&gt;As the name FHIR suggests this standard is all about resources which are the main building blocks in FHIR to capture information. Right now there are more than 100 resources and an example it the patient resource which is one of the most common resources. So this resource is used to capture information about a patient such as family name, given name, contact information or date of birth.&lt;/p&gt;
+&lt;p&gt;In this course we were asked to create a patient resource on our own. You can see the results in the appendix of this post. As you can see, FHIR used single elements which represent key value pairs to capture information. This elements capture the information about family name and so forth.&lt;/p&gt;
+&lt;p&gt;As we currently working on a digital document for wound care I was curious how to capture information about a wound of a patient. We can use the FHIR resource observation which is able to capture information about wounds. To accomplish this, we can use terminology codes, e.g. SNOMED CT or LOINC, to state what the observation resource captures in connection with an actual value.&lt;/p&gt;
+&lt;p&gt;In this example I wanted to capture the with of a wound. So we use the SNOMED CT concept “401239006” wich is the “Width of Wound”. We use the data element code to express the kind of observation. The actual value of the “Width of Wound” is stored in the “value” element. This element can capture the value in many ways but in this use case we use the element valueQuantity to represent the Width of Wound in centimeters.&lt;/p&gt;
+&lt;p&gt;Most important we can use the element subject to refer to the patient with the wound. The data type of this element is called reference since it refers to the Patient. In my example the subject of this observation is my patient resource.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-fhir-servers&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Using FHIR Servers&lt;/h1&gt;
+&lt;p&gt;I used public available FHIR servers to upload my resources. Since they are public and the servers offer RESTful queries you can query them as well.&lt;/p&gt;
+&lt;p&gt;To get my patient information you can use the lastname, given name or the id of the resource which is &lt;code&gt;428166&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166&#34; class=&#34;uri&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To get all the observations of this patients, you can use the id of the patient resource.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166&#34; class=&#34;uri&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;appendix&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Appendix&lt;/h1&gt;
+&lt;div id=&#34;patient-resource&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Patient Resource&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;{
+  &amp;quot;resourceType&amp;quot;: &amp;quot;Patient&amp;quot;,
+  &amp;quot;id&amp;quot;: &amp;quot;428166&amp;quot;,
+  &amp;quot;meta&amp;quot;: {
+    &amp;quot;versionId&amp;quot;: &amp;quot;1&amp;quot;,
+    &amp;quot;lastUpdated&amp;quot;: &amp;quot;2018-11-05T18:20:43.793+00:00&amp;quot;
+  },
+  &amp;quot;text&amp;quot;: {
+    &amp;quot;status&amp;quot;: &amp;quot;generated&amp;quot;,
+    &amp;quot;div&amp;quot;: &amp;quot;&amp;lt;div xmlns=\&amp;quot;http://www.w3.org/1999/xhtml\&amp;quot;&amp;gt;&amp;lt;div class=\&amp;quot;hapiHeaderText\&amp;quot;&amp;gt;Jens &amp;lt;b&amp;gt;HÜSERS &amp;lt;/b&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;table class=\&amp;quot;hapiPropertyTable\&amp;quot;&amp;gt;&amp;lt;tbody&amp;gt;&amp;lt;tr&amp;gt;&amp;lt;td&amp;gt;Address&amp;lt;/td&amp;gt;&amp;lt;td&amp;gt;&amp;lt;span&amp;gt;3300 Washtenaw &amp;lt;/span&amp;gt;&amp;lt;br/&amp;gt;&amp;lt;span&amp;gt;Ann Harbor &amp;lt;/span&amp;gt;&amp;lt;span&amp;gt;MI &amp;lt;/span&amp;gt;&amp;lt;span&amp;gt;US &amp;lt;/span&amp;gt;&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;&amp;lt;tr&amp;gt;&amp;lt;td&amp;gt;Date of birth&amp;lt;/td&amp;gt;&amp;lt;td&amp;gt;&amp;lt;span&amp;gt;25 June 1987&amp;lt;/span&amp;gt;&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;&amp;lt;/tbody&amp;gt;&amp;lt;/table&amp;gt;&amp;lt;/div&amp;gt;&amp;quot;
+  },
+  &amp;quot;name&amp;quot;: [
+    {
+      &amp;quot;use&amp;quot;: &amp;quot;official&amp;quot;,
+      &amp;quot;family&amp;quot;: &amp;quot;Hüsers&amp;quot;,
+      &amp;quot;given&amp;quot;: [
+        &amp;quot;Jens&amp;quot;
+        ]
+    }
+    ],
+  &amp;quot;telecom&amp;quot;: [
+    {
+      &amp;quot;value&amp;quot;: &amp;quot;(03) 5555 67889&amp;quot;,
+      &amp;quot;use&amp;quot;: &amp;quot;home&amp;quot;
+    }
+    ],
+  &amp;quot;gender&amp;quot;: &amp;quot;male&amp;quot;,
+  &amp;quot;birthDate&amp;quot;: &amp;quot;1987-06-25&amp;quot;,
+  &amp;quot;address&amp;quot;: [
+    {
+      &amp;quot;line&amp;quot;: [
+        &amp;quot;3300 Washtenaw&amp;quot;
+        ],
+      &amp;quot;city&amp;quot;: &amp;quot;Ann Harbor&amp;quot;,
+      &amp;quot;district&amp;quot;: &amp;quot;Washtenaw&amp;quot;,
+      &amp;quot;state&amp;quot;: &amp;quot;MI&amp;quot;,
+      &amp;quot;postalCode&amp;quot;: &amp;quot;48104&amp;quot;,
+      &amp;quot;country&amp;quot;: &amp;quot;US&amp;quot;
+    }
+    ]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;observation-resource&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Observation Resource&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;{
+        &amp;quot;resourceType&amp;quot;: &amp;quot;Observation&amp;quot;,
+        &amp;quot;id&amp;quot;: &amp;quot;428168&amp;quot;,
+        &amp;quot;meta&amp;quot;: {
+          &amp;quot;versionId&amp;quot;: &amp;quot;1&amp;quot;,
+          &amp;quot;lastUpdated&amp;quot;: &amp;quot;2018-11-05T18:24:48.370+00:00&amp;quot;
+        },
+        &amp;quot;status&amp;quot;: &amp;quot;final&amp;quot;,
+        &amp;quot;category&amp;quot;: [
+          {
+            &amp;quot;coding&amp;quot;: [
+              {
+                &amp;quot;system&amp;quot;: &amp;quot;http://hl7.org/fhir/observation-category&amp;quot;,
+                &amp;quot;code&amp;quot;: &amp;quot;exam&amp;quot;,
+                &amp;quot;display&amp;quot;: &amp;quot;Exam&amp;quot;
+              }
+            ]
+          }
+        ],
+        &amp;quot;code&amp;quot;: {
+          &amp;quot;coding&amp;quot;: [
+            {
+              &amp;quot;system&amp;quot;: &amp;quot;http://snomed.info/sct&amp;quot;,
+              &amp;quot;code&amp;quot;: &amp;quot;401239006&amp;quot;,
+              &amp;quot;display&amp;quot;: &amp;quot;Width of wound&amp;quot;
+            },
+            {
+              &amp;quot;system&amp;quot;: &amp;quot;http://loinc.org&amp;quot;,
+              &amp;quot;code&amp;quot;: &amp;quot;39125-0&amp;quot;,
+              &amp;quot;display&amp;quot;: &amp;quot;Width of Wound&amp;quot;
+            }
+          ]
+        },
+        &amp;quot;subject&amp;quot;: {
+          &amp;quot;reference&amp;quot;: &amp;quot;Patient/428166&amp;quot;
+        },
+        &amp;quot;valueQuantity&amp;quot;: {
+          &amp;quot;value&amp;quot;: 4,
+          &amp;quot;unit&amp;quot;: &amp;quot;cm&amp;quot;,
+          &amp;quot;system&amp;quot;: &amp;quot;http://unitsofmeasure.org&amp;quot;
+        }
+      },
+      &amp;quot;search&amp;quot;: {
+        &amp;quot;mode&amp;quot;: &amp;quot;match&amp;quot;
+      }
+    }&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Exploring the Cost Function of Logistic Regression</title>
       <link>/post/exploring-the-cost-function-of-logistic-regression/</link>
       <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>

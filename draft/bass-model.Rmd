@@ -1,0 +1,93 @@
+---
+title: "Fit the Bass Model using R"
+author: "Jens Hüsers"
+date: "1 11 2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Die Erklärung von Innovationsmechanismen und die Entwicklung innovativer Produkte von großem Interessen.
+Dies wird zudem verstärkt von immer schneller verlaufenden Innovationszyklen.
+
+Jedoch ist die Problematik, Innovationszyklen zu erklären und Produktentwicklungen vorherzusagen schon 1960 wissenschaftlich angestoßen worden.
+Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen.
+Bass gelang es als erster ein mathematisches Modell zur Erklärung von Innovationen und der Produktentwicklung zu erstellen.
+Das heute unter dem Namen Bass-Modell bekannte Modell wurde nach der Publikation der Theoretischen Grundlagen durch empirische Daten untermauert.
+
+Bei diesem mathematischen Modell werden im Wesentlichen zwei Parameter geschätzt, um den Innovationsprozess zu erklären.
+Zum einen der Innovationskoeffizient p und zum anderen der Immitationskoeffizient q. 
+(Ich merke mir diese Zuordnung indem ich mit das in unserer Lesrichtung von links nach rechts schauende p als progressiv und damit innovativ. 
+Das zurückblickende q ist der Immitator.)
+Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren wirken.
+Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt. 
+
+Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt.
+Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen.
+Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann.
+Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.
+
+Das Bass Modell hat sich in der Vergangenheit als nützlich herausgestellt und wird auch heute noch zur Erforschung der Digitalisierung in verschiedenen wissenschaftlichen 
+Publikationen genutzt.
+Zudem wird das Modell auch für die Absatzplanung in Unternehmen eingesetzt.
+
+Es gibt verschiedene Softwarelösungen, welche eine Schätzung des Modells vornehmen.
+R bietet sich als Open Source Lösung an, denn das Programm hält die Funktionen zur Modellschätzung bereit.
+Zudem exisiteren Programmerweiterungen, die den Umgang mit dem Bass-Modell erleichtern.
+
+In diesem Beispiel möchte ich ein kurzes Beispiel demonstrieren, wie mit den Basisfunktionen in R ein Bass-Modell erstellt werden kann, 
+das auf den beobachteten kumulierten Adoptionsraten eines Produktes basieren.
+
+Für die Modellschätzung werden die Marktdaten benötigt. 
+Dabei ist zu beachten, dass diese Daten in jeweils gleichen Zeitabständen vorliegen.
+Zum beispiel jährlich, quartalsweise oder monatlich. 
+Fehlende Daten können unter Umständen ersetzt werden.
+
+We try to model the cumulative proportions of adopters. 
+Therfore we model the cumulative proporitions of adopters by using the differential function of the of the Bass Model Curve to estimate the coefficient of innovation p and coefficient of immitation q.
+
+$F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}$
+
+
+```{r}
+
+# bass function
+bass_F <- function(Time, p, q) {
+  (1 - exp(-(p + q)*Time))/(1 + (q/p)*exp(-(p+q)*Time))
+}
+
+x <- 1:10
+y <- c(.1, .2, .3, .35, .5, .6, .66, .78, .8, .84)
+Time = x
+fit <- stats::nls(y ~ bass_F(Time, p, q), start=list(p = .1, q = .5 ))
+
+plot(x, y)
+fit <- nls(formula = y ~ bass_F(Time = x, p, q), start=list(p=.1, q=.5))
+summary(fit)
+stats::AIC(fit)
+f <- broom::augment(fit)$.fitted
+mean(sum(f^2)) / mean(x)
+sd(f) / sqrt(length(Time))
+
+```
+
+```{r}
+library(tidyverse)
+broom::augment(fit) %>% 
+  mutate(y = y) %>% 
+  ggplot(aes(Time, y)) +
+  geom_point() +
+  geom_line(aes(x = Time, y = .fitted)) +
+  geom_linerange(aes(ymin = .fitted, ymax = y))
+
+
+```
+
+We used the statistical computing language R to etimate the model's parameters p and q based on the observed cumulated proportions of adopters.
+In more detail, we used the `nls` Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm.
+To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.
+
