@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Mon, 05 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HL7 FHIR Fundamentals - Creating an Observation Resource</title>
+      <link>/post/hl7-fhir-fundamentale-create-an-observation-resource/</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/hl7-fhir-fundamentale-create-an-observation-resource/</guid>
+      <description>In the last post I talked about the central FHIR resource Patient which captures all the information of a patient, such as name, date of birth and so forth. Another important resource it Observation. This resource is used to give details about a specific observation such as blood pressure or heart rate. According to the specification, we use the element code which has the datatype CodeableConcept. We can use Terminologies like LOINC or SNOMED CT to specifiy the observation type.</description>
+    </item>
     
     <item>
       <title>HL7 FHIR Fundamentals - Creating Resources</title>

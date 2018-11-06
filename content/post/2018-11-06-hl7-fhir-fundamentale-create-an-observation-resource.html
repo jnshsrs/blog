@@ -1,0 +1,172 @@
+---
+title: HL7 FHIR Fundamentals - Creating an Observation Resource
+author: Jens Hüsers
+date: '2018-11-06'
+slug: hl7-fhir-fundamentale-create-an-observation-resource
+categories: []
+tags:
+  - HL7
+  - FHIR
+---
+
+
+
+<p>In the last post I talked about the central FHIR resource <a href="https://www.hl7.org/fhir/patient.html">Patient</a> which captures all the information of a patient, such as name, date of birth and so forth. Another important resource it <a href="https://www.hl7.org/fhir/observation.html">Observation</a>. This resource is used to give details about a specific observation such as <em>blood pressure</em> or <em>heart rate</em>. According to the specification, we use the element <code>code</code> which has the datatype <a href="https://www.hl7.org/fhir/datatypes.html#CodeableConcept">CodeableConcept</a>. We can use Terminologies like LOINC or SNOMED CT to specifiy the observation type. In the example of my last post about FHIR is observed the width of a wound. So we use the SNOMED CT code <code>401239006</code> which encodes <em>Width of Wound</em>.</p>
+<p>To record the actual value we use the <code>value</code> element. More specific we use the <code>valueQuantity</code> element, since we measured the width in centimeters and the quantity element can capture this information.</p>
+<p>Furthermore I used the <code>subject</code> element to refer to the patient with the wound. We could actually populate more elements such as <code>bodySite</code> to record the location of that wound we are talking about. This is especially important when a patient has more than one wound.</p>
+<p>This example shows how we can use FHIR to record the width of a wound. However, in most cases we have multiple observations of one wound, such as width, length or depth of a wound. In this scenario it is not recommented to use an observation resource for each wound characteristic but rather use the <code>component</code> element of the <em>observation</em> resource.</p>
+<p>We can use this element to record more than one observation. The <code>component</code> element has one child for each observation. This child can have the elements <code>code</code> and <code>value</code>. Both elements are used as decribed above. The <code>code</code> tells us what we observed using a code e.g. a SNOMED CT concept. The value tells us the measured or observed value.</p>
+<p>In our use case we observe the length and width of wound. So for each observation we create a child in the <code>component</code> element. The elements of each child are <code>code</code> and <code>valueQuantity</code>. You can see an example below (it is just a subset of the fullresource, though).</p>
+<pre class="r"><code>&quot;component&quot;: [
+  {
+    &quot;code&quot;: {
+      &quot;coding&quot;: [
+        {
+          &quot;system&quot;: &quot;http://loinc.org&quot;,
+          &quot;code&quot;: &quot;39125-0&quot;,
+          &quot;display&quot;: &quot;Width of Wound&quot;
+        },
+        {
+          &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+          &quot;code&quot;: &quot;401239006&quot;,
+          &quot;display&quot;: &quot;Width of wound&quot;
+        }
+      ]
+    },
+    &quot;valueQuantity&quot;: {
+      &quot;value&quot;: 4,
+      &quot;unit&quot;: &quot;cm&quot;,
+      &quot;system&quot;: &quot;http://unitsofmeasure.org&quot;
+    }
+  },
+  {
+    &quot;code&quot;: {
+      &quot;coding&quot;: [
+        {
+          &quot;system&quot;: &quot;http://loinc.org&quot;,
+          &quot;code&quot;: &quot;39126-8&quot;,
+          &quot;display&quot;: &quot;Length of Wound&quot;
+        },
+        {
+          &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+          &quot;code&quot;: &quot;401238003&quot;,
+          &quot;display&quot;: &quot;Length of wound&quot;
+        }
+      ]
+    },
+    &quot;valueQuantity&quot;: {
+      &quot;value&quot;: 3,
+      &quot;unit&quot;: &quot;cm&quot;,
+      &quot;system&quot;: &quot;http://unitsofmeasure.org&quot;
+    }
+  }
+]
+}</code></pre>
+<p>So in this example we use the <code>component</code> element instead of the direct <code>code</code> and <code>value</code> elements of the <a href="https://www.hl7.org/fhir/observation.html">Observation</a> resource as we did in the first example where we recorded just one observation namely the width of a wound. However, we can use both elements to state that this observation is actually about a wound. So in my example I use the <code>code</code> element with the SNOMED CT code <code>95344007</code> which encodes the concept of a ulcer of lower extremity. You can see an example of this element below. It now refers to the wound being examed. We can furthermore specify the location of the wound using the <code>bodySite</code> element.</p>
+<pre class="r"><code>&quot;code&quot;: {
+  &quot;coding&quot;: [
+    {
+      &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+      &quot;code&quot;: &quot;95344007&quot;,
+      &quot;display&quot;: &quot;Ulcer of lower extemity&quot;
+    }
+  ]
+}</code></pre>
+<p>This observation records what a practitioner has examed in the <code>code</code> element and lists all observations in the <code>component</code> element. To complete the resource I populated the <code>subject</code> and <code>performer</code> elements by referting to a patient resp. to a practitioner. I post the resource to a public FHIR server. You can find the resource in the appendix or get it by using the following query:</p>
+<p><a href="http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259" class="uri">http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259</a></p>
+<div id="appendix" class="section level1">
+<h1>Appendix</h1>
+<pre class="r"><code>{
+  &quot;fullUrl&quot;: &quot;http://hapi.fhir.org/baseDstu3/Observation/429259&quot;,
+  &quot;resource&quot;: {
+    &quot;resourceType&quot;: &quot;Observation&quot;,
+    &quot;id&quot;: &quot;429259&quot;,
+    &quot;meta&quot;: {
+      &quot;versionId&quot;: &quot;1&quot;,
+      &quot;lastUpdated&quot;: &quot;2018-11-06T00:09:39.201+00:00&quot;
+    },
+    &quot;status&quot;: &quot;final&quot;,
+    &quot;category&quot;: [
+      {
+        &quot;coding&quot;: [
+          {
+            &quot;system&quot;: &quot;http://hl7.org/fhir/observation-category&quot;,
+            &quot;code&quot;: &quot;exam&quot;,
+            &quot;display&quot;: &quot;Exam&quot;
+          }
+        ]
+      }
+    ],
+    &quot;code&quot;: {
+      &quot;coding&quot;: [
+        {
+          &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+          &quot;code&quot;: &quot;95344007&quot;,
+          &quot;display&quot;: &quot;Ulcer of lower extemity&quot;
+        }
+      ]
+    },
+    &quot;subject&quot;: {
+      &quot;reference&quot;: &quot;Patient/428166&quot;
+    },
+    &quot;performer&quot;: [
+      {
+        &quot;reference&quot;: &quot;Practitioner/22694&quot;
+      }
+    ],
+    &quot;bodySite&quot;: {
+      &quot;coding&quot;: [
+        {
+          &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+          &quot;code&quot;: &quot;723607002&quot;,
+          &quot;display&quot;: &quot;Structure of right heel&quot;
+        }
+      ]
+    },
+    &quot;component&quot;: [
+      {
+        &quot;code&quot;: {
+          &quot;coding&quot;: [
+            {
+              &quot;system&quot;: &quot;http://loinc.org&quot;,
+              &quot;code&quot;: &quot;39125-0&quot;,
+              &quot;display&quot;: &quot;Width of Wound&quot;
+            },
+            {
+              &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+              &quot;code&quot;: &quot;401239006&quot;,
+              &quot;display&quot;: &quot;Width of wound&quot;
+            }
+          ]
+        },
+        &quot;valueQuantity&quot;: {
+          &quot;value&quot;: 4,
+          &quot;unit&quot;: &quot;cm&quot;,
+          &quot;system&quot;: &quot;http://unitsofmeasure.org&quot;
+        }
+      },
+      {
+        &quot;code&quot;: {
+          &quot;coding&quot;: [
+            {
+              &quot;system&quot;: &quot;http://loinc.org&quot;,
+              &quot;code&quot;: &quot;39126-8&quot;,
+              &quot;display&quot;: &quot;Length of Wound&quot;
+            },
+            {
+              &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+              &quot;code&quot;: &quot;401238003&quot;,
+              &quot;display&quot;: &quot;Length of wound&quot;
+            }
+          ]
+        },
+        &quot;valueQuantity&quot;: {
+          &quot;value&quot;: 3,
+          &quot;unit&quot;: &quot;cm&quot;,
+          &quot;system&quot;: &quot;http://unitsofmeasure.org&quot;
+        }
+      }
+    ]
+  }
+}</code></pre>
+</div>

@@ -40,11 +40,29 @@
     </item>
     
     <item>
+      <title>Fhir</title>
+      <link>/tags/fhir/</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/fhir/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Function</title>
       <link>/tags/function/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/function/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hl7</title>
+      <link>/tags/hl7/</link>
+      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/hl7/</guid>
       <description></description>
     </item>
     

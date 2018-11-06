@@ -5,8 +5,8 @@ date: '2018-11-05'
 slug: hl-fhir-fundamentale-creating-resources
 categories:
   - FHIR
-  - HL/
-tags: []
+  - HL7
+tags: [FHIR, HL7]
 ---
 
 
