@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>/post/marktentwicklung-von-innovationen/</loc>
+    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/hl7-fhir-fundamentale-create-an-observation-resource/</loc>
     <lastmod>2018-11-06T00:00:00+00:00</lastmod>
   </url>
@@ -40,6 +45,12 @@
   <url>
     <loc>/post/import-ordered-spss-factors-into-r/</loc>
     <lastmod>2018-07-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/bass-model/</loc>
+    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -115,6 +126,12 @@
   </url>
   
   <url>
+    <loc>/tags/rstat/</loc>
+    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/rstats/</loc>
     <lastmod>2018-09-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -140,7 +157,7 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2018-10-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
