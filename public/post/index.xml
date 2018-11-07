@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Tue, 06 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Estimating the Bass Model</title>
+      <link>/post/estimating-the-bass-model/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/estimating-the-bass-model/</guid>
+      <description>Bass Model Bla Bla   </description>
+    </item>
     
     <item>
       <title>HL7 FHIR Fundamentals - Creating an Observation Resource</title>
@@ -74,7 +83,7 @@ Zunächst muss die Programmiersprache R installiert werden.</description>
       <guid>/post/join-by-rows/</guid>
       <description>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.
 Some of them share the same information stored in columns and I had to combine them in a single dataframe.
-library(tidyverse)  ## -- Attaching packages ------------------------------------------------------------------------------------------------------ tidyverse 1.2.1 -- ## &amp;lt;U+221A&amp;gt; ggplot2 3.</description>
+library(tidyverse)  ## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
     </item>
     
     <item>

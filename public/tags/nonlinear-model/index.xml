@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nonlinear Model on Science, Physiotherapy and Stats</title>
+    <link>/tags/nonlinear-model/</link>
+    <description>Recent content in Nonlinear Model on Science, Physiotherapy and Stats</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
+    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/nonlinear-model/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Estimating the Bass Model</title>
+      <link>/post/estimating-the-bass-model/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/estimating-the-bass-model/</guid>
+      <description>Bass Model Bla Bla   </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -20,7 +20,7 @@
       <guid>/post/join-by-rows/</guid>
       <description>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.
 Some of them share the same information stored in columns and I had to combine them in a single dataframe.
-library(tidyverse)  ## -- Attaching packages ------------------------------------------------------------------------------------------------------ tidyverse 1.2.1 -- ## &amp;lt;U+221A&amp;gt; ggplot2 3.</description>
+library(tidyverse)  ## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
     </item>
     
   </channel>

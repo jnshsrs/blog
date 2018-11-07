@@ -1,0 +1,19 @@
+---
+title: 'Estimating the Bass Model'
+author: 'Jens Hüsers'
+date: '2018-11-07'
+slug: estimating-the-bass-model
+categories: []
+draft: true
+tags:
+  - nonlinear-model
+  - innovation-research
+disable_comments: true
+output:
+  blogdown::html_page:
+    fig_width: 8
+---
+
+# Bass Model
+
+## Bla Bla
