@@ -1,0 +1,520 @@
+---
+title: "Chi-Quadrat Verteilung"
+author: "Jens Hüsers"
+date: "22 11 2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+o <- c(30, 70) 
+e <- c(.5, .5)
+
+# Die Quadrierte Differenz der Abweichungen im Verhältnis zu den erwarteten Werten
+test_stat <- sum((o - e)^2 / e)
+df <- length(o) - 1
+
+chi_stats <- seq(0, 10, by = .1)
+density <- dchisq(chi_stats, df =  df)
+
+plot(x = chi_stats, y = density, type = "l")
+points(x = test_stat, dchisq(x = test_stat, df = df), pch = 20, col = "red", cex = 2)
+
+1 - pchisq(q = test_stat, df = df) # p-value
+
+```
+
+Eine Losbude wirbt mit einer Gewinnwahrscheinlichkeit von 50%.
+Wir beobachten 100 Personen die ein Los kaufen und notieren das Ergebnis.
+Von den 100 Personen haben 60 einen Gewinn gezogen.
+
+Die Frage ist nun, ob die Losbude zurecht mit einer Gewinnwahrscheinlichkeit von 50% wirbt.
+
+Diese Frage lässt sich mit einem Chi-Quadrat Test beantworten, bei dem die beobachteten Häufigkeiten den erwarteten Häufigkeiten gegenübergestellt werden.
+
+Wir haben 60 Gewinne und 40 Nieten beobachtet.
+Bei einer Gewinnwahrscheinlichkeit von 50% erwarten wir jedoch genau 50 Gewinne und 50 Nieten.
+Da die Lose jedoch zufällig aus dem Lostopf gezogen werden, können die beobachteten Häufigkeiten plausibel sein, obwohl nicht genau 50 Gewinne und 50 Nieten gezogen wurden.
+Wir können jetzt eine Wahrscheinlichkeit für die beobachteten Daten berechnen mit Hilfe des Chi-Quadrat Tests berechnen, 
+Wir können nun eine Wahrscheinlichkeit berechnen die Beobachtungen zu machen wenn tatsächlich die Gewinnchance 50% ist.
+
+```{r}
+# Wie wahrscheinlich ist eine Beobachtung von 60 Gewinnen
+# von 100 Ziehungen, wenn die Gewinnwahrscheinlichkeit
+# tatsächlich 50% beträgt?
+# Diese Frage lässt sich mit der Binomialverteilung beantworten.
+
+p <- .5
+k <- 100
+# Wie wahrscheinlich sind 60 Treffer (oder mehr), wenn die Wahrscheinlichkeit 
+# einen Treffer zu erhalten 50% beträgt und wir insgesamt 100 mal ziehen?
+dbinom(x = 60, size = 100, prob = .5)
+plot(0:100, dbinom(x = 0:100, size = 100, prob = .5), type = "l")
+points(60, dbinom(x = 60, size = 100, prob = .5), cex = 2, col = "red", pch = 20)
+
+(1 - pbinom(q = 60, size = 100, prob = .5)) * 2
+plot(0:100, dbinom(x = 0:100, size = 100, prob = .5), type = "l")
+points(60, dbinom(x = 60, size = 100, prob = .5), cex = 2, col = "red", pch = 20)
+1 - pbinom(q = 60, size = 100, prob = .5)
+
+o <- c(60, 40)
+e <- c(50, 50)
+
+test_stat <- sum((o - e) ^ 2 / e)
+plot(0:20, dchisq(x = 0:20, df = 1), type = "l")
+points(test_stat, dchisq(test_stat, df = 1), pch = 20, col = "red", cex = 2)
+1 - pchisq(q = test_stat, df = 1)
+
+```
+
+
+```{r}
+obs
+exp
+observed <- c(60, 40)
+n <- sum(observed)
+exp <- c(.5, .5)
+exp_abs <- exp * sum(observed)
+
+test_stat <- sum((observed - exp_abs)^2 / exp_abs)
+
+fit <- chisq.test(x = observed, p = exp) 
+fit$statistic #chi sq test stat
+fit$parameter #df
+fit$p.value
+
+n <- 1e2
+reps <- 1e6
+p <- runif(n = 4)
+p <- p / sum(p)
+
+data <- table(mtcars$cyl)
+exp <- c(.4, .2, .4)
+exp_abs <- sum(data) * exp
+sum(data) * exp
+
+chisq.test(x = data, p = exp)
+
+o1 <- rbinom(n = 1000, size = sum(data), prob = exp[1])
+o2 <- rbinom(n = 1000, size = sum(data), prob = exp[2])
+o3 <- sum(data) - map2_int(o1, o2, sum)
+
+# Visualisierung der Verteilung
+list(o1, o2, o3) %>% 
+  set_names("o1", "o2", "o3") %>% 
+  as_tibble %>% 
+  rownames_to_column() %>% 
+  gather(key = "category", value = "count", -rowname) %>%
+  mutate_at("rowname", as_factor) %>% 
+  ggplot(aes(y = count, x = rowname, group = category, col = category, fill = category)) +
+  geom_bar(stat = "identity", position = "fill") + 
+  scale_fill_manual(guide = F, values = c("red", "orange", "skyblue")) +
+  scale_color_manual(guide = F, values = c("red", "orange", "skyblue")) +
+  theme_classic() +
+  theme(line = element_blank(),
+        text = element_blank())
+
+reduce(list(o1, o2, o3), `+`)
+
+obs <- map(p[-length(p)], rbinom, n = reps, size = n)
+obs <- map(p[-length(p)], rbinom, n = reps, size = n)
+obs[[length(obs) + 1]] <- n - reduce(obs, `+`)
+
+exp <- map(p, ~ .x * n)
+
+diffs <- map2(obs, exp, ~ (.x - .y)^2 / .y)
+chi_sq <- reduce(diffs, `+`)
+
+hist(chi_sq, sqrt(reps), las = 1, freq = FALSE, ylim = c(0, .25))
+x <- seq(0, 30, by = 0.01)
+lines(x, dchisq(x = x, df = 3), col = "red")
+
+```
+
+```{r}
+sim_chisq <- function(n, exp, reps=1000) {
+  for(i in reps){
+    for(p in exp) {
+      x1 <- rbinom(n = n, size = 100, prob = p)
+      
+    }
+  }
+}
+```
+
+
+
+The Chi-Square Test is one of the most common Null hypothesis Significance test to compare two distributions.
+
+
+
+The Chi-Square test calculates a test statistic and a p-value indicating the probability that the two distributions .
+The statistic is the sum of the squared differences of the observed and expected values normalized by the expected value. That means that each (squared) difference is compared to the expected value. Not surprisingly, the Chi-Square statistic follows a Chi-Squared distribution. While this is known, many people using the Test do not know why this statistic follows a Chi-Squared distribution. So in this article I give a high level explanation of the Chi-Square distribution and show a simulation of this distribution.
+
+$\chi^2=\sum_{k=1}^{n} \frac{(O_k - E_k)^2}{E_k}$
+
+I assume that the reader knows the fundamentals of null hypothesis significance testing and the Chi-Square test. 
+
+A car retailer, trading with Volkswagen, Audi and BMW, plans to order a new delivery of cars. The retailer plans to order a delivery of 50% Audi cars and 25% Volkswagen and 25% BMW cars. The marketing manager of the company is asked to compare the delivery with the previous sales of the company. In the last year the company sold 305 Audi, 200 Volkswagen and 180 BMW. The manager uses a Chi-Square Test to compare the distribution of the planed delivery with previous sales.
+
+To calculate the test statistic we conduct the following steps:
+
+1. First use the proportions of the expected distribution to calculate absolut number of the expected car selled. This is achieved by multipling the proportion with the absolut number of sells last year.
+2. Then we calculate the squared difference between the observed and the expected values for each brand and normalizing it by the expected value. 
+3. Next we take the sum of the observed values which gives us the Chi-Squared statistic. 
+
+Additionaly we compute the degrees of freedom and use both values to get the p-value.
+
+The p-value is a probabiltiy stating how likely the Chi-Square statistic is the data is under the assumption that both distributions are equal.
+
+```{r}
+# Expected distribution of sells
+# In order: Audi, Volkswagen and BMW
+expected_proportions <- c(.5, .25, .25)
+observed <- c(340, 200, 180)
+
+df <- length(observed) - 1
+
+expected <- expected_proportions * sum(observed)
+
+chi_stat <- sum((observed - expected)^2 / expected) 
+
+p_value <- 1 - pchisq(q = chi_stat, df = df)
+
+```
+
+```{r}
+ 
+m <- list(NULL, NULL, NULL)
+for(i in seq(1000)) {
+observed <- round(runif(n = 5) * 100)
+n <- sum(observed)
+
+exp_abs <- map_dbl(observed / n, rbinom, n = 1, size = sum(observed))
+exp <- exp_abs / sum(exp_abs)
+
+df <- length(observed) - 1
+
+test_stat <- sum((observed - exp_abs)^2 / exp_abs)
+
+fit <- chisq.test(x = observed, p = exp) 
+fit$statistic #chi sq test stat
+fit$parameter #df
+fit$p.value
+
+reps = 1e5
+sim <- map(exp, ~rbinom(n = reps, size = n, prob = .x))
+# sim[[length(sim)]] <- n - reduce(sim[-length(sim)], `+`)
+
+# caluclate ChiSq statistic for each row
+resid <- function(exp, obs) {
+  (obs - exp)^2/exp
+}
+
+sim_abweichungen <- map2(.x = exp_abs, .y = sim, .f = resid)
+statistics <- reduce(sim_abweichungen, `+`)
+# hist(statistics, breaks = 100, freq = FALSE, las = 1, xlim = c(0, .5 * (max(statistics))))
+# abline(v = test_stat, col = "red", lty = 2, lwd = 3)
+
+sim_p <- sum(statistics > fit$statistic) / length(statistics)
+cal_p <- fit$p.value
+
+m[[1]][i] <- sim_p 
+m[[2]][i] <- cal_p 
+m[[3]][i] <- exp[length(exp)]
+
+}
+
+data.frame(m) %>% 
+  filter(complete.cases(.)) %>% 
+  set_names("X", "Y", "Z") %>% 
+  mutate(diff = abs(X - Y)) %>% 
+  ggplot(aes(diff, Z)) +
+  geom_point()
+
+```
+
+
+The null hypothesis states that the expected and observed distributions are equal.
+In order to simulate the null hypthesis we have to take a closer loot at the chi-square test statistic.
+When we calculate the statistic we sum up many differences.
+We sum up many elements to compute the chi-square statistic.
+Each element is a difference of the observed and the expected value.
+The bigger the difference the bigger the chi-square statistic gets.
+Each element has an associated expected proportion and follows a binomial distribution.
+The probability that we get the observed value can be computed by using the binomial distribution.
+We just need the number of all values observed $n$ and the probability $p$. 
+Then we simulate an observed value for each element.
+
+
+
+
+```{r}
+sim_chi <- function(reps = 1000) {
+  
+  m <- NULL
+  
+  for(i in seq(reps)) {
+    
+    observed <- round(runif(n = 5) * 100)
+    
+    if(any(observed <= 5)) {
+      m[i] <- NA
+    } else {
+      
+      n <- sum(observed)
+      
+      exp_abs <- map_dbl(observed / n, rbinom, n = 1, size = sum(observed))
+      exp_abs[length(exp_abs)] <- n - sum(exp_abs[-length(exp_abs)])
+      
+      exp <- exp_abs / sum(exp_abs)
+      
+      df <- length(observed) - 1
+      
+      sum(exp_abs)
+      sum(observed)
+      
+      test_stat <- sum((observed - exp_abs)^2 / exp_abs)
+      
+      fit <- chisq.test(x = observed, p = exp) 
+      fit$statistic #chi sq test stat
+      fit$parameter #df
+      fit$p.value
+      
+      # number of simulation
+      reps = 1e5
+      # sim2 <- map(exp, ~rbinom(n = reps, size = n, prob = .x))
+      sim <- map(exp, ~qbinom(p = runif(reps), size = n, prob = .x))
+      
+      # sim[[length(sim)]] <- n - reduce(sim[-length(sim)], `+`)
+      # sim2[[length(sim2)]] <- n - reduce(sim2[-length(sim2)], `+`)
+      
+      # caluclate ChiSq statistic for each row
+      resid <- function(exp, obs) {
+        (obs - exp)^2/exp
+      }
+      
+      sim_abweichungen <- map2(.x = exp_abs, .y = sim, .f = resid)
+      statistics <- reduce(sim_abweichungen, `+`)
+      # hist(statistics, breaks = 100, freq = FALSE, las = 1, xlim = c(0, .5 * (max(statistics))))
+      # abline(v = test_stat, col = "red", lty = 2, lwd = 3)
+      
+      sim_p <- sum(statistics > fit$statistic) / length(statistics)
+      cal_p <- fit$p.value
+      m[i] <- sim_p - cal_p
+    }
+  }
+  return(m)
+}
+```
+
+```{r}
+
+expected <- c(23, 12, 34, 54)
+expected_rel <- expected / sum(expected)
+n <- sum(expected)
+
+idx <- sample(seq(observed), 1)
+observed[idx] <- n - sum(observed[-idx])
+df <- length(observed) - 1
+
+test_stat <- sum((observed - expected)^2 / expected)
+
+fit <- chisq.test(x = observed, p = expected, rescale.p = TRUE) 
+fit$statistic #chi sq test stat
+fit$parameter #df
+fit$p.value
+
+# number of simulation
+reps = 1e4
+sim <- map(exp, ~qbinom(p = runif(reps), size = n, prob = .x))
+
+# caluclate ChiSq statistic for each row
+resid <- function(exp, obs) {
+  (obs - exp)^2/exp
+}
+
+# Samples
+sim_abweichungen <- map2(.x = expected, .y = sim, .f = resid)
+statistics <- reduce(sim_abweichungen, `+`)
+hist(statistics, breaks = 100, freq = FALSE, las = 1, xlim = c(0, .5 * (max(statistics))))
+# abline(v = test_stat, col = "red", lty = 2, lwd = 3)
+x <- seq(0, 17, by = .1)
+y <- dchisq(x = x, df = df, ncp = 0)
+lines(x, y)
+qqplot(y, statistics)
+
+sim_p <- sum(statistics > fit$statistic) / length(statistics)
+cal_p <- fit$p.value
+
+```
+
+```{r}
+
+sim_df <- function(data, n) {
+  for(i in seq(nrow(data))){
+    row_idx <- sample(nrow(data), 1)
+    col_idx <- sample(ncol(data), 1)
+    data[i, col_idx] <- n - sum(data[i, ][-col_idx])
+  }
+  return(data)
+}
+sim_df(mtcars)
+
+sim_df(data.frame(sim), n = n)
+```
+
+
+# Simulation einer Chi-Quadratverteilung
+
+Die Chi-Quadratverteilung ist ausschließlich von den Freiheitsgraden abhängig.
+Dass bedeuet auch, das die konkreten empirische Werte unabhängig von der Verteilung sind.
+
+Das hat dann auch Implikationen für die Simulation der Null-Hypothese.
+Die Chi-Quadrat Verteilung ist unabhängig von den tatsächlich beobachteten Häufigkeiten
+
+Nullhypothese besagt, dass sich die beobachteten Häufigkeiten entsprechend der erwarteten Häufigkeit verteilen.
+Um diese Hypothese zu simulieren benötigen wir die absolute Anzahl der beobacheten Einheiten.
+Zudem werden die erwareten Häufigkeiten benötigt.
+
+Unter der Nullhypothese verteilen sich die Häufigkeiten entsprechend der erwarteten Häufigkeiten und
+den assoziierten Wahrscheinlichkeiten.
+Wir simulieren die Nullhypthese mit der Binomialverteilung.
+
+
+
+```{r}
+
+observed <- table(mtcars$cyl)
+expected <- c(.35, .25, .4)
+expected_abs <- expected * sum(observed)
+n <- sum(observed)
+
+# Es geht darum die Freiheitsgrade zu simulieren
+x1 <- rbinom(n = 1e5, size = n, prob = expected[1])
+x2 <- rbinom(n = 1e5, size = n, prob = expected[2])
+x3 <- rbinom(n = 1e5, size = n, prob = expected[3])
+
+x <- list("x1" = x1, "x2" = x2, "x3" = x3)
+
+x %>% 
+  as_tibble %>% 
+  gather() %>% 
+  ggplot(aes(x = value, fill = key)) +
+  geom_density(bw = 1, alpha = .2)
+  
+x <- sim_df(data.frame(x), n = n) %>% 
+  as.list()
+ 
+x1 <- (x[[1]] - expected_abs[1])^2/expected_abs[1]
+x2 <- (x[[2]] - expected_abs[2])^2/expected_abs[2]
+x3 <- (x[[3]] - expected_abs[3])^2/expected_abs[3]
+
+x <- list("x1" = x1, "x2" = x2, "x3" = x3)
+statistic <- reduce(x, `+`)
+
+hist(statistic, breaks = 20, freq = F)
+x <- seq(0, 17, by = .1)
+y <- dchisq(x = x, df = length(expected))
+lines(x, y)
+
+qqplot(statistic, y)
+plot(density(statistic, from = 0, kernel = "cosine", bw = 3))
+lines(x, y, col = "red")
+
+```
+
+# Simulation using the Normal distribution
+
+As indicated by the qqplot, we can see that the points do not lie on a line.
+Therefore both distributions differ.
+We can see this as an result of approximation based on the discrete binomial probability function.
+We can represent a binomial process with a Normaldistribution when the number of observations are large enough.
+
+Wir simulieren die Nullhypothese mit der kontinuierlichen Wahrscheinlichkeitsfunktion der Normalverteilung.
+Die Normalverteilung ist über ihre beiden Parameter des Mittelwerts und der Streuung angegeben durch die Standardabwichung.
+
+
+
+```{r}
+
+library(tidyverse)
+
+n_var <- 2
+df <- n_var
+sdev <- as.list(rep(1, n_var))
+sim <- map(.x = sdev, .f = ~rnorm(n = reps, mean = 0, sd = .x)^2)
+
+sim %>% 
+  tibble %>% 
+  rownames_to_column() %>% 
+  set_names(c("key", "value")) %>% 
+  spread(key, value) %>% 
+  set_names(~paste0("x", .x)) %>% 
+  unnest() %>% 
+  gather(key, value) %>% 
+  ggplot(aes(x = value, fill = key)) +
+  geom_density() +
+  facet_grid(key~.)
+  
+statistics <- reduce(sim, `+`)
+hist(statistics, freq = FALSE, breaks = sqrt(reps))
+
+x <- seq(0, 17, by = .1)
+y <- dchisq(x = x, df = df)
+lines(x, y, col = "red", lwd = 2)
+
+fit <- chisq.test(table(mtcars$cyl))
+fit %>% pluck("p.value")
+
+stat <- fit %>% pluck("statistic")
+
+sum(statistics >= stat) / length(statistics)
+
+```
+
+```{r}
+
+# Set replicate
+reps <- 2e4
+
+# Observations
+obs <- table(mtcars$cyl)
+
+# Chi Quadrat Anpassungstest 
+fit_exact <- chisq.test(obs)
+fit_sim <- chisq.test(obs, simulate.p.value = TRUE, B = reps)
+
+# Simulate Chi Quadrat
+expected <- rep(1, length(obs))
+expected <- expected / sum(expected)
+n <- sum(obs)
+abs <- n * expected
+df <- length(abs) - 1
+
+
+# Simulate Nullhypothesis
+sim <- map(expected, rbinom, n = reps, size = n)
+
+# Create function to calculate the residuals
+resid <- function(o, e) (e - o)^2 / e
+
+# Use function to calculate
+residuen <- map2(sim, abs, resid)
+
+# statistic <- reduce(residuen[-length(residuen)], `+`)
+statistic <- reduce(residuen, `+`)
+# hist(statistic, sqrt(length(statistic)), freq = F, las = 1, xlim = c(0, 15))
+
+paste("Simulation:", round(sum(statistic >= fit_exact$statistic) / length(statistic), 3))
+paste("Exact:", round(fit_exact$p.value, 3))
+paste("Monte Carlo:", round(fit_sim$p.value, 3))
+
+```
+

@@ -93,3 +93,17 @@ We used the statistical computing language R to etimate the model's parameters p
 In more detail, we used the `nls` Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm.
 To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.
 
+The USmodel revealed a high coefficient of imitation 
+
+The US Diffusion model revealed a high coefficient of innovation acompanied by a low
+
+The US diffusion modle is characterized by a high imitation (q = .5) however the 
+The US diffusion shows a typical s-shaped curve with saturation.
+The diffusion is mostly driven by high imitation processes.
+The innovation is relative low, e.g 
+
+
+
+
+
+

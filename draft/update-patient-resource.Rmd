@@ -1,0 +1,152 @@
+---
+title: "Untitled"
+author: "Jens Hüsers"
+date: "13 11 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Basis Adress um alle Devices auf dem Server anzufragen:
+http://fhir.hl7fundamentals.org/baseDstu3/Device
+
+When we use a resource of type `Reference` in FHIR there are two main ways how a reference can be made.
+
+The first one is the `Reference.reference` data field.
+This field contains
+
+In order to query a device of a specific manufacturer we can use the `owner` reference in the resource device.
+
+The owner can have different reference types.
+
+1. the id of the manufacturer on the FHIR server
+2. the business identifier given by `owner.identifier`
+
+We can query the reference 
+
+`http://fhir.hl7fundamentals.org/baseDstu3/Device?organization=29347`
+
+Right now I have some problems quering a device resource when the organization reference is a business identifier.
+
+
+# Create and update update a FHIR resource
+
+In this post I want to demonstrate how to create and update a FHIR resource.
+
+I am going to use the `PUT` operation for this task.
+`PUT` will create a new resource on the server if this resource is not yet on the server.
+In opposite to the `POST` operation which expects the `[base-url]` with the resource type to create, e.g. `Patient`, `PUT` expects and additional identifier.
+Therefore, the final `PUT` operation is composted by the `[base-url]` part, the `resource-type` and an `identifier` value.
+
+When we first `PUT` a resource on the server, we don't know the local resource `id` because it has not been created yet.
+So I will use the business identifier of the patient by using the element [`identifier`](https://www.hl7.org/fhir/patient-definitions.html#Patient.identifier) of the patient resource.
+
+
+
+```{r eval=FALSE}
+
+<Patient>
+  ... 
+  <identifier>
+    <system value="mypatientregistry.com"/>
+    <value value="23qcqdstq3q2e"/>
+  </identifier>
+  ...
+</Patient>
+  
+```
+
+So I can compose the url to create/ update my resource:
+
+`[base-ur]/Patient?identifier=mypatientregistry.com|23qcqdstq3q2e`
+
+So if my resource is not on the server the resource will created and the server returns the `201 OK` code indicating that the resource was created.
+If the resource exists on the server and I made changes to the resource, e.g. editing the patient name, the resource is updated and the server returns the code `200 OK`.
+
+# Examples
+
+### Step 1 - Create Resource
+
+I constructed a patient example resource with an business identifier.
+
+```{r eval=FALSE}
+
+<Patient>
+  <identifier>
+    <system value="www.mypatientidentifier.com/ids"/>
+    <value value="23894734287402eu"/>
+  </identifier>
+  <name>
+    <family value="Jens"/>
+    <given value="Spahn"/>
+  </name>
+  <address>
+    <line value="Hauptstraße 16"/>
+    <city value="Berlin"/>
+    <state value="Berlin"/>
+    <country value="France"/>
+  </address>
+</Patient>
+  
+```
+
+I create the patient resource using the following url:
+
+`http://hapi.fhir.org/baseDstu3/Patient?identifier=www.mypatientidentifier.com/ids|8qww76emweqs1`
+
+The server returns the code `201 Creates` which indicates that the resource was created.
+
+### Step 2 - Update Resource
+
+I edited the previous resource because I accidentially inserted the wrong country in the `address` element.
+
+In this case I use the following resource to update the resource.
+
+```{r eval=FALSE}
+
+<Patient>
+  <identifier>
+    <system value="www.mypatientidentifier.com/ids"/>
+    <value value="23894734287402eu"/>
+  </identifier>
+  <name>
+    <family value="Jens"/>
+    <given value="Spahn"/>
+  </name>
+  <address>
+    <line value="Hauptstraße 16"/>
+    <city value="Berlin"/>
+    <state value="Berlin"/>
+    <country value="Germany"/>
+  </address>
+</Patient>
+  
+```
+
+The server returns `200 OK` code and we can see that the `versionId` value incrementally increased and has the value 2.
+
+It is important to send the complete resource and not only the element you want to update as in the example below.
+
+```{r eval=FALSE}
+
+<Patient>
+  <identifier>
+    <system value="www.mypatientidentifier.com/ids"/>
+    <value value="23894734287402eu"/>
+  </identifier>
+  <address>
+    <country value="Germany"/>
+  </address>
+</Patient>
+  
+```
+
+In this case the server again returns `200 OK` but this time all other elements of the resource are dropped and the only element left in the updated resource is the `address.country` element.
+
+
+
+1. Id in die Resource geben
+2. Diese Id wird überschrieben
+3. Die neue Id aus der Outcome Resource enthält die überschriebene Id
