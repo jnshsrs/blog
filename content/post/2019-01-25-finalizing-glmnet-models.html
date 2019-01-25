@@ -1,5 +1,5 @@
 ---
-title: "Finalizing a Glmnet Model: An Example using Credit Data"
+title: "Finalizing a Lasso (glmnet) Model: An Example using Credit Data"
 author: Jens Hüsers
 date: '2019-01-19'
 draft: false  
@@ -17,13 +17,19 @@ editor_options:
 
 
 
-<div id="evaluating-a-models-hyperparameter" class="section level1">
-<h1>Evaluating a models hyperparameter</h1>
+<script src="//yihui.name/js/math-code.js"></script>
+<!-- Just one possible MathJax CDN below. You may use others. -->
+<script async
+  src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div id="evaluating-hyperparameter-with-cross-validation" class="section level1">
+<h1>Evaluating hyperparameter with Cross Validation</h1>
 <p>In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.</p>
-<p>An example is lasso regression which, very briefly, puts a constraint on the models coefficient in order to decrease variance of model coefcients and coeficient selection.</p>
-<p>To figure out the appropriate hyperparameters cross-validation is applied, where cross-validation is a method to simulate the models performance using test and a training sets. The training set is used to train the model and the predictive performance is evaluated using the test set also known as the hold-out set.</p>
-<p>This procedure is done for each proposed hyperparameter and the hold-out metric is calculated. The hyperparameter suppling the best hold-out metric, e.g. hightest R-Squared is used to train the final model.</p>
-<p>Before doing so, we will conduct model training using the lasso regression estimating the hyperparameter lambda, ruling the amount of contraint. We will use the <code>caret</code> package to train a model predicting the Miles per Gallon using different variables in the <code>mtcars</code> dataset.</p>
+<p>Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to controll and find the best amount of shrinkage. Briefly, this shrinkage leads to increased model bias for the benefit of lower variance.</p>
+<p>To figure out the appropriate hyperparameter, in this case regularization parameter <span class="math inline">\(\lambda\)</span> (lambda), cross-validation is applied. Cross-validation is a method to simulate the model performance by separating all available data into <span class="math inline">\(k\)</span> folds, train a model on all folds (training set) while whitholding one fold (test set), and then, consecutively, evaluate the models performance on the withheld test set, which apparently was not used to fit the model and thus simulating the real world scenario of using a predictive model on unseen data. In the iterative process of cross-validation, each of the <span class="math inline">\(k\)</span> folds serves as the test set, evaluation the models performance by a metric, e.g. the residual mean squared error (RMSE) in a regression problem, so that we will go through the process of model fitting <span class="math inline">\(k\)</span> times. As a result we get <span class="math inline">\(k\)</span> test set metrics, which we subsequently average after <span class="math inline">\(k\)</span> iterations yielding the final model performance metric.</p>
+<p>This cross-validation process is done for each hyperparameter, in lasso regression it is a set of possible regularization values <span class="math inline">\(\lambda\)</span>.</p>
+<p>For each proposed hyperparameter, the metric is calculated using the test set, resp. hold oud fold, as described above. The hyperparameter suppling the best metric, e.g. lowest RMSE, is used to create the final model.</p>
+<p>Before doing so, we will conduct model training using the lasso regression to get the best hyperparameter of <span class="math inline">\(\lambda\)</span>. We will use the <code>caret</code>package to train a model predicting Income using different variable of the <code>ILSL::Credit</code> dataset, e.g. credit card limit, age and further more.</p>
 <pre class="r"><code>data &lt;- ISLR::Credit %&gt;% 
   select(-ID) %&gt;% 
   mutate(random_noise = rnorm(n = nrow(.), sd = 10))
@@ -33,55 +39,121 @@ y &lt;- data$Income
 X &lt;- model.matrix(Income ~ ., data)
 
 # Setup the training process 
-# We will use 5-fold crossvalidation
+# We will use 10-fold crossvalidation
+# Thus, we will get 10 test set metrics which we eventually average to get
+# the model performance parameter using a specifi value of lambda
 
 # 10 fold cross validation
-tr_ctrl &lt;- caret::trainControl(method = &quot;repeatedcv&quot;, repeats = 1, number = 3)
+# Define training option with trainControl 
+tr_ctrl &lt;- caret::trainControl(method = &quot;cv&quot;, number = 5)
+
+# Create a grid of proposed lambda values
+# Alpha is set to one, which yields lasso regression
+# We use CV to get the appropriate lambda value
 hyperparams &lt;- expand.grid(lambda = c(seq(0.1, 4, .1)), alpha = 1)
 
 set.seed(124193)
+# Model Training (Metric: Rsquared)
 cv_models &lt;- caret::train(x = X,
                           y = y,
                           family = &quot;gaussian&quot;,
-                          metric = &quot;Rsquared&quot;,
+                          metric = &quot;RMSE&quot;,
                           method = &quot;glmnet&quot;,
                           trControl = tr_ctrl,
                           tuneGrid = hyperparams)
 
-lambda &lt;- purrr::pluck(cv_models, &quot;results&quot;) %&gt;%
-  select(lambda, Rsquared) %&gt;%
-  filter(max(Rsquared) == Rsquared) %&gt;%
-  pull(lambda)
+# Extracting the best hyperparameters (yielded lowest  RMSE)
+best_tune &lt;- pluck(cv_models, &quot;bestTune&quot;)
 
+
+# Plot Regularization Parameter Lambda against RMSE (y-axis)
 plot(cv_models)</code></pre>
 <p><img src="/post/2019-01-25-finalizing-glmnet-models_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="finalizing-the-model" class="section level1">
 <h1>Finalizing the model</h1>
-<p>We see in the plot that the cross-validated Residual Mean Squared Error peaks at an alpha value of .5, this hyperparameter value should be used in our final model.</p>
+<p>We see in the plot that the cross validated RMSE is lowest when <span class="math inline">\(\lambda\)</span>=0.1, this hyperparameter value should be used in our final model.</p>
 <p>In the next section we will use the <code>glmnet</code> function from the <code>glmnet</code> packages which allows us to create a regression model with the specific alpha value.</p>
 <pre class="r"><code># Setting alpha to 1 yielding lasso regression
-# Setting the regularization parameter lambda to 0.5 which yielded the lowest RMSE in the cross-validation procedure
-final_model &lt;- glmnet::glmnet(x = X, y = y, family = &quot;gaussian&quot;, alpha = 1, lambda = lambda)
+# Setting the regularization parameter lambda to best_tune, the value yielding lowest RMSE in the cross-validation procedure
+final_model &lt;- glmnet::glmnet(x = X[, -1], y = y, family = &quot;gaussian&quot;, alpha = 1, lambda = best_tune[2])
 
 # Get final model coefficients
-tidy_final_model &lt;- broom::tidy(final_model)  
+broom::tidy(final_model)  %&gt;% 
+  select(term, estimate) %&gt;% 
+  mutate_at(&quot;estimate&quot;, round, 2) %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">-50.04</td>
+</tr>
+<tr class="even">
+<td align="left">Limit</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">Rating</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="even">
+<td align="left">Cards</td>
+<td align="right">1.24</td>
+</tr>
+<tr class="odd">
+<td align="left">Education</td>
+<td align="right">-0.10</td>
+</tr>
+<tr class="even">
+<td align="left">GenderFemale</td>
+<td align="right">-1.17</td>
+</tr>
+<tr class="odd">
+<td align="left">StudentYes</td>
+<td align="right">39.79</td>
+</tr>
+<tr class="even">
+<td align="left">MarriedYes</td>
+<td align="right">-0.18</td>
+</tr>
+<tr class="odd">
+<td align="left">EthnicityAsian</td>
+<td align="right">1.14</td>
+</tr>
+<tr class="even">
+<td align="left">EthnicityCaucasian</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="odd">
+<td align="left">Balance</td>
+<td align="right">-0.09</td>
+</tr>
+<tr class="even">
+<td align="left">random_noise</td>
+<td align="right">0.05</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>coefs &lt;- coef(final_model)
 
-# extracting coeficients
-coefs &lt;- tidy_final_model$estimate
-
-# extracting coeficient names
-vars &lt;- tidy_final_model$term
-
-# getting data to predict
-newX &lt;- as.matrix(X[, vars])
-
+# comuting RSquared value
 # predict
-y_hat &lt;- newX %*% as.matrix(coefs, nrow = 6)
+y_hat &lt;- matrix(X, ncol = ncol(X)) %*% as.matrix(coefs, nrow = 6)
 
 # R-Squared
-r_sq &lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))
-r_sq</code></pre>
-<pre><code>## [1] 0.906947</code></pre>
-<p>Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; in this example the value of lambda was <span class="math inline">\(\lambda\)</span> = 0.1 with a final R-Square value of 0.906947, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation.</p>
+r_sq &lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))</code></pre>
+<p>Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was <span class="math inline">\(\lambda\)</span> = 0.1 with a final RMSE value of 10.73, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.</p>
+</div>
+<div id="bottomline" class="section level1">
+<h1>Bottomline</h1>
+<p>The bottom line of this post is, that we use cross-validation to investigate possible hyperparameters and their performance on unseen data, simulating this scenario by partioning the dataset into folds, withholding a fold and use this fold as the test set.</p>
+<p>We compare the cross-validated metric of each cross-validation process and choose the one with the best metric value, e.g. lowest RMSE.</p>
+<p>We then use all the data in our dataset to fit the final model. This final model will be used to predict future data. In our case our model estimates the income of people with variable such as age, gender and others.</p>
 </div>

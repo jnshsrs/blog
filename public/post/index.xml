@@ -13,14 +13,13 @@
     
     
     <item>
-      <title>Finalizing a Glmnet Model: An Example using Credit Data</title>
+      <title>Finalizing a Lasso (glmnet) Model: An Example using Credit Data</title>
       <link>/post/2019-01-25-finalizing-glmnet-models/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019-01-25-finalizing-glmnet-models/</guid>
-      <description>Evaluating a models hyperparameter In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.
-An example is lasso regression which, very briefly, puts a constraint on the models coefficient in order to decrease variance of model coefcients and coeficient selection.
-To figure out the appropriate hyperparameters cross-validation is applied, where cross-validation is a method to simulate the models performance using test and a training sets.</description>
+      <description>Evaluating hyperparameter with Cross Validation In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.
+Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to controll and find the best amount of shrinkage.</description>
     </item>
     
     <item>
