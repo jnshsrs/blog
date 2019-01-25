@@ -28,10 +28,10 @@
 &lt;div id=&#34;evaluating-hyperparameter-with-cross-validation&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Evaluating hyperparameter with Cross Validation&lt;/h1&gt;
 &lt;p&gt;In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.&lt;/p&gt;
-&lt;p&gt;Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to controll and find the best amount of shrinkage. Briefly, this shrinkage leads to increased model bias for the benefit of lower variance.&lt;/p&gt;
-&lt;p&gt;To figure out the appropriate hyperparameter, in this case regularization parameter &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; (lambda), cross-validation is applied. Cross-validation is a method to simulate the model performance by separating all available data into &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds, train a model on all folds (training set) while whitholding one fold (test set), and then, consecutively, evaluate the models performance on the withheld test set, which apparently was not used to fit the model and thus simulating the real world scenario of using a predictive model on unseen data. In the iterative process of cross-validation, each of the &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds serves as the test set, evaluation the models performance by a metric, e.g. the residual mean squared error (RMSE) in a regression problem, so that we will go through the process of model fitting &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; times. As a result we get &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; test set metrics, which we subsequently average after &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; iterations yielding the final model performance metric.&lt;/p&gt;
-&lt;p&gt;This cross-validation process is done for each hyperparameter, in lasso regression it is a set of possible regularization values &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;For each proposed hyperparameter, the metric is calculated using the test set, resp. hold oud fold, as described above. The hyperparameter suppling the best metric, e.g. lowest RMSE, is used to create the final model.&lt;/p&gt;
+&lt;p&gt;Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage. Briefly, shrinkage decreases model variance in exchange for some increased model bias, and thus limiting overfitting of a model.&lt;/p&gt;
+&lt;p&gt;To figure out the appropriate hyperparameter, in this case the regularization parameter &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; (lambda), cross-validation is applied. Cross-validation is a method to simulate the model performance by separating all available data into &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds, train a model on all but one fold (test fold), where the whitholded fold (test set) is used consecutively to evaluate the models performance using the model which is trained by all other folds. This approach gives us an impression on the model performance on unseen data. In the iterative process of cross-validation, each of the &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds serves as the test set, so that we will go through the process of model fitting &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; times. For model evaluation performance metrics are used, e.g. the residual mean squared error (RMSE) in a regression problem. As a result we get &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; test set metrics, which we subsequently average after &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; iterations yielding the final model performance metric.&lt;/p&gt;
+&lt;p&gt;This cross-validation process is done for each hyperparameter, in lasso regression it is a set of proposed regularization values &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;For each proposed hyperparameter, the metric is calculated using the test set, resp. hold-out fold, as described above. The hyperparameter suppling the best metric, e.g. lowest RMSE, is used to create the final model.&lt;/p&gt;
 &lt;p&gt;Before doing so, we will conduct model training using the lasso regression to get the best hyperparameter of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;. We will use the &lt;code&gt;caret&lt;/code&gt;package to train a model predicting Income using different variable of the &lt;code&gt;ILSL::Credit&lt;/code&gt; dataset, e.g. credit card limit, age and further more.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data &amp;lt;- ISLR::Credit %&amp;gt;% 
   select(-ID) %&amp;gt;% 
@@ -96,7 +96,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-50.04&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.61&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -108,31 +108,31 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.24&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.21&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.10&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.12&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.17&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.18&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;39.79&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.88&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.18&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.17&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.14&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.07&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.17&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.08&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
@@ -140,7 +140,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.05&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.04&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -152,7 +152,7 @@ y_hat &amp;lt;- matrix(X, ncol = ncol(X)) %*% as.matrix(coefs, nrow = 6)
 
 # R-Squared
 r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.73, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
+&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.74, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bottomline&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Bottomline&lt;/h1&gt;

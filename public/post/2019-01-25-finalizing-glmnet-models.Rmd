@@ -35,19 +35,20 @@ library(tidyverse)
 In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data.
 When building models we can use hyperparameters of the algorithms to increase model performance.
 
-Lasso regression, which puts a penalty on large model coefficients (see James et al. text book "Introduction to Staticial Learning" for more details), is an example of an algorithm using hyperparameters, to controll and find the best amount of shrinkage.
-Briefly, this shrinkage leads to increased model bias for the benefit of lower variance.
+Lasso regression, which puts a penalty on large model coefficients (see James et al. text book "Introduction to Staticial Learning" for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage.
+Briefly, shrinkage decreases model variance in exchange for some increased model bias, and thus limiting overfitting of a model.
 
-To figure out the appropriate hyperparameter, in this case regularization parameter $\lambda$ (lambda), cross-validation is applied.
-Cross-validation is a method to simulate the model performance by separating all available data into $k$ folds, train a model on all folds (training set) while whitholding one fold (test set), and then, consecutively, evaluate the models performance on the withheld test set, which apparently was not used to fit the model and thus simulating the real world scenario of using a predictive model on unseen data.
-In the iterative process of cross-validation, each of the $k$ folds serves as the test set, evaluation the models performance by a metric,
-e.g. the residual mean squared error (RMSE) in a regression problem,
-so that we will go through the process of model fitting $k$ times.
+To figure out the appropriate hyperparameter, in this case the regularization parameter $\lambda$ (lambda), cross-validation is applied.
+Cross-validation is a method to simulate the model performance by separating all available data into $k$ folds, train a model on all but one fold (test fold), where the whitholded fold (test set) is used consecutively to evaluate the models performance using the model which is trained by all other folds.
+This approach gives us an impression on the model performance on unseen data.
+In the iterative process of cross-validation, each of the $k$ folds serves as the test set, so that we will go through the process of model fitting $k$ times. 
+For model evaluation performance metrics are used, 
+e.g. the residual mean squared error (RMSE) in a regression problem.
 As a result we get $k$ test set metrics, which we subsequently average after $k$ iterations yielding the final model performance metric.
 
-This cross-validation process is done for each hyperparameter, in lasso regression it is a set of possible regularization values $\lambda$.
+This cross-validation process is done for each hyperparameter, in lasso regression it is a set of proposed regularization values $\lambda$.
 
-For each proposed hyperparameter, the metric is calculated using the test set, resp. hold oud fold, as described above.
+For each proposed hyperparameter, the metric is calculated using the test set, resp. hold-out fold, as described above.
 The hyperparameter suppling the best metric, e.g. lowest RMSE, is used to create the final model. 
 
 Before doing so, we will conduct model training using the lasso regression to get the best hyperparameter of $\lambda$.
