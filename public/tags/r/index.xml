@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Science, Physiotherapy and Stats</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on Science, Physiotherapy and Stats</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
+    <lastBuildDate>Sat, 19 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Finalizing a Glmnet Model: An Example using Credit Data</title>
+      <link>/post/2019-01-25-finalizing-glmnet-models/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-01-25-finalizing-glmnet-models/</guid>
+      <description>Evaluating a models hyperparameter In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.
+An example is lasso regression which, very briefly, puts a constraint on the models coefficient in order to decrease variance of model coefcients and coeficient selection.
+To figure out the appropriate hyperparameters cross-validation is applied, where cross-validation is a method to simulate the models performance using test and a training sets.</description>
+    </item>
+    
+  </channel>
+</rss>

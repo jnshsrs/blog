@@ -13,6 +13,86 @@
     
     
     <item>
+      <title>Finalizing a Glmnet Model: An Example using Credit Data</title>
+      <link>/post/2019-01-25-finalizing-glmnet-models/</link>
+      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/2019-01-25-finalizing-glmnet-models/</guid>
+      <description></description>
+      
+      <content>&lt;div id=&#34;evaluating-a-models-hyperparameter&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Evaluating a models hyperparameter&lt;/h1&gt;
+&lt;p&gt;In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.&lt;/p&gt;
+&lt;p&gt;An example is lasso regression which, very briefly, puts a constraint on the models coefficient in order to decrease variance of model coefcients and coeficient selection.&lt;/p&gt;
+&lt;p&gt;To figure out the appropriate hyperparameters cross-validation is applied, where cross-validation is a method to simulate the models performance using test and a training sets. The training set is used to train the model and the predictive performance is evaluated using the test set also known as the hold-out set.&lt;/p&gt;
+&lt;p&gt;This procedure is done for each proposed hyperparameter and the hold-out metric is calculated. The hyperparameter suppling the best hold-out metric, e.g. hightest R-Squared is used to train the final model.&lt;/p&gt;
+&lt;p&gt;Before doing so, we will conduct model training using the lasso regression estimating the hyperparameter lambda, ruling the amount of contraint. We will use the &lt;code&gt;caret&lt;/code&gt; package to train a model predicting the Miles per Gallon using different variables in the &lt;code&gt;mtcars&lt;/code&gt; dataset.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data &amp;lt;- ISLR::Credit %&amp;gt;% 
+  select(-ID) %&amp;gt;% 
+  mutate(random_noise = rnorm(n = nrow(.), sd = 10))
+
+y &amp;lt;- data$Income
+# creating a matrix with predictors
+X &amp;lt;- model.matrix(Income ~ ., data)
+
+# Setup the training process 
+# We will use 5-fold crossvalidation
+
+# 10 fold cross validation
+tr_ctrl &amp;lt;- caret::trainControl(method = &amp;quot;repeatedcv&amp;quot;, repeats = 1, number = 3)
+hyperparams &amp;lt;- expand.grid(lambda = c(seq(0.1, 4, .1)), alpha = 1)
+
+set.seed(124193)
+cv_models &amp;lt;- caret::train(x = X,
+                          y = y,
+                          family = &amp;quot;gaussian&amp;quot;,
+                          metric = &amp;quot;Rsquared&amp;quot;,
+                          method = &amp;quot;glmnet&amp;quot;,
+                          trControl = tr_ctrl,
+                          tuneGrid = hyperparams)
+
+lambda &amp;lt;- purrr::pluck(cv_models, &amp;quot;results&amp;quot;) %&amp;gt;%
+  select(lambda, Rsquared) %&amp;gt;%
+  filter(max(Rsquared) == Rsquared) %&amp;gt;%
+  pull(lambda)
+
+plot(cv_models)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-01-25-finalizing-glmnet-models_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;finalizing-the-model&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Finalizing the model&lt;/h1&gt;
+&lt;p&gt;We see in the plot that the cross-validated Residual Mean Squared Error peaks at an alpha value of .5, this hyperparameter value should be used in our final model.&lt;/p&gt;
+&lt;p&gt;In the next section we will use the &lt;code&gt;glmnet&lt;/code&gt; function from the &lt;code&gt;glmnet&lt;/code&gt; packages which allows us to create a regression model with the specific alpha value.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Setting alpha to 1 yielding lasso regression
+# Setting the regularization parameter lambda to 0.5 which yielded the lowest RMSE in the cross-validation procedure
+final_model &amp;lt;- glmnet::glmnet(x = X, y = y, family = &amp;quot;gaussian&amp;quot;, alpha = 1, lambda = lambda)
+
+# Get final model coefficients
+tidy_final_model &amp;lt;- broom::tidy(final_model)  
+
+# extracting coeficients
+coefs &amp;lt;- tidy_final_model$estimate
+
+# extracting coeficient names
+vars &amp;lt;- tidy_final_model$term
+
+# getting data to predict
+newX &amp;lt;- as.matrix(X[, vars])
+
+# predict
+y_hat &amp;lt;- newX %*% as.matrix(coefs, nrow = 6)
+
+# R-Squared
+r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))
+r_sq&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.906947&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; in this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final R-Square value of 0.906947, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Koeffizienten des Bass-Models</title>
       <link>/post/estimating-the-bass-model/</link>
       <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
@@ -95,6 +175,78 @@ show_bass_curves(p, q)&lt;/code&gt;&lt;/pre&gt;
 &lt;h1&gt;Schlussfolgerung&lt;/h1&gt;
 &lt;p&gt;Das Bass-Model kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren. Das Model besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden. Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn. Je höher der Koeffizient desto stärker der Effekt der Innovatoren. Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase. Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.&lt;/p&gt;
 &lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title>Marktentwicklung von Innovationen</title>
+      <link>/post/marktentwicklung-von-innovationen/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/marktentwicklung-von-innovationen/</guid>
+      <description></description>
+      
+      <content>&lt;p&gt;Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.&lt;/p&gt;
+&lt;p&gt;Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen. Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann. Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.&lt;/p&gt;
+&lt;p&gt;Das Bass Modell hat sich in der Vergangenheit als nützlich herausgestellt und wird auch heute noch zur Erforschung der Digitalisierung in verschiedenen wissenschaftlichen Publikationen genutzt. Zudem wird das Modell auch für die Absatzplanung in Unternehmen eingesetzt.&lt;/p&gt;
+&lt;p&gt;Es gibt verschiedene Softwarelösungen, welche eine Schätzung des Modells vornehmen. R bietet sich als Open Source Lösung an, denn das Programm hält die Funktionen zur Modellschätzung bereit. Zudem exisiteren Programmerweiterungen, die den Umgang mit dem Bass-Modell erleichtern.&lt;/p&gt;
+&lt;p&gt;In diesem Beispiel möchte ich ein kurzes Beispiel demonstrieren, wie mit den Basisfunktionen in R ein Bass-Modell erstellt werden kann, das auf den beobachteten kumulierten Adoptionsraten eines Produktes basieren.&lt;/p&gt;
+&lt;p&gt;Für die Modellschätzung werden die Marktdaten benötigt. Dabei ist zu beachten, dass diese Daten in jeweils gleichen Zeitabständen vorliegen. Zum beispiel jährlich, quartalsweise oder monatlich. Fehlende Daten können unter Umständen ersetzt werden.&lt;/p&gt;
+&lt;p&gt;We try to model the cumulative proportions of adopters. Therfore we model the cumulative proporitions of adopters by using the differential function of the of the Bass Model Curve to estimate the coefficient of innovation p and coefficient of immitation q.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# bass function
+bass_F &amp;lt;- function(Time, p, q) {
+  (1 - exp(-(p + q)*Time))/(1 + (q/p)*exp(-(p+q)*Time))
+}
+
+x &amp;lt;- 1:10
+y &amp;lt;- c(.1, .2, .3, .35, .5, .6, .66, .78, .8, .84)
+Time = x
+fit &amp;lt;- stats::nls(y ~ bass_F(Time, p, q), start=list(p = .1, q = .5 ))
+
+plot(x, y)
+fit &amp;lt;- nls(formula = y ~ bass_F(Time = x, p, q), start=list(p=.1, q=.5))
+summary(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Formula: y ~ bass_F(Time = x, p, q)
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## p 0.080839   0.007181  11.258 3.48e-06 ***
+## q 0.234345   0.028850   8.123 3.91e-05 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.02264 on 8 degrees of freedom
+## 
+## Number of iterations to convergence: 6 
+## Achieved convergence tolerance: 8.376e-07&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stats::AIC(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -43.61239&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;f &amp;lt;- broom::augment(fit)$.fitted&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(sum(f^2)) / mean(x)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5923237&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sd(f) / sqrt(length(Time))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.08442616&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;broom::augment(fit) %&amp;gt;% 
+  mutate(y = y) %&amp;gt;% 
+  ggplot(aes(Time, y)) +
+  geom_point() +
+  geom_line(aes(x = Time, y = .fitted)) +
+  geom_linerange(aes(ymin = .fitted, ymax = y))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We used the statistical computing language R to etimate the model’s parameters p and q based on the observed cumulated proportions of adopters. In more detail, we used the &lt;code&gt;nls&lt;/code&gt; Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm. To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.&lt;/p&gt;
 </content>
       
     </item>
@@ -909,7 +1061,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fc6c4376f28&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fbc491b4ff8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1313,7 +1465,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.3
+## 1 female  31.9  33.2  34.4
 ## 2 male    32.7  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
@@ -1363,12 +1515,12 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
       <content>&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
 &lt;p&gt;Some of them share the same information stored in columns and I had to combine them in a single dataframe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)  &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
 ## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
 ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create two dataframes

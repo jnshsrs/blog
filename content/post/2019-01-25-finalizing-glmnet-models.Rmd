@@ -1,0 +1,107 @@
+---
+title: "Finalizing a Glmnet Model: An Example using Credit Data"
+author: Jens Hüsers
+date: '2019-01-19'
+draft: false  
+categories:
+  - R
+  - glmnet
+  - machine learning
+  - predictive analysis
+tags:
+  - machine learning
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r warning=FALSE, message=FALSE, echo=FALSE, eval = TRUE}
+
+knitr::opts_knit$set(message = FALSE, warning=FALSE, echo = TRUE)
+
+library(tidyverse)
+
+```
+
+# Evaluating a models hyperparameter
+
+In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data.
+When building models we can use hyperparameters of the algorithms to increase model performance.
+
+An example is lasso regression which, very briefly, puts a constraint on the models coefficient in order to decrease variance of model coefcients and coeficient selection.
+
+To figure out the appropriate hyperparameters cross-validation is applied, where cross-validation is a method to simulate the models performance using test and a training sets. The training set is used to train the model and the predictive performance is evaluated using the test set also known as the hold-out set.
+
+This procedure is done for each proposed hyperparameter and the hold-out metric is calculated. 
+The hyperparameter suppling the best hold-out metric, e.g. hightest R-Squared is used to train the final model.
+
+Before doing so, we will conduct model training using the lasso regression estimating the hyperparameter lambda, ruling the amount of contraint.
+We will use the `caret` package to train a model predicting the Miles per Gallon using different variables in the `mtcars` dataset.
+
+```{r, message=FALSE}
+
+data <- ISLR::Credit %>% 
+  select(-ID) %>% 
+  mutate(random_noise = rnorm(n = nrow(.), sd = 10))
+
+y <- data$Income
+# creating a matrix with predictors
+X <- model.matrix(Income ~ ., data)
+
+# Setup the training process 
+# We will use 5-fold crossvalidation
+
+# 10 fold cross validation
+tr_ctrl <- caret::trainControl(method = "repeatedcv", repeats = 1, number = 3)
+hyperparams <- expand.grid(lambda = c(seq(0.1, 4, .1)), alpha = 1)
+
+set.seed(124193)
+cv_models <- caret::train(x = X,
+                          y = y,
+                          family = "gaussian",
+                          metric = "Rsquared",
+                          method = "glmnet",
+                          trControl = tr_ctrl,
+                          tuneGrid = hyperparams)
+
+lambda <- purrr::pluck(cv_models, "results") %>%
+  select(lambda, Rsquared) %>%
+  filter(max(Rsquared) == Rsquared) %>%
+  pull(lambda)
+
+plot(cv_models)
+
+```
+
+# Finalizing the model
+
+We see in the plot that the cross-validated Residual Mean Squared Error peaks at an alpha value of .5, this hyperparameter value should be used in our final model.
+
+In the next section we will use the `glmnet` function from the `glmnet` packages which allows us to create a regression model with the specific alpha value.
+
+```{r}
+# Setting alpha to 1 yielding lasso regression
+# Setting the regularization parameter lambda to 0.5 which yielded the lowest RMSE in the cross-validation procedure
+final_model <- glmnet::glmnet(x = X, y = y, family = "gaussian", alpha = 1, lambda = lambda)
+
+# Get final model coefficients
+tidy_final_model <- broom::tidy(final_model)  
+
+# extracting coeficients
+coefs <- tidy_final_model$estimate
+
+# extracting coeficient names
+vars <- tidy_final_model$term
+
+# getting data to predict
+newX <- as.matrix(X[, vars])
+
+# predict
+y_hat <- newX %*% as.matrix(coefs, nrow = 6)
+
+# R-Squared
+r_sq <- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))
+r_sq
+```
+
+Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; in this example the value of lambda was $\lambda$ = `r round(lambda, 3)` with a final R-Square value of `r r_sq`, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation.
