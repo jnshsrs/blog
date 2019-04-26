@@ -23,7 +23,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="/"><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
+        <a class="nav-item" href=""><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
@@ -115,14 +115,14 @@ titanic &lt;- read_csv(&quot;data/titanic.csv&quot;)
 head(titanic)</code></pre>
 <pre><code>## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
-##    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
+##    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
 ## 1      1        1 Alle… fema… 29        0     0 24160  211.  B5    S       
 ## 2      1        1 Alli… male   0.92     1     2 113781 152.  C22 … S       
 ## 3      1        0 Alli… fema…  2        1     2 113781 152.  C22 … S       
 ## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
 ## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
 ## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
-## # ... with 3 more variables: boat &lt;int&gt;, body &lt;int&gt;, home.dest &lt;chr&gt;</code></pre>
+## # … with 3 more variables: boat &lt;dbl&gt;, body &lt;dbl&gt;, home.dest &lt;chr&gt;</code></pre>
 <pre class="r"><code>ggplot(data = titanic, 
        mapping = aes(x = age, y = fare, col = pclass)) + 
   geom_point() </code></pre>

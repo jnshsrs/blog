@@ -88,7 +88,7 @@ show_bass_curves <- function(p, q) {
   t <- 0:10
   
   res <- map2(.x = p_, .y = q_, .f = netdiffuseR::bass_F, Time = t) 
-  g <- g %>% unite(col = c("Var1", "Var2")) %>% pull
+  g <- g %>% as.data.frame %>% as.tibble %>% unite(col = "Var", c("Var1", "Var2")) %>% pull
   
   res <- res %>%
     set_names(g) %>%

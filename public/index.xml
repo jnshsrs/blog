@@ -13,6 +13,57 @@
     
     
     <item>
+      <title>Profiling and Slicing an FHIR Observation Resource</title>
+      <link>/post/profiling-and-slicing-an-fhir-observation-resource/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/profiling-and-slicing-an-fhir-observation-resource/</guid>
+      <description></description>
+      
+      <content>&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;This post is about creating FHIR profiles and slicing in particular. So, just before I start I want to introduce with a few bullet points to show from where this post starts.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Observation is a common entity in clinical care&lt;/li&gt;
+&lt;li&gt;It is an FHIR resource helping to represent and store informations about an observation made in clinic practise&lt;/li&gt;
+&lt;li&gt;The FHIR resource observation is normative amon only few more resources&lt;/li&gt;
+&lt;li&gt;We can use the FHIR resource to represent clinical observations and store them on electronisch systems&lt;/li&gt;
+&lt;li&gt;An observation may be the blood pressure or the size of a wound, to only name two out of many&lt;/li&gt;
+&lt;li&gt;The FHIR specification is a framework of rules how to represent clinical information as listed above&lt;/li&gt;
+&lt;li&gt;We can apply these rules to represent specific use cases e.g. observations such as blood pressure&lt;/li&gt;
+&lt;li&gt;Appling these rules to a resource is called profiling&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We can use profiling to specifiy how we want to use the FHIR resource to represent an blood pressure observation, e.g. by using fixed values and clinical code systems such as LOINC or SNOMED CT which represent clinical concepts&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The next section discusses some parts of the profiling process and focusses on the slicing procedure&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;why-slicing&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Why slicing&lt;/h1&gt;
+&lt;p&gt;As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification. This profile was about the vital sign &lt;em&gt;blood pressure&lt;/em&gt; which is represented by the systolic and the diastolic blood pressure. Following this logic, the profile captures blood pressure using two distinct values. In order to encode both values, the core specification uses the componente element of the observation resource which is sliced.&lt;/p&gt;
+&lt;p&gt;Slicing is an operation in the profiling process to create multiple instances of an element. In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing. In this case two component elements are created by the slicing operation, one representing the systolic part and the other representing the diastolic part of the blood pressure element. The element component of the resource &lt;code&gt;observation&lt;/code&gt; has the datatype &lt;code&gt;BackboneElement&lt;/code&gt; and two main elements: &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt;. The &lt;code&gt;code&lt;/code&gt; element holds information about the kind of observation using code systems such as LOINC or SNOMED CT, e.g. the LOINC code &lt;code&gt;8480-6&lt;/code&gt; represents the concept of &lt;em&gt;diastolic blood pressure&lt;/em&gt;. The &lt;code&gt;value&lt;/code&gt; elments holds information about the actual value of the observation in a unit such as &lt;em&gt;mmHg&lt;/em&gt; to describe the diastolic pressure.&lt;/p&gt;
+&lt;p&gt;The two components of blood pressure, i.e. systolic and diastolic, are each represented as an individual component. In order to differentiate between both components, slices have **discriminators*. Discriminators are elements within the parent element and have a path and a type. The type describes the kind of the slice and the path is a FHIR path of an element which actually discrinates.&lt;/p&gt;
+&lt;p&gt;The blood pressure profile uses the &lt;code&gt;code.coding.code&lt;/code&gt; element as discriminator by specifing a value. The discriminator of of the blood pressure profile is the element &lt;code&gt;code.coding.code&lt;/code&gt;, represented as a FHIR path. As the name of the path suggests, the discriminator element is defined by a certain &lt;em&gt;code value&lt;/em&gt;. In this example, the profile uses &lt;em&gt;LOINC&lt;/em&gt; as code system and the codes &lt;code&gt;8480-6&lt;/code&gt; and &lt;code&gt;8480-6&lt;/code&gt; to represent diastolic and systolic blood pressure respectivly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;another-slice-in-component---but-why&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Another slice in component - but why?&lt;/h1&gt;
+&lt;p&gt;Additionally, the profile &lt;em&gt;blood pressure&lt;/em&gt; has also slices on the &lt;code&gt;code.coding&lt;/code&gt;. This element is part of the &lt;code&gt;component&lt;/code&gt; element. element of the parent element &lt;code&gt;component&lt;/code&gt; (The &lt;code&gt;componenent&lt;/code&gt; element furthermore has child elements &lt;code&gt;value[x]&lt;/code&gt;, &lt;code&gt;dataAbsentReason&lt;/code&gt;, &lt;code&gt;interpretation&lt;/code&gt; and &lt;code&gt;referenceRange&lt;/code&gt;). To make it more complicated, the abovementioned &lt;code&gt;code.coding&lt;/code&gt; element contains another &lt;code&gt;code&lt;/code&gt; element. I want to emphasise that two things:&lt;/p&gt;
+&lt;p&gt;1.) This specific element is the discriminator of the first slice on &lt;code&gt;component&lt;/code&gt; (to be specific, the FHIR path is &lt;code&gt;code.coding.code&lt;/code&gt; which we have already seen above as the path of the first discriminator).&lt;/p&gt;
+&lt;p&gt;2.) This element &lt;code&gt;code.coding.code&lt;/code&gt; is sliced again in the core FIHR profile of &lt;em&gt;blood pressure&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;During the time when I familiarized myself with this &lt;em&gt;blood pressure&lt;/em&gt; profile this seemed unreasonable to me. In my eyes the second slice on &lt;code&gt;code.coding&lt;/code&gt; was not nessecary at all. However, since this profile is published as part of the official core FHIR profiles, there must be a good reason for them to do so.&lt;/p&gt;
+&lt;p&gt;In this section I will present my explaination why I think the authors of the FHIR core profile &lt;em&gt;blood pressure&lt;/em&gt; decided to choose to do so, that is, slice again on the sliced element.&lt;/p&gt;
+&lt;p&gt;In the previous section of this post, I compared the process of slicing with copying an element we want to use in a profile multiple times. I think this is the reason why the authors sliced &lt;code&gt;code.coding.code&lt;/code&gt; again: In slicing this element, the profile enables the use of multiple elements of the specific &lt;code&gt;component&lt;/code&gt;. Here, an example might provide a clearer view on the described situation.&lt;/p&gt;
+&lt;p&gt;In the use case of &lt;em&gt;blood pressure&lt;/em&gt;, we now know that it has two components, one of them is diastolic blood pressure. To map the sliced component with the concept of diastolic blood pressure, a code from a code system can be used. In this scenario, the authors choosed to represent diastolic blood pressure with a LOINC code and is used as a fixed value of the &lt;code&gt;code.coding.code&lt;/code&gt; element, which, remember, is the discriminator of the sliced &lt;code&gt;component&lt;/code&gt; element.&lt;/p&gt;
+&lt;p&gt;However, it is possible to represent the concept of &lt;em&gt;diastolic blood pressure&lt;/em&gt; with other code systems, such as SNOMED CT or even MeSH Terms. By slicing the &lt;code&gt;code.coding.code&lt;/code&gt; element, the strategy of slicing again enables future implementers of this profile to define and use further codes. This means, that this profile will always represent &lt;em&gt;diastolic blood pressure&lt;/em&gt; with a LOINC code, but other code can used as well. If instead the &lt;code&gt;code.coding.code&lt;/code&gt; element is not sliced, future implementers cannot add synonymous codes to the component &lt;em&gt;diastolic blood pressure&lt;/em&gt; and I will illustrate both situations by providing profiles.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;example-profiles&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Example Profiles&lt;/h1&gt;
+&lt;p&gt;The first profile will be derived from the core FHIR &lt;em&gt;blood pressure&lt;/em&gt; profile and provide additional SNOMED CT codes. This type of profile is called a derived profile, since it is based on another profile. The second example profile does not derive from the core profile but rather will be base on the core FHIR resource &lt;code&gt;observation&lt;/code&gt;. The profile represent a &lt;em&gt;blood pressure&lt;/em&gt; observation, by providing components for diastolic and systolic blood pressure values by slicing the &lt;code&gt;component&lt;/code&gt; element. However in this case, the discriminator will be the value of the &lt;code&gt;code.coding&lt;/code&gt; value. As a result, the code of the e.g. &lt;em&gt;diastolic blood pressure&lt;/em&gt; will be fixed and future implementers cannot add any code when using this profile.&lt;/p&gt;
+&lt;p&gt;Both examples will be a StructureDefinition, which is a FHIR resource representing a FHIR profile, in this context a profile to represent blood pressure values.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Finalizing a Lasso (glmnet) Model: An Example using Credit Data</title>
       <link>/post/2019-01-25-finalizing-glmnet-models/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
@@ -96,7 +147,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.61&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.58&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -108,7 +159,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.21&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.22&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
@@ -116,7 +167,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.18&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.24&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
@@ -124,15 +175,15 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.17&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.16&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.07&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.14&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.08&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.17&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
@@ -140,7 +191,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.04&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.05&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -209,7 +260,7 @@ show_bass_curves &amp;lt;- function(p, q) {
   t &amp;lt;- 0:10
   
   res &amp;lt;- map2(.x = p_, .y = q_, .f = netdiffuseR::bass_F, Time = t) 
-  g &amp;lt;- g %&amp;gt;% unite(col = c(&amp;quot;Var1&amp;quot;, &amp;quot;Var2&amp;quot;)) %&amp;gt;% pull
+  g &amp;lt;- g %&amp;gt;% as.data.frame %&amp;gt;% as.tibble %&amp;gt;% unite(col = &amp;quot;Var&amp;quot;, c(&amp;quot;Var1&amp;quot;, &amp;quot;Var2&amp;quot;)) %&amp;gt;% pull
   
   res &amp;lt;- res %&amp;gt;%
     set_names(g) %&amp;gt;%
@@ -247,78 +298,6 @@ show_bass_curves(p, q)&lt;/code&gt;&lt;/pre&gt;
 &lt;h1&gt;Schlussfolgerung&lt;/h1&gt;
 &lt;p&gt;Das Bass-Model kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren. Das Model besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden. Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn. Je höher der Koeffizient desto stärker der Effekt der Innovatoren. Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase. Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.&lt;/p&gt;
 &lt;/div&gt;
-</content>
-      
-    </item>
-    
-    <item>
-      <title>Marktentwicklung von Innovationen</title>
-      <link>/post/marktentwicklung-von-innovationen/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      <author>Jens Hüsers</author>
-      <guid>/post/marktentwicklung-von-innovationen/</guid>
-      <description></description>
-      
-      <content>&lt;p&gt;Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.&lt;/p&gt;
-&lt;p&gt;Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen. Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann. Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.&lt;/p&gt;
-&lt;p&gt;Das Bass Modell hat sich in der Vergangenheit als nützlich herausgestellt und wird auch heute noch zur Erforschung der Digitalisierung in verschiedenen wissenschaftlichen Publikationen genutzt. Zudem wird das Modell auch für die Absatzplanung in Unternehmen eingesetzt.&lt;/p&gt;
-&lt;p&gt;Es gibt verschiedene Softwarelösungen, welche eine Schätzung des Modells vornehmen. R bietet sich als Open Source Lösung an, denn das Programm hält die Funktionen zur Modellschätzung bereit. Zudem exisiteren Programmerweiterungen, die den Umgang mit dem Bass-Modell erleichtern.&lt;/p&gt;
-&lt;p&gt;In diesem Beispiel möchte ich ein kurzes Beispiel demonstrieren, wie mit den Basisfunktionen in R ein Bass-Modell erstellt werden kann, das auf den beobachteten kumulierten Adoptionsraten eines Produktes basieren.&lt;/p&gt;
-&lt;p&gt;Für die Modellschätzung werden die Marktdaten benötigt. Dabei ist zu beachten, dass diese Daten in jeweils gleichen Zeitabständen vorliegen. Zum beispiel jährlich, quartalsweise oder monatlich. Fehlende Daten können unter Umständen ersetzt werden.&lt;/p&gt;
-&lt;p&gt;We try to model the cumulative proportions of adopters. Therfore we model the cumulative proporitions of adopters by using the differential function of the of the Bass Model Curve to estimate the coefficient of innovation p and coefficient of immitation q.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# bass function
-bass_F &amp;lt;- function(Time, p, q) {
-  (1 - exp(-(p + q)*Time))/(1 + (q/p)*exp(-(p+q)*Time))
-}
-
-x &amp;lt;- 1:10
-y &amp;lt;- c(.1, .2, .3, .35, .5, .6, .66, .78, .8, .84)
-Time = x
-fit &amp;lt;- stats::nls(y ~ bass_F(Time, p, q), start=list(p = .1, q = .5 ))
-
-plot(x, y)
-fit &amp;lt;- nls(formula = y ~ bass_F(Time = x, p, q), start=list(p=.1, q=.5))
-summary(fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Formula: y ~ bass_F(Time = x, p, q)
-## 
-## Parameters:
-##   Estimate Std. Error t value Pr(&amp;gt;|t|)    
-## p 0.080839   0.007181  11.258 3.48e-06 ***
-## q 0.234345   0.028850   8.123 3.91e-05 ***
-## ---
-## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
-## 
-## Residual standard error: 0.02264 on 8 degrees of freedom
-## 
-## Number of iterations to convergence: 6 
-## Achieved convergence tolerance: 8.376e-07&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stats::AIC(fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] -43.61239&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;f &amp;lt;- broom::augment(fit)$.fitted&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(sum(f^2)) / mean(x)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.5923237&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sd(f) / sqrt(length(Time))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.08442616&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-## ✔ readr   1.1.1     ✔ forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;broom::augment(fit) %&amp;gt;% 
-  mutate(y = y) %&amp;gt;% 
-  ggplot(aes(Time, y)) +
-  geom_point() +
-  geom_line(aes(x = Time, y = .fitted)) +
-  geom_linerange(aes(ymin = .fitted, ymax = y))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We used the statistical computing language R to etimate the model’s parameters p and q based on the observed cumulated proportions of adopters. In more detail, we used the &lt;code&gt;nls&lt;/code&gt; Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm. To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.&lt;/p&gt;
 </content>
       
     </item>
@@ -766,14 +745,14 @@ titanic &amp;lt;- read_csv(&amp;quot;data/titanic.csv&amp;quot;)
 head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
-##    &amp;lt;int&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
+##    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
 ## 1      1        1 Alle… fema… 29        0     0 24160  211.  B5    S       
 ## 2      1        1 Alli… male   0.92     1     2 113781 152.  C22 … S       
 ## 3      1        0 Alli… fema…  2        1     2 113781 152.  C22 … S       
 ## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
 ## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
 ## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
-## # ... with 3 more variables: boat &amp;lt;int&amp;gt;, body &amp;lt;int&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+## # … with 3 more variables: boat &amp;lt;dbl&amp;gt;, body &amp;lt;dbl&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
        mapping = aes(x = age, y = fare, col = pclass)) + 
   geom_point() &lt;/code&gt;&lt;/pre&gt;
@@ -1133,7 +1112,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fb4febcf1f8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fa701e91de0&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1187,8 +1166,15 @@ temperaturen$temperaturen_kairo &amp;lt;- c(36, 35, 37, 37, 36, 35, 34, 34)&lt;/
 &lt;/div&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic &amp;lt;- read.csv(&amp;quot;data/titanic.csv&amp;quot;)
 
-library(tidyverse)
-head(titanic)&lt;/code&gt;&lt;/pre&gt;
+library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;forcats&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##   pclass survived                                            name    sex
 ## 1      1        1                   Allen, Miss. Elisabeth Walton female
 ## 2      1        1                  Allison, Master. Hudson Trevor   male
@@ -1280,7 +1266,7 @@ head(titanic_sav) # ersten sechs Zeilen des Datensatzes&lt;/code&gt;&lt;/pre&gt;
 ## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
 ## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
 ## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
-## # ... with 3 more variables: boat &amp;lt;chr&amp;gt;, body &amp;lt;dbl&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+## # … with 3 more variables: boat &amp;lt;chr&amp;gt;, body &amp;lt;dbl&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(titanic_sav) # Zusammenfassung des Datensatzes&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##      pclass         survived         name               sex           
 ##  Min.   :1.000   Min.   :0.000   Length:1309        Length:1309       
@@ -1342,14 +1328,14 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
   arrange(fare) %&amp;gt;% tail&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
-##    &amp;lt;int&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
+##    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;   
 ## 1      1        1 Fort… fema…  60       1     4 19950  2959. C23 … S       
 ## 2      1        1 Card… male   36       0     1 PC 17… 5764. B51 … C       
 ## 3      1        1 Card… fema…  58       0     1 PC 17… 5764. B51 … C       
 ## 4      1        1 Lesu… male   35       0     0 PC 17… 5764. B101  C       
 ## 5      1        1 Ward… fema…  35       0     0 PC 17… 5764. &amp;lt;NA&amp;gt;  C       
 ## 6      3        0 Stor… male   60.5     0     0 3701     NA  &amp;lt;NA&amp;gt;  S       
-## # ... with 3 more variables: boat &amp;lt;int&amp;gt;, body &amp;lt;int&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+## # … with 3 more variables: boat &amp;lt;dbl&amp;gt;, body &amp;lt;dbl&amp;gt;, home.dest &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;em&gt;Die ältesten 3 überlebenden Passagiere&lt;/em&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic %&amp;gt;% 
   mutate(survived = if_else(survived == 1, TRUE, FALSE)) %&amp;gt;% 
@@ -1359,7 +1345,7 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
   tail(n = 3)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 3
 ##   name                                                age pclass
-##   &amp;lt;chr&amp;gt;                                             &amp;lt;dbl&amp;gt;  &amp;lt;int&amp;gt;
+##   &amp;lt;chr&amp;gt;                                             &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;
 ## 1 Shine, Miss. Ellen Natalia                           NA      3
 ## 2 Smyth, Miss. Julia                                   NA      3
 ## 3 Thorneycroft, Mrs. Percival (Florence Kate White)    NA      3&lt;/code&gt;&lt;/pre&gt;
@@ -1417,7 +1403,7 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
   summarise(durchschnittl_fahrpreis = mean(fare, na.rm = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 2
 ##   pclass durchschnittl_fahrpreis
-##    &amp;lt;int&amp;gt;                   &amp;lt;dbl&amp;gt;
+##    &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
 ## 1      1                    87.5
 ## 2      2                    21.2
 ## 3      3                    13.3&lt;/code&gt;&lt;/pre&gt;
@@ -1433,7 +1419,7 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
   mutate(prop = n / sum(n)) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 4 x 4
 ##   survived sex        n   prop
-##      &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt;
+##      &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;  &amp;lt;dbl&amp;gt;
 ## 1        0 female   127 0.0970
 ## 2        0 male     682 0.521 
 ## 3        1 female   339 0.259 
@@ -1457,7 +1443,7 @@ auslastung_aller_boote &amp;lt;- auslastung_pro_boot %&amp;gt;%
 print(auslastung_pro_boot) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 16 x 3
 ##     boat     n auslastung
-##    &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;      &amp;lt;dbl&amp;gt;
+##    &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;      &amp;lt;dbl&amp;gt;
 ##  1     1     5     0.0769
 ##  2     2    13     0.2   
 ##  3     3    26     0.4   
@@ -1537,8 +1523,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  32.0  33.2  34.5
-## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
+## 1 female  31.8  33.2  34.5
+## 2 male    32.7  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
@@ -1587,12 +1573,19 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
       <content>&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
 &lt;p&gt;Some of them share the same information stored in columns and I had to combine them in a single dataframe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)  &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.0     ✔ purrr   0.2.5
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
-## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
-## ✔ readr   1.1.1     ✔ forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
+## ✔ readr   1.3.1       ✔ forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;forcats&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create two dataframes
@@ -1713,14 +1706,14 @@ base::table(spss$edlevel_converted)&lt;/code&gt;&lt;/pre&gt;
 
 ## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 6
-##      id sex      age marital        edlevel            edlevel_converted  
-##   &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;          &amp;lt;ord&amp;gt;              &amp;lt;ord&amp;gt;              
-## 1    83 female    42 married/defac… secondary school   secondary school   
-## 2   294 female    54 married/defac… postgraduate degr… postgraduate degree
-## 3   425 male      NA married/defac… secondary school   secondary school   
-## 4    64 female    41 married/defac… postgraduate degr… postgraduate degree
-## 5   536 female    39 married/defac… postgraduate degr… postgraduate degree
-## 6    57 female    66 married/defac… undergraduate deg… undergraduate degr…&lt;/code&gt;&lt;/pre&gt;
+##      id sex      age marital         edlevel            edlevel_converted  
+##   &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;           &amp;lt;ord&amp;gt;              &amp;lt;ord&amp;gt;              
+## 1    83 female    42 married/defacto secondary school   secondary school   
+## 2   294 female    54 married/defacto postgraduate degr… postgraduate degree
+## 3   425 male      NA married/defacto secondary school   secondary school   
+## 4    64 female    41 married/defacto postgraduate degr… postgraduate degree
+## 5   536 female    39 married/defacto postgraduate degr… postgraduate degree
+## 6    57 female    66 married/defacto undergraduate deg… undergraduate degr…&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </content>
       

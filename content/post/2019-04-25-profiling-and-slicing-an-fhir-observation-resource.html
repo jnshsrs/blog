@@ -1,0 +1,50 @@
+---
+title: Profiling and Slicing an FHIR Observation Resource
+author: Jens Hüsers
+date: '2019-04-25'
+slug: profiling-and-slicing-an-fhir-observation-resource
+categories: []
+tags: []
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This post is about creating FHIR profiles and slicing in particular. So, just before I start I want to introduce with a few bullet points to show from where this post starts.</p>
+<ul>
+<li>Observation is a common entity in clinical care</li>
+<li>It is an FHIR resource helping to represent and store informations about an observation made in clinic practise</li>
+<li>The FHIR resource observation is normative amon only few more resources</li>
+<li>We can use the FHIR resource to represent clinical observations and store them on electronisch systems</li>
+<li>An observation may be the blood pressure or the size of a wound, to only name two out of many</li>
+<li>The FHIR specification is a framework of rules how to represent clinical information as listed above</li>
+<li>We can apply these rules to represent specific use cases e.g. observations such as blood pressure</li>
+<li>Appling these rules to a resource is called profiling</li>
+<li><p>We can use profiling to specifiy how we want to use the FHIR resource to represent an blood pressure observation, e.g. by using fixed values and clinical code systems such as LOINC or SNOMED CT which represent clinical concepts</p></li>
+<li><p>The next section discusses some parts of the profiling process and focusses on the slicing procedure</p></li>
+</ul>
+</div>
+<div id="why-slicing" class="section level1">
+<h1>Why slicing</h1>
+<p>As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification. This profile was about the vital sign <em>blood pressure</em> which is represented by the systolic and the diastolic blood pressure. Following this logic, the profile captures blood pressure using two distinct values. In order to encode both values, the core specification uses the componente element of the observation resource which is sliced.</p>
+<p>Slicing is an operation in the profiling process to create multiple instances of an element. In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing. In this case two component elements are created by the slicing operation, one representing the systolic part and the other representing the diastolic part of the blood pressure element. The element component of the resource <code>observation</code> has the datatype <code>BackboneElement</code> and two main elements: <code>code</code> and <code>value</code>. The <code>code</code> element holds information about the kind of observation using code systems such as LOINC or SNOMED CT, e.g. the LOINC code <code>8480-6</code> represents the concept of <em>diastolic blood pressure</em>. The <code>value</code> elments holds information about the actual value of the observation in a unit such as <em>mmHg</em> to describe the diastolic pressure.</p>
+<p>The two components of blood pressure, i.e. systolic and diastolic, are each represented as an individual component. In order to differentiate between both components, slices have **discriminators*. Discriminators are elements within the parent element and have a path and a type. The type describes the kind of the slice and the path is a FHIR path of an element which actually discrinates.</p>
+<p>The blood pressure profile uses the <code>code.coding.code</code> element as discriminator by specifing a value. The discriminator of of the blood pressure profile is the element <code>code.coding.code</code>, represented as a FHIR path. As the name of the path suggests, the discriminator element is defined by a certain <em>code value</em>. In this example, the profile uses <em>LOINC</em> as code system and the codes <code>8480-6</code> and <code>8480-6</code> to represent diastolic and systolic blood pressure respectivly.</p>
+</div>
+<div id="another-slice-in-component---but-why" class="section level1">
+<h1>Another slice in component - but why?</h1>
+<p>Additionally, the profile <em>blood pressure</em> has also slices on the <code>code.coding</code>. This element is part of the <code>component</code> element. element of the parent element <code>component</code> (The <code>componenent</code> element furthermore has child elements <code>value[x]</code>, <code>dataAbsentReason</code>, <code>interpretation</code> and <code>referenceRange</code>). To make it more complicated, the abovementioned <code>code.coding</code> element contains another <code>code</code> element. I want to emphasise that two things:</p>
+<p>1.) This specific element is the discriminator of the first slice on <code>component</code> (to be specific, the FHIR path is <code>code.coding.code</code> which we have already seen above as the path of the first discriminator).</p>
+<p>2.) This element <code>code.coding.code</code> is sliced again in the core FIHR profile of <em>blood pressure</em>.</p>
+<p>During the time when I familiarized myself with this <em>blood pressure</em> profile this seemed unreasonable to me. In my eyes the second slice on <code>code.coding</code> was not nessecary at all. However, since this profile is published as part of the official core FHIR profiles, there must be a good reason for them to do so.</p>
+<p>In this section I will present my explaination why I think the authors of the FHIR core profile <em>blood pressure</em> decided to choose to do so, that is, slice again on the sliced element.</p>
+<p>In the previous section of this post, I compared the process of slicing with copying an element we want to use in a profile multiple times. I think this is the reason why the authors sliced <code>code.coding.code</code> again: In slicing this element, the profile enables the use of multiple elements of the specific <code>component</code>. Here, an example might provide a clearer view on the described situation.</p>
+<p>In the use case of <em>blood pressure</em>, we now know that it has two components, one of them is diastolic blood pressure. To map the sliced component with the concept of diastolic blood pressure, a code from a code system can be used. In this scenario, the authors choosed to represent diastolic blood pressure with a LOINC code and is used as a fixed value of the <code>code.coding.code</code> element, which, remember, is the discriminator of the sliced <code>component</code> element.</p>
+<p>However, it is possible to represent the concept of <em>diastolic blood pressure</em> with other code systems, such as SNOMED CT or even MeSH Terms. By slicing the <code>code.coding.code</code> element, the strategy of slicing again enables future implementers of this profile to define and use further codes. This means, that this profile will always represent <em>diastolic blood pressure</em> with a LOINC code, but other code can used as well. If instead the <code>code.coding.code</code> element is not sliced, future implementers cannot add synonymous codes to the component <em>diastolic blood pressure</em> and I will illustrate both situations by providing profiles.</p>
+</div>
+<div id="example-profiles" class="section level1">
+<h1>Example Profiles</h1>
+<p>The first profile will be derived from the core FHIR <em>blood pressure</em> profile and provide additional SNOMED CT codes. This type of profile is called a derived profile, since it is based on another profile. The second example profile does not derive from the core profile but rather will be base on the core FHIR resource <code>observation</code>. The profile represent a <em>blood pressure</em> observation, by providing components for diastolic and systolic blood pressure values by slicing the <code>component</code> element. However in this case, the discriminator will be the value of the <code>code.coding</code> value. As a result, the code of the e.g. <em>diastolic blood pressure</em> will be fixed and future implementers cannot add any code when using this profile.</p>
+<p>Both examples will be a StructureDefinition, which is a FHIR resource representing a FHIR profile, in this context a profile to represent blood pressure values.</p>
+</div>

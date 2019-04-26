@@ -257,7 +257,7 @@ str(sinnlosse_beispielliste)</code></pre>
 ##   ..$ : chr &quot;B&quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &quot;srcref&quot;)= &#39;srcref&#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7fb4febcf1f8&gt;</code></pre>
+##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7fa701e91de0&gt;</code></pre>
 </div>
 <div id="datensatz-aka-data.frame" class="section level2">
 <h2>Datensatz aka data.frame</h2>
@@ -311,8 +311,15 @@ temperaturen$temperaturen_kairo &lt;- c(36, 35, 37, 37, 36, 35, 34, 34)</code></
 </div>
 <pre class="r"><code>titanic &lt;- read.csv(&quot;data/titanic.csv&quot;)
 
-library(tidyverse)
-head(titanic)</code></pre>
+library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>head(titanic)</code></pre>
 <pre><code>##   pclass survived                                            name    sex
 ## 1      1        1                   Allen, Miss. Elisabeth Walton female
 ## 2      1        1                  Allison, Master. Hudson Trevor   male
@@ -404,7 +411,7 @@ head(titanic_sav) # ersten sechs Zeilen des Datensatzes</code></pre>
 ## 4      1        0 Alli… male  30        1     2 113781 152.  C22 … S       
 ## 5      1        0 Alli… fema… 25        1     2 113781 152.  C22 … S       
 ## 6      1        1 Ande… male  48        0     0 19952   26.6 E12   S       
-## # ... with 3 more variables: boat &lt;chr&gt;, body &lt;dbl&gt;, home.dest &lt;chr&gt;</code></pre>
+## # … with 3 more variables: boat &lt;chr&gt;, body &lt;dbl&gt;, home.dest &lt;chr&gt;</code></pre>
 <pre class="r"><code>summary(titanic_sav) # Zusammenfassung des Datensatzes</code></pre>
 <pre><code>##      pclass         survived         name               sex           
 ##  Min.   :1.000   Min.   :0.000   Length:1309        Length:1309       
@@ -466,14 +473,14 @@ mean(titanic$age, na.rm = TRUE)</code></pre>
   arrange(fare) %&gt;% tail</code></pre>
 <pre><code>## # A tibble: 6 x 14
 ##   pclass survived name  sex     age sibsp parch ticket  fare cabin embarked
-##    &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
+##    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   
 ## 1      1        1 Fort… fema…  60       1     4 19950  2959. C23 … S       
 ## 2      1        1 Card… male   36       0     1 PC 17… 5764. B51 … C       
 ## 3      1        1 Card… fema…  58       0     1 PC 17… 5764. B51 … C       
 ## 4      1        1 Lesu… male   35       0     0 PC 17… 5764. B101  C       
 ## 5      1        1 Ward… fema…  35       0     0 PC 17… 5764. &lt;NA&gt;  C       
 ## 6      3        0 Stor… male   60.5     0     0 3701     NA  &lt;NA&gt;  S       
-## # ... with 3 more variables: boat &lt;int&gt;, body &lt;int&gt;, home.dest &lt;chr&gt;</code></pre>
+## # … with 3 more variables: boat &lt;dbl&gt;, body &lt;dbl&gt;, home.dest &lt;chr&gt;</code></pre>
 <p><em>Die ältesten 3 überlebenden Passagiere</em></p>
 <pre class="r"><code>titanic %&gt;% 
   mutate(survived = if_else(survived == 1, TRUE, FALSE)) %&gt;% 
@@ -483,7 +490,7 @@ mean(titanic$age, na.rm = TRUE)</code></pre>
   tail(n = 3)</code></pre>
 <pre><code>## # A tibble: 3 x 3
 ##   name                                                age pclass
-##   &lt;chr&gt;                                             &lt;dbl&gt;  &lt;int&gt;
+##   &lt;chr&gt;                                             &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 Shine, Miss. Ellen Natalia                           NA      3
 ## 2 Smyth, Miss. Julia                                   NA      3
 ## 3 Thorneycroft, Mrs. Percival (Florence Kate White)    NA      3</code></pre>
@@ -541,7 +548,7 @@ mean(titanic$age, na.rm = TRUE)</code></pre>
   summarise(durchschnittl_fahrpreis = mean(fare, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   pclass durchschnittl_fahrpreis
-##    &lt;int&gt;                   &lt;dbl&gt;
+##    &lt;dbl&gt;                   &lt;dbl&gt;
 ## 1      1                    87.5
 ## 2      2                    21.2
 ## 3      3                    13.3</code></pre>
@@ -557,7 +564,7 @@ mean(titanic$age, na.rm = TRUE)</code></pre>
   mutate(prop = n / sum(n)) </code></pre>
 <pre><code>## # A tibble: 4 x 4
 ##   survived sex        n   prop
-##      &lt;int&gt; &lt;chr&gt;  &lt;int&gt;  &lt;dbl&gt;
+##      &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;  &lt;dbl&gt;
 ## 1        0 female   127 0.0970
 ## 2        0 male     682 0.521 
 ## 3        1 female   339 0.259 
@@ -581,7 +588,7 @@ auslastung_aller_boote &lt;- auslastung_pro_boot %&gt;%
 print(auslastung_pro_boot) </code></pre>
 <pre><code>## # A tibble: 16 x 3
 ##     boat     n auslastung
-##    &lt;int&gt; &lt;int&gt;      &lt;dbl&gt;
+##    &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;
 ##  1     1     5     0.0769
 ##  2     2    13     0.2   
 ##  3     3    26     0.4   
@@ -661,8 +668,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) </code></pre>
 <pre><code>## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 female  32.0  33.2  34.5
-## 2 male    32.6  33.6  34.7</code></pre>
+## 1 female  31.8  33.2  34.5
+## 2 male    32.7  33.6  34.6</code></pre>
 <img src="/img/tut1-example-plot.png" />
 <hr>
 <div class="figure">

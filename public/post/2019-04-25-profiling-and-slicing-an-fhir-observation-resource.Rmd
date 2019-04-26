@@ -1,0 +1,92 @@
+---
+title: Profiling and Slicing an FHIR Observation Resource
+author: Jens Hüsers
+date: '2019-04-25'
+slug: profiling-and-slicing-an-fhir-observation-resource
+categories: []
+tags: []
+---
+
+# Introduction
+
+This post is about creating FHIR profiles and slicing in particular. So, just before I start I want to introduce with a few bullet points to show from where this post starts.
+
+- Observation is a common entity in clinical care 
+- It is an FHIR resource helping to represent and store informations about an observation made in clinic practise
+- The FHIR resource observation is normative amon only few more resources
+- We can use the FHIR resource to represent clinical observations and store them on electronisch systems
+- An observation may be the blood pressure or the size of a wound, to only name two out of many
+- The FHIR specification is a framework of rules how to represent clinical information as listed above
+- We can apply these rules to represent specific use cases e.g. observations such as blood pressure
+- Appling these rules to a resource is called profiling 
+- We can use profiling to specifiy how we want to use the FHIR resource to represent an blood pressure observation, e.g. by using fixed values and clinical code systems such as LOINC or SNOMED CT which represent clinical concepts
+
+- The next section discusses some parts of the profiling process and focusses on the slicing procedure
+
+
+# Why slicing
+
+As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification.
+This profile was about the vital sign *blood pressure* which is represented by the systolic and the diastolic blood pressure.
+Following this logic, the profile captures blood pressure using two distinct values. 
+In order to encode both values, the core specification uses the componente element of the observation resource which is sliced.
+
+Slicing is an operation in the profiling process to create multiple instances of an element. 
+In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing.
+In this case two component elements are created by the slicing operation, one representing the systolic part and the other representing the diastolic part of the blood pressure element.
+The element component of the resource `observation` has the datatype `BackboneElement` and two main elements: `code` and `value`.
+The `code` element holds information about the kind of observation using code systems such as LOINC or SNOMED CT, e.g. the LOINC code `8480-6` represents the concept of *diastolic blood pressure*. 
+The `value` elments holds information about the actual value of the observation in a unit such as *mmHg* to describe the diastolic pressure.
+
+The two components of blood pressure, i.e. systolic and diastolic, are each represented as an individual component.
+In order to differentiate between both components, slices have **discriminators*. 
+Discriminators are elements within the parent element and have a path and a type.
+The type describes the kind of the slice and the path is a FHIR path of an element which actually discrinates.
+
+The blood pressure profile uses the `code.coding.code` element as discriminator by specifing a value.
+The discriminator of of the blood pressure profile is the element `code.coding.code`, represented as a FHIR path.
+As the name of the path suggests, the discriminator element is defined by a certain *code value*. 
+In this example, the profile uses *LOINC* as code system and the codes `8480-6` and `8480-6` to represent diastolic and systolic blood pressure respectivly. 
+
+
+# Another slice in component - but why?
+
+Additionally, the profile *blood pressure* has also slices on the `code.coding`. 
+This element is part of the `component` element. element of the parent element `component` 
+(The `componenent` element furthermore has child elements `value[x]`, `dataAbsentReason`, `interpretation` and `referenceRange`).
+To make it more complicated, the abovementioned `code.coding` element contains another `code` element. 
+I want to emphasise that two things:
+
+1.) This specific element is the discriminator of the first slice on `component` (to be specific, the FHIR path is `code.coding.code` which we have already seen above as the path of the first discriminator).
+
+2.) This element `code.coding.code` is sliced again in the core FIHR profile of *blood pressure*.
+
+During the time when I familiarized myself with this *blood pressure* profile this seemed unreasonable to me.
+In my eyes the second slice on `code.coding` was not nessecary at all.
+However, since this profile is published as part of the official core FHIR profiles, there must be a good reason for them to do so.
+
+In this section I will present my explaination why I think the authors of the FHIR core profile *blood pressure* decided to choose to do so, that is, slice again on the sliced element.
+
+In the previous section of this post, I compared the process of slicing with copying an element we want to use in a profile multiple times. 
+I think this is the reason why the authors sliced `code.coding.code` again:
+In slicing this element, the profile enables the use of multiple elements of the specific `component`.
+Here, an example might provide a clearer view on the described situation.
+
+In the use case of *blood pressure*, we now know that it has two components, one of them is diastolic blood pressure.
+To map the sliced component with the concept of diastolic blood pressure, a code from a code system can be used.
+In this scenario, the authors choosed to represent diastolic blood pressure with a LOINC code and is used as a fixed value of the `code.coding.code` element, which, remember, is the discriminator of the sliced `component` element.
+
+However, it is possible to represent the concept of *diastolic blood pressure* with other code systems, such as SNOMED CT or even MeSH Terms.
+By slicing the `code.coding.code` element, the strategy of slicing again enables future implementers of this profile to define and use further codes.
+This means, that this profile will always represent *diastolic blood pressure* with a LOINC code, but other code can used as well.
+If instead the `code.coding.code` element is not sliced, future implementers cannot add synonymous codes to the component *diastolic blood pressure* and I will illustrate both situations by providing profiles.
+
+# Example Profiles
+
+The first profile will be derived from the core FHIR *blood pressure* profile and provide additional SNOMED CT codes. This type of profile is called a derived profile, since it is based on another profile.
+The second example profile does not derive from the core profile but rather will be base on the core FHIR resource `observation`.
+The profile represent a *blood pressure* observation, by providing components for diastolic and systolic blood pressure values by slicing the `component` element. However in this case, the discriminator will be the value of the `code.coding` value. 
+As a result, the code of the e.g. *diastolic blood pressure* will be fixed and future implementers cannot add any code when using this profile.
+
+Both examples will be a StructureDefinition, which is a FHIR resource representing a FHIR profile, in this context a profile to represent blood pressure values.
+
