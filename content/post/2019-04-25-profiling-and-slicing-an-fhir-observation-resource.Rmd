@@ -21,15 +21,15 @@ This post is about creating FHIR profiles and slicing in particular. So, just be
 - Appling these rules to a resource is called profiling 
 - We can use profiling to specifiy how we want to use the FHIR resource to represent an blood pressure observation, e.g. by using fixed values and clinical code systems such as LOINC or SNOMED CT which represent clinical concepts
 
-- The next section discusses some parts of the profiling process and focusses on the slicing procedure
+The next section discusses some parts of the profiling process and focusses on the slicing procedure
 
+# What is slicing and why is it important
 
-# Why slicing
-
-As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification.
-This profile was about the vital sign *blood pressure* which is represented by the systolic and the diastolic blood pressure.
-Following this logic, the profile captures blood pressure using two distinct values. 
-In order to encode both values, the core specification uses the componente element of the observation resource which is sliced.
+As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification (STU3) for a profile of [blood pressure](https://simplifier.net/coreprofilesstu3/bp).
+First, this profile uses a fixed LOINC code in the `code` element of the `observation` resource to make this observation a blood pressure observation.
+Because blood pressure has two components, the systolic and diastolic part, this profile furthermore uses the `component` element of the observation resource.
+The profile defines two components, one for the systolic and one for the diastolic blood pressure using LOINC codes again.
+The process of creating instances of resource elements in the profiling process is called slicing.
 
 Slicing is an operation in the profiling process to create multiple instances of an element. 
 In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing.
