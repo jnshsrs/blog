@@ -27,9 +27,9 @@ The next section discusses some parts of the profiling process and focusses on t
 
 As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification (STU3) for a profile of [blood pressure](https://simplifier.net/coreprofilesstu3/bp).
 First, this profile uses a fixed LOINC code in the `code` element of the `observation` resource to make this observation a blood pressure observation.
-Because blood pressure has two components, the systolic and diastolic part, this profile furthermore uses the `component` element of the observation resource.
-The profile defines two components, one for the systolic and one for the diastolic blood pressure using LOINC codes again.
-The process of creating instances of resource elements in the profiling process is called slicing.
+Because blood pressure has two components, the systolic and diastolic part, this profile furthermore uses the `component` element of the observation resource where both parts are defined using LOINC codes again.
+According to the spec an observation resource can have zero to many components and in this use case the component element is used twice: first for the systolic and second for the diastolic blood pressure.
+This process of creating specific instances of resource elements in the profiling process is called slicing.
 
 Slicing is an operation in the profiling process to create multiple instances of an element. 
 In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing.
@@ -90,3 +90,4 @@ As a result, the code of the e.g. *diastolic blood pressure* will be fixed and f
 
 Both examples will be a StructureDefinition, which is a FHIR resource representing a FHIR profile, in this context a profile to represent blood pressure values.
 
+You can find the simple example using only LOINC codes [here](https://simplifier.net/profilingacademytasks/bloodpresssureloinc) and my derived profile on the FHIR core profile of blood pressure supporting SNOMED CT codes additional to LOINC codes [here](https://simplifier.net/profilingacademytasks/vitalsignsprofile).
