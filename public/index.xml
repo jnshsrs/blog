@@ -32,13 +32,13 @@
 &lt;li&gt;The FHIR specification is a framework of rules how to represent clinical information as listed above&lt;/li&gt;
 &lt;li&gt;We can apply these rules to represent specific use cases e.g. observations such as blood pressure&lt;/li&gt;
 &lt;li&gt;Appling these rules to a resource is called profiling&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;We can use profiling to specifiy how we want to use the FHIR resource to represent an blood pressure observation, e.g. by using fixed values and clinical code systems such as LOINC or SNOMED CT which represent clinical concepts&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;The next section discusses some parts of the profiling process and focusses on the slicing procedure&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;We can use profiling to specifiy how we want to use the FHIR resource to represent an blood pressure observation, e.g. by using fixed values and clinical code systems such as LOINC or SNOMED CT which represent clinical concepts&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;The next section discusses some parts of the profiling process and focusses on the slicing procedure&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;why-slicing&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Why slicing&lt;/h1&gt;
-&lt;p&gt;As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification. This profile was about the vital sign &lt;em&gt;blood pressure&lt;/em&gt; which is represented by the systolic and the diastolic blood pressure. Following this logic, the profile captures blood pressure using two distinct values. In order to encode both values, the core specification uses the componente element of the observation resource which is sliced.&lt;/p&gt;
+&lt;div id=&#34;what-is-slicing-and-why-is-it-important&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;What is slicing and why is it important&lt;/h1&gt;
+&lt;p&gt;As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification (STU3) for a profile of &lt;a href=&#34;https://simplifier.net/coreprofilesstu3/bp&#34;&gt;blood pressure&lt;/a&gt;. First, this profile uses a fixed LOINC code in the &lt;code&gt;code&lt;/code&gt; element of the &lt;code&gt;observation&lt;/code&gt; resource to make this observation a blood pressure observation. Because blood pressure has two components, the systolic and diastolic part, this profile furthermore uses the &lt;code&gt;component&lt;/code&gt; element of the observation resource where both parts are defined using LOINC codes again. According to the spec an observation resource can have zero to many components and in this use case the component element is used twice: first for the systolic and second for the diastolic blood pressure. This process of creating specific instances of resource elements in the profiling process is called slicing.&lt;/p&gt;
 &lt;p&gt;Slicing is an operation in the profiling process to create multiple instances of an element. In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing. In this case two component elements are created by the slicing operation, one representing the systolic part and the other representing the diastolic part of the blood pressure element. The element component of the resource &lt;code&gt;observation&lt;/code&gt; has the datatype &lt;code&gt;BackboneElement&lt;/code&gt; and two main elements: &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt;. The &lt;code&gt;code&lt;/code&gt; element holds information about the kind of observation using code systems such as LOINC or SNOMED CT, e.g. the LOINC code &lt;code&gt;8480-6&lt;/code&gt; represents the concept of &lt;em&gt;diastolic blood pressure&lt;/em&gt;. The &lt;code&gt;value&lt;/code&gt; elments holds information about the actual value of the observation in a unit such as &lt;em&gt;mmHg&lt;/em&gt; to describe the diastolic pressure.&lt;/p&gt;
 &lt;p&gt;The two components of blood pressure, i.e. systolic and diastolic, are each represented as an individual component. In order to differentiate between both components, slices have **discriminators*. Discriminators are elements within the parent element and have a path and a type. The type describes the kind of the slice and the path is a FHIR path of an element which actually discrinates.&lt;/p&gt;
 &lt;p&gt;The blood pressure profile uses the &lt;code&gt;code.coding.code&lt;/code&gt; element as discriminator by specifing a value. The discriminator of of the blood pressure profile is the element &lt;code&gt;code.coding.code&lt;/code&gt;, represented as a FHIR path. As the name of the path suggests, the discriminator element is defined by a certain &lt;em&gt;code value&lt;/em&gt;. In this example, the profile uses &lt;em&gt;LOINC&lt;/em&gt; as code system and the codes &lt;code&gt;8480-6&lt;/code&gt; and &lt;code&gt;8480-6&lt;/code&gt; to represent diastolic and systolic blood pressure respectivly.&lt;/p&gt;
@@ -58,6 +58,7 @@
 &lt;h1&gt;Example Profiles&lt;/h1&gt;
 &lt;p&gt;The first profile will be derived from the core FHIR &lt;em&gt;blood pressure&lt;/em&gt; profile and provide additional SNOMED CT codes. This type of profile is called a derived profile, since it is based on another profile. The second example profile does not derive from the core profile but rather will be base on the core FHIR resource &lt;code&gt;observation&lt;/code&gt;. The profile represent a &lt;em&gt;blood pressure&lt;/em&gt; observation, by providing components for diastolic and systolic blood pressure values by slicing the &lt;code&gt;component&lt;/code&gt; element. However in this case, the discriminator will be the value of the &lt;code&gt;code.coding&lt;/code&gt; value. As a result, the code of the e.g. &lt;em&gt;diastolic blood pressure&lt;/em&gt; will be fixed and future implementers cannot add any code when using this profile.&lt;/p&gt;
 &lt;p&gt;Both examples will be a StructureDefinition, which is a FHIR resource representing a FHIR profile, in this context a profile to represent blood pressure values.&lt;/p&gt;
+&lt;p&gt;You can find the simple example using only LOINC codes &lt;a href=&#34;https://simplifier.net/profilingacademytasks/bloodpresssureloinc&#34;&gt;here&lt;/a&gt; and my derived profile on the FHIR core profile of blood pressure supporting SNOMED CT codes additional to LOINC codes &lt;a href=&#34;https://simplifier.net/profilingacademytasks/vitalsignsprofile&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 </content>
       
@@ -147,7 +148,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.58&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.76&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -159,39 +160,35 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.22&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.21&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.12&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.11&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.24&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.19&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;39.88&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.80&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.16&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.18&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.14&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.07&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.17&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.13&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;-0.09&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.05&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -203,7 +200,7 @@ y_hat &amp;lt;- matrix(X, ncol = ncol(X)) %*% as.matrix(coefs, nrow = 6)
 
 # R-Squared
 r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.74, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
+&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.75, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bottomline&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Bottomline&lt;/h1&gt;
@@ -1112,7 +1109,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fa701e91de0&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fe5ac21cfb8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1523,8 +1520,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.5
-## 2 male    32.7  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
+## 1 female  31.9  33.2  34.5
+## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
@@ -1573,7 +1570,7 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
       <content>&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
 &lt;p&gt;Some of them share the same information stored in columns and I had to combine them in a single dataframe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)  &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
 ## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
 ## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
@@ -1585,7 +1582,7 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
 &lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;forcats&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create two dataframes
