@@ -60,6 +60,14 @@
 &lt;p&gt;Both examples will be a StructureDefinition, which is a FHIR resource representing a FHIR profile, in this context a profile to represent blood pressure values.&lt;/p&gt;
 &lt;p&gt;You can find the simple example using only LOINC codes &lt;a href=&#34;https://simplifier.net/profilingacademytasks/bloodpresssureloinc&#34;&gt;here&lt;/a&gt; and my derived profile on the FHIR core profile of blood pressure supporting SNOMED CT codes additional to LOINC codes &lt;a href=&#34;https://simplifier.net/profilingacademytasks/vitalsignsprofile&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div id=&#34;update-29.04.2019&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Update (29.04.2019)&lt;/h1&gt;
+&lt;p&gt;As I continued to go through the &lt;a href=&#34;https://simplifier.net/guide/profilingacademy/modules&#34;&gt;FHIR profiling academy&lt;/a&gt; by &lt;a href=&#34;https://simplifier.net/guide/ProfilingAcademy/AboutFirely&#34;&gt;Firely&lt;/a&gt; I read the “Advanced Slicing” Module. In this module the process of nested slicing, as I described in my own words in this blog post, is explained in depth. So to get further and “official” information on this topic, the link about to the chapter is a great resource!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;update-30.04.2019&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Update (30.04.2019)&lt;/h1&gt;
+&lt;p&gt;This section in the FHIR specification addresses the topic as well. You can read it &lt;a href=&#34;http://build.fhir.org/profiling.html#slicing&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
 </content>
       
     </item>
@@ -1109,7 +1117,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fe5ac21cfb8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fbbc56bcfb8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1521,7 +1529,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
 ## 1 female  31.9  33.2  34.5
-## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
+## 2 male    32.7  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;
