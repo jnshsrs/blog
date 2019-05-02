@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Join by rows | Science, Physiotherapy and Stats</title>
+<title>Upload a Resource to a FHIR Server | Science, Physiotherapy and Stats</title>
 
 
 
@@ -76,86 +76,43 @@
   <div class="container">
     <div class="subtitle tags is-6 is-pulled-right">
       
-      
-<a class="subtitle is-6" href="/tags/dataframe">#dataframe</a>
-
-
-
-  
-  | <a class="subtitle is-6" href="/tags/rprogramming">#rprogramming</a>
-  
-
-      
     </div>
-    <h2 class="subtitle is-6">August 3, 2018</h2>
-    <h1 class="title">Join by rows</h1>
+    <h2 class="subtitle is-6">May 2, 2019</h2>
+    <h1 class="title">Upload a Resource to a FHIR Server</h1>
     
     <div class="content">
-      <p>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.</p>
-<p>Some of them share the same information stored in columns and I had to combine them in a single dataframe.</p>
-<pre class="r"><code>library(tidyverse)  </code></pre>
-<pre><code>## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
-## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
-## ✔ readr   1.3.1       ✔ forcats 0.4.0</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code># create two dataframes
-widths &lt;- iris %&gt;% 
-  select(Species, ends_with(&quot;Width&quot;))
+      
 
-lengths &lt;- iris %&gt;% 
-  select(Species, ends_with(&quot;Length&quot;))
+<h1 id="upload-a-resource-to-a-fhir-server">Upload a Resource to a FHIR Server</h1>
 
+<p>In earlier posts I presented FHIR resources by uploading them to FHIR servers.
+This post will explain how the process of uploading a FHIR resource works with postman.
+In this context the correct terminology is post a resource rather than uploading since we are dealing with a RESTful API.</p>
 
-# dplyr::union(widths, lengths) # fails since not all columns are in both data.frames
-# dplyr::intersect(widths, lengths) # fails since not all columns are in both data.frame
-# dplyr::setdiff(widths, lengths) # fails since not all columns are in both data.frame
-# dplyr::setequal(widths, lengths) # fails since not all columns are in both data.frame
-dplyr::union_all(widths, lengths) %&gt;% head # works, combines data.frames and fills with NA if column is not in one of the data.frames</code></pre>
-<pre><code>##   Species Sepal.Width Petal.Width Sepal.Length Petal.Length
-## 1  setosa         3.5         0.2           NA           NA
-## 2  setosa         3.0         0.2           NA           NA
-## 3  setosa         3.2         0.2           NA           NA
-## 4  setosa         3.1         0.2           NA           NA
-## 5  setosa         3.6         0.2           NA           NA
-## 6  setosa         3.9         0.4           NA           NA</code></pre>
-<p>Since this set operations work in most of the cases, it will not in the case that I want to combine dataframes and only keep columns which are present in each dataframe.</p>
-<p>Therefore, I wrote the following function to handle this special case, which occures multiple times in my current project.</p>
-<p>The function <code>join_rows</code> takes two or more data.frames and combines them in the fashion described above. Although the name might be misleading, since it is not a join by itself, for me it is a good description the task it does.</p>
-<p>The function takes multiple data.frames and returns a data.frame containing all columns which all data.frame share. The function furthermore adds an ID column to keep the source dataset.</p>
-<p>Notice that it does not reduce any duplicated rows, but keeps them.</p>
-<pre class="r"><code>join_rows &lt;- function(...) {
-  dots &lt;- rlang::exprs(...)
-  data_frame_names &lt;- paste(purrr::map(dots, rlang::expr_name))
-  data_frames &lt;- list(...)
-  cols &lt;- purrr::map(data_frames, names)
-  cols &lt;- purrr::reduce(cols, intersect)
-  data_frames &lt;- map(data_frames, select, cols)
-  data_frames &lt;- data_frames %&gt;% set_names(data_frame_names)
-  bind_rows(data_frames, .id = &quot;id&quot;)
-}
+<p>In this specific example I will show how to post a ValueSet I created to capture the location of a ulcer according to the &ldquo;National Konsensus zur Dokumentation des Ulcus Cruris&rdquo; which is a German specification of how to document and communicate the presence of foot ulcer (Ulcus Cruris).
+I used SNOMED CT codes to encode the location but since Germany is not a member of IHTSDO, the standard developing organization (SDO) of SNOMED, I only present the ValueSet without actually implementing it (A country can get a SNOMED CT licence when an national governmental agency is a member of IHTSDO).</p>
 
-# gives us one column (species) since that is the only column(-name) that is shared across both dataframes
-join_rows(lengths, widths) %&gt;% head</code></pre>
-<pre><code>##        id Species
-## 1 lengths  setosa
-## 2 lengths  setosa
-## 3 lengths  setosa
-## 4 lengths  setosa
-## 5 lengths  setosa
-## 6 lengths  setosa</code></pre>
-<pre class="r"><code># will fail since 1 is not a data.frame
-# join_rows(lengths, 1)</code></pre>
+<h1 id="6-steps-posting-the-resource">6 Steps Posting the Resource</h1>
+
+<p>I created a ValueSet in <a href="http://ontoserver.csiro.au/snapper2-dev/index.html#/" target="_blank">Snapper</a>, an open source tool to create CodeSystems and ValueSets.</p>
+
+<ol>
+<li>Get the base URL of the FHIR server we want to post the resource - <code>http://fhirtest.uhn.ca/baseDstu3</code></li>
+<li>Define the resource type and extend the base URL - <code>ValueSet</code></li>
+<li>Open a new request in Postman and change the RESTful operation to <code>POST</code></li>
+<li>Select <code>body</code> and copy the resource into the textfield below</li>
+<li>Push <code>send</code></li>
+<li>If the post operation was successful the status of the operation will be <code>201 created</code></li>
+</ol>
+
+<h1 id="the-final-valueset">The final ValueSet</h1>
+
+<p>After the post operation postman will show you FHIR resource in the window below.
+Right there you find the <code>id</code> attribute of this ValueSet instance.
+You can use this <code>id</code> to retrieve the posted resource with a GET operation.
+This operation can be done using Postman or just a browser were you simply paste in the base URL, resource type and the id.</p>
+
+<p><a href="http://fhirtest.uhn.ca/baseDstu3/ValueSet/1896831" target="_blank">http://fhirtest.uhn.ca/baseDstu3/ValueSet/1896831</a></p>
 
       
       <div class="related">

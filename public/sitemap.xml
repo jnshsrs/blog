@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/upload-a-resource-to-a-fhir-server/</loc>
+    <lastmod>2019-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/profiling-and-slicing-an-fhir-observation-resource/</loc>
     <lastmod>2019-04-25T00:00:00+00:00</lastmod>
   </url>
@@ -50,6 +55,10 @@
   <url>
     <loc>/post/import-ordered-spss-factors-into-r/</loc>
     <lastmod>2018-07-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-05-02-upload-a-resource-to-a-fhir-server/</loc>
   </url>
   
   <url>
@@ -120,7 +129,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-05-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -156,7 +165,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-04-25T00:00:00+00:00</lastmod>
+    <lastmod>2019-05-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

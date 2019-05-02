@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Thu, 25 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Upload a Resource to a FHIR Server</title>
+      <link>/post/upload-a-resource-to-a-fhir-server/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/upload-a-resource-to-a-fhir-server/</guid>
+      <description>Upload a Resource to a FHIR Server In earlier posts I presented FHIR resources by uploading them to FHIR servers. This post will explain how the process of uploading a FHIR resource works with postman. In this context the correct terminology is post a resource rather than uploading since we are dealing with a RESTful API.
+In this specific example I will show how to post a ValueSet I created to capture the location of a ulcer according to the &amp;ldquo;National Konsensus zur Dokumentation des Ulcus Cruris&amp;rdquo; which is a German specification of how to document and communicate the presence of foot ulcer (Ulcus Cruris).</description>
+    </item>
     
     <item>
       <title>Profiling and Slicing an FHIR Observation Resource</title>
@@ -103,7 +113,7 @@ Zunächst muss die Programmiersprache R installiert werden.</description>
       <guid>/post/join-by-rows/</guid>
       <description>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.
 Some of them share the same information stored in columns and I had to combine them in a single dataframe.
-library(tidyverse)  ## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
+library(tidyverse)  ## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
     </item>
     
     <item>
@@ -113,6 +123,15 @@ library(tidyverse)  ## ── Attaching packages ──────────�
       
       <guid>/post/import-ordered-spss-factors-into-r/</guid>
       <description>SPSS Factor Variables Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the haven package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/post/2019-05-02-upload-a-resource-to-a-fhir-server/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-05-02-upload-a-resource-to-a-fhir-server/</guid>
+      <description>Upload a Resource to a FHIR Server       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
     </item>
     
   </channel>
