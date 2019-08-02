@@ -13,6 +13,132 @@
     
     
     <item>
+      <title>Interpreting Logistic Regression Coefficients - Odds Ratios</title>
+      <link>/post/interpreting-logistic-regression-coefficients-odds-ratios/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/interpreting-logistic-regression-coefficients-odds-ratios/</guid>
+      <description></description>
+      
+      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+&lt;script async
+src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
+&lt;/script&gt;
+&lt;div id=&#34;logistic-regression&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Logistic Regression&lt;/h1&gt;
+&lt;p&gt;The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; and a set of independent response variables &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; values.
+The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called &lt;strong&gt;Logit&lt;/strong&gt;: &lt;span class=&#34;math inline&#34;&gt;\(log(\frac{p(x)}{1 - p(x)})\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(p(x)\)&lt;/span&gt; is the probability that &lt;span class=&#34;math inline&#34;&gt;\(y=\)&lt;/span&gt;.
+The log odds are modeled as a linear combinations of the predictors and regression coefficients: &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The complete model looks like this:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This equation shows, that the linear combination models the Logit and model coefficients &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; descibe the influence of the predictors &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; on the logit, e.g. a one unit increase in &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; changes the Logit by the amout of &lt;span class=&#34;math inline&#34;&gt;\(\beta_i\)&lt;/span&gt;.
+Unfortunatly, we do not have a reasonable intuition about the &lt;strong&gt;Logit&lt;/strong&gt; and this makes it hard to interpret the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;-coefficients.&lt;/p&gt;
+&lt;p&gt;Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.&lt;/p&gt;
+&lt;p&gt;So the odds ratio tells us something about the change of the odds when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;odds-ratios&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Odds Ratios&lt;/h1&gt;
+&lt;p&gt;In this section we first present the Logit and then move on to show that the exponentialted regression coefficients can be interpreted as Odds Ratios.&lt;/p&gt;
+&lt;div id=&#34;logit&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Logit&lt;/h2&gt;
+&lt;p&gt;To beginn with the &lt;strong&gt;Logit&lt;/strong&gt; it is defined, as explained in the introduction, as the natual logarithm of the odds.&lt;/p&gt;
+&lt;p&gt;Odds are the ratio of the probability that the outcome variable will be 1 &lt;span class=&#34;math inline&#34;&gt;\(p(Y=1)\)&lt;/span&gt;, also considered as the proabability of success, over the proabability that it will be 0 &lt;span class=&#34;math inline&#34;&gt;\(p(Y=0)\)&lt;/span&gt;, sometimes considered as the probability of failure. The probabilty can also be expressed as &lt;span class=&#34;math inline&#34;&gt;\(p(Y=0) = 1-p(Y=1)\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;So the ratio of the probability of success over the probability is simply:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(odds=\frac{p(Y=1)}{1-(Y=1)}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To be more concise, let us first define &lt;span class=&#34;math inline&#34;&gt;\(\pi\)&lt;/span&gt; which is the models’s predicted probability that &lt;span class=&#34;math inline&#34;&gt;\(Y=1\)&lt;/span&gt;, so &lt;span class=&#34;math inline&#34;&gt;\(\pi=p(Y=1)\)&lt;/span&gt; and we wil l simpy write:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(odds(\pi)=\frac{\pi}{1-\pi}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;And the Logits is simply the natual logarithm of this odds and this Logits is modeled as a linear model &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;As explains, we do not have an intuition about the Logits. Thats why we want to predict values that are easier to understand, i.e. the odds.&lt;/p&gt;
+&lt;p&gt;To do so, we apply the exponential function to both sides of our expression&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(Logit(\pi)=ln(\frac{\pi}{1-\pi)}) = \beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;which gives us&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;beta-coefficients&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Beta Coefficients&lt;/h1&gt;
+&lt;p&gt;Now that we know what the &lt;em&gt;Logit&lt;/em&gt; is, lets move on to the interpretation of the regression coeffcients.&lt;/p&gt;
+&lt;p&gt;To do so, let us initially define &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; as an value of the predictor &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(x_1=x_0 + 1\)&lt;/span&gt; as the value of the predictor variable increased by one unit.&lt;/p&gt;
+&lt;p&gt;When we plug in &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; in our regression model, that predicts the odds, we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0} = e^{\beta_0 + \beta_1x_0}\)&lt;/span&gt; which is the predicted odds of &lt;span class=&#34;math inline&#34;&gt;\(X = x_0\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;When we plug in &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_1}\)&lt;/span&gt; which is the predicted odds when &lt;span class=&#34;math inline&#34;&gt;\(X = x_1\)&lt;/span&gt; or equivalently &lt;span class=&#34;math inline&#34;&gt;\(X = x_0 + 1\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;In the last formula we can now replace &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; with &lt;span class=&#34;math inline&#34;&gt;\(x_0 + 1\)&lt;/span&gt; to get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1(x_0 + 1)}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;by mulitpling &lt;span class=&#34;math inline&#34;&gt;\(\beta_1(x_0 + 1)\)&lt;/span&gt; in the exponent we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0 + \beta_1}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In this situation, we can apply the rule for exponential expressions that additions in the exponent can be rewritten as a mutliplicative expression.
+According to this rule &lt;span class=&#34;math inline&#34;&gt;\(a^{b+c} = a^b\times a^c\)&lt;/span&gt;, which in our example gives:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0} \times e^{\beta_1}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Since we previously defined &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0}\)&lt;/span&gt;, the odds where &lt;span class=&#34;math inline&#34;&gt;\(X=x_0\)&lt;/span&gt;, we can now replace it in the equation in the formula above to get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = \frac{\pi_0}{1-\pi_0} \times e^{\beta_1}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;All we have to do in this situation is to rearrange the equation by dividing both sides with &lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0}\)&lt;/span&gt; to show that &lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1}\)&lt;/span&gt; actually is the odds ratio which describes the relationship between odds when we increase X by 1 unit.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;div id=&#34;odds-ratios-in-r&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Odds Ratios in R&lt;/h2&gt;
+&lt;p&gt;In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually the odds ratio.&lt;/p&gt;
+&lt;p&gt;Please consider the comments in the code for further explaination.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 1. simulate data
+# 2. calculate exponentiated beta
+# 3. calculate the odds based on the prediction p(Y=1|X)
+#
+# Function takes a x value, for that x value the odds are calculated and returned
+# Beside the odds, the function does also return the exponentiated beta coefficient
+log_reg &amp;lt;- function(x_value) {
+  # simulate data, the higher x the higher the probability of y=1
+  set.seed(256)
+  X &amp;lt;- c(rnorm(50, mean = 10, sd = 2), rnorm(50, mean = 14, sd = 2))
+  y &amp;lt;- c(rep(0, 50), rep(1, 50))
+  
+  plot(y ~ X) 
+  model &amp;lt;- glm(y ~ X, family = &amp;quot;binomial&amp;quot;)
+  beta_1 &amp;lt;- coef(model)[2]
+  exp_beta_1 &amp;lt;- exp(beta_1) # exponentiate beta_1 to get odds ratios
+  
+  # predict pi_i, the probabilty that y=1 given the x value
+  pi &amp;lt;- predict(model, newdata = data.frame(X = x_value), type = &amp;quot;response&amp;quot;) 
+  
+  odds &amp;lt;- pi / (1 - pi)
+  
+  list(odds = odds, exp_beta = exp_beta_1)
+}
+
+x_value &amp;lt;- 14
+x1 &amp;lt;- log_reg(x_value)
+x2 &amp;lt;- log_reg(x_value + 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Show the exponentiated beta coefficients
+show(x1$exp_beta) # exp beta&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        X 
+## 2.682433&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;odds_ratio &amp;lt;- x2$odds / x1$odds # calculate odds ratio
+show(odds_ratio) # odds ratio&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        1 
+## 2.682433&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Is the exponentiated beta the same as the calculated odds ratio?
+round(odds_ratio, 6) == round(x1$exp_beta, 6)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    1 
+## TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The R-code above demonstrates that the exponetiated beta coefficient of a logistic regression is the same as the odds ratio and thus can be interpreted as the change of the odds ratio when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
+&lt;p&gt;In this example the odds ratio is 2.68. This means that the odds increase by 2.68 when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
+&lt;p&gt;In a situatuation where the predictor variable is lower that 1, the odds decrease, i.e. the proabability of &lt;span class=&#34;math inline&#34;&gt;\(p(Y=1)\)&lt;/span&gt; also gets lower as &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; increases.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outlook&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Outlook&lt;/h1&gt;
+&lt;p&gt;As I demonstrated in this post, a way to interpret the regression coefficients of a logistic regression is to exponentiate the coefficient and view it as the change in the odds.
+That means the exponentiated beta is the odds ratio.&lt;/p&gt;
+&lt;p&gt;We did so, because the plain, non-exponentiated betas represent the change of the &lt;em&gt;Logit&lt;/em&gt; and it is hard to get an intuition what that actually means.&lt;/p&gt;
+&lt;p&gt;However, we also should keep in mind, that the odds ratio, bypass the interpretation of hard to understand Logits, the odds ratio is itself a hard to understand concept and therefore not easy to understand.&lt;/p&gt;
+&lt;p&gt;While the odds ratio bypass the interpretation of hard to understand Logits and the odds ratio may be easier to interpret, their meaning is often not easy to understand.&lt;/p&gt;
+&lt;p&gt;We can overcome this problem by presenting representative values and its predicted probabilites by the logistic model, since probabilites are easier to understand than odds ratios.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Upload a Resource to a FHIR Server</title>
       <link>/post/upload-a-resource-to-a-fhir-server/</link>
       <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
@@ -264,6 +390,201 @@ r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;
 &lt;p&gt;We compare the cross-validated metric of each cross-validation process and choose the one with the best metric value, e.g. lowest RMSE.&lt;/p&gt;
 &lt;p&gt;We then use all the data in our dataset to fit the final model. This final model will be used to predict future data. In our case our model estimates the income of people with variable such as age, gender and others.&lt;/p&gt;
 &lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title>Koeffizienten des Bass-Models</title>
+      <link>/post/estimating-the-bass-model/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/estimating-the-bass-model/</guid>
+      <description></description>
+      
+      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+&lt;script async
+src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
+&lt;/script&gt;
+&lt;div id=&#34;untersuchung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Untersuchung von Innovationen&lt;/h1&gt;
+&lt;p&gt;Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse.
+Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik.
+Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen.
+Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.
+Das heute unter dem Namen Bass-Model bekannte statistische Verfahren wurde nach der Publikation der theoretischen Grundlagen durch empirische Daten untermauert.&lt;/p&gt;
+&lt;p&gt;In diesem Post möchte ich den Effekt der Modelparameter darstellen, da diese ohne Kontext oftmals schwierig zu verstehen sind.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;modellierung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Modellierung von Innovationen&lt;/h1&gt;
+&lt;p&gt;Es gibt verschiedene Ansätze dieses Models Innovationen zu betrachten.
+Ein Ansatz ist, den prozentualen Anteil der Adopter zu modellieren.
+Im Zentrum des Bass-Models steht der Adopter.
+Als Adopter werden in diesem Zusammenhang Personen oder Organisationen bezeichnet, die ein neues Produkt nutzen oder innovative technologische Lösungen einsetzten.
+So kann ein Unternehmen daran interessiert sein, wie hoch der prozentuale Anteil der Nutzer seines neuen Produktes ist.&lt;/p&gt;
+&lt;p&gt;Im Rahmen dieser Fragestellung kann dieser Anteil durch das Bass Model geschätzt werden.
+Das Model basiert dabei auf einer S-förmigen Adoptionskurve die durch folgende Formel dargestellt wird.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Bei diesem Model werden zwei Koeffizienten geschätzt, die bei der Adoption von Innovationen Einfluss üben.
+Dabei handelt es sich zum eine um den Innovationkoeffizienten p und zum anderen um den Imitationskoeffizienten q.&lt;/p&gt;
+&lt;!--
+(Ich merke mir diese Zuordnung indem ich mit das in unserer Lesrichtung von links nach rechts schauende p als progressiv und damit innovativ. 
+Das zurückblickende q ist der Immitator.)
+--&gt;
+&lt;p&gt;Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren auf die Adoption der Innovation wirken.&lt;/p&gt;
+&lt;p&gt;Die Höhe des Innovationskoeffzienten p bestimmt wie stark die stark die Adoption bei der Einführung einer Innovation ist.
+Je höher der Innovationskoeffizient desto steiller ist die Addoptionskurve zu Beginn.
+Dass heißt, dass viele Innovatoren ein Produkt adoptieren.&lt;/p&gt;
+&lt;p&gt;Die Höhe des Imitationskoeffizienten q erklärt den Einfluss von Imitatoren.
+Imitatioren orientieren sich dabei an das Verhalten von Adoptern.
+Der Imitionskoeffizient steht somit in Wechselwirkung mit dem Innovationskoeffizient.&lt;/p&gt;
+&lt;p&gt;Während der Innovationskoeffizient p positiv ist, kann der Imitaitonskoeffizient q auch negativ sein.
+Typische Wert für p liegen im Bereich von null bis zwei.
+Der q-Wert kann theoretisch große negative Werte annehmen, liegt typischerweise im Bereich von minus ein bis 2.
+Bei hohen negativen Werten ist kaum Imitaionsverhalten zu erwarten, was sich durch eine flache Adoptionskurve darstellt, nachdem der Innovationseffekt abklingt.&lt;/p&gt;
+&lt;p&gt;Ich zur Veranschaulichung des Bass Models die Adoptionskurve verschiedener Parameterkombinationen von p und q visualisiert.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;einfluss-der-modelparameter-p-und-q&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Einfluss der Modelparameter p und q&lt;/h1&gt;
+&lt;p&gt;Die Darstellung zeigt Bass-Modelle verschiedener Parameterkombinationen von p und q.
+Das Model stellt den kumulierten prozentualen Anteil der Adopter dar.
+Jedes Panel steht dabei für einen Wert von q (Imitaitonskoeffizient) und die Farbe der Linien steht für einen Wert von p (Innovationskoeffzient), wobei mit steigendem Innovationskoeffzienten die Linie heller wird.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+
+show_bass_curves &amp;lt;- function(p, q) {
+  g &amp;lt;- expand.grid(p, q)
+  p_ &amp;lt;- g$Var1
+  q_ &amp;lt;- g$Var2
+  t &amp;lt;- 0:10
+  
+  res &amp;lt;- map2(.x = p_, .y = q_, .f = netdiffuseR::bass_F, Time = t) 
+  g &amp;lt;- g %&amp;gt;% as.data.frame %&amp;gt;% as.tibble %&amp;gt;% unite(col = &amp;quot;Var&amp;quot;, c(&amp;quot;Var1&amp;quot;, &amp;quot;Var2&amp;quot;)) %&amp;gt;% pull
+  
+  res &amp;lt;- res %&amp;gt;%
+    set_names(g) %&amp;gt;%
+    as_tibble() %&amp;gt;% 
+    add_column(Time = t) %&amp;gt;% 
+    gather(key, value, -Time) %&amp;gt;% 
+    separate(col = &amp;quot;key&amp;quot;, into = c(&amp;quot;p&amp;quot;, &amp;quot;q&amp;quot;), sep = &amp;quot;_&amp;quot;) %&amp;gt;% 
+    mutate_at(&amp;quot;q&amp;quot;, as.numeric) %&amp;gt;% 
+    mutate(q = factor(x = glue::glue(&amp;quot;q = {q}&amp;quot;), 
+                      levels = glue::glue(&amp;quot;q = {sort(unique(q))}&amp;quot;),
+                      ordered = TRUE))
+  
+  res %&amp;gt;% 
+    ggplot(aes(x = Time, y = value, col = p)) +
+    geom_line() +
+    facet_wrap(~ as.factor(q), nrow = 2, scales = &amp;quot;free_x&amp;quot;) +
+    viridis::scale_color_viridis(discrete = T, option = &amp;quot;magma&amp;quot;) +
+    theme_bw() +
+    scale_y_continuous(labels = scales::percent, 
+                       breaks = seq(0, 1, .2),
+                       name = &amp;quot;Proportional Adopters&amp;quot;) +
+    scale_x_continuous(breaks = t) +
+    guides(colour = guide_legend(reverse=T, title = &amp;quot;p&amp;quot;))
+    
+}
+
+p &amp;lt;- round(seq(.1, 1, length.out = 8), 2)
+q &amp;lt;- round(seq(-1, 1, length.out = 8), 2)
+
+show_bass_curves(p, q)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Wir erkennen im Diagramm, das ein hoher Innovationskoeffizient die Adoption zu Beginn der Markteinführung positiv beeinflusst.
+Zudem lässt sich aus dem Diagramm der Einfluss des Imitationseffekts und dessen Interaktion mit dem Innovationskoeffizienten erkennen.
+Wenn der Innovationskoeffzient hoch ist (Panel links unten), ist auch die Adoption im weitern Zeitverlauf hoch.
+Sinkt der Imitationskoeffizient hemmt er den weiteren Adoptionsverlauf.
+Er kann ihn sogar ausbremsen, wenn er negativ wird.
+In diesem Fall exisitert kein Imitationseffekt und die Innvation ereicht keine vollständige Marktdurchdringung.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;schlussfolgerung&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Schlussfolgerung&lt;/h1&gt;
+&lt;p&gt;Das Bass-Model kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren.
+Das Model besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden.
+Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn.
+Je höher der Koeffizient desto stärker der Effekt der Innovatoren.
+Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase.
+Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title>Marktentwicklung von Innovationen</title>
+      <link>/post/marktentwicklung-von-innovationen/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/marktentwicklung-von-innovationen/</guid>
+      <description></description>
+      
+      <content>&lt;p&gt;Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.&lt;/p&gt;
+&lt;p&gt;Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen. Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann. Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.&lt;/p&gt;
+&lt;p&gt;Das Bass Modell hat sich in der Vergangenheit als nützlich herausgestellt und wird auch heute noch zur Erforschung der Digitalisierung in verschiedenen wissenschaftlichen Publikationen genutzt. Zudem wird das Modell auch für die Absatzplanung in Unternehmen eingesetzt.&lt;/p&gt;
+&lt;p&gt;Es gibt verschiedene Softwarelösungen, welche eine Schätzung des Modells vornehmen. R bietet sich als Open Source Lösung an, denn das Programm hält die Funktionen zur Modellschätzung bereit. Zudem exisiteren Programmerweiterungen, die den Umgang mit dem Bass-Modell erleichtern.&lt;/p&gt;
+&lt;p&gt;In diesem Beispiel möchte ich ein kurzes Beispiel demonstrieren, wie mit den Basisfunktionen in R ein Bass-Modell erstellt werden kann, das auf den beobachteten kumulierten Adoptionsraten eines Produktes basieren.&lt;/p&gt;
+&lt;p&gt;Für die Modellschätzung werden die Marktdaten benötigt. Dabei ist zu beachten, dass diese Daten in jeweils gleichen Zeitabständen vorliegen. Zum beispiel jährlich, quartalsweise oder monatlich. Fehlende Daten können unter Umständen ersetzt werden.&lt;/p&gt;
+&lt;p&gt;We try to model the cumulative proportions of adopters. Therfore we model the cumulative proporitions of adopters by using the differential function of the of the Bass Model Curve to estimate the coefficient of innovation p and coefficient of immitation q.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# bass function
+bass_F &amp;lt;- function(Time, p, q) {
+  (1 - exp(-(p + q)*Time))/(1 + (q/p)*exp(-(p+q)*Time))
+}
+
+x &amp;lt;- 1:10
+y &amp;lt;- c(.1, .2, .3, .35, .5, .6, .66, .78, .8, .84)
+Time = x
+fit &amp;lt;- stats::nls(y ~ bass_F(Time, p, q), start=list(p = .1, q = .5 ))
+
+plot(x, y)
+fit &amp;lt;- nls(formula = y ~ bass_F(Time = x, p, q), start=list(p=.1, q=.5))
+summary(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Formula: y ~ bass_F(Time = x, p, q)
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## p 0.080839   0.007181  11.258 3.48e-06 ***
+## q 0.234345   0.028850   8.123 3.91e-05 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.02264 on 8 degrees of freedom
+## 
+## Number of iterations to convergence: 6 
+## Achieved convergence tolerance: 8.376e-07&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stats::AIC(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -43.61239&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;f &amp;lt;- broom::augment(fit)$.fitted&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(sum(f^2)) / mean(x)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5923237&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sd(f) / sqrt(length(Time))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.08442616&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
+## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
+## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
+## ✔ readr   1.3.1       ✔ forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;forcats&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;broom::augment(fit) %&amp;gt;% 
+  mutate(y = y) %&amp;gt;% 
+  ggplot(aes(Time, y)) +
+  geom_point() +
+  geom_line(aes(x = Time, y = .fitted)) +
+  geom_linerange(aes(ymin = .fitted, ymax = y))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We used the statistical computing language R to etimate the model’s parameters p and q based on the observed cumulated proportions of adopters. In more detail, we used the &lt;code&gt;nls&lt;/code&gt; Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm. To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.&lt;/p&gt;
 </content>
       
     </item>
@@ -1739,122 +2060,6 @@ base::table(spss$edlevel_converted)&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title></title>
-      <link>/post/2018-11-07-estimating-the-bass-model/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>Jens Hüsers</author>
-      <guid>/post/2018-11-07-estimating-the-bass-model/</guid>
-      <description></description>
-      
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
-&lt;script async
-src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
-&lt;/script&gt;
-&lt;div id=&#34;untersuchung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Untersuchung von Innovationen&lt;/h1&gt;
-&lt;p&gt;Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse.
-Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik.
-Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen.
-Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.
-Das heute unter dem Namen Bass-Model bekannte statistische Verfahren wurde nach der Publikation der theoretischen Grundlagen durch empirische Daten untermauert.&lt;/p&gt;
-&lt;p&gt;In diesem Post möchte ich den Effekt der Modelparameter darstellen, da diese ohne Kontext oftmals schwierig zu verstehen sind.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;modellierung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Modellierung von Innovationen&lt;/h1&gt;
-&lt;p&gt;Es gibt verschiedene Ansätze dieses Models Innovationen zu betrachten.
-Ein Ansatz ist, den prozentualen Anteil der Adopter zu modellieren.
-Im Zentrum des Bass-Models steht der Adopter.
-Als Adopter werden in diesem Zusammenhang Personen oder Organisationen bezeichnet, die ein neues Produkt nutzen oder innovative technologische Lösungen einsetzten.
-So kann ein Unternehmen daran interessiert sein, wie hoch der prozentuale Anteil der Nutzer seines neuen Produktes ist.&lt;/p&gt;
-&lt;p&gt;Im Rahmen dieser Fragestellung kann dieser Anteil durch das Bass Model geschätzt werden.
-Das Model basiert dabei auf einer S-förmigen Adoptionskurve die durch folgende Formel dargestellt wird.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Bei diesem Model werden zwei Koeffizienten geschätzt, die bei der Adoption von Innovationen Einfluss üben.
-Dabei handelt es sich zum eine um den Innovationkoeffizienten p und zum anderen um den Imitationskoeffizienten q.&lt;/p&gt;
-&lt;!--
-(Ich merke mir diese Zuordnung indem ich mit das in unserer Lesrichtung von links nach rechts schauende p als progressiv und damit innovativ. 
-Das zurückblickende q ist der Immitator.)
---&gt;
-&lt;p&gt;Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren auf die Adoption der Innovation wirken.&lt;/p&gt;
-&lt;p&gt;Die Höhe des Innovationskoeffzienten p bestimmt wie stark die stark die Adoption bei der Einführung einer Innovation ist.
-Je höher der Innovationskoeffizient desto steiller ist die Addoptionskurve zu Beginn.
-Dass heißt, dass viele Innovatoren ein Produkt adoptieren.&lt;/p&gt;
-&lt;p&gt;Die Höhe des Imitationskoeffizienten q erklärt den Einfluss von Imitatoren.
-Imitatioren orientieren sich dabei an das Verhalten von Adoptern.
-Der Imitionskoeffizient steht somit in Wechselwirkung mit dem Innovationskoeffizient.&lt;/p&gt;
-&lt;p&gt;Während der Innovationskoeffizient p positiv ist, kann der Imitaitonskoeffizient q auch negativ sein.
-Typische Wert für p liegen im Bereich von null bis zwei.
-Der q-Wert kann theoretisch große negative Werte annehmen, liegt typischerweise im Bereich von minus ein bis 2.
-Bei hohen negativen Werten ist kaum Imitaionsverhalten zu erwarten, was sich durch eine flache Adoptionskurve darstellt, nachdem der Innovationseffekt abklingt.&lt;/p&gt;
-&lt;p&gt;Ich zur Veranschaulichung des Bass Models die Adoptionskurve verschiedener Parameterkombinationen von p und q visualisiert.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;einfluss-der-modelparameter-p-und-q&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Einfluss der Modelparameter p und q&lt;/h1&gt;
-&lt;p&gt;Die Darstellung zeigt Bass-Modelle verschiedener Parameterkombinationen von p und q.
-Das Model stellt den kumulierten prozentualen Anteil der Adopter dar.
-Jedes Panel steht dabei für einen Wert von q (Imitaitonskoeffizient) und die Farbe der Linien steht für einen Wert von p (Innovationskoeffzient), wobei mit steigendem Innovationskoeffzienten die Linie heller wird.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
-
-show_bass_curves &amp;lt;- function(p, q) {
-  g &amp;lt;- expand.grid(p, q)
-  p_ &amp;lt;- g$Var1
-  q_ &amp;lt;- g$Var2
-  t &amp;lt;- 0:10
-  
-  res &amp;lt;- map2(.x = p_, .y = q_, .f = netdiffuseR::bass_F, Time = t) 
-  g &amp;lt;- g %&amp;gt;% as.data.frame %&amp;gt;% as.tibble %&amp;gt;% unite(col = &amp;quot;Var&amp;quot;, c(&amp;quot;Var1&amp;quot;, &amp;quot;Var2&amp;quot;)) %&amp;gt;% pull
-  
-  res &amp;lt;- res %&amp;gt;%
-    set_names(g) %&amp;gt;%
-    as_tibble() %&amp;gt;% 
-    add_column(Time = t) %&amp;gt;% 
-    gather(key, value, -Time) %&amp;gt;% 
-    separate(col = &amp;quot;key&amp;quot;, into = c(&amp;quot;p&amp;quot;, &amp;quot;q&amp;quot;), sep = &amp;quot;_&amp;quot;) %&amp;gt;% 
-    mutate_at(&amp;quot;q&amp;quot;, as.numeric) %&amp;gt;% 
-    mutate(q = factor(x = glue::glue(&amp;quot;q = {q}&amp;quot;), 
-                      levels = glue::glue(&amp;quot;q = {sort(unique(q))}&amp;quot;),
-                      ordered = TRUE))
-  
-  res %&amp;gt;% 
-    ggplot(aes(x = Time, y = value, col = p)) +
-    geom_line() +
-    facet_wrap(~ as.factor(q), nrow = 2, scales = &amp;quot;free_x&amp;quot;) +
-    viridis::scale_color_viridis(discrete = T, option = &amp;quot;magma&amp;quot;) +
-    theme_bw() +
-    scale_y_continuous(labels = scales::percent, 
-                       breaks = seq(0, 1, .2),
-                       name = &amp;quot;Proportional Adopters&amp;quot;) +
-    scale_x_continuous(breaks = t) +
-    guides(colour = guide_legend(reverse=T, title = &amp;quot;p&amp;quot;))
-    
-}
-
-p &amp;lt;- round(seq(.1, 1, length.out = 8), 2)
-q &amp;lt;- round(seq(-1, 1, length.out = 8), 2)
-
-show_bass_curves(p, q)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Wir erkennen im Diagramm, das ein hoher Innovationskoeffizient die Adoption zu Beginn der Markteinführung positiv beeinflusst.
-Zudem lässt sich aus dem Diagramm der Einfluss des Imitationseffekts und dessen Interaktion mit dem Innovationskoeffizienten erkennen.
-Wenn der Innovationskoeffzient hoch ist (Panel links unten), ist auch die Adoption im weitern Zeitverlauf hoch.
-Sinkt der Imitationskoeffizient hemmt er den weiteren Adoptionsverlauf.
-Er kann ihn sogar ausbremsen, wenn er negativ wird.
-In diesem Fall exisitert kein Imitationseffekt und die Innvation ereicht keine vollständige Marktdurchdringung.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;schlussfolgerung&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Schlussfolgerung&lt;/h1&gt;
-&lt;p&gt;Das Bass-Model kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren.
-Das Model besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden.
-Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn.
-Je höher der Koeffizient desto stärker der Effekt der Innovatoren.
-Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase.
-Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-      
-    </item>
-    
-    <item>
-      <title></title>
       <link>/post/2019-05-02-upload-a-resource-to-a-fhir-server/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <author>Jens Hüsers</author>
@@ -2112,132 +2317,6 @@ $(document).ready(function () {
 
 &lt;/body&gt;
 &lt;/html&gt;
-</content>
-      
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>Jens Hüsers</author>
-      <guid>/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/</guid>
-      <description></description>
-      
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
-&lt;script async
-src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
-&lt;/script&gt;
-&lt;div id=&#34;logistic-regression&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Logistic Regression&lt;/h1&gt;
-&lt;p&gt;The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; and a set of independent response variables &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; values.
-The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called &lt;strong&gt;Logit&lt;/strong&gt;: &lt;span class=&#34;math inline&#34;&gt;\(log(\frac{p(x)}{1 - p(x)})\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(p(x)\)&lt;/span&gt; is the probability that &lt;span class=&#34;math inline&#34;&gt;\(y=\)&lt;/span&gt;.
-The log odds are modeled as a linear combinations of the predictors and regression coefficients: &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;The complete model looks like this:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;This equation shows, that the linear combination models the Logit and model coefficients &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; descibe the influence of the predictors &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; on the logit, e.g. a one unit increase in &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; changes the Logit by the amout of &lt;span class=&#34;math inline&#34;&gt;\(\beta_i\)&lt;/span&gt;.
-Unfortunatly, we do not have a reasonable intuition about the &lt;strong&gt;Logit&lt;/strong&gt; and this makes it hard to interpret the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;-coefficients.&lt;/p&gt;
-&lt;p&gt;Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.&lt;/p&gt;
-&lt;p&gt;So the odds ratio tells us something about the change of the odds when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;odds-ratios&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Odds Ratios&lt;/h1&gt;
-&lt;p&gt;In this section we first present the Logit and then move on to show that the exponentialted regression coefficients can be interpreted as Odds Ratios.&lt;/p&gt;
-&lt;div id=&#34;logit&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Logit&lt;/h2&gt;
-&lt;p&gt;To beginn with the &lt;strong&gt;Logit&lt;/strong&gt; it is defined, as explained in the introduction, as the natual logarithm of the odds.&lt;/p&gt;
-&lt;p&gt;Odds are the ratio of the probability that the outcome variable will be 1 &lt;span class=&#34;math inline&#34;&gt;\(p(Y=1)\)&lt;/span&gt;, also considered as the proabability of success, over the proabability that it will be 0 &lt;span class=&#34;math inline&#34;&gt;\(p(Y=0)\)&lt;/span&gt;, sometimes considered as the probability of failure. The probabilty can also be expressed as &lt;span class=&#34;math inline&#34;&gt;\(p(Y=0) = 1-p(Y=1)\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;So the ratio of the probability of success over the probability is simply:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(odds=\frac{p(Y=1)}{1-(Y=1)}\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;To be more concise, let us first define &lt;span class=&#34;math inline&#34;&gt;\(\pi\)&lt;/span&gt; which is the models’s predicted probability that &lt;span class=&#34;math inline&#34;&gt;\(Y=1\)&lt;/span&gt;, so &lt;span class=&#34;math inline&#34;&gt;\(\pi=p(Y=1)\)&lt;/span&gt; and we wil l simpy write:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(odds(\pi)=\frac{\pi}{1-\pi}\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;And the Logits is simply the natual logarithm of this odds and this Logits is modeled as a linear model &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;As explains, we do not have an intuition about the Logits. Thats why we want to predict values that are easier to understand, i.e. the odds.&lt;/p&gt;
-&lt;p&gt;To do so, we apply the exponential function to both sides of our expression&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(Logit(\pi)=ln(\frac{\pi}{1-\pi)}) = \beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;which gives us&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;beta-coefficients&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Beta Coefficients&lt;/h1&gt;
-&lt;p&gt;Now that we know what the &lt;em&gt;Logit&lt;/em&gt; is, lets move on to the interpretation of the regression coeffcients.&lt;/p&gt;
-&lt;p&gt;To do so, let us initially define &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; as an value of the predictor &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(x_1=x_0 + 1\)&lt;/span&gt; as the value of the predictor variable increased by one unit.&lt;/p&gt;
-&lt;p&gt;When we plug in &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; in our regression model, that predicts the odds, we get:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0} = e^{\beta_0 + \beta_1x_0}\)&lt;/span&gt; which is the predicted odds of &lt;span class=&#34;math inline&#34;&gt;\(X = x_0\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;When we plug in &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; we get:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_1}\)&lt;/span&gt; which is the predicted odds when &lt;span class=&#34;math inline&#34;&gt;\(X = x_1\)&lt;/span&gt; or equivalently &lt;span class=&#34;math inline&#34;&gt;\(X = x_0 + 1\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;In the last formula we can now replace &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; with &lt;span class=&#34;math inline&#34;&gt;\(x_0 + 1\)&lt;/span&gt; to get:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1(x_0 + 1)}\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;by mulitpling &lt;span class=&#34;math inline&#34;&gt;\(\beta_1(x_0 + 1)\)&lt;/span&gt; in the exponent we get:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0 + \beta_1}\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;In this situation, we can apply the rule for exponential expressions that additions in the exponent can be rewritten as a mutliplicative expression.
-According to this rule &lt;span class=&#34;math inline&#34;&gt;\(a^{b+c} = a^b\times a^c\)&lt;/span&gt;, which in our example gives:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0} \times e^{\beta_1}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Since we previously defined &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0}\)&lt;/span&gt;, the odds where &lt;span class=&#34;math inline&#34;&gt;\(X=x_0\)&lt;/span&gt;, we can now replace it in the equation in the formula above to get:&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = \frac{\pi_0}{1-\pi_0} \times e^{\beta_1}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;All we have to do in this situation is to rearrange the equation by dividing both sides with &lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0}\)&lt;/span&gt; to show that &lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1}\)&lt;/span&gt; actually is the odds ratio which describes the relationship between odds when we increase X by 1 unit.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;div id=&#34;odds-ratios-in-r&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Odds Ratios in R&lt;/h2&gt;
-&lt;p&gt;In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually the odds ratio.&lt;/p&gt;
-&lt;p&gt;Please consider the comments in the code for further explaination.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 1. simulate data
-# 2. calculate exponentiated beta
-# 3. calculate the odds based on the prediction p(Y=1|X)
-#
-# Function takes a x value, for that x value the odds are calculated and returned
-# Beside the odds, the function does also return the exponentiated beta coefficient
-log_reg &amp;lt;- function(x_value) {
-  # simulate data, the higher x the higher the probability of y=1
-  set.seed(256)
-  X &amp;lt;- c(rnorm(50, mean = 10, sd = 2), rnorm(50, mean = 14, sd = 2))
-  y &amp;lt;- c(rep(0, 50), rep(1, 50))
-  
-  plot(y ~ X) 
-  model &amp;lt;- glm(y ~ X, family = &amp;quot;binomial&amp;quot;)
-  beta_1 &amp;lt;- coef(model)[2]
-  exp_beta_1 &amp;lt;- exp(beta_1) # exponentiate beta_1 to get odds ratios
-  
-  # predict pi_i, the probabilty that y=1 given the x value
-  pi &amp;lt;- predict(model, newdata = data.frame(X = x_value), type = &amp;quot;response&amp;quot;) 
-  
-  odds &amp;lt;- pi / (1 - pi)
-  
-  list(odds = odds, exp_beta = exp_beta_1)
-}
-
-x_value &amp;lt;- 14
-x1 &amp;lt;- log_reg(x_value)
-x2 &amp;lt;- log_reg(x_value + 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Show the exponentiated beta coefficients
-show(x1$exp_beta) # exp beta&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        X 
-## 2.682433&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;odds_ratio &amp;lt;- x2$odds / x1$odds # calculate odds ratio
-show(odds_ratio) # odds ratio&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        1 
-## 2.682433&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Is the exponentiated beta the same as the calculated odds ratio?
-round(odds_ratio, 6) == round(x1$exp_beta, 6)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##    1 
-## TRUE&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The R-code above demonstrates that the exponetiated beta coefficient of a logistic regression is the same as the odds ratio and thus can be interpreted as the change of the odds ratio when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
-&lt;p&gt;In this example the odds ratio is 2.68. This means that the odds increase by 2.68 when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
-&lt;p&gt;In a situatuation where the predictor variable is lower that 1, the odds decrease, i.e. the proabability of &lt;span class=&#34;math inline&#34;&gt;\(p(Y=1)\)&lt;/span&gt; also gets lower as &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; increases.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;outlook&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Outlook&lt;/h1&gt;
-&lt;p&gt;As I demonstrated in this post, a way to interpret the regression coefficients of a logistic regression is to exponentiate the coefficient and view it as the change in the odds.
-That means the exponentiated beta is the odds ratio.&lt;/p&gt;
-&lt;p&gt;We did so, because the plain, non-exponentiated betas represent the change of the &lt;em&gt;Logit&lt;/em&gt; and it is hard to get an intuition what that actually means.&lt;/p&gt;
-&lt;p&gt;However, we also should keep in mind, that the odds ratio, bypass the interpretation of hard to understand Logits, the odds ratio is itself a hard to understand concept and therefore not easy to understand.&lt;/p&gt;
-&lt;p&gt;While the odds ratio bypass the interpretation of hard to understand Logits and the odds ratio may be easier to interpret, their meaning is often not easy to understand.&lt;/p&gt;
-&lt;p&gt;We can overcome this problem by presenting representative values and its predicted probabilites by the logistic model, since probabilites are easier to understand than odds ratios.&lt;/p&gt;
-&lt;/div&gt;
 </content>
       
     </item>

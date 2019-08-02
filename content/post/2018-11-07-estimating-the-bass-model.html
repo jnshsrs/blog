@@ -1,3 +1,24 @@
+---
+title: Koeffizienten des Bass-Models
+author: Jens Hüsers
+date: '2018-11-07'
+categories:
+  - rstat
+tags:
+  - rstat
+  - bass-model
+  - innovation-research
+  - nonlinear-model
+slug: estimating-the-bass-model
+draft: no
+disable_comments: yes
+output:
+  blogdown::html_page:
+    fig_width: 8
+editor_options: 
+  chunk_output_type: console
+---
+
 
 
 <script src="//yihui.name/js/math-code.js"></script>
@@ -87,7 +108,7 @@ p &lt;- round(seq(.1, 1, length.out = 8), 2)
 q &lt;- round(seq(-1, 1, length.out = 8), 2)
 
 show_bass_curves(p, q)</code></pre>
-<p><img src="2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
+<p><img src="/post/2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
 <p>Wir erkennen im Diagramm, das ein hoher Innovationskoeffizient die Adoption zu Beginn der Markteinführung positiv beeinflusst.
 Zudem lässt sich aus dem Diagramm der Einfluss des Imitationseffekts und dessen Interaktion mit dem Innovationskoeffizienten erkennen.
 Wenn der Innovationskoeffzient hoch ist (Panel links unten), ist auch die Adoption im weitern Zeitverlauf hoch.

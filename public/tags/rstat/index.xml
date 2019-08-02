@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 02 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/rstat/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Interpreting Logistic Regression Coefficients - Odds Ratios</title>
+      <link>/post/interpreting-logistic-regression-coefficients-odds-ratios/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/interpreting-logistic-regression-coefficients-odds-ratios/</guid>
+      <description>Logistic Regression The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable \(y\) and a set of independent response variables \(X\).
+However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed \(y\) values. The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called Logit: \(log(\frac{p(x)}{1 - p(x)})\), where \(p(x)\) is the probability that \(y=\).</description>
+    </item>
     
     <item>
       <title>Koeffizienten des Bass-Models</title>

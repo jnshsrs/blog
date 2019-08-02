@@ -23,7 +23,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href=""><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
+        <a class="nav-item" href="/"><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
@@ -76,40 +76,151 @@
   <div class="container">
     <div class="subtitle tags is-6 is-pulled-right">
       
+      
+<a class="subtitle is-6" href="/tags/rstat">#rstat</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/logistic-regression">#logistic-regression</a>
+  
+  | <a class="subtitle is-6" href="/tags/odds-ratio">#odds-ratio</a>
+  
+  | <a class="subtitle is-6" href="/tags/probabilty-theory">#probabilty-theory</a>
+  
+
+      
     </div>
     <h2 class="subtitle is-6">August 2, 2019</h2>
     <h1 class="title">Interpreting Logistic Regression Coefficients - Odds Ratios</h1>
     
     <div class="content">
-      
-
-<h1 id="logistic-regression">Logistic Regression</h1>
-
-<p>The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable $y$ and a set of independent response variables $X$.</p>
-
-<p>However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed $y$ values.
-The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called <strong>Logit</strong>: $log(\frac{p(x)}{1 - p(x)})$, where $p(x)$ is the probability that $y=$.
-The log odds are modeled as a linear combinations of the predictors and regression coefficients: $\beta_0 + \beta_1x_i$</p>
-
+      <script src="//yihui.name/js/math-code.js"></script>
+<script async
+src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div id="logistic-regression" class="section level1">
+<h1>Logistic Regression</h1>
+<p>The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable <span class="math inline">\(y\)</span> and a set of independent response variables <span class="math inline">\(X\)</span>.</p>
+<p>However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed <span class="math inline">\(y\)</span> values.
+The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called <strong>Logit</strong>: <span class="math inline">\(log(\frac{p(x)}{1 - p(x)})\)</span>, where <span class="math inline">\(p(x)\)</span> is the probability that <span class="math inline">\(y=\)</span>.
+The log odds are modeled as a linear combinations of the predictors and regression coefficients: <span class="math inline">\(\beta_0 + \beta_1x_i\)</span></p>
 <p>The complete model looks like this:</p>
-
-<p>$Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i$</p>
-
-<p>This equation shows, that the linear combination models the Logit and model coefficients $\beta$ descibe the influence of the predictors $X$ on the logit, e.g. a one unit increase in $x_i$ changes the Logit by the amout of $\beta_i$.
-Unfortunatly, we do not have a reasonable intuition about the <strong>Logit</strong> and this makes it hard to interpret the $\beta$-coefficients.</p>
-
+<p><span class="math inline">\(Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\)</span></p>
+<p>This equation shows, that the linear combination models the Logit and model coefficients <span class="math inline">\(\beta\)</span> descibe the influence of the predictors <span class="math inline">\(X\)</span> on the logit, e.g. a one unit increase in <span class="math inline">\(x_i\)</span> changes the Logit by the amout of <span class="math inline">\(\beta_i\)</span>.
+Unfortunatly, we do not have a reasonable intuition about the <strong>Logit</strong> and this makes it hard to interpret the <span class="math inline">\(\beta\)</span>-coefficients.</p>
 <p>Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.</p>
-
-<p>So the odds ratio tells us something about the change of the odds when we increase the predictor variable $x_i$ by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.</p>
-
-<h1 id="odds-ratios">Odds Ratios</h1>
-
-<p>We start with the <strong>Logit</strong> and as explained in the introduction it is the natual logarithm of the odds. Odds are the ratio of the probability that the outcome variable will be 1 $p(Y=1)$, also considered as the proabability of success, over the proabability that it will be 0 $p(Y=0)$, sometimes considered as the probability of failure. The probabilty can also be expressed as $p(Y=0) = 1-p(Y=1)$.</p>
-
+<p>So the odds ratio tells us something about the change of the odds when we increase the predictor variable <span class="math inline">\(x_i\)</span> by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.</p>
+</div>
+<div id="odds-ratios" class="section level1">
+<h1>Odds Ratios</h1>
+<p>In this section we first present the Logit and then move on to show that the exponentialted regression coefficients can be interpreted as Odds Ratios.</p>
+<div id="logit" class="section level2">
+<h2>Logit</h2>
+<p>To beginn with the <strong>Logit</strong> it is defined, as explained in the introduction, as the natual logarithm of the odds.</p>
+<p>Odds are the ratio of the probability that the outcome variable will be 1 <span class="math inline">\(p(Y=1)\)</span>, also considered as the proabability of success, over the proabability that it will be 0 <span class="math inline">\(p(Y=0)\)</span>, sometimes considered as the probability of failure. The probabilty can also be expressed as <span class="math inline">\(p(Y=0) = 1-p(Y=1)\)</span>.</p>
 <p>So the ratio of the probability of success over the probability is simply:</p>
+<p><span class="math inline">\(odds=\frac{p(Y=1)}{1-(Y=1)}\)</span></p>
+<p>To be more concise, let us first define <span class="math inline">\(\pi\)</span> which is the models’s predicted probability that <span class="math inline">\(Y=1\)</span>, so <span class="math inline">\(\pi=p(Y=1)\)</span> and we wil l simpy write:</p>
+<p><span class="math inline">\(odds(\pi)=\frac{\pi}{1-\pi}\)</span></p>
+<p>And the Logits is simply the natual logarithm of this odds and this Logits is modeled as a linear model <span class="math inline">\(\beta_0 + \beta_1x_i\)</span>.</p>
+<p>As explains, we do not have an intuition about the Logits. Thats why we want to predict values that are easier to understand, i.e. the odds.</p>
+<p>To do so, we apply the exponential function to both sides of our expression</p>
+<p><span class="math inline">\(Logit(\pi)=ln(\frac{\pi}{1-\pi)}) = \beta_0 + \beta_1x_i\)</span></p>
+<p>which gives us</p>
+<p><span class="math inline">\(\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}\)</span>.</p>
+</div>
+</div>
+<div id="beta-coefficients" class="section level1">
+<h1>Beta Coefficients</h1>
+<p>Now that we know what the <em>Logit</em> is, lets move on to the interpretation of the regression coeffcients.</p>
+<p>To do so, let us initially define <span class="math inline">\(x_0\)</span> as an value of the predictor <span class="math inline">\(X\)</span> and <span class="math inline">\(x_1=x_0 + 1\)</span> as the value of the predictor variable increased by one unit.</p>
+<p>When we plug in <span class="math inline">\(x_0\)</span> in our regression model, that predicts the odds, we get:</p>
+<p><span class="math inline">\(\frac{\pi_0}{1-\pi_0} = e^{\beta_0 + \beta_1x_0}\)</span> which is the predicted odds of <span class="math inline">\(X = x_0\)</span>.</p>
+<p>When we plug in <span class="math inline">\(x_1\)</span> we get:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_1}\)</span> which is the predicted odds when <span class="math inline">\(X = x_1\)</span> or equivalently <span class="math inline">\(X = x_0 + 1\)</span>.</p>
+<p>In the last formula we can now replace <span class="math inline">\(x_1\)</span> with <span class="math inline">\(x_0 + 1\)</span> to get:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1(x_0 + 1)}\)</span></p>
+<p>by mulitpling <span class="math inline">\(\beta_1(x_0 + 1)\)</span> in the exponent we get:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0 + \beta_1}\)</span></p>
+<p>In this situation, we can apply the rule for exponential expressions that additions in the exponent can be rewritten as a mutliplicative expression.
+According to this rule <span class="math inline">\(a^{b+c} = a^b\times a^c\)</span>, which in our example gives:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0} \times e^{\beta_1}\)</span>.</p>
+<p>Since we previously defined <span class="math inline">\(\beta_0 + \beta_1x_i\)</span> as <span class="math inline">\(\frac{\pi_0}{1-\pi_0}\)</span>, the odds where <span class="math inline">\(X=x_0\)</span>, we can now replace it in the equation in the formula above to get:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = \frac{\pi_0}{1-\pi_0} \times e^{\beta_1}\)</span>.</p>
+<p>All we have to do in this situation is to rearrange the equation by dividing both sides with <span class="math inline">\(\frac{\pi_0}{1-\pi_0}\)</span> to show that <span class="math inline">\(e^{\beta_1}\)</span> actually is the odds ratio which describes the relationship between odds when we increase X by 1 unit.</p>
+<p><span class="math inline">\(e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}\)</span>.</p>
+<div id="odds-ratios-in-r" class="section level2">
+<h2>Odds Ratios in R</h2>
+<p>In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually the odds ratio.</p>
+<p>Please consider the comments in the code for further explaination.</p>
+<pre class="r"><code># 1. simulate data
+# 2. calculate exponentiated beta
+# 3. calculate the odds based on the prediction p(Y=1|X)
+#
+# Function takes a x value, for that x value the odds are calculated and returned
+# Beside the odds, the function does also return the exponentiated beta coefficient
+log_reg &lt;- function(x_value) {
+  # simulate data, the higher x the higher the probability of y=1
+  set.seed(256)
+  X &lt;- c(rnorm(50, mean = 10, sd = 2), rnorm(50, mean = 14, sd = 2))
+  y &lt;- c(rep(0, 50), rep(1, 50))
+  
+  plot(y ~ X) 
+  model &lt;- glm(y ~ X, family = &quot;binomial&quot;)
+  beta_1 &lt;- coef(model)[2]
+  exp_beta_1 &lt;- exp(beta_1) # exponentiate beta_1 to get odds ratios
+  
+  # predict pi_i, the probabilty that y=1 given the x value
+  pi &lt;- predict(model, newdata = data.frame(X = x_value), type = &quot;response&quot;) 
+  
+  odds &lt;- pi / (1 - pi)
+  
+  list(odds = odds, exp_beta = exp_beta_1)
+}
+
+x_value &lt;- 14
+x1 &lt;- log_reg(x_value)
+x2 &lt;- log_reg(x_value + 1)</code></pre>
+<p><img src="/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
+<pre class="r"><code># Show the exponentiated beta coefficients
+show(x1$exp_beta) # exp beta</code></pre>
+<pre><code>##        X 
+## 2.682433</code></pre>
+<pre class="r"><code>odds_ratio &lt;- x2$odds / x1$odds # calculate odds ratio
+show(odds_ratio) # odds ratio</code></pre>
+<pre><code>##        1 
+## 2.682433</code></pre>
+<pre class="r"><code># Is the exponentiated beta the same as the calculated odds ratio?
+round(odds_ratio, 6) == round(x1$exp_beta, 6)</code></pre>
+<pre><code>##    1 
+## TRUE</code></pre>
+<p>The R-code above demonstrates that the exponetiated beta coefficient of a logistic regression is the same as the odds ratio and thus can be interpreted as the change of the odds ratio when we increase the predictor variable <span class="math inline">\(x\)</span> by one unit.</p>
+<p>In this example the odds ratio is 2.68. This means that the odds increase by 2.68 when we increase the predictor variable <span class="math inline">\(x\)</span> by one unit.</p>
+<p>In a situatuation where the predictor variable is lower that 1, the odds decrease, i.e. the proabability of <span class="math inline">\(p(Y=1)\)</span> also gets lower as <span class="math inline">\(x\)</span> increases.</p>
+</div>
+</div>
+<div id="outlook" class="section level1">
+<h1>Outlook</h1>
+<p>As I demonstrated in this post, a way to interpret the regression coefficients of a logistic regression is to exponentiate the coefficient and view it as the change in the odds.
+That means the exponentiated beta is the odds ratio.</p>
+<p>We did so, because the plain, non-exponentiated betas represent the change of the <em>Logit</em> and it is hard to get an intuition what that actually means.</p>
+<p>However, we also should keep in mind, that the odds ratio, bypass the interpretation of hard to understand Logits, the odds ratio is itself a hard to understand concept and therefore not easy to understand.</p>
+<p>While the odds ratio bypass the interpretation of hard to understand Logits and the odds ratio may be easier to interpret, their meaning is often not easy to understand.</p>
+<p>We can overcome this problem by presenting representative values and its predicted probabilites by the logistic model, since probabilites are easier to understand than odds ratios.</p>
+</div>
 
       
       <div class="related">
+
+<h3>Similar articles:</h3>
+<ul>
+	
+	<li><a href="/post/estimating-the-bass-model/">Koeffizienten des Bass-Models</a></li>
+	
+	<li><a href="/post/exploring-the-cost-function-of-logistic-regression/">Exploring the Cost Function of Logistic Regression</a></li>
+	
+</ul>
 </div>
       
     </div>

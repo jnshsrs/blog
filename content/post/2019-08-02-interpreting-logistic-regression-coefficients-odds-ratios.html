@@ -1,3 +1,24 @@
+---
+title: Interpreting Logistic Regression Coefficients - Odds Ratios
+author: Jens Hüsers
+date: '2019-08-02'
+categories:
+  - rstat
+tags:
+  - rstat
+  - logistic-regression
+  - odds-ratio
+  - probabilty-theory
+slug: interpreting-logistic-regression-coefficients-odds-ratios
+draft: no
+disable_comments: yes
+output:
+  blogdown::html_page:
+    fig_width: 8
+editor_options: 
+  chunk_output_type: console
+---
+
 
 
 <script src="//yihui.name/js/math-code.js"></script>
@@ -87,7 +108,7 @@ log_reg &lt;- function(x_value) {
 x_value &lt;- 14
 x1 &lt;- log_reg(x_value)
 x2 &lt;- log_reg(x_value + 1)</code></pre>
-<p><img src="2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
+<p><img src="/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
 <pre class="r"><code># Show the exponentiated beta coefficients
 show(x1$exp_beta) # exp beta</code></pre>
 <pre><code>##        X 
