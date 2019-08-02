@@ -13,44 +13,6 @@
     
     
     <item>
-      <title>Interpreting Logistic Regression Coefficients - Odds Ratios</title>
-      <link>/post/interpreting-logistic-regression-coefficients-odds-ratios/</link>
-      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
-      <author>Jens Hüsers</author>
-      <guid>/post/interpreting-logistic-regression-coefficients-odds-ratios/</guid>
-      <description></description>
-      
-      <content>
-
-&lt;h1 id=&#34;logistic-regression&#34;&gt;Logistic Regression&lt;/h1&gt;
-
-&lt;p&gt;The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable $y$ and a set of independent response variables $X$.&lt;/p&gt;
-
-&lt;p&gt;However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed $y$ values.
-The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called &lt;strong&gt;Logit&lt;/strong&gt;: $log(\frac{p(x)}{1 - p(x)})$, where $p(x)$ is the probability that $y=$.
-The log odds are modeled as a linear combinations of the predictors and regression coefficients: $\beta_0 + \beta_1x_i$&lt;/p&gt;
-
-&lt;p&gt;The complete model looks like this:&lt;/p&gt;
-
-&lt;p&gt;$Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i$&lt;/p&gt;
-
-&lt;p&gt;This equation shows, that the linear combination models the Logit and model coefficients $\beta$ descibe the influence of the predictors $X$ on the logit, e.g. a one unit increase in $x_i$ changes the Logit by the amout of $\beta_i$.
-Unfortunatly, we do not have a reasonable intuition about the &lt;strong&gt;Logit&lt;/strong&gt; and this makes it hard to interpret the $\beta$-coefficients.&lt;/p&gt;
-
-&lt;p&gt;Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.&lt;/p&gt;
-
-&lt;p&gt;So the odds ratio tells us something about the change of the odds when we increase the predictor variable $x_i$ by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.&lt;/p&gt;
-
-&lt;h1 id=&#34;odds-ratios&#34;&gt;Odds Ratios&lt;/h1&gt;
-
-&lt;p&gt;We start with the &lt;strong&gt;Logit&lt;/strong&gt; and as explained in the introduction it is the natual logarithm of the odds. Odds are the ratio of the probability that the outcome variable will be 1 $p(Y=1)$, also considered as the proabability of success, over the proabability that it will be 0 $p(Y=0)$, sometimes considered as the probability of failure. The probabilty can also be expressed as $p(Y=0) = 1-p(Y=1)$.&lt;/p&gt;
-
-&lt;p&gt;So the ratio of the probability of success over the probability is simply:&lt;/p&gt;
-</content>
-      
-    </item>
-    
-    <item>
       <title>Upload a Resource to a FHIR Server</title>
       <link>/post/upload-a-resource-to-a-fhir-server/</link>
       <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
