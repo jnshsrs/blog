@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Posts | Science, Physiotherapy and Stats</title>
+<title>Interpreting Logistic Regression Coefficients - Odds Ratios | Science, Physiotherapy and Stats</title>
 
 
 
@@ -74,144 +74,64 @@
 
 <section class="section">
   <div class="container">
-    
-    
-    <article>
-      <div class="subtitle tags is-6 is-pulled-right">
-        
-        
-<a class="subtitle is-6" href="/tags/function">#function</a>
-
-
-
-  
-  | <a class="subtitle is-6" href="/tags/rstats">#rstats</a>
-  
-  | <a class="subtitle is-6" href="/tags/spss">#spss</a>
-  
-  | <a class="subtitle is-6" href="/tags/survey-data">#survey-data</a>
-  
-
-        
-      </div>
-      <h2 class="subtitle is-6">July 18, 2018</h2>
-      <h1 class="title"><a href="/post/import-ordered-spss-factors-into-r/">Import ordered SPSS factors into R</a></h1>
-      <div class="content">
-        
-              
+    <div class="subtitle tags is-6 is-pulled-right">
       
-    Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the haven package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered &hellip;
-        
-        <a class="button is-link" href="/post/import-ordered-spss-factors-into-r/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
-        
-      </div>
-    </article>
+    </div>
+    <h2 class="subtitle is-6">August 2, 2019</h2>
+    <h1 class="title">Interpreting Logistic Regression Coefficients - Odds Ratios</h1>
     
-    <article>
-      <div class="subtitle tags is-6 is-pulled-right">
-        
-      </div>
-      <h2 class="subtitle is-6">January 1, 0001</h2>
-      <h1 class="title"><a href="/post/2018-11-07-estimating-the-bass-model/"></a></h1>
-      <div class="content">
-        
-              
+    <div class="content">
       
-    In diesem Post möchte ich den Effekt der Modelparameter darstellen, da diese ohne Kontext oftmals schwierig zu verstehen sind.
-[&hellip;] \(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)
-[&hellip;] Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren auf die &hellip;
-        
-        <a class="button is-link" href="/post/2018-11-07-estimating-the-bass-model/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
-        
-      </div>
-    </article>
-    
-    <article>
-      <div class="subtitle tags is-6 is-pulled-right">
-        
-      </div>
-      <h2 class="subtitle is-6">January 1, 0001</h2>
-      <h1 class="title"><a href="/post/2019-05-02-upload-a-resource-to-a-fhir-server/"></a></h1>
-      <div class="content">
-        
-              
+
+<h1 id="logistic-regression">Logistic Regression</h1>
+
+<p>The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable $y$ and a set of independent response variables $X$.</p>
+
+<p>However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed $y$ values.
+The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called <strong>Logit</strong>: $log(\frac{p(x)}{1 - p(x)})$, where $p(x)$ is the probability that $y=$.
+The log odds are modeled as a linear combinations of the predictors and regression coefficients: $\beta_0 + \beta_1x_i$</p>
+
+<p>The complete model looks like this:</p>
+
+<p>$Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i$</p>
+
+<p>This equation shows, that the linear combination models the Logit and model coefficients $\beta$ descibe the influence of the predictors $X$ on the logit, e.g. a one unit increase in $x_i$ changes the Logit by the amout of $\beta_i$.
+Unfortunatly, we do not have a reasonable intuition about the <strong>Logit</strong> and this makes it hard to interpret the $\beta$-coefficients.</p>
+
+<p>Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.</p>
+
+<p>So the odds ratio tells us something about the change of the odds when we increase the predictor variable $x_i$ by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.</p>
+
+<h1 id="odds-ratios">Odds Ratios</h1>
+
+<p>We start with the <strong>Logit</strong> and as explained in the introduction it is the natual logarithm of the odds. Odds are the ratio of the probability that the outcome variable will be 1 $p(Y=1)$, also considered as the proabability of success, over the proabability that it will be 0 $p(Y=0)$, sometimes considered as the probability of failure. The probabilty can also be expressed as $p(Y=0) = 1-p(Y=1)$.</p>
+
+<p>So the ratio of the probability of success over the probability is simply:</p>
+
       
-    In earlier posts I presented FHIR resources by uploading them to FHIR servers. This post will explain how the process of uploading a FHIR resource works with postman. In this context the correct terminology is post a resource rather than uploading since we are dealing with a RESTful API.
-In this &hellip;
-        
-        <a class="button is-link" href="/post/2019-05-02-upload-a-resource-to-a-fhir-server/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
-        
-      </div>
-    </article>
-    
-    <article>
-      <div class="subtitle tags is-6 is-pulled-right">
-        
-      </div>
-      <h2 class="subtitle is-6">January 1, 0001</h2>
-      <h1 class="title"><a href="/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/"></a></h1>
-      <div class="content">
-        
-              
+      <div class="related">
+</div>
       
-    The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable \(y\) and a set of independent response variables \(X\).
-[&hellip;] The complete model looks like this:
-\(Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\) &hellip;
-        
-        <a class="button is-link" href="/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
-        
-      </div>
-    </article>
+    </div>
     
   </div>
 </section>
+
 <section class="section">
   <div class="container">
-    <nav class="level is-mobile">
-      <div class="level-left">
-        <div class="level-item">
-          
-          <a class="button" href="/post/page/2/">
-            <span class="icon is-small is-marginless">
-              <svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-    
-    <polyline points="15 18 9 12 15 6"/>
-    
-  </svg>
-            </span>
-            Newer
-          </a>
-          
-        </div>
-      </div>
-      <div class="level-right is-marginless">
-        <div class="level-item">
-          
-        </div>
-      </div>
-    </nav>
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'shortname';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
   </div>
 </section>
+
 
 <section class="section">
   <div class="container has-text-centered">
@@ -252,5 +172,4 @@ In this &hellip;
 </script>
 </body>
 </html>
-
 

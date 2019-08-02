@@ -13,6 +13,44 @@
     
     
     <item>
+      <title>Interpreting Logistic Regression Coefficients - Odds Ratios</title>
+      <link>/post/interpreting-logistic-regression-coefficients-odds-ratios/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/interpreting-logistic-regression-coefficients-odds-ratios/</guid>
+      <description></description>
+      
+      <content>
+
+&lt;h1 id=&#34;logistic-regression&#34;&gt;Logistic Regression&lt;/h1&gt;
+
+&lt;p&gt;The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable $y$ and a set of independent response variables $X$.&lt;/p&gt;
+
+&lt;p&gt;However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed $y$ values.
+The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called &lt;strong&gt;Logit&lt;/strong&gt;: $log(\frac{p(x)}{1 - p(x)})$, where $p(x)$ is the probability that $y=$.
+The log odds are modeled as a linear combinations of the predictors and regression coefficients: $\beta_0 + \beta_1x_i$&lt;/p&gt;
+
+&lt;p&gt;The complete model looks like this:&lt;/p&gt;
+
+&lt;p&gt;$Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i$&lt;/p&gt;
+
+&lt;p&gt;This equation shows, that the linear combination models the Logit and model coefficients $\beta$ descibe the influence of the predictors $X$ on the logit, e.g. a one unit increase in $x_i$ changes the Logit by the amout of $\beta_i$.
+Unfortunatly, we do not have a reasonable intuition about the &lt;strong&gt;Logit&lt;/strong&gt; and this makes it hard to interpret the $\beta$-coefficients.&lt;/p&gt;
+
+&lt;p&gt;Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.&lt;/p&gt;
+
+&lt;p&gt;So the odds ratio tells us something about the change of the odds when we increase the predictor variable $x_i$ by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.&lt;/p&gt;
+
+&lt;h1 id=&#34;odds-ratios&#34;&gt;Odds Ratios&lt;/h1&gt;
+
+&lt;p&gt;We start with the &lt;strong&gt;Logit&lt;/strong&gt; and as explained in the introduction it is the natual logarithm of the odds. Odds are the ratio of the probability that the outcome variable will be 1 $p(Y=1)$, also considered as the proabability of success, over the proabability that it will be 0 $p(Y=0)$, sometimes considered as the probability of failure. The probabilty can also be expressed as $p(Y=0) = 1-p(Y=1)$.&lt;/p&gt;
+
+&lt;p&gt;So the ratio of the probability of success over the probability is simply:&lt;/p&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Upload a Resource to a FHIR Server</title>
       <link>/post/upload-a-resource-to-a-fhir-server/</link>
       <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
@@ -263,93 +301,6 @@ r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;
 &lt;p&gt;The bottom line of this post is, that we use cross-validation to investigate possible hyperparameters and their performance on unseen data, simulating this scenario by partioning the dataset into folds, withholding a fold and use this fold as the test set.&lt;/p&gt;
 &lt;p&gt;We compare the cross-validated metric of each cross-validation process and choose the one with the best metric value, e.g. lowest RMSE.&lt;/p&gt;
 &lt;p&gt;We then use all the data in our dataset to fit the final model. This final model will be used to predict future data. In our case our model estimates the income of people with variable such as age, gender and others.&lt;/p&gt;
-&lt;/div&gt;
-</content>
-      
-    </item>
-    
-    <item>
-      <title>Koeffizienten des Bass-Models</title>
-      <link>/post/estimating-the-bass-model/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      <author>Jens Hüsers</author>
-      <guid>/post/estimating-the-bass-model/</guid>
-      <description></description>
-      
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
-&lt;script async
-src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
-&lt;/script&gt;
-&lt;div id=&#34;untersuchung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Untersuchung von Innovationen&lt;/h1&gt;
-&lt;p&gt;Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse. Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik. Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen. Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden. Das heute unter dem Namen Bass-Model bekannte statistische Verfahren wurde nach der Publikation der theoretischen Grundlagen durch empirische Daten untermauert.&lt;/p&gt;
-&lt;p&gt;In diesem Post möchte ich den Effekt der Modelparameter darstellen, da diese ohne Kontext oftmals schwierig zu verstehen sind.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;modellierung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Modellierung von Innovationen&lt;/h1&gt;
-&lt;p&gt;Es gibt verschiedene Ansätze dieses Models Innovationen zu betrachten. Ein Ansatz ist, den prozentualen Anteil der Adopter zu modellieren. Im Zentrum des Bass-Models steht der Adopter. Als Adopter werden in diesem Zusammenhang Personen oder Organisationen bezeichnet, die ein neues Produkt nutzen oder innovative technologische Lösungen einsetzten. So kann ein Unternehmen daran interessiert sein, wie hoch der prozentuale Anteil der Nutzer seines neuen Produktes ist.&lt;/p&gt;
-&lt;p&gt;Im Rahmen dieser Fragestellung kann dieser Anteil durch das Bass Model geschätzt werden. Das Model basiert dabei auf einer S-förmigen Adoptionskurve die durch folgende Formel dargestellt wird.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Bei diesem Model werden zwei Koeffizienten geschätzt, die bei der Adoption von Innovationen Einfluss üben. Dabei handelt es sich zum eine um den Innovationkoeffizienten p und zum anderen um den Imitationskoeffizienten q.&lt;/p&gt;
-&lt;!--
-(Ich merke mir diese Zuordnung indem ich mit das in unserer Lesrichtung von links nach rechts schauende p als progressiv und damit innovativ. 
-Das zurückblickende q ist der Immitator.)
---&gt;
-&lt;p&gt;Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren auf die Adoption der Innovation wirken.&lt;/p&gt;
-&lt;p&gt;Die Höhe des Innovationskoeffzienten p bestimmt wie stark die stark die Adoption bei der Einführung einer Innovation ist. Je höher der Innovationskoeffizient desto steiller ist die Addoptionskurve zu Beginn. Dass heißt, dass viele Innovatoren ein Produkt adoptieren.&lt;/p&gt;
-&lt;p&gt;Die Höhe des Imitationskoeffizienten q erklärt den Einfluss von Imitatoren. Imitatioren orientieren sich dabei an das Verhalten von Adoptern. Der Imitionskoeffizient steht somit in Wechselwirkung mit dem Innovationskoeffizient.&lt;/p&gt;
-&lt;p&gt;Während der Innovationskoeffizient p positiv ist, kann der Imitaitonskoeffizient q auch negativ sein. Typische Wert für p liegen im Bereich von null bis zwei. Der q-Wert kann theoretisch große negative Werte annehmen, liegt typischerweise im Bereich von minus ein bis 2. Bei hohen negativen Werten ist kaum Imitaionsverhalten zu erwarten, was sich durch eine flache Adoptionskurve darstellt, nachdem der Innovationseffekt abklingt.&lt;/p&gt;
-&lt;p&gt;Ich zur Veranschaulichung des Bass Models die Adoptionskurve verschiedener Parameterkombinationen von p und q visualisiert.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;einfluss-der-modelparameter-p-und-q&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Einfluss der Modelparameter p und q&lt;/h1&gt;
-&lt;p&gt;Die Darstellung zeigt Bass-Modelle verschiedener Parameterkombinationen von p und q. Das Model stellt den kumulierten prozentualen Anteil der Adopter dar. Jedes Panel steht dabei für einen Wert von q (Imitaitonskoeffizient) und die Farbe der Linien steht für einen Wert von p (Innovationskoeffzient), wobei mit steigendem Innovationskoeffzienten die Linie heller wird.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
-
-show_bass_curves &amp;lt;- function(p, q) {
-  g &amp;lt;- expand.grid(p, q)
-  p_ &amp;lt;- g$Var1
-  q_ &amp;lt;- g$Var2
-  t &amp;lt;- 0:10
-  
-  res &amp;lt;- map2(.x = p_, .y = q_, .f = netdiffuseR::bass_F, Time = t) 
-  g &amp;lt;- g %&amp;gt;% as.data.frame %&amp;gt;% as.tibble %&amp;gt;% unite(col = &amp;quot;Var&amp;quot;, c(&amp;quot;Var1&amp;quot;, &amp;quot;Var2&amp;quot;)) %&amp;gt;% pull
-  
-  res &amp;lt;- res %&amp;gt;%
-    set_names(g) %&amp;gt;%
-    as_tibble() %&amp;gt;% 
-    add_column(Time = t) %&amp;gt;% 
-    gather(key, value, -Time) %&amp;gt;% 
-    separate(col = &amp;quot;key&amp;quot;, into = c(&amp;quot;p&amp;quot;, &amp;quot;q&amp;quot;), sep = &amp;quot;_&amp;quot;) %&amp;gt;% 
-    mutate_at(&amp;quot;q&amp;quot;, as.numeric) %&amp;gt;% 
-    mutate(q = factor(x = glue::glue(&amp;quot;q = {q}&amp;quot;), 
-                      levels = glue::glue(&amp;quot;q = {sort(unique(q))}&amp;quot;),
-                      ordered = TRUE))
-  
-  res %&amp;gt;% 
-    ggplot(aes(x = Time, y = value, col = p)) +
-    geom_line() +
-    facet_wrap(~ as.factor(q), nrow = 2, scales = &amp;quot;free_x&amp;quot;) +
-    viridis::scale_color_viridis(discrete = T, option = &amp;quot;magma&amp;quot;) +
-    theme_bw() +
-    scale_y_continuous(labels = scales::percent, 
-                       breaks = seq(0, 1, .2),
-                       name = &amp;quot;Proportional Adopters&amp;quot;) +
-    scale_x_continuous(breaks = t) +
-    guides(colour = guide_legend(reverse=T, title = &amp;quot;p&amp;quot;))
-    
-}
-
-p &amp;lt;- round(seq(.1, 1, length.out = 8), 2)
-q &amp;lt;- round(seq(-1, 1, length.out = 8), 2)
-
-show_bass_curves(p, q)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Wir erkennen im Diagramm, das ein hoher Innovationskoeffizient die Adoption zu Beginn der Markteinführung positiv beeinflusst. Zudem lässt sich aus dem Diagramm der Einfluss des Imitationseffekts und dessen Interaktion mit dem Innovationskoeffizienten erkennen. Wenn der Innovationskoeffzient hoch ist (Panel links unten), ist auch die Adoption im weitern Zeitverlauf hoch. Sinkt der Imitationskoeffizient hemmt er den weiteren Adoptionsverlauf. Er kann ihn sogar ausbremsen, wenn er negativ wird. In diesem Fall exisitert kein Imitationseffekt und die Innvation ereicht keine vollständige Marktdurchdringung.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;schlussfolgerung&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Schlussfolgerung&lt;/h1&gt;
-&lt;p&gt;Das Bass-Model kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren. Das Model besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden. Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn. Je höher der Koeffizient desto stärker der Effekt der Innovatoren. Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase. Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.&lt;/p&gt;
 &lt;/div&gt;
 </content>
       
@@ -786,9 +737,13 @@ library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;Nutzen Sie dazu die Daten des &lt;code&gt;titanic&lt;/code&gt;- Datensatzes. Laden Sie zunächst den Datensatz mit der Funktion &lt;code&gt;read_csv&lt;/code&gt; und speichern sie diesen im einem Objekt mit dem Namen &lt;code&gt;titanic&lt;/code&gt;. Die Daten liegen im &lt;code&gt;csv&lt;/code&gt;-Format vor und sind im Ordner &lt;code&gt;data/titanic.csv&lt;/code&gt; gespeichert.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Nutzen Sie dazu die Daten des &lt;code&gt;titanic&lt;/code&gt;- Datensatzes.
+Laden Sie zunächst den Datensatz mit der Funktion &lt;code&gt;read_csv&lt;/code&gt; und speichern sie diesen im einem Objekt mit dem Namen &lt;code&gt;titanic&lt;/code&gt;.
+Die Daten liegen im &lt;code&gt;csv&lt;/code&gt;-Format vor und sind im Ordner &lt;code&gt;data/titanic.csv&lt;/code&gt; gespeichert.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Geben Sie die ersten 6 Zeilen des Datensatzes aus.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Erstellen Sie einen Scatterplot mit &lt;code&gt;ggplot2&lt;/code&gt;. Nutzen Sie dazu als Daten den &lt;code&gt;titanic&lt;/code&gt;-Datensatz. Verknüpfen (mappen) Sie die Variable &lt;code&gt;age&lt;/code&gt; mit der x-Achse und &lt;code&gt;fare&lt;/code&gt; mit der y-Achse (Aesthetics). Nutzen sie als Geom &lt;code&gt;geom_point&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Erstellen Sie einen Scatterplot mit &lt;code&gt;ggplot2&lt;/code&gt;. Nutzen Sie dazu als Daten den &lt;code&gt;titanic&lt;/code&gt;-Datensatz.
+Verknüpfen (mappen) Sie die Variable &lt;code&gt;age&lt;/code&gt; mit der x-Achse und &lt;code&gt;fare&lt;/code&gt; mit der y-Achse (Aesthetics).
+Nutzen sie als Geom &lt;code&gt;geom_point&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Verknüpfen Sie die Farbe der Punkte mit der Klasse des Passagiers&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# laden der Titanic Daten
@@ -811,12 +766,16 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
   geom_point() &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2018-09-06-gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2_files/figure-html/scatter-plot-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;Tipp: Die jeweiligen geometischen Element wie z.B. &lt;code&gt;geom_point&lt;/code&gt; und &lt;code&gt;geom_histogram&lt;/code&gt; können bestimmte aestetische Elemente verstehten. Das geometrisch Element &lt;code&gt;geom_point&lt;/code&gt; kann aestetische Elemente wie &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt; sowie &lt;code&gt;color&lt;/code&gt;, &lt;code&gt;size&lt;/code&gt; und weitere Verknüpfungen verarbeiten.&lt;/p&gt;
+&lt;p&gt;Tipp:
+Die jeweiligen geometischen Element wie z.B. &lt;code&gt;geom_point&lt;/code&gt; und &lt;code&gt;geom_histogram&lt;/code&gt; können bestimmte aestetische Elemente verstehten.
+Das geometrisch Element &lt;code&gt;geom_point&lt;/code&gt; kann aestetische Elemente wie &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt; sowie &lt;code&gt;color&lt;/code&gt;, &lt;code&gt;size&lt;/code&gt; und weitere Verknüpfungen verarbeiten.&lt;/p&gt;
 &lt;p&gt;Einige geometrische Elemente sind zwingend erforderlich. Beim geometrischen Element &lt;code&gt;geom_point&lt;/code&gt; sind die &lt;code&gt;x&lt;/code&gt; und &lt;code&gt;y&lt;/code&gt; Achse erforderlich, alle weitern optional.&lt;/p&gt;
-&lt;p&gt;Eine Übersicht über die aesterischen Elemente, die ein geometrisches Element versteht, kann in der Dokumentation der jeweiligen Geome eingesehen werden. In der R-Konsole kann die Dokumentation mit folgdendem Code aufgerufen werden: &lt;code&gt;?geom_point&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Eine Übersicht über die aesterischen Elemente, die ein geometrisches Element versteht, kann in der Dokumentation der jeweiligen Geome eingesehen werden.
+In der R-Konsole kann die Dokumentation mit folgdendem Code aufgerufen werden: &lt;code&gt;?geom_point&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Erstellen Sie erneut ein Punktdiagramm, wie oben beschrieben jedoch ohne die &lt;code&gt;color&lt;/code&gt; zu verknüpfen. Fügen Sie nun zusätzlich das geometrische Element &lt;code&gt;geom_smooth&lt;/code&gt; hinzu und spezifizieren sie das Funktionsargument wie folgt: &lt;code&gt;method = &amp;quot;lm&amp;quot;&lt;/code&gt; um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.&lt;/p&gt;
+&lt;p&gt;Erstellen Sie erneut ein Punktdiagramm, wie oben beschrieben jedoch ohne die &lt;code&gt;color&lt;/code&gt; zu verknüpfen.
+Fügen Sie nun zusätzlich das geometrische Element &lt;code&gt;geom_smooth&lt;/code&gt; hinzu und spezifizieren sie das Funktionsargument wie folgt: &lt;code&gt;method = &amp;quot;lm&amp;quot;&lt;/code&gt; um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.&lt;/p&gt;
 &lt;p&gt;Besteht ein Zusammenhang zwischen diesen beiden Variablen?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
        mapping = aes(x = age, y = fare)
@@ -830,7 +789,9 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;h1&gt;Barplots&lt;/h1&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Erstellen Sie ein Balkendiagramm. Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen. Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.&lt;/p&gt;
+&lt;p&gt;Erstellen Sie ein Balkendiagramm.
+Diese soll die Anzahl der Passagiere in den jeweiligen Klassen darstellen.
+Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;Erstellen Sie ein entprechendes Balkendiagramm mit ggplot2 in dem sie die x-Achse mit der entsprechenden Variablen verknüpfen.&lt;/li&gt;
 &lt;li&gt;Verknüpfen Sie die ‘fill-aesthetic’ mit der Variable &lt;code&gt;survived&lt;/code&gt;.&lt;/li&gt;
@@ -851,7 +812,8 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;h1&gt;Boxplots&lt;/h1&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Stellen Sie die Verteilung des Preises für die jeweiligen Passagierklassen dar. Nutzen Sie dafür Boxplots.&lt;/p&gt;
+&lt;p&gt;Stellen Sie die Verteilung des Preises für die jeweiligen Passagierklassen dar.
+Nutzen Sie dafür Boxplots.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
        mapping = aes(x = pclass, y = fare)) +
   geom_boxplot() &lt;/code&gt;&lt;/pre&gt;
@@ -862,7 +824,8 @@ head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;h1&gt;Histogramme&lt;/h1&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Erstelle ein Histogramm um die Verteilung der Variablen &lt;code&gt;age&lt;/code&gt; darzustellen. Experimentieren mit den Funktionsparameter &lt;code&gt;bins&lt;/code&gt;, der die Anzahl der Balken des Diagramms definiert.&lt;/p&gt;
+&lt;p&gt;Erstelle ein Histogramm um die Verteilung der Variablen &lt;code&gt;age&lt;/code&gt; darzustellen.
+Experimentieren mit den Funktionsparameter &lt;code&gt;bins&lt;/code&gt;, der die Anzahl der Balken des Diagramms definiert.&lt;/p&gt;
 &lt;p&gt;Um die Balkenfarbe zu ändern setze den Parameter &lt;code&gt;fill=&amp;quot;darkgrey&amp;quot;&lt;/code&gt; direkt in der Funktion &lt;code&gt;geom_histogram&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Zusätzlich füge die Funktion &lt;code&gt;theme_minimal()&lt;/code&gt; dem Plot hinzu um das Aussehen des Histogramms zu ändern.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
@@ -930,13 +893,16 @@ MASS::mammals %&amp;gt;%
 &lt;p&gt;Dieser Post enthält das Skript sowie die Aufgaben inklusive Lösungen meines Tutoriums “Einstieg in die Programmiersprache R” auf der 63. Jahrestagung der GMDS e.V. in Osnabrück am 6.9.2018. Das Skript mit den Aufgaben ohne Lösungen sind in der Datei &lt;code&gt;workbook-rstats-gmds18-aufgaben.Rmd&lt;/code&gt; auf &lt;a href=&#34;https://github.com/jnshsrs/gmds18-tutorium-rstats&#34; title=&#34;Github Repository&#34;&gt;Github&lt;/a&gt; verfügbar.&lt;/p&gt;
 &lt;div id=&#34;installation&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Installation&lt;/h2&gt;
-&lt;p&gt;In diesem Kurs werden wir mit R und RStudio als Programmierumgebung (IDE) arbeiten. Beide Programme stehen kostenlos zur Verfügung.&lt;/p&gt;
-&lt;p&gt;Zunächst muss die Programmiersprache R installiert werden. Die aktuelle Version kann auf der offiziellen R-Website heruntergeladen werden (&lt;a href=&#34;http://www.r-project.org&#34; class=&#34;uri&#34;&gt;http://www.r-project.org&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;In diesem Kurs werden wir mit R und RStudio als Programmierumgebung (IDE) arbeiten.
+Beide Programme stehen kostenlos zur Verfügung.&lt;/p&gt;
+&lt;p&gt;Zunächst muss die Programmiersprache R installiert werden.
+Die aktuelle Version kann auf der offiziellen R-Website heruntergeladen werden (&lt;a href=&#34;http://www.r-project.org&#34; class=&#34;uri&#34;&gt;http://www.r-project.org&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;Danach kann RStudio installiert werden, welches unter der Open Source Lizenz kostenlos zur Verfügung steht (&lt;a href=&#34;https://www.rstudio.com/products/rstudio/download/&#34; class=&#34;uri&#34;&gt;https://www.rstudio.com/products/rstudio/download/&lt;/a&gt;).&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;warum-r&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Warum R?&lt;/h2&gt;
-&lt;p&gt;R hat eine steile Lernkurve und häufig fällt der Einstieg ohne Ausbildung zum Informatiker oder “Computer Scientist”. Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten.&lt;/p&gt;
+&lt;p&gt;R hat eine steile Lernkurve und häufig fällt der Einstieg ohne Ausbildung zum Informatiker oder “Computer Scientist”.
+Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten.&lt;/p&gt;
 &lt;p&gt;Welche Vorteile bieten Programmiersprachen im Vergleich zu den Statistiksoftwaretools wie SPSS und SAS?&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Kostenlos mit vielen Erweiterungen und Unterstützung einer breiten R-Nutzergruppe (z.B. auf Stackoverflow)&lt;/li&gt;
@@ -949,10 +915,12 @@ MASS::mammals %&amp;gt;%
 &lt;div id=&#34;r-studio&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;R Studio&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Programmeinführung R-Studio&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Programmeinführung R-Studio&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;Dokumentation&lt;/li&gt;
 &lt;li&gt;Umgebung (Enironment)&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Konsole&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Konsole&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div id=&#34;lern-ressourcen-und-materialien&#34; class=&#34;section level2&#34;&gt;
@@ -973,7 +941,8 @@ MASS::mammals %&amp;gt;%
 &lt;h2&gt;Einstieg in die Konsole und Datentypen&lt;/h2&gt;
 &lt;p&gt;Vorab wichtig: R ist CaseSensitive, dass heißt, Groß- und Kleinbuchstaben sind unterschiedliche Zeichen. Der Großbuchstabe &lt;code&gt;X&lt;/code&gt; ist demnach nicht das selbe wie der Kleinbuchstabe x. Im R-Code werden daher zum Beispiel Variablennamen &lt;code&gt;x_mean&lt;/code&gt; und &lt;code&gt;X_mean&lt;/code&gt; unterschiedlich interpretiert.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Datentypen (Numerisch, Integer, String, Faktoren, Boolean)&lt;/li&gt;
+&lt;li&gt;Datentypen (Numerisch, Integer, String, Faktoren, Boolean)
+&lt;ul&gt;
 &lt;li&gt;Integer (Ganzzahl) z.B. &lt;code&gt;100&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Numerisch (Float, Kommazahl) &lt;code&gt;0.12&lt;/code&gt; oder Ratio zweier Integer &lt;code&gt;1/10&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Boolean &lt;code&gt;TRUE&lt;/code&gt; or &lt;code&gt;FALSE&lt;/code&gt; (oder entprechend 1 und 0), werden in R als Datentyp &lt;code&gt;logical&lt;/code&gt; bezeichnet&lt;/li&gt;
@@ -981,19 +950,25 @@ MASS::mammals %&amp;gt;%
 &lt;li&gt;&lt;p&gt;Datetime Datentyp (z.B. &lt;code&gt;as.Date(&amp;quot;2017-05-05&amp;quot;)&lt;/code&gt;, hier ist die Funktionseingabe eine Zeichenkette in einer bestimmten Reihenfolge Jahr-Monat-Tag)&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;Besondere Datenwerte sind fehlende Werte z.B. &lt;code&gt;NA&lt;/code&gt; (Not available) oder &lt;code&gt;NaN&lt;/code&gt; (Not a Number z.B. &lt;code&gt;log(-10)&lt;/code&gt;)&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;NULL&lt;/code&gt; Wert&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Zum Überprüfen des Datentyps gibt es verschiedene Funktionen z.B. &lt;code&gt;is.character()&lt;/code&gt;, &lt;code&gt;is.numeric()&lt;/code&gt; oder &lt;code&gt;is.logical()&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;(Build-In) Funktionen&lt;/li&gt;
+&lt;li&gt;(Build-In) Funktionen
+&lt;ul&gt;
 &lt;li&gt;z.B. &lt;code&gt;abs()&lt;/code&gt;, &lt;code&gt;sqrt()&lt;/code&gt;, &lt;code&gt;nchar()&lt;/code&gt;, &lt;code&gt;mean()&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Dokumentation &lt;code&gt;?abs&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Funktions-Parameter&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Erstellen und Nutzten von Datenstrukturen (“Objekte” und “Klassen”)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Funktions-Parameter&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Erstellen und Nutzten von Datenstrukturen (“Objekte” und “Klassen”)&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;Vektoren &lt;code&gt;c()&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Liste: &lt;code&gt;list()&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;data.frame &lt;code&gt;data.frame()&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;data.frame &lt;code&gt;data.frame()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Es gibt noch weitere Datentypen, wie z.B. Matrix oder umfangreichere Strukturen wie z.B. Lineare Regressionsmodelle Da R Methoden für das objekt-orientierte Programmieren anbietet, können auch eigene Datenstrukturen entwickelt und genutzt werden.&lt;/p&gt;
+&lt;p&gt;Es gibt noch weitere Datentypen, wie z.B. Matrix oder umfangreichere Strukturen wie z.B. Lineare Regressionsmodelle
+Da R Methoden für das objekt-orientierte Programmieren anbietet, können auch eigene Datenstrukturen entwickelt und genutzt werden.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;r-als-taschenrechner-kennenlernen-der-konsole&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;R als Taschenrechner (Kennenlernen der Konsole)&lt;/h2&gt;
@@ -1007,10 +982,13 @@ MASS::mammals %&amp;gt;%
 1 / 1  + 2
 sqrt(9) + 3
 sqrt(2)^2&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In R ist es üblich Ergebnisse in einer Variable zu speichern. Das ist mit einem “Pfeil”&amp;quot; als Zuweisungsoperator &lt;code&gt;&amp;lt;-&lt;/code&gt; (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich. Auch &lt;code&gt;=&lt;/code&gt; ist möglich, in R aber unüblich.&lt;/p&gt;
+&lt;p&gt;In R ist es üblich Ergebnisse in einer Variable zu speichern.
+Das ist mit einem “Pfeil”&amp;quot; als Zuweisungsoperator &lt;code&gt;&amp;lt;-&lt;/code&gt; (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich.
+Auch &lt;code&gt;=&lt;/code&gt; ist möglich, in R aber unüblich.&lt;/p&gt;
 &lt;p&gt;Zum Beispiel kann die Summe aus der ersten Berechnung in einer Variablen &lt;code&gt;x&lt;/code&gt; und die Summe aus Berechnung zwei in &lt;code&gt;y&lt;/code&gt; gespeichert werden.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;x &amp;lt;- 1 + 1&lt;/code&gt; und &lt;code&gt;y &amp;lt;- 2 * 4&lt;/code&gt;, wobei x und y die Ergebnisse der Berechnung in Form eines numerischen Datentyps (s.u) speichern.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;x + y&lt;/code&gt; repräsentiert somit &lt;code&gt;(1 + 1) + (2 * 4)&lt;/code&gt; bzw. &lt;code&gt;2 + 8&lt;/code&gt;. R beachtet dabei Rechenregeln wie beispielsweise das Kommutativgesetzt oder das Assoziativgesetz.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;x + y&lt;/code&gt; repräsentiert somit &lt;code&gt;(1 + 1) + (2 * 4)&lt;/code&gt; bzw. &lt;code&gt;2 + 8&lt;/code&gt;.
+R beachtet dabei Rechenregeln wie beispielsweise das Kommutativgesetzt oder das Assoziativgesetz.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;arbeiten-mit-vektoren&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Arbeiten mit Vektoren&lt;/h2&gt;
@@ -1083,7 +1061,8 @@ mittelwert &amp;lt;- function(x) {
 &lt;p&gt;Erstellen Sie eine Funktion um die (empirische) Standardabweichung zu berechnen die wie in der folgenden Funktion definiert ist.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\sigma =\sqrt{\frac{1}{n-1}\cdot {\sum\limits_{i=1}^n} (x_i-\bar{x})^2}\)&lt;/span&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Die Standardabweichung ist definiert als Wurzel des Mittelwerts folgender Größe: Der Summe der quadrierten Abweichung jedes Datenpunktes vom Mittelwert (SAQ).*&lt;/li&gt;
+&lt;li&gt;Die Standardabweichung ist definiert als Wurzel des Mittelwerts folgender Größe:
+Der Summe der quadrierten Abweichung jedes Datenpunktes vom Mittelwert (SAQ).*&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Folgende Funktionen sind nützlich für die Erstellung dieser Funktion:&lt;/p&gt;
 &lt;ul&gt;
@@ -1091,7 +1070,8 @@ mittelwert &amp;lt;- function(x) {
 &lt;li&gt;&lt;code&gt;sum&lt;/code&gt; Summe eines Vektors&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;x^2&lt;/code&gt; Quadiert die Inhalte des Vektors &lt;code&gt;x&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Die (empirische) Standardabweichung beschreibt die Streuung einer Zufallsvariable. Je größer die Standardabweichung desto wahrscheinlich sind Datenpunkte, die eine höhere Distanz zum Mittelwert haben.&lt;/p&gt;
+&lt;p&gt;Die (empirische) Standardabweichung beschreibt die Streuung einer Zufallsvariable.
+Je größer die Standardabweichung desto wahrscheinlich sind Datenpunkte, die eine höhere Distanz zum Mittelwert haben.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;source(&amp;quot;code/temperaturen.R&amp;quot;)
 # Standardabweichung
 standardabweichung &amp;lt;- function(x) {
@@ -1112,8 +1092,11 @@ standardabweichung(temperaturen) &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Recherchiere bei Google die Temperaturen der kommenden Tage für Moskau und Los Angeles. Es werden bei Google das Wetter für den aktuellen Tag und der folgenden Woche angegeben.&lt;/p&gt;
-&lt;p&gt;Schreib eine Funktion mit dem Namen &lt;code&gt;wettervorhersage&lt;/code&gt;. Diese Funktion hat einen Parameter (oder auch Funktionsargument genannt). Dieser Parameter ist ein numerischer Vektor (mit der Temperatur der kommenden Tage).&lt;/p&gt;
+&lt;p&gt;Recherchiere bei Google die Temperaturen der kommenden Tage für Moskau und Los Angeles.
+Es werden bei Google das Wetter für den aktuellen Tag und der folgenden Woche angegeben.&lt;/p&gt;
+&lt;p&gt;Schreib eine Funktion mit dem Namen &lt;code&gt;wettervorhersage&lt;/code&gt;.
+Diese Funktion hat einen Parameter (oder auch Funktionsargument genannt).
+Dieser Parameter ist ein numerischer Vektor (mit der Temperatur der kommenden Tage).&lt;/p&gt;
 &lt;p&gt;Die Funktion soll die kleinste und die höchste Temperatur berechnen sowie die Standardabweichung und die Informationen als String zurück geben.&lt;/p&gt;
 &lt;p&gt;In welcher Stadt ist besseres Wetter, wo ist das Wetter konstanter?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;wettervorhersage &amp;lt;- function(x) {
@@ -1165,11 +1148,12 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7facf910e1e0&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fa4228048c8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
-&lt;p&gt;Der &lt;code&gt;data.frame&lt;/code&gt;ist eine besondere Form der Liste. Er enthält &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt; Vektoren der selben Länge &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Der &lt;code&gt;data.frame&lt;/code&gt;ist eine besondere Form der Liste.
+Er enthält &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt; Vektoren der selben Länge &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;temperaturen &amp;lt;- data.frame(temperaturen_la, temperaturen_moskau)
 
 # Mit verschiedenen Funktionen können wir den Datensatz darstellen
@@ -1198,8 +1182,14 @@ nrow(temperaturen) # Anzahl der Zeilen des Datensatzes&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;operationen-mit-datensatzen-data.frames&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Operationen mit Datensätzen (data.frames)&lt;/h2&gt;
-&lt;p&gt;Oft möchte man nur mit Ausschnitten des Datensatzes arbeiten. R bietet die Möglichkeit einzelne Spalten (Variablen) des Datensatzes auszuwählen sowie einzelne Zeilen auszuwählen. Für unseren Datensatz mit den Temperaturen könnten wir z.B. ausschließlich die Temperaturen für das Wochenende und nur für Los Angeles auswählen.&lt;/p&gt;
-&lt;p&gt;Es gibt mehrere Möglichkeiten, eine Auswahl eines Datensatzes zu erzeugen. Wenn wir einzelne Spalten eines Datensatzes auswählen möchten, eignet sich die &lt;code&gt;$&lt;/code&gt;(Dollar)-Notation. Dabei wird über den Datensatznamen und den Spaltennamen, die durch ein &lt;code&gt;$&lt;/code&gt; verknüft werden auf die spezielle Spalte zugegriffen: &lt;code&gt;datensatz_name$spaltenname&lt;/code&gt; Wenn wir auf die Spalte &lt;code&gt;temperaturen_la&lt;/code&gt; unseres Datensatzes &lt;code&gt;temperaturen&lt;/code&gt; zugreifen wolle, könnten wir dieses durch den Befehl &lt;code&gt;temperaturen$temperaturen_la&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Oft möchte man nur mit Ausschnitten des Datensatzes arbeiten.
+R bietet die Möglichkeit einzelne Spalten (Variablen) des Datensatzes auszuwählen sowie einzelne Zeilen auszuwählen.
+Für unseren Datensatz mit den Temperaturen könnten wir z.B. ausschließlich die Temperaturen für das Wochenende und nur für Los Angeles auswählen.&lt;/p&gt;
+&lt;p&gt;Es gibt mehrere Möglichkeiten, eine Auswahl eines Datensatzes zu erzeugen.
+Wenn wir einzelne Spalten eines Datensatzes auswählen möchten, eignet sich die &lt;code&gt;$&lt;/code&gt;(Dollar)-Notation.
+Dabei wird über den Datensatznamen und den Spaltennamen, die durch ein &lt;code&gt;$&lt;/code&gt; verknüft werden auf die spezielle Spalte zugegriffen:
+&lt;code&gt;datensatz_name$spaltenname&lt;/code&gt;
+Wenn wir auf die Spalte &lt;code&gt;temperaturen_la&lt;/code&gt; unseres Datensatzes &lt;code&gt;temperaturen&lt;/code&gt; zugreifen wolle, könnten wir dieses durch den Befehl &lt;code&gt;temperaturen$temperaturen_la&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;In diesem Fall ist das Ergebnis ein Vektor mit den Daten aus der abgefragten Spalte &lt;code&gt;temperaturen_la&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Die &lt;code&gt;$&lt;/code&gt;-Notation ermöglicht es uns nicht nur, auf einzelne Spalten zurückzugreifen, sondern auch neue Spalten zu erstellen.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data.frame$neue_spalte &amp;lt;- x 
@@ -1209,9 +1199,13 @@ temperaturen$temperaturen_kairo &amp;lt;- c(36, 35, 37, 37, 36, 35, 34, 34)&lt;/
 &lt;/div&gt;
 &lt;div id=&#34;importieren-eines-datensatzes&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Importieren eines Datensatzes&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;/img/tut1-r-csv-rows.png&#34; style=&#34;width:45.0%&#34; /&gt; &lt;img src=&#34;/img/tut1-r-csv-columns.png&#34; style=&#34;width:45.0%&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Der Datensatz, in R als &lt;code&gt;data.frame&lt;/code&gt; bezeichnet, ist eine zentrale Datenstruktur, die bei Datenanalysen zum Einsatz kommt. Viele Datensätze sind so formatiert, dass sie direkt in R importiert werden können. So können zum Beispiel &lt;code&gt;data.frames&lt;/code&gt; aus Excel, SPSS oder SAS direkt importiert werden.&lt;/p&gt;
-&lt;p&gt;Häufig liegen diese Daten jedoch in Textdateien im CSV-Format vor. CSV steht für Komma-separierte-Werte (engl. comma-separated-values). Mit Hilfe der Funktion &lt;code&gt;read.csv&lt;/code&gt; können Dateien im CSV-Format in R eingelesen werden.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/tut1-r-csv-rows.png&#34; style=&#34;width:45.0%&#34; /&gt;
+&lt;img src=&#34;/img/tut1-r-csv-columns.png&#34; style=&#34;width:45.0%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Der Datensatz, in R als &lt;code&gt;data.frame&lt;/code&gt; bezeichnet, ist eine zentrale Datenstruktur, die bei Datenanalysen zum Einsatz kommt.
+Viele Datensätze sind so formatiert, dass sie direkt in R importiert werden können.
+So können zum Beispiel &lt;code&gt;data.frames&lt;/code&gt; aus Excel, SPSS oder SAS direkt importiert werden.&lt;/p&gt;
+&lt;p&gt;Häufig liegen diese Daten jedoch in Textdateien im CSV-Format vor. CSV steht für Komma-separierte-Werte (engl. comma-separated-values).
+Mit Hilfe der Funktion &lt;code&gt;read.csv&lt;/code&gt; können Dateien im CSV-Format in R eingelesen werden.&lt;/p&gt;
 &lt;p&gt;Wir verwenden in diesem Tutorial den &lt;a href=&#34;https://www.kaggle.com/c/titanic&#34;&gt;Titanic Datensatz&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img src=&#34;/img/titanic-new-york-herald.jpeg&#34; alt=&#34;Headline of THE NEW YORK HERALD 15th of April 1912&#34; /&gt;
@@ -1219,15 +1213,8 @@ temperaturen$temperaturen_kairo &amp;lt;- c(36, 35, 37, 37, 36, 35, 34, 34)&lt;/
 &lt;/div&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic &amp;lt;- read.csv(&amp;quot;data/titanic.csv&amp;quot;)
 
-library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;forcats&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(titanic)&lt;/code&gt;&lt;/pre&gt;
+library(tidyverse)
+head(titanic)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##   pclass survived                                            name    sex
 ## 1      1        1                   Allen, Miss. Elisabeth Walton female
 ## 2      1        1                  Allison, Master. Hudson Trevor   male
@@ -1250,7 +1237,12 @@ library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
 ## 5 Montreal, PQ / Chesterville, ON
 ## 6                    New York, NY&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Diese spezielle R-Syntax erlaubt es, auf einzelne Spalten eines Datensatzes zuzugreifen.&lt;/p&gt;
-&lt;p&gt;Eine weitere Möglichkeit auf eine Auswahl des Datensatzes zist die sogenannten &lt;code&gt;[&lt;/code&gt;-Notation, wobei &lt;code&gt;[&lt;/code&gt; als “bracket” oder “Eckige Klammer” bezeichnet wird. Diese hat folgende Syntax: &lt;code&gt;datensatz[zeilenfilter, vektor mit den spaltennamen]&lt;/code&gt;. &lt;code&gt;datensatz&lt;/code&gt; bezeichnet den Namen des spezifischen Datensatzes, unser erstellter Datensatz hat den Namen. In die folgenden eckigen Klammern wird die Auswahl des Datensatzes spezifiziert. Vor dem Komma wird der Zeilenfilter gesetzt, nach der Klammer ein &lt;code&gt;character&lt;/code&gt; Vektor, der die Namen der ausgewählten Spalten enthält. Das Resultat ist ein neuer Datensatz, ausschließlich mit den Zeilen und Spalten, die ausgewählt wurden.&lt;/p&gt;
+&lt;p&gt;Eine weitere Möglichkeit auf eine Auswahl des Datensatzes zist die sogenannten &lt;code&gt;[&lt;/code&gt;-Notation, wobei &lt;code&gt;[&lt;/code&gt; als “bracket” oder “Eckige Klammer” bezeichnet wird.
+Diese hat folgende Syntax: &lt;code&gt;datensatz[zeilenfilter, vektor mit den spaltennamen]&lt;/code&gt;.
+&lt;code&gt;datensatz&lt;/code&gt; bezeichnet den Namen des spezifischen Datensatzes, unser erstellter Datensatz hat den Namen.
+In die folgenden eckigen Klammern wird die Auswahl des Datensatzes spezifiziert.
+Vor dem Komma wird der Zeilenfilter gesetzt, nach der Klammer ein &lt;code&gt;character&lt;/code&gt; Vektor, der die Namen der ausgewählten Spalten enthält.
+Das Resultat ist ein neuer Datensatz, ausschließlich mit den Zeilen und Spalten, die ausgewählt wurden.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;auswahlen-von-zeilen-und-spalten&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Auswählen von Zeilen und Spalten&lt;/h2&gt;
@@ -1259,7 +1251,8 @@ titanic[1, ] # Nur erste Zeile
 titanic[c(1, 2), c(&amp;quot;age&amp;quot;, &amp;quot;sex&amp;quot;)] # gibt die ersten beiden Zeilen und die Spalten Alter und Geschlecht wieder
 titanic[titanic$age &amp;lt;= 18, ] # gibt die ersten beiden Zeilen und die Spalten Alter und Geschlecht wieder
 titanic[titanic$sex == &amp;quot;male&amp;quot;, ] # gibt die ersten beiden Zeilen und die Spalten Alter und Geschlecht wieder&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Cave: Oben habe ich geschrieben, das Ergebnis sei eine neuer Datensatz, also ein R-Objekt des Typs `data.frame´. Wenn nur eine Spalte ausgewählt wird, ist das Ergebnis ein Vektor&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cave: Oben habe ich geschrieben, das Ergebnis sei eine neuer Datensatz, also ein R-Objekt des Typs `data.frame´.
+Wenn nur eine Spalte ausgewählt wird, ist das Ergebnis ein Vektor&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -1286,16 +1279,23 @@ mean(titanic$fare, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;h1&gt;Kapitel 4 - Tidyverse&lt;/h1&gt;
 &lt;div id=&#34;nutzen-von-paketen&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Nutzen von Paketen&lt;/h2&gt;
-&lt;p&gt;Bisher haben wir uns mit den Standardfunktionen von R befasst. Zudem haben wir eine Funktions selber geschrieben.&lt;/p&gt;
+&lt;p&gt;Bisher haben wir uns mit den Standardfunktionen von R befasst.
+Zudem haben wir eine Funktions selber geschrieben.&lt;/p&gt;
 &lt;p&gt;Häufig entwickeln Statistiker und Programmierer Erweiterungen, die auch Pakete genannt werden, die wir als sogenannte &lt;code&gt;library&lt;/code&gt; nutzten können.&lt;/p&gt;
-&lt;p&gt;Eine der zentralen Erweiterungen in R momentan ist das Paket &lt;code&gt;tidyverse&lt;/code&gt;. Es erweitert den Funktionsumfang von data.frames. Diese weiterentwickelte data.frame wir auch als &lt;code&gt;tibble&lt;/code&gt; bezeichnet.&lt;/p&gt;
-&lt;p&gt;Pakete wie &lt;code&gt;tidyverse&lt;/code&gt; müssen zusätzlich installiert werden. Dies gelingt durch die Funktion &lt;code&gt;install.packages&lt;/code&gt; z.B. &lt;code&gt;install.package(tidyverse)&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;Um das Paket zu nutzten müssen wir es zunächst laden. Dies gelingt durch den Funktionsaufruf &lt;code&gt;library(tidyverse)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Eine der zentralen Erweiterungen in R momentan ist das Paket &lt;code&gt;tidyverse&lt;/code&gt;.
+Es erweitert den Funktionsumfang von data.frames.
+Diese weiterentwickelte data.frame wir auch als &lt;code&gt;tibble&lt;/code&gt; bezeichnet.&lt;/p&gt;
+&lt;p&gt;Pakete wie &lt;code&gt;tidyverse&lt;/code&gt; müssen zusätzlich installiert werden.
+Dies gelingt durch die Funktion &lt;code&gt;install.packages&lt;/code&gt; z.B. &lt;code&gt;install.package(tidyverse)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Um das Paket zu nutzten müssen wir es zunächst laden.
+Dies gelingt durch den Funktionsaufruf &lt;code&gt;library(tidyverse)&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;importieren-von-daten&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Importieren von Daten&lt;/h2&gt;
-&lt;p&gt;Auch Tidyverse-Paket hat eine Funktion, um Daten im CSV-Formtat zu importieren (und auch zu exportieren). Diese Funktion hat den Vorteil, dass sie die Daten schneller liest und den Datentyp einzelner Spalten zuverlässiger erkennt.&lt;/p&gt;
-&lt;p&gt;Die Funktion heißt &lt;code&gt;read_csv&lt;/code&gt; (nicht verwechseln mit der Funktion &lt;code&gt;read.csv&lt;/code&gt; die mit einem Punkt geschrieben wird). Die Dokumentation erhalten wir durch &lt;code&gt;?read_csv&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Auch Tidyverse-Paket hat eine Funktion, um Daten im CSV-Formtat zu importieren (und auch zu exportieren).
+Diese Funktion hat den Vorteil, dass sie die Daten schneller liest und den Datentyp einzelner Spalten zuverlässiger erkennt.&lt;/p&gt;
+&lt;p&gt;Die Funktion heißt &lt;code&gt;read_csv&lt;/code&gt; (nicht verwechseln mit der Funktion &lt;code&gt;read.csv&lt;/code&gt; die mit einem Punkt geschrieben wird).
+Die Dokumentation erhalten wir durch &lt;code&gt;?read_csv&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
 titanic &amp;lt;- read_csv(&amp;quot;data/titanic.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Es existieren in R Erweiterung die Schnittstellen und Importmöglichkeiten für andere Datenformate bieten:&lt;/p&gt;
@@ -1305,7 +1305,8 @@ titanic &amp;lt;- read_csv(&amp;quot;data/titanic.csv&amp;quot;)&lt;/code&gt;&lt
 &lt;/ul&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Nutzen sie die beiden Funktionen um den Datensatz als data.frame zu importieren. Speichern Sie den jeweiligen Datensatz in einer Variable.&lt;/p&gt;
+&lt;p&gt;Nutzen sie die beiden Funktionen um den Datensatz als data.frame zu importieren.
+Speichern Sie den jeweiligen Datensatz in einer Variable.&lt;/p&gt;
 &lt;p&gt;Berechnen Sie den Mittelwert des Alters und vergleichen Sie die Ergebnisse.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# einlesen des SPSS Datensatzes mit dem haven Paket
 titanic_sav &amp;lt;- haven::read_sav(file = &amp;quot;data/titanic.sav&amp;quot;)
@@ -1367,7 +1368,11 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;arbeiten-mit-dem-tidyverse&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Arbeiten mit dem tidyverse&lt;/h2&gt;
-&lt;p&gt;Das tidyverse bedient sich einer einfachen Syntax und 5 zentralen Funktionen. Das besondere der Syntax ist das aneinanderreihen von (tidyverse) Funktionen. Der Pipe-Operator verbindet Funktionen und gibt den Funktionsoutput der vorangegangenen Funktion in die folgende Funktion als Funktionsinput weiter. Der Pipe Operator wird mit der Syntax &lt;code&gt;%&amp;gt;%&lt;/code&gt; (Prozentzeichen, größer-Zeichen, Prozentzeichen) verwendet. Fast alle Funktionen im tidyverse erwarten einen &lt;code&gt;data.frame&lt;/code&gt; als Funktionsinput und geben einen manipulierten &lt;code&gt;data.frame&lt;/code&gt; zurück.&lt;/p&gt;
+&lt;p&gt;Das tidyverse bedient sich einer einfachen Syntax und 5 zentralen Funktionen.
+Das besondere der Syntax ist das aneinanderreihen von (tidyverse) Funktionen.
+Der Pipe-Operator verbindet Funktionen und gibt den Funktionsoutput der vorangegangenen Funktion in die folgende Funktion als Funktionsinput weiter.
+Der Pipe Operator wird mit der Syntax &lt;code&gt;%&amp;gt;%&lt;/code&gt; (Prozentzeichen, größer-Zeichen, Prozentzeichen) verwendet.
+Fast alle Funktionen im tidyverse erwarten einen &lt;code&gt;data.frame&lt;/code&gt; als Funktionsinput und geben einen manipulierten &lt;code&gt;data.frame&lt;/code&gt; zurück.&lt;/p&gt;
 &lt;p&gt;Die fünf zentralen Funktionen sind Verben, die ausdrücken, was die jeweilige Funktion “tut”.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img src=&#34;/img/tut1-r-dplyr-functions.png&#34; alt=&#34;Auswahl wichtiger dplyr-Funktionen&#34; /&gt;
@@ -1480,7 +1485,8 @@ mean(titanic$age, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Es ist bekannt dass die Rettungsboote auf der Titanic nicht ausgelastet waren. Nun sollen Sie die tatsächliche Auslasung der Rettungsboote auf der Titanic berechnen.&lt;/p&gt;
+&lt;p&gt;Es ist bekannt dass die Rettungsboote auf der Titanic nicht ausgelastet waren.
+Nun sollen Sie die tatsächliche Auslasung der Rettungsboote auf der Titanic berechnen.&lt;/p&gt;
 &lt;p&gt;Die Informationen ob und in welches Rettungsboot ein Gast bestieg ist in der Spalte &lt;code&gt;boat&lt;/code&gt; des Titanic Datensatzes vermerkt.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# auslastung pro boot 
 auslastung_pro_boot &amp;lt;- titanic %&amp;gt;%  
@@ -1577,13 +1583,10 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
 ## 1 female  31.9  33.2  34.5
-## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
+## 2 male    32.6  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
-&lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/tut1-r-decision-tree.png&#34; /&gt;
-
-&lt;/div&gt;
+&lt;p&gt;&lt;img src=&#34;/img/tut1-r-decision-tree.png&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rpart) # Paket mit dem Entscheidungsbäume erstellt werden können
 library(rattle) # Paket mit dem Entscheidungsbäume visualisiert werden können
 
@@ -1767,6 +1770,122 @@ base::table(spss$edlevel_converted)&lt;/code&gt;&lt;/pre&gt;
 ## 4    64 female    41 married/defacto postgraduate degr… postgraduate degree
 ## 5   536 female    39 married/defacto postgraduate degr… postgraduate degree
 ## 6    57 female    66 married/defacto undergraduate deg… undergraduate degr…&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/post/2018-11-07-estimating-the-bass-model/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/2018-11-07-estimating-the-bass-model/</guid>
+      <description></description>
+      
+      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+&lt;script async
+src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
+&lt;/script&gt;
+&lt;div id=&#34;untersuchung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Untersuchung von Innovationen&lt;/h1&gt;
+&lt;p&gt;Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse.
+Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik.
+Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen.
+Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.
+Das heute unter dem Namen Bass-Model bekannte statistische Verfahren wurde nach der Publikation der theoretischen Grundlagen durch empirische Daten untermauert.&lt;/p&gt;
+&lt;p&gt;In diesem Post möchte ich den Effekt der Modelparameter darstellen, da diese ohne Kontext oftmals schwierig zu verstehen sind.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;modellierung-von-innovationen&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Modellierung von Innovationen&lt;/h1&gt;
+&lt;p&gt;Es gibt verschiedene Ansätze dieses Models Innovationen zu betrachten.
+Ein Ansatz ist, den prozentualen Anteil der Adopter zu modellieren.
+Im Zentrum des Bass-Models steht der Adopter.
+Als Adopter werden in diesem Zusammenhang Personen oder Organisationen bezeichnet, die ein neues Produkt nutzen oder innovative technologische Lösungen einsetzten.
+So kann ein Unternehmen daran interessiert sein, wie hoch der prozentuale Anteil der Nutzer seines neuen Produktes ist.&lt;/p&gt;
+&lt;p&gt;Im Rahmen dieser Fragestellung kann dieser Anteil durch das Bass Model geschätzt werden.
+Das Model basiert dabei auf einer S-förmigen Adoptionskurve die durch folgende Formel dargestellt wird.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Bei diesem Model werden zwei Koeffizienten geschätzt, die bei der Adoption von Innovationen Einfluss üben.
+Dabei handelt es sich zum eine um den Innovationkoeffizienten p und zum anderen um den Imitationskoeffizienten q.&lt;/p&gt;
+&lt;!--
+(Ich merke mir diese Zuordnung indem ich mit das in unserer Lesrichtung von links nach rechts schauende p als progressiv und damit innovativ. 
+Das zurückblickende q ist der Immitator.)
+--&gt;
+&lt;p&gt;Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren auf die Adoption der Innovation wirken.&lt;/p&gt;
+&lt;p&gt;Die Höhe des Innovationskoeffzienten p bestimmt wie stark die stark die Adoption bei der Einführung einer Innovation ist.
+Je höher der Innovationskoeffizient desto steiller ist die Addoptionskurve zu Beginn.
+Dass heißt, dass viele Innovatoren ein Produkt adoptieren.&lt;/p&gt;
+&lt;p&gt;Die Höhe des Imitationskoeffizienten q erklärt den Einfluss von Imitatoren.
+Imitatioren orientieren sich dabei an das Verhalten von Adoptern.
+Der Imitionskoeffizient steht somit in Wechselwirkung mit dem Innovationskoeffizient.&lt;/p&gt;
+&lt;p&gt;Während der Innovationskoeffizient p positiv ist, kann der Imitaitonskoeffizient q auch negativ sein.
+Typische Wert für p liegen im Bereich von null bis zwei.
+Der q-Wert kann theoretisch große negative Werte annehmen, liegt typischerweise im Bereich von minus ein bis 2.
+Bei hohen negativen Werten ist kaum Imitaionsverhalten zu erwarten, was sich durch eine flache Adoptionskurve darstellt, nachdem der Innovationseffekt abklingt.&lt;/p&gt;
+&lt;p&gt;Ich zur Veranschaulichung des Bass Models die Adoptionskurve verschiedener Parameterkombinationen von p und q visualisiert.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;einfluss-der-modelparameter-p-und-q&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Einfluss der Modelparameter p und q&lt;/h1&gt;
+&lt;p&gt;Die Darstellung zeigt Bass-Modelle verschiedener Parameterkombinationen von p und q.
+Das Model stellt den kumulierten prozentualen Anteil der Adopter dar.
+Jedes Panel steht dabei für einen Wert von q (Imitaitonskoeffizient) und die Farbe der Linien steht für einen Wert von p (Innovationskoeffzient), wobei mit steigendem Innovationskoeffzienten die Linie heller wird.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+
+show_bass_curves &amp;lt;- function(p, q) {
+  g &amp;lt;- expand.grid(p, q)
+  p_ &amp;lt;- g$Var1
+  q_ &amp;lt;- g$Var2
+  t &amp;lt;- 0:10
+  
+  res &amp;lt;- map2(.x = p_, .y = q_, .f = netdiffuseR::bass_F, Time = t) 
+  g &amp;lt;- g %&amp;gt;% as.data.frame %&amp;gt;% as.tibble %&amp;gt;% unite(col = &amp;quot;Var&amp;quot;, c(&amp;quot;Var1&amp;quot;, &amp;quot;Var2&amp;quot;)) %&amp;gt;% pull
+  
+  res &amp;lt;- res %&amp;gt;%
+    set_names(g) %&amp;gt;%
+    as_tibble() %&amp;gt;% 
+    add_column(Time = t) %&amp;gt;% 
+    gather(key, value, -Time) %&amp;gt;% 
+    separate(col = &amp;quot;key&amp;quot;, into = c(&amp;quot;p&amp;quot;, &amp;quot;q&amp;quot;), sep = &amp;quot;_&amp;quot;) %&amp;gt;% 
+    mutate_at(&amp;quot;q&amp;quot;, as.numeric) %&amp;gt;% 
+    mutate(q = factor(x = glue::glue(&amp;quot;q = {q}&amp;quot;), 
+                      levels = glue::glue(&amp;quot;q = {sort(unique(q))}&amp;quot;),
+                      ordered = TRUE))
+  
+  res %&amp;gt;% 
+    ggplot(aes(x = Time, y = value, col = p)) +
+    geom_line() +
+    facet_wrap(~ as.factor(q), nrow = 2, scales = &amp;quot;free_x&amp;quot;) +
+    viridis::scale_color_viridis(discrete = T, option = &amp;quot;magma&amp;quot;) +
+    theme_bw() +
+    scale_y_continuous(labels = scales::percent, 
+                       breaks = seq(0, 1, .2),
+                       name = &amp;quot;Proportional Adopters&amp;quot;) +
+    scale_x_continuous(breaks = t) +
+    guides(colour = guide_legend(reverse=T, title = &amp;quot;p&amp;quot;))
+    
+}
+
+p &amp;lt;- round(seq(.1, 1, length.out = 8), 2)
+q &amp;lt;- round(seq(-1, 1, length.out = 8), 2)
+
+show_bass_curves(p, q)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Wir erkennen im Diagramm, das ein hoher Innovationskoeffizient die Adoption zu Beginn der Markteinführung positiv beeinflusst.
+Zudem lässt sich aus dem Diagramm der Einfluss des Imitationseffekts und dessen Interaktion mit dem Innovationskoeffizienten erkennen.
+Wenn der Innovationskoeffzient hoch ist (Panel links unten), ist auch die Adoption im weitern Zeitverlauf hoch.
+Sinkt der Imitationskoeffizient hemmt er den weiteren Adoptionsverlauf.
+Er kann ihn sogar ausbremsen, wenn er negativ wird.
+In diesem Fall exisitert kein Imitationseffekt und die Innvation ereicht keine vollständige Marktdurchdringung.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;schlussfolgerung&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Schlussfolgerung&lt;/h1&gt;
+&lt;p&gt;Das Bass-Model kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren.
+Das Model besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden.
+Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn.
+Je höher der Koeffizient desto stärker der Effekt der Innovatoren.
+Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase.
+Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.&lt;/p&gt;
 &lt;/div&gt;
 </content>
       
@@ -2031,6 +2150,132 @@ $(document).ready(function () {
 
 &lt;/body&gt;
 &lt;/html&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/</guid>
+      <description></description>
+      
+      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+&lt;script async
+src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
+&lt;/script&gt;
+&lt;div id=&#34;logistic-regression&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Logistic Regression&lt;/h1&gt;
+&lt;p&gt;The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; and a set of independent response variables &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt; values.
+The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called &lt;strong&gt;Logit&lt;/strong&gt;: &lt;span class=&#34;math inline&#34;&gt;\(log(\frac{p(x)}{1 - p(x)})\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(p(x)\)&lt;/span&gt; is the probability that &lt;span class=&#34;math inline&#34;&gt;\(y=\)&lt;/span&gt;.
+The log odds are modeled as a linear combinations of the predictors and regression coefficients: &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The complete model looks like this:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This equation shows, that the linear combination models the Logit and model coefficients &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; descibe the influence of the predictors &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; on the logit, e.g. a one unit increase in &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; changes the Logit by the amout of &lt;span class=&#34;math inline&#34;&gt;\(\beta_i\)&lt;/span&gt;.
+Unfortunatly, we do not have a reasonable intuition about the &lt;strong&gt;Logit&lt;/strong&gt; and this makes it hard to interpret the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;-coefficients.&lt;/p&gt;
+&lt;p&gt;Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.&lt;/p&gt;
+&lt;p&gt;So the odds ratio tells us something about the change of the odds when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;odds-ratios&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Odds Ratios&lt;/h1&gt;
+&lt;p&gt;In this section we first present the Logit and then move on to show that the exponentialted regression coefficients can be interpreted as Odds Ratios.&lt;/p&gt;
+&lt;div id=&#34;logit&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Logit&lt;/h2&gt;
+&lt;p&gt;To beginn with the &lt;strong&gt;Logit&lt;/strong&gt; it is defined, as explained in the introduction, as the natual logarithm of the odds.&lt;/p&gt;
+&lt;p&gt;Odds are the ratio of the probability that the outcome variable will be 1 &lt;span class=&#34;math inline&#34;&gt;\(p(Y=1)\)&lt;/span&gt;, also considered as the proabability of success, over the proabability that it will be 0 &lt;span class=&#34;math inline&#34;&gt;\(p(Y=0)\)&lt;/span&gt;, sometimes considered as the probability of failure. The probabilty can also be expressed as &lt;span class=&#34;math inline&#34;&gt;\(p(Y=0) = 1-p(Y=1)\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;So the ratio of the probability of success over the probability is simply:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(odds=\frac{p(Y=1)}{1-(Y=1)}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To be more concise, let us first define &lt;span class=&#34;math inline&#34;&gt;\(\pi\)&lt;/span&gt; which is the models’s predicted probability that &lt;span class=&#34;math inline&#34;&gt;\(Y=1\)&lt;/span&gt;, so &lt;span class=&#34;math inline&#34;&gt;\(\pi=p(Y=1)\)&lt;/span&gt; and we wil l simpy write:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(odds(\pi)=\frac{\pi}{1-\pi}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;And the Logits is simply the natual logarithm of this odds and this Logits is modeled as a linear model &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;As explains, we do not have an intuition about the Logits. Thats why we want to predict values that are easier to understand, i.e. the odds.&lt;/p&gt;
+&lt;p&gt;To do so, we apply the exponential function to both sides of our expression&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(Logit(\pi)=ln(\frac{\pi}{1-\pi)}) = \beta_0 + \beta_1x_i\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;which gives us&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;beta-coefficients&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Beta Coefficients&lt;/h1&gt;
+&lt;p&gt;Now that we know what the &lt;em&gt;Logit&lt;/em&gt; is, lets move on to the interpretation of the regression coeffcients.&lt;/p&gt;
+&lt;p&gt;To do so, let us initially define &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; as an value of the predictor &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(x_1=x_0 + 1\)&lt;/span&gt; as the value of the predictor variable increased by one unit.&lt;/p&gt;
+&lt;p&gt;When we plug in &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; in our regression model, that predicts the odds, we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0} = e^{\beta_0 + \beta_1x_0}\)&lt;/span&gt; which is the predicted odds of &lt;span class=&#34;math inline&#34;&gt;\(X = x_0\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;When we plug in &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_1}\)&lt;/span&gt; which is the predicted odds when &lt;span class=&#34;math inline&#34;&gt;\(X = x_1\)&lt;/span&gt; or equivalently &lt;span class=&#34;math inline&#34;&gt;\(X = x_0 + 1\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;In the last formula we can now replace &lt;span class=&#34;math inline&#34;&gt;\(x_1\)&lt;/span&gt; with &lt;span class=&#34;math inline&#34;&gt;\(x_0 + 1\)&lt;/span&gt; to get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1(x_0 + 1)}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;by mulitpling &lt;span class=&#34;math inline&#34;&gt;\(\beta_1(x_0 + 1)\)&lt;/span&gt; in the exponent we get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0 + \beta_1}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;In this situation, we can apply the rule for exponential expressions that additions in the exponent can be rewritten as a mutliplicative expression.
+According to this rule &lt;span class=&#34;math inline&#34;&gt;\(a^{b+c} = a^b\times a^c\)&lt;/span&gt;, which in our example gives:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0} \times e^{\beta_1}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Since we previously defined &lt;span class=&#34;math inline&#34;&gt;\(\beta_0 + \beta_1x_i\)&lt;/span&gt; as &lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0}\)&lt;/span&gt;, the odds where &lt;span class=&#34;math inline&#34;&gt;\(X=x_0\)&lt;/span&gt;, we can now replace it in the equation in the formula above to get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = \frac{\pi_0}{1-\pi_0} \times e^{\beta_1}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;All we have to do in this situation is to rearrange the equation by dividing both sides with &lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0}\)&lt;/span&gt; to show that &lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1}\)&lt;/span&gt; actually is the odds ratio which describes the relationship between odds when we increase X by 1 unit.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;div id=&#34;odds-ratios-in-r&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Odds Ratios in R&lt;/h2&gt;
+&lt;p&gt;In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually the odds ratio.&lt;/p&gt;
+&lt;p&gt;Please consider the comments in the code for further explaination.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 1. simulate data
+# 2. calculate exponentiated beta
+# 3. calculate the odds based on the prediction p(Y=1|X)
+#
+# Function takes a x value, for that x value the odds are calculated and returned
+# Beside the odds, the function does also return the exponentiated beta coefficient
+log_reg &amp;lt;- function(x_value) {
+  # simulate data, the higher x the higher the probability of y=1
+  set.seed(256)
+  X &amp;lt;- c(rnorm(50, mean = 10, sd = 2), rnorm(50, mean = 14, sd = 2))
+  y &amp;lt;- c(rep(0, 50), rep(1, 50))
+  
+  plot(y ~ X) 
+  model &amp;lt;- glm(y ~ X, family = &amp;quot;binomial&amp;quot;)
+  beta_1 &amp;lt;- coef(model)[2]
+  exp_beta_1 &amp;lt;- exp(beta_1) # exponentiate beta_1 to get odds ratios
+  
+  # predict pi_i, the probabilty that y=1 given the x value
+  pi &amp;lt;- predict(model, newdata = data.frame(X = x_value), type = &amp;quot;response&amp;quot;) 
+  
+  odds &amp;lt;- pi / (1 - pi)
+  
+  list(odds = odds, exp_beta = exp_beta_1)
+}
+
+x_value &amp;lt;- 14
+x1 &amp;lt;- log_reg(x_value)
+x2 &amp;lt;- log_reg(x_value + 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;768&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Show the exponentiated beta coefficients
+show(x1$exp_beta) # exp beta&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        X 
+## 2.682433&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;odds_ratio &amp;lt;- x2$odds / x1$odds # calculate odds ratio
+show(odds_ratio) # odds ratio&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        1 
+## 2.682433&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Is the exponentiated beta the same as the calculated odds ratio?
+round(odds_ratio, 6) == round(x1$exp_beta, 6)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    1 
+## TRUE&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The R-code above demonstrates that the exponetiated beta coefficient of a logistic regression is the same as the odds ratio and thus can be interpreted as the change of the odds ratio when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
+&lt;p&gt;In this example the odds ratio is 2.68. This means that the odds increase by 2.68 when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
+&lt;p&gt;In a situatuation where the predictor variable is lower that 1, the odds decrease, i.e. the proabability of &lt;span class=&#34;math inline&#34;&gt;\(p(Y=1)\)&lt;/span&gt; also gets lower as &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; increases.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outlook&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Outlook&lt;/h1&gt;
+&lt;p&gt;As I demonstrated in this post, a way to interpret the regression coefficients of a logistic regression is to exponentiate the coefficient and view it as the change in the odds.
+That means the exponentiated beta is the odds ratio.&lt;/p&gt;
+&lt;p&gt;We did so, because the plain, non-exponentiated betas represent the change of the &lt;em&gt;Logit&lt;/em&gt; and it is hard to get an intuition what that actually means.&lt;/p&gt;
+&lt;p&gt;However, we also should keep in mind, that the odds ratio, bypass the interpretation of hard to understand Logits, the odds ratio is itself a hard to understand concept and therefore not easy to understand.&lt;/p&gt;
+&lt;p&gt;While the odds ratio bypass the interpretation of hard to understand Logits and the odds ratio may be easier to interpret, their meaning is often not easy to understand.&lt;/p&gt;
+&lt;p&gt;We can overcome this problem by presenting representative values and its predicted probabilites by the logistic model, since probabilites are easier to understand than odds ratios.&lt;/p&gt;
+&lt;/div&gt;
 </content>
       
     </item>

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/interpreting-logistic-regression-coefficients-odds-ratios/</loc>
+    <lastmod>2019-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/upload-a-resource-to-a-fhir-server/</loc>
     <lastmod>2019-05-02T00:00:00+00:00</lastmod>
   </url>
@@ -15,11 +20,6 @@
   <url>
     <loc>/post/2019-01-25-finalizing-glmnet-models/</loc>
     <lastmod>2019-01-19T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/estimating-the-bass-model/</loc>
-    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -58,13 +58,15 @@
   </url>
   
   <url>
+    <loc>/post/2018-11-07-estimating-the-bass-model/</loc>
+  </url>
+  
+  <url>
     <loc>/post/2019-05-02-upload-a-resource-to-a-fhir-server/</loc>
   </url>
   
   <url>
-    <loc>/tags/bass-model/</loc>
-    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/</loc>
   </url>
   
   <url>
@@ -104,12 +106,6 @@
   </url>
   
   <url>
-    <loc>/tags/innovation-research/</loc>
-    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/interoperability/</loc>
     <lastmod>2019-05-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -128,14 +124,8 @@
   </url>
   
   <url>
-    <loc>/tags/nonlinear-model/</loc>
-    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/post/</loc>
-    <lastmod>2019-05-02T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -158,12 +148,6 @@
   </url>
   
   <url>
-    <loc>/tags/rstat/</loc>
-    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/rstats/</loc>
     <lastmod>2018-09-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -171,7 +155,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-05-02T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-02T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -189,7 +173,7 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2018-11-07T00:00:00+00:00</lastmod>
+    <lastmod>2018-10-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -1,0 +1,179 @@
+---
+title: Interpreting Logistic Regression Coefficients - Odds Ratios
+author: Jens Hüsers
+date: '2019-08-02'
+categories:
+  - rstat
+tags:
+  - rstat
+  - logistic-regression
+  - odds-ratio
+  - probabilty-theory
+slug: interpreting-logistic-regression-coefficients-odds-ratios
+draft: no
+disable_comments: yes
+output:
+  blogdown::html_page:
+    fig_width: 8
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async
+src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+# Logistic Regression
+
+The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable $y$ and a set of independent response variables $X$.
+
+However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed $y$ values.
+The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called **Logit**: $log(\frac{p(x)}{1 - p(x)})$, where $p(x)$ is the probability that $y=$.
+The log odds are modeled as a linear combinations of the predictors and regression coefficients: $\beta_0 + \beta_1x_i$
+
+The complete model looks like this: 
+
+$Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i$
+
+This equation shows, that the linear combination models the Logit and model coefficients $\beta$ descibe the influence of the predictors $X$ on the logit, e.g. a one unit increase in $x_i$ changes the Logit by the amout of $\beta_i$.
+Unfortunatly, we do not have a reasonable intuition about the **Logit** and this makes it hard to interpret the $\beta$-coefficients.
+
+Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.
+
+So the odds ratio tells us something about the change of the odds when we increase the predictor variable $x_i$ by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.
+
+
+# Odds Ratios
+
+In this section we first present the Logit and then move on to show that the exponentialted regression coefficients can be interpreted as Odds Ratios.
+
+## Logit 
+
+To beginn with the **Logit** it is defined, as explained in the introduction, as the natual logarithm of the odds. 
+
+Odds are the ratio of the probability that the outcome variable will be 1 $p(Y=1)$, also considered as the proabability of success, over the proabability that it will be 0 $p(Y=0)$, sometimes considered as the probability of failure. The probabilty can also be expressed as $p(Y=0) = 1-p(Y=1)$.
+
+So the ratio of the probability of success over the probability is simply:
+
+$odds=\frac{p(Y=1)}{1-(Y=1)}$
+
+To be more concise, let us first define $\pi$ which is the models's predicted probability that $Y=1$, so $\pi=p(Y=1)$ and we wil l simpy write:
+
+$odds(\pi)=\frac{\pi}{1-\pi}$
+
+And the Logits is simply the natual logarithm of this odds and this Logits is modeled as a linear model $\beta_0 + \beta_1x_i$.
+
+As explains, we do not have an intuition about the Logits. Thats why we want to predict values that are easier to understand, i.e. the odds.
+
+
+To do so, we apply the exponential function to both sides of our expression 
+
+$Logit(\pi)=ln(\frac{\pi}{1-\pi)}) = \beta_0 + \beta_1x_i$
+
+which gives us
+
+$\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}$.
+
+# Beta Coefficients
+
+Now that we know what the *Logit* is, lets move on to the interpretation of the regression coeffcients.
+
+To do so, let us initially define $x_0$ as an value of the predictor $X$ and $x_1=x_0 + 1$ as the value of the predictor variable increased by one unit.
+
+When we plug in $x_0$ in our regression model, that predicts the odds, we get:
+
+$\frac{\pi_0}{1-\pi_0} = e^{\beta_0 + \beta_1x_0}$ which is the predicted odds of $X = x_0$.
+
+When we plug in $x_1$ we get:
+
+$\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_1}$ which is the predicted odds when $X = x_1$ or equivalently $X = x_0 + 1$.
+
+In the last formula we can now replace $x_1$ with $x_0 + 1$ to get:
+
+$\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1(x_0 + 1)}$ 
+
+by mulitpling $\beta_1(x_0 + 1)$ in the exponent we get:
+
+$\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0 + \beta_1}$ 
+
+In this situation, we can apply the rule for exponential expressions that additions in the exponent can be rewritten as a mutliplicative expression. 
+According to this rule $a^{b+c} = a^b\times a^c$, which in our example gives:
+
+$\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0} \times e^{\beta_1}$.
+
+Since we previously defined $\beta_0 + \beta_1x_i$ as $\frac{\pi_0}{1-\pi_0}$, the odds where $X=x_0$, we can now replace it in the equation in the formula above to get:
+
+$\frac{\pi_1}{1-\pi_1} = \frac{\pi_0}{1-\pi_0} \times e^{\beta_1}$. 
+
+All we have to do in this situation is to rearrange the equation by dividing both sides with $\frac{\pi_0}{1-\pi_0}$ to show that $e^{\beta_1}$ actually is the odds ratio which describes the relationship between odds when we increase X by 1 unit.
+
+$e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}$. 
+
+## Odds Ratios in R
+
+In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually  the odds ratio.
+
+Please consider the comments in the code for further explaination.
+
+```{r}
+
+# 1. simulate data
+# 2. calculate exponentiated beta
+# 3. calculate the odds based on the prediction p(Y=1|X)
+#
+# Function takes a x value, for that x value the odds are calculated and returned
+# Beside the odds, the function does also return the exponentiated beta coefficient
+log_reg <- function(x_value) {
+  # simulate data, the higher x the higher the probability of y=1
+  set.seed(256)
+  X <- c(rnorm(50, mean = 10, sd = 2), rnorm(50, mean = 14, sd = 2))
+  y <- c(rep(0, 50), rep(1, 50))
+  
+  plot(y ~ X) 
+  model <- glm(y ~ X, family = "binomial")
+  beta_1 <- coef(model)[2]
+  exp_beta_1 <- exp(beta_1) # exponentiate beta_1 to get odds ratios
+  
+  # predict pi_i, the probabilty that y=1 given the x value
+  pi <- predict(model, newdata = data.frame(X = x_value), type = "response") 
+  
+  odds <- pi / (1 - pi)
+  
+  list(odds = odds, exp_beta = exp_beta_1)
+}
+
+x_value <- 14
+x1 <- log_reg(x_value)
+x2 <- log_reg(x_value + 1)
+
+# Show the exponentiated beta coefficients
+show(x1$exp_beta) # exp beta
+
+odds_ratio <- x2$odds / x1$odds # calculate odds ratio
+show(odds_ratio) # odds ratio
+
+# Is the exponentiated beta the same as the calculated odds ratio?
+round(odds_ratio, 6) == round(x1$exp_beta, 6)
+
+
+```
+
+The R-code above demonstrates that the exponetiated beta coefficient of a logistic regression is the same as the odds ratio and thus can be interpreted as the change of the odds ratio when we increase the predictor variable $x$ by one unit. 
+
+In this example the odds ratio is `r round(odds_ratio, 2)`. This means that the odds increase by 2.68 when we increase the predictor variable $x$ by one unit. 
+
+In a situatuation where the predictor variable is lower that 1, the odds decrease, i.e. the proabability of $p(Y=1)$ also gets lower as $x$ increases.
+
+# Outlook
+
+As I demonstrated in this post, a way to interpret the regression coefficients of a logistic regression is to exponentiate the coefficient and view it as the change in the odds. 
+That means the exponentiated beta is the odds ratio. 
+
+We did so, because the plain, non-exponentiated betas represent the change of the *Logit* and it is hard to get an intuition what that actually means.
+
+However, we also should keep in mind, that the odds ratio, bypass the interpretation of hard to understand Logits, the odds ratio is itself a hard to understand concept and therefore not easy to understand.
+
+While the odds ratio bypass the interpretation of hard to understand Logits and the odds ratio may be easier to interpret, their meaning is often not easy to understand.
+
+We can overcome this problem by presenting representative values and its predicted probabilites by the logistic model, since probabilites are easier to understand than odds ratios.

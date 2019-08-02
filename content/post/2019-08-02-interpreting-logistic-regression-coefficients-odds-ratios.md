@@ -32,7 +32,3 @@ So the odds ratio tells us something about the change of the odds when we increa
 We start with the **Logit** and as explained in the introduction it is the natual logarithm of the odds. Odds are the ratio of the probability that the outcome variable will be 1 $p(Y=1)$, also considered as the proabability of success, over the proabability that it will be 0 $p(Y=0)$, sometimes considered as the probability of failure. The probabilty can also be expressed as $p(Y=0) = 1-p(Y=1)$.
 
 So the ratio of the probability of success over the probability is simply:
-
-$\frac{p(Y=1)}{1-(Y=1)}$
-i:
-Bla

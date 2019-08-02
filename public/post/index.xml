@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Thu, 02 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 02 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Interpreting Logistic Regression Coefficients - Odds Ratios</title>
+      <link>/post/interpreting-logistic-regression-coefficients-odds-ratios/</link>
+      <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/interpreting-logistic-regression-coefficients-odds-ratios/</guid>
+      <description>Logistic Regression The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable $y$ and a set of independent response variables $X$.
+However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed $y$ values. The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called Logit: $log(\frac{p(x)}{1 - p(x)})$, where $p(x)$ is the probability that $y=$.</description>
+    </item>
     
     <item>
       <title>Upload a Resource to a FHIR Server</title>
@@ -40,15 +50,6 @@ In this specific example I will show how to post a ValueSet I created to capture
       <guid>/post/2019-01-25-finalizing-glmnet-models/</guid>
       <description>Evaluating hyperparameter with Cross Validation In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.
 Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage.</description>
-    </item>
-    
-    <item>
-      <title>Koeffizienten des Bass-Models</title>
-      <link>/post/estimating-the-bass-model/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/estimating-the-bass-model/</guid>
-      <description>Untersuchung von Innovationen Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse. Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik. Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen. Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.</description>
     </item>
     
     <item>
@@ -127,11 +128,30 @@ library(tidyverse)  ## ── Attaching packages ──────────�
     
     <item>
       <title></title>
+      <link>/post/2018-11-07-estimating-the-bass-model/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018-11-07-estimating-the-bass-model/</guid>
+      <description>Untersuchung von Innovationen Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse. Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik. Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen. Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>/post/2019-05-02-upload-a-resource-to-a-fhir-server/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/post/2019-05-02-upload-a-resource-to-a-fhir-server/</guid>
       <description>Upload a Resource to a FHIR Server       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019-08-02-interpreting-logistic-regression-coefficients-odds-ratios/</guid>
+      <description>Logistic Regression The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable \(y\) and a set of independent response variables \(X\).
+However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed \(y\) values. The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called Logit: \(log(\frac{p(x)}{1 - p(x)})\), where \(p(x)\) is the probability that \(y=\).</description>
     </item>
     
   </channel>

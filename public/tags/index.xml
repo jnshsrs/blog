@@ -7,19 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Wed, 07 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Bass Model</title>
-      <link>/tags/bass-model/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/bass-model/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Cost Function</title>
@@ -76,15 +67,6 @@
     </item>
     
     <item>
-      <title>Innovation Research</title>
-      <link>/tags/innovation-research/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/innovation-research/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Interoperability</title>
       <link>/tags/interoperability/</link>
       <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
@@ -112,15 +94,6 @@
     </item>
     
     <item>
-      <title>Nonlinear Model</title>
-      <link>/tags/nonlinear-model/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/nonlinear-model/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>R</title>
       <link>/tags/r/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
@@ -144,15 +117,6 @@
       <pubDate>Fri, 03 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/rprogramming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rstat</title>
-      <link>/tags/rstat/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rstat/</guid>
       <description></description>
     </item>
     

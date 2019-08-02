@@ -4,25 +4,44 @@ src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 <div id="untersuchung-von-innovationen" class="section level1">
 <h1>Untersuchung von Innovationen</h1>
-<p>Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse. Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik. Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen. Bass gelang es als Erster ein mathematisches Modell zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden. Das heute unter dem Namen Bass-Modell bekannte statistische Verfahren wurde nach der Publikation der theoretischen Grundlagen durch empirische Daten untermauert.</p>
+<p>Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse.
+Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik.
+Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen.
+Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.
+Das heute unter dem Namen Bass-Model bekannte statistische Verfahren wurde nach der Publikation der theoretischen Grundlagen durch empirische Daten untermauert.</p>
 <p>In diesem Post möchte ich den Effekt der Modelparameter darstellen, da diese ohne Kontext oftmals schwierig zu verstehen sind.</p>
 </div>
 <div id="modellierung-von-innovationen" class="section level1">
 <h1>Modellierung von Innovationen</h1>
-<p>Es gibt verschiedene Ansätze dieses Modells Innovationen zu betrachten. Ein Ansatz ist, den prozentualen Anteil der Adopter zu modellieren. Im Zentrum des Bass-Modells steht der Adopter. Als Adopter werden in diesem Zusammenhang Personen oder Organisationen bezeichnet, die ein neues Produkt nutzen oder innovative technologische Lösungen einsetzten. So kann ein Unternehmen daran interessiert sein, wie hoch der prozentuale Anteil der Nutzer seines neuen Produktes ist.</p>
-<p>Im Rahmen dieser Fragestellung kann dieser Anteil durch das Bass Modell geschätzt werden. Das Modell basiert dabei auf einer S-förmigen Adoptionskurve die durch folgende Formel dargestellt wird.</p>
+<p>Es gibt verschiedene Ansätze dieses Models Innovationen zu betrachten.
+Ein Ansatz ist, den prozentualen Anteil der Adopter zu modellieren.
+Im Zentrum des Bass-Models steht der Adopter.
+Als Adopter werden in diesem Zusammenhang Personen oder Organisationen bezeichnet, die ein neues Produkt nutzen oder innovative technologische Lösungen einsetzten.
+So kann ein Unternehmen daran interessiert sein, wie hoch der prozentuale Anteil der Nutzer seines neuen Produktes ist.</p>
+<p>Im Rahmen dieser Fragestellung kann dieser Anteil durch das Bass Model geschätzt werden.
+Das Model basiert dabei auf einer S-förmigen Adoptionskurve die durch folgende Formel dargestellt wird.</p>
 <p><span class="math inline">\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)</span></p>
-<p>Bei diesem Modell werden zwei Koeffizienten geschätzt, die bei der Adoption von Innovationen Einfluss üben. Dabei handelt es sich zum eine um den Innovationkoeffizienten p und zum anderen um den Imitationskoeffizienten q.</p>
+<p>Bei diesem Model werden zwei Koeffizienten geschätzt, die bei der Adoption von Innovationen Einfluss üben.
+Dabei handelt es sich zum eine um den Innovationkoeffizienten p und zum anderen um den Imitationskoeffizienten q.</p>
 
 <p>Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren auf die Adoption der Innovation wirken.</p>
-<p>Die Höhe des Innovationskoeffzienten p bestimmt wie stark die stark die Adoption bei der Einführung einer Innovation ist. Je höher der Innovationskoeffizient desto steiller ist die Addoptionskurve zu Beginn. Dass heißt, dass viele Innovatoren ein Produkt adoptieren.</p>
-<p>Die Höhe des Imitationskoeffizienten q erklärt den Einfluss von Imitatoren. Imitatioren orientieren sich dabei an das Verhalten von Adoptern. Der Imitionskoeffizient steht somit in Wechselwirkung mit dem Innovationskoeffizient.</p>
-<p>Während der Innovationskoeffizient p positiv ist, kann der Imitaitonskoeffizient q auch negativ sein. Typische Wert für p liegen im Bereich von null bis zwei. Der q-Wert kann theoretisch große negative Werte annehmen, liegt typischerweise im Bereich von minus ein bis 2. Bei hohen negativen Werten ist kaum Imitaionsverhalten zu erwarten, was sich durch eine flache Adoptionskurve darstellt, nachdem der Innovationseffekt abklingt.</p>
-<p>Ich zur Veranschaulichung des Bass Modells die Adoptionskurve verschiedener Parameterkombinationen von p und q visualisiert.</p>
+<p>Die Höhe des Innovationskoeffzienten p bestimmt wie stark die stark die Adoption bei der Einführung einer Innovation ist.
+Je höher der Innovationskoeffizient desto steiller ist die Addoptionskurve zu Beginn.
+Dass heißt, dass viele Innovatoren ein Produkt adoptieren.</p>
+<p>Die Höhe des Imitationskoeffizienten q erklärt den Einfluss von Imitatoren.
+Imitatioren orientieren sich dabei an das Verhalten von Adoptern.
+Der Imitionskoeffizient steht somit in Wechselwirkung mit dem Innovationskoeffizient.</p>
+<p>Während der Innovationskoeffizient p positiv ist, kann der Imitaitonskoeffizient q auch negativ sein.
+Typische Wert für p liegen im Bereich von null bis zwei.
+Der q-Wert kann theoretisch große negative Werte annehmen, liegt typischerweise im Bereich von minus ein bis 2.
+Bei hohen negativen Werten ist kaum Imitaionsverhalten zu erwarten, was sich durch eine flache Adoptionskurve darstellt, nachdem der Innovationseffekt abklingt.</p>
+<p>Ich zur Veranschaulichung des Bass Models die Adoptionskurve verschiedener Parameterkombinationen von p und q visualisiert.</p>
 </div>
 <div id="einfluss-der-modelparameter-p-und-q" class="section level1">
 <h1>Einfluss der Modelparameter p und q</h1>
-<p>Die Darstellung zeigt Bass-Modelle verschiedener Parameterkombinationen von p und q. Das Modell stellt den kumulierten prozentualen Anteil der Adopter dar. Jedes Panel steht dabei für einen Wert von q (Imitaitonskoeffizient) und die Farbe der Linien steht für einen Wert von p (Innovationskoeffzient), wobei mit steigendem Innovationskoeffzienten die Linie heller wird.</p>
+<p>Die Darstellung zeigt Bass-Modelle verschiedener Parameterkombinationen von p und q.
+Das Model stellt den kumulierten prozentualen Anteil der Adopter dar.
+Jedes Panel steht dabei für einen Wert von q (Imitaitonskoeffizient) und die Farbe der Linien steht für einen Wert von p (Innovationskoeffzient), wobei mit steigendem Innovationskoeffzienten die Linie heller wird.</p>
 <pre class="r"><code>library(tidyverse)
 
 show_bass_curves &lt;- function(p, q) {
@@ -32,7 +51,7 @@ show_bass_curves &lt;- function(p, q) {
   t &lt;- 0:10
   
   res &lt;- map2(.x = p_, .y = q_, .f = netdiffuseR::bass_F, Time = t) 
-  g &lt;- g %&gt;% unite(col = c(&quot;Var1&quot;, &quot;Var2&quot;)) %&gt;% pull
+  g &lt;- g %&gt;% as.data.frame %&gt;% as.tibble %&gt;% unite(col = &quot;Var&quot;, c(&quot;Var1&quot;, &quot;Var2&quot;)) %&gt;% pull
   
   res &lt;- res %&gt;%
     set_names(g) %&gt;%
@@ -64,61 +83,19 @@ q &lt;- round(seq(-1, 1, length.out = 8), 2)
 
 show_bass_curves(p, q)</code></pre>
 <p><img src="2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-1-1.png" width="768" /></p>
-<p>Wir erkennen im Diagramm, das ein hoher Innovationskoeffizient die Adoption zu Beginn der Markteinführung positiv beeinflusst. Zudem lässt sich aus dem Diagramm der Einfluss des Imitationseffekts und dessen Interaktion mit dem Innovationskoeffizienten erkennen. Wenn der Innovationskoeffzient hoch ist (Panel links unten), ist auch die Adoption im weitern Zeitverlauf hoch. Sinkt der Imitationskoeffizient hemmt er den weiteren Adoptionsverlauf. Er kann ihn sogar ausbremsen, wenn er negativ wird. In diesem Fall exisitert kein Imitationseffekt und die Innvation ereicht keine vollständige Marktdurchdringung.</p>
+<p>Wir erkennen im Diagramm, das ein hoher Innovationskoeffizient die Adoption zu Beginn der Markteinführung positiv beeinflusst.
+Zudem lässt sich aus dem Diagramm der Einfluss des Imitationseffekts und dessen Interaktion mit dem Innovationskoeffizienten erkennen.
+Wenn der Innovationskoeffzient hoch ist (Panel links unten), ist auch die Adoption im weitern Zeitverlauf hoch.
+Sinkt der Imitationskoeffizient hemmt er den weiteren Adoptionsverlauf.
+Er kann ihn sogar ausbremsen, wenn er negativ wird.
+In diesem Fall exisitert kein Imitationseffekt und die Innvation ereicht keine vollständige Marktdurchdringung.</p>
 </div>
 <div id="schlussfolgerung" class="section level1">
 <h1>Schlussfolgerung</h1>
-<p>Das Bass-Modell kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren. Das Modell besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden. Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn. Je höher der Koeffizient desto stärker der Effekt der Innovatoren. Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase. Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.</p>
-<p>Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.</p>
-<p>Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen. Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann. Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.</p>
-<p>Das Bass Modell hat sich in der Vergangenheit als nützlich herausgestellt und wird auch heute noch zur Erforschung der Digitalisierung in verschiedenen wissenschaftlichen Publikationen genutzt. Zudem wird das Modell auch für die Absatzplanung in Unternehmen eingesetzt.</p>
-<p>Es gibt verschiedene Softwarelösungen, welche eine Schätzung des Modells vornehmen. R bietet sich als Open Source Lösung an, denn das Programm hält die Funktionen zur Modellschätzung bereit. Zudem exisiteren Programmerweiterungen, die den Umgang mit dem Bass-Modell erleichtern.</p>
-<p>In diesem Beispiel möchte ich ein kurzes Beispiel demonstrieren, wie mit den Basisfunktionen in R ein Bass-Modell erstellt werden kann, das auf den beobachteten kumulierten Adoptionsraten eines Produktes basieren.</p>
-<p>Für die Modellschätzung werden die Marktdaten benötigt. Dabei ist zu beachten, dass diese Daten in jeweils gleichen Zeitabständen vorliegen. Zum beispiel jährlich, quartalsweise oder monatlich. Fehlende Daten können unter Umständen ersetzt werden.</p>
-<p>We try to model the cumulative proportions of adopters. Therfore we model the cumulative proporitions of adopters by using the differential function of the of the Bass Model Curve to estimate the coefficient of innovation p and coefficient of immitation q.</p>
-<p><span class="math inline">\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)</span></p>
-<pre class="r"><code># bass function
-bass_F &lt;- function(Time, p, q) {
-  (1 - exp(-(p + q)*Time))/(1 + (q/p)*exp(-(p+q)*Time))
-}
-
-x &lt;- 1:10
-y &lt;- c(.1, .2, .3, .35, .5, .6, .66, .78, .8, .84)
-Time = x
-fit &lt;- stats::nls(y ~ bass_F(Time, p, q), start=list(p = .1, q = .5 ))
-
-plot(x, y)</code></pre>
-<p><img src="2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-2-1.png" width="768" /></p>
-<pre class="r"><code>fit &lt;- nls(formula = y ~ bass_F(Time = x, p, q), start=list(p=.1, q=.5))
-summary(fit)</code></pre>
-<pre><code>## 
-## Formula: y ~ bass_F(Time = x, p, q)
-## 
-## Parameters:
-##   Estimate Std. Error t value Pr(&gt;|t|)    
-## p 0.080839   0.007181  11.258 3.48e-06 ***
-## q 0.234345   0.028850   8.123 3.91e-05 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.02264 on 8 degrees of freedom
-## 
-## Number of iterations to convergence: 6 
-## Achieved convergence tolerance: 8.376e-07</code></pre>
-<pre class="r"><code>stats::AIC(fit)</code></pre>
-<pre><code>## [1] -43.61239</code></pre>
-<pre class="r"><code>f &lt;- broom::augment(fit)$.fitted
-mean(sum(f^2)) / mean(x)</code></pre>
-<pre><code>## [1] 0.5923237</code></pre>
-<pre class="r"><code>sd(f) / sqrt(length(Time))</code></pre>
-<pre><code>## [1] 0.08442616</code></pre>
-<pre class="r"><code>library(tidyverse)
-broom::augment(fit) %&gt;% 
-  mutate(y = y) %&gt;% 
-  ggplot(aes(Time, y)) +
-  geom_point() +
-  geom_line(aes(x = Time, y = .fitted)) +
-  geom_linerange(aes(ymin = .fitted, ymax = y))</code></pre>
-<p><img src="2018-11-07-estimating-the-bass-model_files/figure-html/unnamed-chunk-3-1.png" width="768" /></p>
-<p>We used the statistical computing language R to etimate the model’s parameters p and q based on the observed cumulated proportions of adopters. In more detail, we used the <code>nls</code> Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm. To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.</p>
+<p>Das Bass-Model kann eingesetzt werden um den Anteil der kumulierten Adopter bzw. die Adoptionskurve zu modellieren.
+Das Model besitzt zwei Parameter, nämlich den Innovations- und den Imitationskoeffizienten, die im Bass-Model als p und q bezeichnet werden.
+Der Innovationskoeffzient p ist unabhängig von q und bestimmt die Steigung der Adoption zu Beginn.
+Je höher der Koeffizient desto stärker der Effekt der Innovatoren.
+Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase.
+Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.</p>
 </div>

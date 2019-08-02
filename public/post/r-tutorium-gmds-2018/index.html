@@ -96,13 +96,16 @@
 <p>Dieser Post enthält das Skript sowie die Aufgaben inklusive Lösungen meines Tutoriums “Einstieg in die Programmiersprache R” auf der 63. Jahrestagung der GMDS e.V. in Osnabrück am 6.9.2018. Das Skript mit den Aufgaben ohne Lösungen sind in der Datei <code>workbook-rstats-gmds18-aufgaben.Rmd</code> auf <a href="https://github.com/jnshsrs/gmds18-tutorium-rstats" title="Github Repository">Github</a> verfügbar.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p>In diesem Kurs werden wir mit R und RStudio als Programmierumgebung (IDE) arbeiten. Beide Programme stehen kostenlos zur Verfügung.</p>
-<p>Zunächst muss die Programmiersprache R installiert werden. Die aktuelle Version kann auf der offiziellen R-Website heruntergeladen werden (<a href="http://www.r-project.org" class="uri">http://www.r-project.org</a>)</p>
+<p>In diesem Kurs werden wir mit R und RStudio als Programmierumgebung (IDE) arbeiten.
+Beide Programme stehen kostenlos zur Verfügung.</p>
+<p>Zunächst muss die Programmiersprache R installiert werden.
+Die aktuelle Version kann auf der offiziellen R-Website heruntergeladen werden (<a href="http://www.r-project.org" class="uri">http://www.r-project.org</a>)</p>
 <p>Danach kann RStudio installiert werden, welches unter der Open Source Lizenz kostenlos zur Verfügung steht (<a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a>).</p>
 </div>
 <div id="warum-r" class="section level2">
 <h2>Warum R?</h2>
-<p>R hat eine steile Lernkurve und häufig fällt der Einstieg ohne Ausbildung zum Informatiker oder “Computer Scientist”. Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten.</p>
+<p>R hat eine steile Lernkurve und häufig fällt der Einstieg ohne Ausbildung zum Informatiker oder “Computer Scientist”.
+Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten.</p>
 <p>Welche Vorteile bieten Programmiersprachen im Vergleich zu den Statistiksoftwaretools wie SPSS und SAS?</p>
 <ul>
 <li>Kostenlos mit vielen Erweiterungen und Unterstützung einer breiten R-Nutzergruppe (z.B. auf Stackoverflow)</li>
@@ -115,10 +118,12 @@
 <div id="r-studio" class="section level2">
 <h2>R Studio</h2>
 <ul>
-<li><p>Programmeinführung R-Studio</p></li>
+<li><p>Programmeinführung R-Studio</p>
+<ul>
 <li>Dokumentation</li>
 <li>Umgebung (Enironment)</li>
-<li><p>Konsole</p></li>
+<li>Konsole</li>
+</ul></li>
 </ul>
 </div>
 <div id="lern-ressourcen-und-materialien" class="section level2">
@@ -139,7 +144,8 @@
 <h2>Einstieg in die Konsole und Datentypen</h2>
 <p>Vorab wichtig: R ist CaseSensitive, dass heißt, Groß- und Kleinbuchstaben sind unterschiedliche Zeichen. Der Großbuchstabe <code>X</code> ist demnach nicht das selbe wie der Kleinbuchstabe x. Im R-Code werden daher zum Beispiel Variablennamen <code>x_mean</code> und <code>X_mean</code> unterschiedlich interpretiert.</p>
 <ul>
-<li>Datentypen (Numerisch, Integer, String, Faktoren, Boolean)</li>
+<li>Datentypen (Numerisch, Integer, String, Faktoren, Boolean)
+<ul>
 <li>Integer (Ganzzahl) z.B. <code>100</code></li>
 <li>Numerisch (Float, Kommazahl) <code>0.12</code> oder Ratio zweier Integer <code>1/10</code></li>
 <li>Boolean <code>TRUE</code> or <code>FALSE</code> (oder entprechend 1 und 0), werden in R als Datentyp <code>logical</code> bezeichnet</li>
@@ -147,19 +153,25 @@
 <li><p>Datetime Datentyp (z.B. <code>as.Date(&quot;2017-05-05&quot;)</code>, hier ist die Funktionseingabe eine Zeichenkette in einer bestimmten Reihenfolge Jahr-Monat-Tag)</p></li>
 <li>Besondere Datenwerte sind fehlende Werte z.B. <code>NA</code> (Not available) oder <code>NaN</code> (Not a Number z.B. <code>log(-10)</code>)</li>
 <li><p><code>NULL</code> Wert</p></li>
+</ul></li>
 </ul>
 <p>Zum Überprüfen des Datentyps gibt es verschiedene Funktionen z.B. <code>is.character()</code>, <code>is.numeric()</code> oder <code>is.logical()</code></p>
 <ul>
-<li>(Build-In) Funktionen</li>
+<li>(Build-In) Funktionen
+<ul>
 <li>z.B. <code>abs()</code>, <code>sqrt()</code>, <code>nchar()</code>, <code>mean()</code></li>
 <li>Dokumentation <code>?abs</code></li>
-<li><p>Funktions-Parameter</p></li>
-<li><p>Erstellen und Nutzten von Datenstrukturen (“Objekte” und “Klassen”)</p></li>
+<li>Funktions-Parameter</li>
+</ul></li>
+<li><p>Erstellen und Nutzten von Datenstrukturen (“Objekte” und “Klassen”)</p>
+<ul>
 <li>Vektoren <code>c()</code></li>
 <li>Liste: <code>list()</code></li>
-<li><p>data.frame <code>data.frame()</code></p></li>
+<li>data.frame <code>data.frame()</code></li>
+</ul></li>
 </ul>
-<p>Es gibt noch weitere Datentypen, wie z.B. Matrix oder umfangreichere Strukturen wie z.B. Lineare Regressionsmodelle Da R Methoden für das objekt-orientierte Programmieren anbietet, können auch eigene Datenstrukturen entwickelt und genutzt werden.</p>
+<p>Es gibt noch weitere Datentypen, wie z.B. Matrix oder umfangreichere Strukturen wie z.B. Lineare Regressionsmodelle
+Da R Methoden für das objekt-orientierte Programmieren anbietet, können auch eigene Datenstrukturen entwickelt und genutzt werden.</p>
 </div>
 <div id="r-als-taschenrechner-kennenlernen-der-konsole" class="section level2">
 <h2>R als Taschenrechner (Kennenlernen der Konsole)</h2>
@@ -173,10 +185,13 @@
 1 / 1  + 2
 sqrt(9) + 3
 sqrt(2)^2</code></pre>
-<p>In R ist es üblich Ergebnisse in einer Variable zu speichern. Das ist mit einem “Pfeil”&quot; als Zuweisungsoperator <code>&lt;-</code> (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich. Auch <code>=</code> ist möglich, in R aber unüblich.</p>
+<p>In R ist es üblich Ergebnisse in einer Variable zu speichern.
+Das ist mit einem “Pfeil”&quot; als Zuweisungsoperator <code>&lt;-</code> (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich.
+Auch <code>=</code> ist möglich, in R aber unüblich.</p>
 <p>Zum Beispiel kann die Summe aus der ersten Berechnung in einer Variablen <code>x</code> und die Summe aus Berechnung zwei in <code>y</code> gespeichert werden.</p>
 <p><code>x &lt;- 1 + 1</code> und <code>y &lt;- 2 * 4</code>, wobei x und y die Ergebnisse der Berechnung in Form eines numerischen Datentyps (s.u) speichern.</p>
-<p><code>x + y</code> repräsentiert somit <code>(1 + 1) + (2 * 4)</code> bzw. <code>2 + 8</code>. R beachtet dabei Rechenregeln wie beispielsweise das Kommutativgesetzt oder das Assoziativgesetz.</p>
+<p><code>x + y</code> repräsentiert somit <code>(1 + 1) + (2 * 4)</code> bzw. <code>2 + 8</code>.
+R beachtet dabei Rechenregeln wie beispielsweise das Kommutativgesetzt oder das Assoziativgesetz.</p>
 </div>
 <div id="arbeiten-mit-vektoren" class="section level2">
 <h2>Arbeiten mit Vektoren</h2>
@@ -249,7 +264,8 @@ mittelwert &lt;- function(x) {
 <p>Erstellen Sie eine Funktion um die (empirische) Standardabweichung zu berechnen die wie in der folgenden Funktion definiert ist.</p>
 <p><span class="math inline">\(\sigma =\sqrt{\frac{1}{n-1}\cdot {\sum\limits_{i=1}^n} (x_i-\bar{x})^2}\)</span></p>
 <ul>
-<li>Die Standardabweichung ist definiert als Wurzel des Mittelwerts folgender Größe: Der Summe der quadrierten Abweichung jedes Datenpunktes vom Mittelwert (SAQ).*</li>
+<li>Die Standardabweichung ist definiert als Wurzel des Mittelwerts folgender Größe:
+Der Summe der quadrierten Abweichung jedes Datenpunktes vom Mittelwert (SAQ).*</li>
 </ul>
 <p>Folgende Funktionen sind nützlich für die Erstellung dieser Funktion:</p>
 <ul>
@@ -257,7 +273,8 @@ mittelwert &lt;- function(x) {
 <li><code>sum</code> Summe eines Vektors</li>
 <li><code>x^2</code> Quadiert die Inhalte des Vektors <code>x</code></li>
 </ul>
-<p>Die (empirische) Standardabweichung beschreibt die Streuung einer Zufallsvariable. Je größer die Standardabweichung desto wahrscheinlich sind Datenpunkte, die eine höhere Distanz zum Mittelwert haben.</p>
+<p>Die (empirische) Standardabweichung beschreibt die Streuung einer Zufallsvariable.
+Je größer die Standardabweichung desto wahrscheinlich sind Datenpunkte, die eine höhere Distanz zum Mittelwert haben.</p>
 <pre class="r"><code>source(&quot;code/temperaturen.R&quot;)
 # Standardabweichung
 standardabweichung &lt;- function(x) {
@@ -278,8 +295,11 @@ standardabweichung(temperaturen) </code></pre>
 </div>
 <div class="task">
 <p><strong>Aufgabe</strong></p>
-<p>Recherchiere bei Google die Temperaturen der kommenden Tage für Moskau und Los Angeles. Es werden bei Google das Wetter für den aktuellen Tag und der folgenden Woche angegeben.</p>
-<p>Schreib eine Funktion mit dem Namen <code>wettervorhersage</code>. Diese Funktion hat einen Parameter (oder auch Funktionsargument genannt). Dieser Parameter ist ein numerischer Vektor (mit der Temperatur der kommenden Tage).</p>
+<p>Recherchiere bei Google die Temperaturen der kommenden Tage für Moskau und Los Angeles.
+Es werden bei Google das Wetter für den aktuellen Tag und der folgenden Woche angegeben.</p>
+<p>Schreib eine Funktion mit dem Namen <code>wettervorhersage</code>.
+Diese Funktion hat einen Parameter (oder auch Funktionsargument genannt).
+Dieser Parameter ist ein numerischer Vektor (mit der Temperatur der kommenden Tage).</p>
 <p>Die Funktion soll die kleinste und die höchste Temperatur berechnen sowie die Standardabweichung und die Informationen als String zurück geben.</p>
 <p>In welcher Stadt ist besseres Wetter, wo ist das Wetter konstanter?</p>
 <pre class="r"><code>wettervorhersage &lt;- function(x) {
@@ -331,11 +351,12 @@ str(sinnlosse_beispielliste)</code></pre>
 ##   ..$ : chr &quot;B&quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &quot;srcref&quot;)= &#39;srcref&#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7facf910e1e0&gt;</code></pre>
+##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7fa4228048c8&gt;</code></pre>
 </div>
 <div id="datensatz-aka-data.frame" class="section level2">
 <h2>Datensatz aka data.frame</h2>
-<p>Der <code>data.frame</code>ist eine besondere Form der Liste. Er enthält <span class="math inline">\(j\)</span> Vektoren der selben Länge <span class="math inline">\(n\)</span>.</p>
+<p>Der <code>data.frame</code>ist eine besondere Form der Liste.
+Er enthält <span class="math inline">\(j\)</span> Vektoren der selben Länge <span class="math inline">\(n\)</span>.</p>
 <pre class="r"><code>temperaturen &lt;- data.frame(temperaturen_la, temperaturen_moskau)
 
 # Mit verschiedenen Funktionen können wir den Datensatz darstellen
@@ -364,8 +385,14 @@ nrow(temperaturen) # Anzahl der Zeilen des Datensatzes</code></pre>
 </div>
 <div id="operationen-mit-datensatzen-data.frames" class="section level2">
 <h2>Operationen mit Datensätzen (data.frames)</h2>
-<p>Oft möchte man nur mit Ausschnitten des Datensatzes arbeiten. R bietet die Möglichkeit einzelne Spalten (Variablen) des Datensatzes auszuwählen sowie einzelne Zeilen auszuwählen. Für unseren Datensatz mit den Temperaturen könnten wir z.B. ausschließlich die Temperaturen für das Wochenende und nur für Los Angeles auswählen.</p>
-<p>Es gibt mehrere Möglichkeiten, eine Auswahl eines Datensatzes zu erzeugen. Wenn wir einzelne Spalten eines Datensatzes auswählen möchten, eignet sich die <code>$</code>(Dollar)-Notation. Dabei wird über den Datensatznamen und den Spaltennamen, die durch ein <code>$</code> verknüft werden auf die spezielle Spalte zugegriffen: <code>datensatz_name$spaltenname</code> Wenn wir auf die Spalte <code>temperaturen_la</code> unseres Datensatzes <code>temperaturen</code> zugreifen wolle, könnten wir dieses durch den Befehl <code>temperaturen$temperaturen_la</code></p>
+<p>Oft möchte man nur mit Ausschnitten des Datensatzes arbeiten.
+R bietet die Möglichkeit einzelne Spalten (Variablen) des Datensatzes auszuwählen sowie einzelne Zeilen auszuwählen.
+Für unseren Datensatz mit den Temperaturen könnten wir z.B. ausschließlich die Temperaturen für das Wochenende und nur für Los Angeles auswählen.</p>
+<p>Es gibt mehrere Möglichkeiten, eine Auswahl eines Datensatzes zu erzeugen.
+Wenn wir einzelne Spalten eines Datensatzes auswählen möchten, eignet sich die <code>$</code>(Dollar)-Notation.
+Dabei wird über den Datensatznamen und den Spaltennamen, die durch ein <code>$</code> verknüft werden auf die spezielle Spalte zugegriffen:
+<code>datensatz_name$spaltenname</code>
+Wenn wir auf die Spalte <code>temperaturen_la</code> unseres Datensatzes <code>temperaturen</code> zugreifen wolle, könnten wir dieses durch den Befehl <code>temperaturen$temperaturen_la</code></p>
 <p>In diesem Fall ist das Ergebnis ein Vektor mit den Daten aus der abgefragten Spalte <code>temperaturen_la</code>.</p>
 <p>Die <code>$</code>-Notation ermöglicht es uns nicht nur, auf einzelne Spalten zurückzugreifen, sondern auch neue Spalten zu erstellen.</p>
 <pre class="r"><code>data.frame$neue_spalte &lt;- x 
@@ -375,9 +402,13 @@ temperaturen$temperaturen_kairo &lt;- c(36, 35, 37, 37, 36, 35, 34, 34)</code></
 </div>
 <div id="importieren-eines-datensatzes" class="section level2">
 <h2>Importieren eines Datensatzes</h2>
-<p><img src="/img/tut1-r-csv-rows.png" style="width:45.0%" /> <img src="/img/tut1-r-csv-columns.png" style="width:45.0%" /></p>
-<p>Der Datensatz, in R als <code>data.frame</code> bezeichnet, ist eine zentrale Datenstruktur, die bei Datenanalysen zum Einsatz kommt. Viele Datensätze sind so formatiert, dass sie direkt in R importiert werden können. So können zum Beispiel <code>data.frames</code> aus Excel, SPSS oder SAS direkt importiert werden.</p>
-<p>Häufig liegen diese Daten jedoch in Textdateien im CSV-Format vor. CSV steht für Komma-separierte-Werte (engl. comma-separated-values). Mit Hilfe der Funktion <code>read.csv</code> können Dateien im CSV-Format in R eingelesen werden.</p>
+<p><img src="/img/tut1-r-csv-rows.png" style="width:45.0%" />
+<img src="/img/tut1-r-csv-columns.png" style="width:45.0%" /></p>
+<p>Der Datensatz, in R als <code>data.frame</code> bezeichnet, ist eine zentrale Datenstruktur, die bei Datenanalysen zum Einsatz kommt.
+Viele Datensätze sind so formatiert, dass sie direkt in R importiert werden können.
+So können zum Beispiel <code>data.frames</code> aus Excel, SPSS oder SAS direkt importiert werden.</p>
+<p>Häufig liegen diese Daten jedoch in Textdateien im CSV-Format vor. CSV steht für Komma-separierte-Werte (engl. comma-separated-values).
+Mit Hilfe der Funktion <code>read.csv</code> können Dateien im CSV-Format in R eingelesen werden.</p>
 <p>Wir verwenden in diesem Tutorial den <a href="https://www.kaggle.com/c/titanic">Titanic Datensatz</a>.</p>
 <div class="figure">
 <img src="/img/titanic-new-york-herald.jpeg" alt="Headline of THE NEW YORK HERALD 15th of April 1912" />
@@ -385,15 +416,8 @@ temperaturen$temperaturen_kairo &lt;- c(36, 35, 37, 37, 36, 35, 34, 34)</code></
 </div>
 <pre class="r"><code>titanic &lt;- read.csv(&quot;data/titanic.csv&quot;)
 
-library(tidyverse)</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 3.5.2</code></pre>
-<pre class="r"><code>head(titanic)</code></pre>
+library(tidyverse)
+head(titanic)</code></pre>
 <pre><code>##   pclass survived                                            name    sex
 ## 1      1        1                   Allen, Miss. Elisabeth Walton female
 ## 2      1        1                  Allison, Master. Hudson Trevor   male
@@ -416,7 +440,12 @@ library(tidyverse)</code></pre>
 ## 5 Montreal, PQ / Chesterville, ON
 ## 6                    New York, NY</code></pre>
 <p>Diese spezielle R-Syntax erlaubt es, auf einzelne Spalten eines Datensatzes zuzugreifen.</p>
-<p>Eine weitere Möglichkeit auf eine Auswahl des Datensatzes zist die sogenannten <code>[</code>-Notation, wobei <code>[</code> als “bracket” oder “Eckige Klammer” bezeichnet wird. Diese hat folgende Syntax: <code>datensatz[zeilenfilter, vektor mit den spaltennamen]</code>. <code>datensatz</code> bezeichnet den Namen des spezifischen Datensatzes, unser erstellter Datensatz hat den Namen. In die folgenden eckigen Klammern wird die Auswahl des Datensatzes spezifiziert. Vor dem Komma wird der Zeilenfilter gesetzt, nach der Klammer ein <code>character</code> Vektor, der die Namen der ausgewählten Spalten enthält. Das Resultat ist ein neuer Datensatz, ausschließlich mit den Zeilen und Spalten, die ausgewählt wurden.</p>
+<p>Eine weitere Möglichkeit auf eine Auswahl des Datensatzes zist die sogenannten <code>[</code>-Notation, wobei <code>[</code> als “bracket” oder “Eckige Klammer” bezeichnet wird.
+Diese hat folgende Syntax: <code>datensatz[zeilenfilter, vektor mit den spaltennamen]</code>.
+<code>datensatz</code> bezeichnet den Namen des spezifischen Datensatzes, unser erstellter Datensatz hat den Namen.
+In die folgenden eckigen Klammern wird die Auswahl des Datensatzes spezifiziert.
+Vor dem Komma wird der Zeilenfilter gesetzt, nach der Klammer ein <code>character</code> Vektor, der die Namen der ausgewählten Spalten enthält.
+Das Resultat ist ein neuer Datensatz, ausschließlich mit den Zeilen und Spalten, die ausgewählt wurden.</p>
 </div>
 <div id="auswahlen-von-zeilen-und-spalten" class="section level2">
 <h2>Auswählen von Zeilen und Spalten</h2>
@@ -425,7 +454,8 @@ titanic[1, ] # Nur erste Zeile
 titanic[c(1, 2), c(&quot;age&quot;, &quot;sex&quot;)] # gibt die ersten beiden Zeilen und die Spalten Alter und Geschlecht wieder
 titanic[titanic$age &lt;= 18, ] # gibt die ersten beiden Zeilen und die Spalten Alter und Geschlecht wieder
 titanic[titanic$sex == &quot;male&quot;, ] # gibt die ersten beiden Zeilen und die Spalten Alter und Geschlecht wieder</code></pre>
-<p><strong>Cave: Oben habe ich geschrieben, das Ergebnis sei eine neuer Datensatz, also ein R-Objekt des Typs `data.frame´. Wenn nur eine Spalte ausgewählt wird, ist das Ergebnis ein Vektor</strong></p>
+<p><strong>Cave: Oben habe ich geschrieben, das Ergebnis sei eine neuer Datensatz, also ein R-Objekt des Typs `data.frame´.
+Wenn nur eine Spalte ausgewählt wird, ist das Ergebnis ein Vektor</strong></p>
 <div class="task">
 <p><strong>Aufgabe</strong></p>
 <ul>
@@ -452,16 +482,23 @@ mean(titanic$fare, na.rm = TRUE)</code></pre>
 <h1>Kapitel 4 - Tidyverse</h1>
 <div id="nutzen-von-paketen" class="section level2">
 <h2>Nutzen von Paketen</h2>
-<p>Bisher haben wir uns mit den Standardfunktionen von R befasst. Zudem haben wir eine Funktions selber geschrieben.</p>
+<p>Bisher haben wir uns mit den Standardfunktionen von R befasst.
+Zudem haben wir eine Funktions selber geschrieben.</p>
 <p>Häufig entwickeln Statistiker und Programmierer Erweiterungen, die auch Pakete genannt werden, die wir als sogenannte <code>library</code> nutzten können.</p>
-<p>Eine der zentralen Erweiterungen in R momentan ist das Paket <code>tidyverse</code>. Es erweitert den Funktionsumfang von data.frames. Diese weiterentwickelte data.frame wir auch als <code>tibble</code> bezeichnet.</p>
-<p>Pakete wie <code>tidyverse</code> müssen zusätzlich installiert werden. Dies gelingt durch die Funktion <code>install.packages</code> z.B. <code>install.package(tidyverse)</code>.</p>
-<p>Um das Paket zu nutzten müssen wir es zunächst laden. Dies gelingt durch den Funktionsaufruf <code>library(tidyverse)</code>.</p>
+<p>Eine der zentralen Erweiterungen in R momentan ist das Paket <code>tidyverse</code>.
+Es erweitert den Funktionsumfang von data.frames.
+Diese weiterentwickelte data.frame wir auch als <code>tibble</code> bezeichnet.</p>
+<p>Pakete wie <code>tidyverse</code> müssen zusätzlich installiert werden.
+Dies gelingt durch die Funktion <code>install.packages</code> z.B. <code>install.package(tidyverse)</code>.</p>
+<p>Um das Paket zu nutzten müssen wir es zunächst laden.
+Dies gelingt durch den Funktionsaufruf <code>library(tidyverse)</code>.</p>
 </div>
 <div id="importieren-von-daten" class="section level2">
 <h2>Importieren von Daten</h2>
-<p>Auch Tidyverse-Paket hat eine Funktion, um Daten im CSV-Formtat zu importieren (und auch zu exportieren). Diese Funktion hat den Vorteil, dass sie die Daten schneller liest und den Datentyp einzelner Spalten zuverlässiger erkennt.</p>
-<p>Die Funktion heißt <code>read_csv</code> (nicht verwechseln mit der Funktion <code>read.csv</code> die mit einem Punkt geschrieben wird). Die Dokumentation erhalten wir durch <code>?read_csv</code>.</p>
+<p>Auch Tidyverse-Paket hat eine Funktion, um Daten im CSV-Formtat zu importieren (und auch zu exportieren).
+Diese Funktion hat den Vorteil, dass sie die Daten schneller liest und den Datentyp einzelner Spalten zuverlässiger erkennt.</p>
+<p>Die Funktion heißt <code>read_csv</code> (nicht verwechseln mit der Funktion <code>read.csv</code> die mit einem Punkt geschrieben wird).
+Die Dokumentation erhalten wir durch <code>?read_csv</code>.</p>
 <pre class="r"><code>library(tidyverse)
 titanic &lt;- read_csv(&quot;data/titanic.csv&quot;)</code></pre>
 <p>Es existieren in R Erweiterung die Schnittstellen und Importmöglichkeiten für andere Datenformate bieten:</p>
@@ -471,7 +508,8 @@ titanic &lt;- read_csv(&quot;data/titanic.csv&quot;)</code></pre>
 </ul>
 <div class="task">
 <p><strong>Aufgabe</strong></p>
-<p>Nutzen sie die beiden Funktionen um den Datensatz als data.frame zu importieren. Speichern Sie den jeweiligen Datensatz in einer Variable.</p>
+<p>Nutzen sie die beiden Funktionen um den Datensatz als data.frame zu importieren.
+Speichern Sie den jeweiligen Datensatz in einer Variable.</p>
 <p>Berechnen Sie den Mittelwert des Alters und vergleichen Sie die Ergebnisse.</p>
 <pre class="r"><code># einlesen des SPSS Datensatzes mit dem haven Paket
 titanic_sav &lt;- haven::read_sav(file = &quot;data/titanic.sav&quot;)
@@ -533,7 +571,11 @@ mean(titanic$age, na.rm = TRUE)</code></pre>
 </div>
 <div id="arbeiten-mit-dem-tidyverse" class="section level2">
 <h2>Arbeiten mit dem tidyverse</h2>
-<p>Das tidyverse bedient sich einer einfachen Syntax und 5 zentralen Funktionen. Das besondere der Syntax ist das aneinanderreihen von (tidyverse) Funktionen. Der Pipe-Operator verbindet Funktionen und gibt den Funktionsoutput der vorangegangenen Funktion in die folgende Funktion als Funktionsinput weiter. Der Pipe Operator wird mit der Syntax <code>%&gt;%</code> (Prozentzeichen, größer-Zeichen, Prozentzeichen) verwendet. Fast alle Funktionen im tidyverse erwarten einen <code>data.frame</code> als Funktionsinput und geben einen manipulierten <code>data.frame</code> zurück.</p>
+<p>Das tidyverse bedient sich einer einfachen Syntax und 5 zentralen Funktionen.
+Das besondere der Syntax ist das aneinanderreihen von (tidyverse) Funktionen.
+Der Pipe-Operator verbindet Funktionen und gibt den Funktionsoutput der vorangegangenen Funktion in die folgende Funktion als Funktionsinput weiter.
+Der Pipe Operator wird mit der Syntax <code>%&gt;%</code> (Prozentzeichen, größer-Zeichen, Prozentzeichen) verwendet.
+Fast alle Funktionen im tidyverse erwarten einen <code>data.frame</code> als Funktionsinput und geben einen manipulierten <code>data.frame</code> zurück.</p>
 <p>Die fünf zentralen Funktionen sind Verben, die ausdrücken, was die jeweilige Funktion “tut”.</p>
 <div class="figure">
 <img src="/img/tut1-r-dplyr-functions.png" alt="Auswahl wichtiger dplyr-Funktionen" />
@@ -646,7 +688,8 @@ mean(titanic$age, na.rm = TRUE)</code></pre>
 </div>
 <div class="task">
 <p><strong>Aufgabe</strong></p>
-<p>Es ist bekannt dass die Rettungsboote auf der Titanic nicht ausgelastet waren. Nun sollen Sie die tatsächliche Auslasung der Rettungsboote auf der Titanic berechnen.</p>
+<p>Es ist bekannt dass die Rettungsboote auf der Titanic nicht ausgelastet waren.
+Nun sollen Sie die tatsächliche Auslasung der Rettungsboote auf der Titanic berechnen.</p>
 <p>Die Informationen ob und in welches Rettungsboot ein Gast bestieg ist in der Spalte <code>boat</code> des Titanic Datensatzes vermerkt.</p>
 <pre class="r"><code># auslastung pro boot 
 auslastung_pro_boot &lt;- titanic %&gt;%  
@@ -743,13 +786,10 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) </code></pre>
 ##   sex    Lower  Mean Upper
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 female  31.9  33.2  34.5
-## 2 male    32.6  33.6  34.7</code></pre>
+## 2 male    32.6  33.6  34.6</code></pre>
 <img src="/img/tut1-example-plot.png" />
 <hr>
-<div class="figure">
-<img src="/img/tut1-r-decision-tree.png" />
-
-</div>
+<p><img src="/img/tut1-r-decision-tree.png" /></p>
 <pre class="r"><code>library(rpart) # Paket mit dem Entscheidungsbäume erstellt werden können
 library(rattle) # Paket mit dem Entscheidungsbäume visualisiert werden können
 
