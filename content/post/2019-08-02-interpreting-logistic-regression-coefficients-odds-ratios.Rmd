@@ -75,7 +75,7 @@ which gives us
 
 $\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}$.
 
-# Beta Coefficients
+## Beta Coefficients
 
 Now that we know what the *Logit* is, lets move on to the interpretation of the regression coeffcients.
 
@@ -110,7 +110,7 @@ All we have to do in this situation is to rearrange the equation by dividing bot
 
 $e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}$. 
 
-## Odds Ratios in R
+# Odds Ratios in R
 
 In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually  the odds ratio.
 

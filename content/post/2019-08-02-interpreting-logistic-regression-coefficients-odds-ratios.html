@@ -56,9 +56,8 @@ Unfortunatly, we do not have a reasonable intuition about the <strong>Logit</str
 <p>which gives us</p>
 <p><span class="math inline">\(\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}\)</span>.</p>
 </div>
-</div>
-<div id="beta-coefficients" class="section level1">
-<h1>Beta Coefficients</h1>
+<div id="beta-coefficients" class="section level2">
+<h2>Beta Coefficients</h2>
 <p>Now that we know what the <em>Logit</em> is, lets move on to the interpretation of the regression coeffcients.</p>
 <p>To do so, let us initially define <span class="math inline">\(x_0\)</span> as an value of the predictor <span class="math inline">\(X\)</span> and <span class="math inline">\(x_1=x_0 + 1\)</span> as the value of the predictor variable increased by one unit.</p>
 <p>When we plug in <span class="math inline">\(x_0\)</span> in our regression model, that predicts the odds, we get:</p>
@@ -76,8 +75,10 @@ According to this rule <span class="math inline">\(a^{b+c} = a^b\times a^c\)</sp
 <p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = \frac{\pi_0}{1-\pi_0} \times e^{\beta_1}\)</span>.</p>
 <p>All we have to do in this situation is to rearrange the equation by dividing both sides with <span class="math inline">\(\frac{\pi_0}{1-\pi_0}\)</span> to show that <span class="math inline">\(e^{\beta_1}\)</span> actually is the odds ratio which describes the relationship between odds when we increase X by 1 unit.</p>
 <p><span class="math inline">\(e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}\)</span>.</p>
-<div id="odds-ratios-in-r" class="section level2">
-<h2>Odds Ratios in R</h2>
+</div>
+</div>
+<div id="odds-ratios-in-r" class="section level1">
+<h1>Odds Ratios in R</h1>
 <p>In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually the odds ratio.</p>
 <p>Please consider the comments in the code for further explaination.</p>
 <pre class="r"><code># 1. simulate data
@@ -124,7 +125,6 @@ round(odds_ratio, 6) == round(x1$exp_beta, 6)</code></pre>
 <p>The R-code above demonstrates that the exponetiated beta coefficient of a logistic regression is the same as the odds ratio and thus can be interpreted as the change of the odds ratio when we increase the predictor variable <span class="math inline">\(x\)</span> by one unit.</p>
 <p>In this example the odds ratio is 2.68. This means that the odds increase by 2.68 when we increase the predictor variable <span class="math inline">\(x\)</span> by one unit.</p>
 <p>In a situatuation where the predictor variable is lower that 1, the odds decrease, i.e. the proabability of <span class="math inline">\(p(Y=1)\)</span> also gets lower as <span class="math inline">\(x\)</span> increases.</p>
-</div>
 </div>
 <div id="outlook" class="section level1">
 <h1>Outlook</h1>

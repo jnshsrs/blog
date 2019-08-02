@@ -55,9 +55,8 @@ Unfortunatly, we do not have a reasonable intuition about the &lt;strong&gt;Logi
 &lt;p&gt;which gives us&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}\)&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;beta-coefficients&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Beta Coefficients&lt;/h1&gt;
+&lt;div id=&#34;beta-coefficients&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Beta Coefficients&lt;/h2&gt;
 &lt;p&gt;Now that we know what the &lt;em&gt;Logit&lt;/em&gt; is, lets move on to the interpretation of the regression coeffcients.&lt;/p&gt;
 &lt;p&gt;To do so, let us initially define &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; as an value of the predictor &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(x_1=x_0 + 1\)&lt;/span&gt; as the value of the predictor variable increased by one unit.&lt;/p&gt;
 &lt;p&gt;When we plug in &lt;span class=&#34;math inline&#34;&gt;\(x_0\)&lt;/span&gt; in our regression model, that predicts the odds, we get:&lt;/p&gt;
@@ -75,8 +74,10 @@ According to this rule &lt;span class=&#34;math inline&#34;&gt;\(a^{b+c} = a^b\t
 &lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_1}{1-\pi_1} = \frac{\pi_0}{1-\pi_0} \times e^{\beta_1}\)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;All we have to do in this situation is to rearrange the equation by dividing both sides with &lt;span class=&#34;math inline&#34;&gt;\(\frac{\pi_0}{1-\pi_0}\)&lt;/span&gt; to show that &lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1}\)&lt;/span&gt; actually is the odds ratio which describes the relationship between odds when we increase X by 1 unit.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(e^{\beta_1} = \frac{\frac{\pi_1}{1-\pi_1}}{\frac{\pi_0}{1-\pi_0}}\)&lt;/span&gt;.&lt;/p&gt;
-&lt;div id=&#34;odds-ratios-in-r&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Odds Ratios in R&lt;/h2&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;odds-ratios-in-r&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Odds Ratios in R&lt;/h1&gt;
 &lt;p&gt;In this section, I will demonstrate in R, that the exponentiated regression coefficient of a logistic regression is actually the odds ratio.&lt;/p&gt;
 &lt;p&gt;Please consider the comments in the code for further explaination.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# 1. simulate data
@@ -123,7 +124,6 @@ round(odds_ratio, 6) == round(x1$exp_beta, 6)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The R-code above demonstrates that the exponetiated beta coefficient of a logistic regression is the same as the odds ratio and thus can be interpreted as the change of the odds ratio when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
 &lt;p&gt;In this example the odds ratio is 2.68. This means that the odds increase by 2.68 when we increase the predictor variable &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; by one unit.&lt;/p&gt;
 &lt;p&gt;In a situatuation where the predictor variable is lower that 1, the odds decrease, i.e. the proabability of &lt;span class=&#34;math inline&#34;&gt;\(p(Y=1)\)&lt;/span&gt; also gets lower as &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; increases.&lt;/p&gt;
-&lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;outlook&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Outlook&lt;/h1&gt;
