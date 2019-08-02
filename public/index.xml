@@ -200,7 +200,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.48&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.33&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -212,31 +212,31 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.18&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.16&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.11&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.13&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.24&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;39.80&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.81&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.29&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.05&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.07&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.96&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.11&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.06&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
@@ -244,7 +244,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.06&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.08&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -256,7 +256,7 @@ y_hat &amp;lt;- matrix(X, ncol = ncol(X)) %*% as.matrix(coefs, nrow = 6)
 
 # R-Squared
 r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.73, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
+&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.72, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bottomline&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Bottomline&lt;/h1&gt;
@@ -1165,7 +1165,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7f9bc6d0ede0&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7facf910e1e0&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1576,8 +1576,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.5
-## 2 male    32.7  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
+## 1 female  31.9  33.2  34.5
+## 2 male    32.6  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;div class=&#34;figure&#34;&gt;

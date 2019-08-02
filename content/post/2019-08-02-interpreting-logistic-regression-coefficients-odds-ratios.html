@@ -1,0 +1,54 @@
+
+
+<script src="//yihui.name/js/math-code.js"></script>
+<script async
+src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div id="logistic-regression" class="section level1">
+<h1>Logistic Regression</h1>
+<p>The Logisitc Regression is a generalized linear model, which models the relationship between a dichotomous dependent outcome variable <span class="math inline">\(y\)</span> and a set of independent response variables <span class="math inline">\(X\)</span>.</p>
+<p>However, to get meaningful predictions on the binary outcome variable, the linear combination of regression coefficients models transformed <span class="math inline">\(y\)</span> values.
+The transformations is done via the Logit, which basically is the natural logarithm of the odds, also called <strong>Logit</strong>: <span class="math inline">\(log(\frac{p(x)}{1 - p(x)})\)</span>, where <span class="math inline">\(p(x)\)</span> is the probability that <span class="math inline">\(y=\)</span>.
+The log odds are modeled as a linear combinations of the predictors and regression coefficients: <span class="math inline">\(\beta_0 + \beta_1x_i\)</span></p>
+<p>The complete model looks like this:</p>
+<p><span class="math inline">\(Logit = ln(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\)</span></p>
+<p>This equation shows, that the linear combination models the Logit and model coefficients <span class="math inline">\(\beta\)</span> descibe the influence of the predictors <span class="math inline">\(X\)</span> on the logit, e.g. a one unit increase in <span class="math inline">\(x_i\)</span> changes the Logit by the amout of <span class="math inline">\(\beta_i\)</span>.
+Unfortunatly, we do not have a reasonable intuition about the <strong>Logit</strong> and this makes it hard to interpret the <span class="math inline">\(\beta\)</span>-coefficients.</p>
+<p>Often, the regression coefficients of the logistic model are exponentiated and interpreted as Odds Ratios, which are easier to understand than the plain regression coefficients.</p>
+<p>So the odds ratio tells us something about the change of the odds when we increase the predictor variable <span class="math inline">\(x_i\)</span> by one unit. In the following two sections, First, I will present a mathematial expression to show that exponentiated betas are actually the odds ratio and secondly, I will give an illustrative example in R.</p>
+</div>
+<div id="odds-ratios" class="section level1">
+<h1>Odds Ratios</h1>
+<p>In this section we first present the Logit and then move on to show that the exponentialted regression coefficients can be interpreted as Odds Ratios.</p>
+<div id="logit" class="section level2">
+<h2>Logit</h2>
+<p>To beginn with the <strong>Logit</strong> it is defined, as explained in the introduction, as the natual logarithm of the odds.</p>
+<p>Odds are the ratio of the probability that the outcome variable will be 1 <span class="math inline">\(p(Y=1)\)</span>, also considered as the proabability of success, over the proabability that it will be 0 <span class="math inline">\(p(Y=0)\)</span>, sometimes considered as the probability of failure. The probabilty can also be expressed as <span class="math inline">\(p(Y=0) = 1-p(Y=1)\)</span>.</p>
+<p>So the ratio of the probability of success over the probability is simply:</p>
+<p><span class="math inline">\(odds=\frac{p(Y=1)}{1-(Y=1)}\)</span></p>
+<p>To be more concise, let us first define <span class="math inline">\(\pi\)</span> which is the models’s predicted probability that <span class="math inline">\(Y=1\)</span>, so <span class="math inline">\(\pi=p(Y=1)\)</span> and we wil l simpy write:</p>
+<p><span class="math inline">\(odds(\pi)=\frac{\pi}{1-\pi}\)</span></p>
+<p>And the Logits is simply the natual logarithm of this odds and this Logits is modeled as a linear model <span class="math inline">\(\beta_0 + \beta_1x_i\)</span>.</p>
+<p>As explains, we do not have an intuition about the Logits. Thats why we want to predict values that are easier to understand, i.e. the odds.</p>
+<p>To do so, we apply the exponential function to both sides of our expression</p>
+<p><span class="math inline">\(Logit(\pi)=ln(\frac{\pi}{1-\pi)}) = \beta_0 + \beta_1x_i\)</span></p>
+<p>which gives us</p>
+<p><span class="math inline">\(\frac{\pi}{1-\pi} = e^{\beta_0 + \beta_1x_i}\)</span>.</p>
+</div>
+</div>
+<div id="beta-coefficients" class="section level1">
+<h1>Beta Coefficients</h1>
+<p>Now that we know what the <em>Logit</em> is, lets move on to the interpretation of the regression coeffcients.</p>
+<p>To do so, let us initially define <span class="math inline">\(x_0\)</span> as an value of the predictor <span class="math inline">\(X\)</span> and <span class="math inline">\(x_1=x_0 + 1\)</span> as the value of the predictor variable increased by one unit.</p>
+<p>When we plug in <span class="math inline">\(x_0\)</span> in our regression model, that predicts the odds, we get:</p>
+<p><span class="math inline">\(\frac{\pi_0}{1-\pi_0} = e^{\beta_0 + \beta_1x_0}\)</span> which is the predicted odds of <span class="math inline">\(X = x_0\)</span>.</p>
+<p>When we plug in <span class="math inline">\(x_1\)</span> we get:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_1}\)</span> which is the predicted odds when <span class="math inline">\(X = x_1\)</span> or equivalently <span class="math inline">\(X = x_0 + 1\)</span>.</p>
+<p>In the last formula we can now replace <span class="math inline">\(x_1\)</span> with <span class="math inline">\(x_0 + 1\)</span> to get:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1(x_0 + 1)}\)</span></p>
+<p>by mulitpling <span class="math inline">\(\beta_1(x_0 + 1)\)</span> in the exponent we get:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0 + \beta_1}\)</span></p>
+<p>In this situation, we can apply the rule that addition in the exponent can be rewritten as a mutliplicative expression.
+According to this rule <span class="math inline">\(a^{b+c} = a^b\times a^c\)</span>, which in our example gives:</p>
+<p><span class="math inline">\(\frac{\pi_1}{1-\pi_1} = e^{\beta_0 + \beta_1x_0} \times e^{\beta_1}\)</span>.</p>
+</div>

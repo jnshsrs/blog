@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Tue, 06 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/fhir/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Upload a Resource to a FHIR Server</title>
+      <link>/post/upload-a-resource-to-a-fhir-server/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/upload-a-resource-to-a-fhir-server/</guid>
+      <description>Upload a Resource to a FHIR Server In earlier posts I presented FHIR resources by uploading them to FHIR servers. This post will explain how the process of uploading a FHIR resource works with postman. In this context the correct terminology is post a resource rather than uploading since we are dealing with a RESTful API.
+In this specific example I will show how to post a ValueSet I created to capture the location of a ulcer according to the &amp;ldquo;National Konsensus zur Dokumentation des Ulcus Cruris&amp;rdquo; which is a German specification of how to document and communicate the presence of foot ulcer (Ulcus Cruris).</description>
+    </item>
+    
+    <item>
+      <title>Profiling and Slicing an FHIR Observation Resource</title>
+      <link>/post/profiling-and-slicing-an-fhir-observation-resource/</link>
+      <pubDate>Thu, 25 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/profiling-and-slicing-an-fhir-observation-resource/</guid>
+      <description>Introduction This post is about creating FHIR profiles and slicing in particular. So, just before I start I want to introduce with a few bullet points to show from where this post starts.
+ Observation is a common entity in clinical care It is an FHIR resource helping to represent and store informations about an observation made in clinic practise The FHIR resource observation is normative amon only few more resources We can use the FHIR resource to represent clinical observations and store them on electronisch systems An observation may be the blood pressure or the size of a wound, to only name two out of many The FHIR specification is a framework of rules how to represent clinical information as listed above We can apply these rules to represent specific use cases e.</description>
+    </item>
     
     <item>
       <title>HL7 FHIR Fundamentals - Creating an Observation Resource</title>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hl7 on Science, Physiotherapy and Stats</title>
-    <link>/tags/hl7/</link>
-    <description>Recent content in Hl7 on Science, Physiotherapy and Stats</description>
+    <title>Interoperability on Science, Physiotherapy and Stats</title>
+    <link>/tags/interoperability/</link>
+    <description>Recent content in Interoperability on Science, Physiotherapy and Stats</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
     <lastBuildDate>Thu, 02 May 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/hl7/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/interoperability/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -30,26 +30,6 @@ In this specific example I will show how to post a ValueSet I created to capture
       <guid>/post/profiling-and-slicing-an-fhir-observation-resource/</guid>
       <description>Introduction This post is about creating FHIR profiles and slicing in particular. So, just before I start I want to introduce with a few bullet points to show from where this post starts.
  Observation is a common entity in clinical care It is an FHIR resource helping to represent and store informations about an observation made in clinic practise The FHIR resource observation is normative amon only few more resources We can use the FHIR resource to represent clinical observations and store them on electronisch systems An observation may be the blood pressure or the size of a wound, to only name two out of many The FHIR specification is a framework of rules how to represent clinical information as listed above We can apply these rules to represent specific use cases e.</description>
-    </item>
-    
-    <item>
-      <title>HL7 FHIR Fundamentals - Creating an Observation Resource</title>
-      <link>/post/hl7-fhir-fundamentale-create-an-observation-resource/</link>
-      <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/hl7-fhir-fundamentale-create-an-observation-resource/</guid>
-      <description>In the last post I talked about the central FHIR resource Patient which captures all the information of a patient, such as name, date of birth and so forth. Another important resource it Observation. This resource is used to give details about a specific observation such as blood pressure or heart rate. According to the specification, we use the element code which has the datatype CodeableConcept. We can use Terminologies like LOINC or SNOMED CT to specifiy the observation type.</description>
-    </item>
-    
-    <item>
-      <title>HL7 FHIR Fundamentals - Creating Resources</title>
-      <link>/post/hl-fhir-fundamentale-creating-resources/</link>
-      <pubDate>Mon, 05 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/hl-fhir-fundamentale-creating-resources/</guid>
-      <description>FHIR Fundamentals Class On November 1st 2018 I started an online course on the HL7 FHIR Standard. This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.
-This standard used RESTful services and json or xml-documents to transfer information.
-As the name FHIR suggests this standard is all about resources which are the main building blocks in FHIR to capture information.</description>
     </item>
     
   </channel>
