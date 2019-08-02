@@ -1,15 +1,15 @@
 ---
-title: Koeffizienten des Bass-Models
+title: Interpreting Logistic Regression Coefficients - Odds Ratios
 author: Jens Hüsers
-date: '2018-11-07'
+date: '2019-08-02'
 categories:
   - rstat
 tags:
   - rstat
-  - bass-model
-  - innovation-research
-  - nonlinear-model
-slug: estimating-the-bass-model
+  - logistic-regression
+  - odds-ratio
+  - probabilty-theory
+slug: interpreting-logistic-regression-coefficients-odds-ratios
 draft: no
 disable_comments: yes
 output:
@@ -144,8 +144,8 @@ log_reg <- function(x_value) {
 }
 
 x_value <- 14
-x1 <- log_reg(x)
-x2 <- log_reg(x + 1)
+x1 <- log_reg(x_value)
+x2 <- log_reg(x_value + 1)
 
 # Show the exponentiated beta coefficients
 show(x1$exp_beta) # exp beta
