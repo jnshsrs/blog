@@ -180,7 +180,7 @@ broom::tidy(final_model)  %&gt;%
 <tbody>
 <tr class="odd">
 <td align="left">(Intercept)</td>
-<td align="right">-49.87</td>
+<td align="right">-49.79</td>
 </tr>
 <tr class="even">
 <td align="left">Limit</td>
@@ -188,11 +188,11 @@ broom::tidy(final_model)  %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">Rating</td>
-<td align="right">0.12</td>
+<td align="right">0.13</td>
 </tr>
 <tr class="even">
 <td align="left">Cards</td>
-<td align="right">1.25</td>
+<td align="right">1.23</td>
 </tr>
 <tr class="odd">
 <td align="left">Education</td>
@@ -200,23 +200,23 @@ broom::tidy(final_model)  %&gt;%
 </tr>
 <tr class="even">
 <td align="left">GenderFemale</td>
-<td align="right">-1.23</td>
+<td align="right">-1.20</td>
 </tr>
 <tr class="odd">
 <td align="left">StudentYes</td>
-<td align="right">40.28</td>
+<td align="right">39.83</td>
 </tr>
 <tr class="even">
 <td align="left">MarriedYes</td>
-<td align="right">-0.30</td>
+<td align="right">-0.25</td>
 </tr>
 <tr class="odd">
 <td align="left">EthnicityAsian</td>
-<td align="right">1.02</td>
+<td align="right">1.10</td>
 </tr>
 <tr class="even">
 <td align="left">EthnicityCaucasian</td>
-<td align="right">0.11</td>
+<td align="right">0.16</td>
 </tr>
 <tr class="odd">
 <td align="left">Balance</td>
@@ -224,7 +224,7 @@ broom::tidy(final_model)  %&gt;%
 </tr>
 <tr class="even">
 <td align="left">random_noise</td>
-<td align="right">0.10</td>
+<td align="right">-0.03</td>
 </tr>
 </tbody>
 </table>
@@ -237,7 +237,7 @@ y_hat &lt;- matrix(X, ncol = ncol(X)) %*% as.matrix(coefs, nrow = 6)
 # R-Squared
 r_sq &lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))</code></pre>
 <p>Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic;
-In this example the value of lambda was <span class="math inline">\(\lambda\)</span> = 0.1 with a final RMSE value of 10.68, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation,
+In this example the value of lambda was <span class="math inline">\(\lambda\)</span> = 0.1 with a final RMSE value of 10.74, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation,
 and we except the model to performe as indicated by the cross-validation procedure.</p>
 </div>
 <div id="bottomline" class="section level1">

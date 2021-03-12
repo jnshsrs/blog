@@ -16,15 +16,15 @@ tags:
 
 # Risk Prediction
 
-Based on clinical observations and classifications, clinical risk prediction models suppport clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long term complications, such as heart attack or lower limb amputations.
+Based on clinical observations and classifications, clinical risk prediction models support clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long-term complications, such as heart attack or lower limb amputations.
 
-Lower limb amputations are a feared complication with patients with an diabetic foot ulcer (DFU). In a recent effort, I developed a clincal prediction tool that estimates the patient's risk of a lower-leg amputation, i.e., amputation line below the knee and above the ankle, six months after an initial assessment.
+Lower limb amputations are a feared complication with patients with a diabetic foot ulcer (DFU). In a recent effort, I developed a clinical prediction tool that estimates the patient's risk of a lower-leg amputation, i.e., amputation line below the knee and above the ankle, six months after an initial assessment.
 
 This initial assessment was based on an international DFU classification known as PEDIS system, whereas PEDIS is an acronym for the five wound characteristics assessed (perfusion, extent, depth, infection, sensation).
 
-A Bayesian Logistic Regression was trained and validated to calculate the patient's individual amputation risk given the PEDIS classification.
+A Bayesian Logistic Regression was trained and validated to calculate the patient's amputation risk given the PEDIS classification.
 
-We describe the model and the development thereof in an scientific article published in the journal BMC Medical Informatics and Decision Making. The article is available as an open-source resource under:
+We describe the model and the development thereof in a scientific article published in the journal BMC Medical Informatics and Decision Making. The article is available as an open-source resource under:
 
 [Scientific Publication in BMC MedInfDecMak](https://www.researchsquare.com/article/rs-18368/v1)
 
@@ -32,7 +32,7 @@ We describe the model and the development thereof in an scientific article publi
 
 To provide clinicians access to the prediction, we provide an API to request risk prediction based on the PEDIS classification.
 
-The server responses the request by providing an FHIR resource, basically a json object that conforms to the FHIR specification. FHIR is an standard for health information that structes data in resourses. To return a risk value based on a prediction system we use the resource [RiskAssessment](https://www.hl7.org/fhir/riskassessment.html) This risk value has to be associated to a specific patient (through an Id). Furthermore, we provide information about the predited outcome, which in this case is a "major" amputation (amputation line above ankle). This information is expressed in the code element as an SNOMED CT code (SNOMED CT is an international semantic standard and terminologie for health care).
+The server responses the request by providing an FHIR resource, basically a json object that conforms to the FHIR specification. FHIR is a standard for health information that structures data in resources. To return a risk value based on a prediction system we use the resource [RiskAssessment](https://www.hl7.org/fhir/riskassessment.html) This risk value has to be associated to a specific patient (through an Id). Furthermore, we provide information about the predicted outcome, which in this case is a "major" amputation (amputation line above the ankle). This information is expressed in the code element as a SNOMED CT code (SNOMED CT is an international semantic standard and terminology for health care).
 
 This is an example of the response (FHIR resource):
 
@@ -66,4 +66,4 @@ This is an example of the response (FHIR resource):
 }
 ```
 
-Sometimes, resources are profiled to suit up a resource for specific uses cases, however, this resource conforms to the basic FHIR specification.
+Sometimes, resources are profiled to suit up a resource for specific use cases. However, this resource conforms to the basic FHIR specification.

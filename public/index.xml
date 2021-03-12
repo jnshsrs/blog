@@ -25,17 +25,17 @@
 
 &lt;div id=&#34;risk-prediction&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Risk Prediction&lt;/h1&gt;
-&lt;p&gt;Based on clinical observations and classifications, clinical risk prediction models suppport clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long term complications, such as heart attack or lower limb amputations.&lt;/p&gt;
-&lt;p&gt;Lower limb amputations are a feared complication with patients with an diabetic foot ulcer (DFU). In a recent effort, I developed a clincal prediction tool that estimates the patient’s risk of a lower-leg amputation, i.e., amputation line below the knee and above the ankle, six months after an initial assessment.&lt;/p&gt;
+&lt;p&gt;Based on clinical observations and classifications, clinical risk prediction models support clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long-term complications, such as heart attack or lower limb amputations.&lt;/p&gt;
+&lt;p&gt;Lower limb amputations are a feared complication with patients with a diabetic foot ulcer (DFU). In a recent effort, I developed a clinical prediction tool that estimates the patient’s risk of a lower-leg amputation, i.e., amputation line below the knee and above the ankle, six months after an initial assessment.&lt;/p&gt;
 &lt;p&gt;This initial assessment was based on an international DFU classification known as PEDIS system, whereas PEDIS is an acronym for the five wound characteristics assessed (perfusion, extent, depth, infection, sensation).&lt;/p&gt;
-&lt;p&gt;A Bayesian Logistic Regression was trained and validated to calculate the patient’s individual amputation risk given the PEDIS classification.&lt;/p&gt;
-&lt;p&gt;We describe the model and the development thereof in an scientific article published in the journal BMC Medical Informatics and Decision Making. The article is available as an open-source resource under:&lt;/p&gt;
+&lt;p&gt;A Bayesian Logistic Regression was trained and validated to calculate the patient’s amputation risk given the PEDIS classification.&lt;/p&gt;
+&lt;p&gt;We describe the model and the development thereof in a scientific article published in the journal BMC Medical Informatics and Decision Making. The article is available as an open-source resource under:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.researchsquare.com/article/rs-18368/v1&#34;&gt;Scientific Publication in BMC MedInfDecMak&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;fhir-and-risk-assessments&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;FHIR and Risk Assessments&lt;/h1&gt;
 &lt;p&gt;To provide clinicians access to the prediction, we provide an API to request risk prediction based on the PEDIS classification.&lt;/p&gt;
-&lt;p&gt;The server responses the request by providing an FHIR resource, basically a json object that conforms to the FHIR specification. FHIR is an standard for health information that structes data in resourses. To return a risk value based on a prediction system we use the resource &lt;a href=&#34;https://www.hl7.org/fhir/riskassessment.html&#34;&gt;RiskAssessment&lt;/a&gt; This risk value has to be associated to a specific patient (through an Id). Furthermore, we provide information about the predited outcome, which in this case is a “major” amputation (amputation line above ankle). This information is expressed in the code element as an SNOMED CT code (SNOMED CT is an international semantic standard and terminologie for health care).&lt;/p&gt;
+&lt;p&gt;The server responses the request by providing an FHIR resource, basically a json object that conforms to the FHIR specification. FHIR is a standard for health information that structures data in resources. To return a risk value based on a prediction system we use the resource &lt;a href=&#34;https://www.hl7.org/fhir/riskassessment.html&#34;&gt;RiskAssessment&lt;/a&gt; This risk value has to be associated to a specific patient (through an Id). Furthermore, we provide information about the predicted outcome, which in this case is a “major” amputation (amputation line above the ankle). This information is expressed in the code element as a SNOMED CT code (SNOMED CT is an international semantic standard and terminology for health care).&lt;/p&gt;
 &lt;p&gt;This is an example of the response (FHIR resource):&lt;/p&gt;
 &lt;pre class=&#34;json&#34;&gt;&lt;code&gt;{
   &amp;quot;resourceType&amp;quot;: &amp;quot;RiskAssessment&amp;quot;,
@@ -64,7 +64,7 @@
     }
   ]
 }&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Sometimes, resources are profiled to suit up a resource for specific uses cases, however, this resource conforms to the basic FHIR specification.&lt;/p&gt;
+&lt;p&gt;Sometimes, resources are profiled to suit up a resource for specific use cases. However, this resource conforms to the basic FHIR specification.&lt;/p&gt;
 &lt;/div&gt;
 </content>
       
@@ -436,7 +436,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.87&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.79&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -444,11 +444,11 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Rating&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.12&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.13&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.25&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.23&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
@@ -456,23 +456,23 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.23&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.20&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;40.28&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.83&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.30&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.25&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.02&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.10&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.11&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.16&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
@@ -480,7 +480,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.10&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.03&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -493,7 +493,7 @@ y_hat &amp;lt;- matrix(X, ncol = ncol(X)) %*% as.matrix(coefs, nrow = 6)
 # R-Squared
 r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic;
-In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.68, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation,
+In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.74, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation,
 and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bottomline&#34; class=&#34;section level1&#34;&gt;
@@ -1534,7 +1534,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fb71f4e55c8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fa9ef231bc8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1973,7 +1973,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.9  33.2  34.5
+## 1 female  31.9  33.2  34.6
 ## 2 male    32.7  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
