@@ -18,7 +18,7 @@
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/import-ordered-spss-factors-into-r/</guid>
-      <description>SPSS Factor Variables Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the haven package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means.</description>
+      <description>SPSS Factor Variables Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the haven package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label.</description>
     </item>
     
   </channel>

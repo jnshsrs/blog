@@ -13,6 +13,64 @@
     
     
     <item>
+      <title>Risk Prediction for FHIR</title>
+      <link>/post/risk-prediction-for-fhir/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/risk-prediction-for-fhir/</guid>
+      <description></description>
+      
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;risk-prediction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Risk Prediction&lt;/h1&gt;
+&lt;p&gt;Based on clinical observations and classifications, clinical risk prediction models suppport clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long term complications, such as heart attack or lower limb amputations.&lt;/p&gt;
+&lt;p&gt;Lower limb amputations are a feared complication with patients with an diabetic foot ulcer (DFU). In a recent effort, I developed a clincal prediction tool that estimates the patient’s risk of a lower-leg amputation, i.e., amputation line below the knee and above the ankle, six months after an initial assessment.&lt;/p&gt;
+&lt;p&gt;This initial assessment was based on an international DFU classification known as PEDIS system, whereas PEDIS is an acronym for the five wound characteristics assessed (perfusion, extent, depth, infection, sensation).&lt;/p&gt;
+&lt;p&gt;A Bayesian Logistic Regression was trained and validated to calculate the patient’s individual amputation risk given the PEDIS classification.&lt;/p&gt;
+&lt;p&gt;We describe the model and the development thereof in an scientific article published in the journal BMC Medical Informatics and Decision Making. The article is available as an open-source resource under:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.researchsquare.com/article/rs-18368/v1&#34;&gt;Scientific Publication in BMC MedInfDecMak&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fhir-and-risk-assessments&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;FHIR and Risk Assessments&lt;/h1&gt;
+&lt;p&gt;To provide clinicians access to the prediction, we provide an API to request risk prediction based on the PEDIS classification.&lt;/p&gt;
+&lt;p&gt;The server responses the request by providing an FHIR resource, basically a json object that conforms to the FHIR specification. FHIR is an standard for health information that structes data in resourses. To return a risk value based on a prediction system we use the resource &lt;a href=&#34;https://www.hl7.org/fhir/riskassessment.html&#34;&gt;RiskAssessment&lt;/a&gt; This risk value has to be associated to a specific patient (through an Id). Furthermore, we provide information about the predited outcome, which in this case is a “major” amputation (amputation line above ankle). This information is expressed in the code element as an SNOMED CT code (SNOMED CT is an international semantic standard and terminologie for health care).&lt;/p&gt;
+&lt;p&gt;This is an example of the response (FHIR resource):&lt;/p&gt;
+&lt;pre class=&#34;json&#34;&gt;&lt;code&gt;{
+  &amp;quot;resourceType&amp;quot;: &amp;quot;RiskAssessment&amp;quot;,
+  &amp;quot;id&amp;quot;: &amp;quot;Fo4h3alEB5SDxvwy7pjGJqR8mAnifZVXKCWdPuc0&amp;quot;,
+  &amp;quot;status&amp;quot;: &amp;quot;preliminary&amp;quot;,
+  &amp;quot;subject&amp;quot;: {
+    &amp;quot;reference&amp;quot;: &amp;quot;Patient/123&amp;quot;
+  },
+  &amp;quot;occurrenceDateTime&amp;quot;: &amp;quot;2021-03-12&amp;quot;,
+  &amp;quot;prediction&amp;quot;: [
+    {
+      &amp;quot;outcome&amp;quot;: {
+        &amp;quot;coding&amp;quot;: [
+          {
+            &amp;quot;system&amp;quot;: &amp;quot;http://snomed.info/sct&amp;quot;,
+            &amp;quot;code&amp;quot;: &amp;quot;61685007 | Lower limb structure (body structure) |: 363704007 | Procedure site (attribute) | = 30021000 | Structure of lower extremity from knee to ankle (body structure) |&amp;quot;
+          }
+        ],
+        &amp;quot;text&amp;quot;: &amp;quot;Riks for Major Ampuatation, Amputation of the lower leg (from knee to ankle)&amp;quot;
+      },
+      &amp;quot;probabilityDecimal&amp;quot;: 0.0107,
+      &amp;quot;whenPeriod&amp;quot;: {
+        &amp;quot;start&amp;quot;: &amp;quot;2019-05-17&amp;quot;,
+        &amp;quot;end&amp;quot;: &amp;quot;2019-11-15&amp;quot;
+      }
+    }
+  ]
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Sometimes, resources are profiled to suit up a resource for specific uses cases, however, this resource conforms to the basic FHIR specification.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Interpreting Logistic Regression Coefficients - Odds Ratios</title>
       <link>/post/interpreting-logistic-regression-coefficients-odds-ratios/</link>
       <pubDate>Fri, 02 Aug 2019 00:00:00 +0000</pubDate>
@@ -20,7 +78,10 @@
       <guid>/post/interpreting-logistic-regression-coefficients-odds-ratios/</guid>
       <description></description>
       
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
 &lt;script async
 src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
 &lt;/script&gt;
@@ -190,7 +251,10 @@ This operation can be done using Postman or just a browser were you simply paste
       <guid>/post/profiling-and-slicing-an-fhir-observation-resource/</guid>
       <description></description>
       
-      <content>&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;This post is about creating FHIR profiles and slicing in particular. So, just before I start I want to introduce with a few bullet points to show from where this post starts.&lt;/p&gt;
 &lt;ul&gt;
@@ -208,31 +272,64 @@ This operation can be done using Postman or just a browser were you simply paste
 &lt;/div&gt;
 &lt;div id=&#34;what-is-slicing-and-why-is-it-important&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;What is slicing and why is it important&lt;/h1&gt;
-&lt;p&gt;As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification (STU3) for a profile of &lt;a href=&#34;https://simplifier.net/coreprofilesstu3/bp&#34;&gt;blood pressure&lt;/a&gt;. First, this profile uses a fixed LOINC code in the &lt;code&gt;code&lt;/code&gt; element of the &lt;code&gt;observation&lt;/code&gt; resource to make this observation a blood pressure observation. Because blood pressure has two components, the systolic and diastolic part, this profile furthermore uses the &lt;code&gt;component&lt;/code&gt; element of the observation resource where both parts are defined using LOINC codes again. According to the spec an observation resource can have zero to many components and in this use case the component element is used twice: first for the systolic and second for the diastolic blood pressure. This process of creating specific instances of resource elements in the profiling process is called slicing.&lt;/p&gt;
-&lt;p&gt;Slicing is an operation in the profiling process to create multiple instances of an element. In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing. In this case two component elements are created by the slicing operation, one representing the systolic part and the other representing the diastolic part of the blood pressure element. The element component of the resource &lt;code&gt;observation&lt;/code&gt; has the datatype &lt;code&gt;BackboneElement&lt;/code&gt; and two main elements: &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt;. The &lt;code&gt;code&lt;/code&gt; element holds information about the kind of observation using code systems such as LOINC or SNOMED CT, e.g. the LOINC code &lt;code&gt;8480-6&lt;/code&gt; represents the concept of &lt;em&gt;diastolic blood pressure&lt;/em&gt;. The &lt;code&gt;value&lt;/code&gt; elments holds information about the actual value of the observation in a unit such as &lt;em&gt;mmHg&lt;/em&gt; to describe the diastolic pressure.&lt;/p&gt;
-&lt;p&gt;The two components of blood pressure, i.e. systolic and diastolic, are each represented as an individual component. In order to differentiate between both components, slices have **discriminators*. Discriminators are elements within the parent element and have a path and a type. The type describes the kind of the slice and the path is a FHIR path of an element which actually discrinates.&lt;/p&gt;
-&lt;p&gt;The blood pressure profile uses the &lt;code&gt;code.coding.code&lt;/code&gt; element as discriminator by specifing a value. The discriminator of of the blood pressure profile is the element &lt;code&gt;code.coding.code&lt;/code&gt;, represented as a FHIR path. As the name of the path suggests, the discriminator element is defined by a certain &lt;em&gt;code value&lt;/em&gt;. In this example, the profile uses &lt;em&gt;LOINC&lt;/em&gt; as code system and the codes &lt;code&gt;8480-6&lt;/code&gt; and &lt;code&gt;8480-6&lt;/code&gt; to represent diastolic and systolic blood pressure respectivly.&lt;/p&gt;
+&lt;p&gt;As I was profiling a FHIR observation resource with Forge, I copied a profiling strategy from the FHIR core specification (STU3) for a profile of &lt;a href=&#34;https://simplifier.net/coreprofilesstu3/bp&#34;&gt;blood pressure&lt;/a&gt;.
+First, this profile uses a fixed LOINC code in the &lt;code&gt;code&lt;/code&gt; element of the &lt;code&gt;observation&lt;/code&gt; resource to make this observation a blood pressure observation.
+Because blood pressure has two components, the systolic and diastolic part, this profile furthermore uses the &lt;code&gt;component&lt;/code&gt; element of the observation resource where both parts are defined using LOINC codes again.
+According to the spec an observation resource can have zero to many components and in this use case the component element is used twice: first for the systolic and second for the diastolic blood pressure.
+This process of creating specific instances of resource elements in the profiling process is called slicing.&lt;/p&gt;
+&lt;p&gt;Slicing is an operation in the profiling process to create multiple instances of an element.
+In other words, if we want to use a specific element of a resource multiple times, we literally copy the element in the process of slicing.
+In this case two component elements are created by the slicing operation, one representing the systolic part and the other representing the diastolic part of the blood pressure element.
+The element component of the resource &lt;code&gt;observation&lt;/code&gt; has the datatype &lt;code&gt;BackboneElement&lt;/code&gt; and two main elements: &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt;.
+The &lt;code&gt;code&lt;/code&gt; element holds information about the kind of observation using code systems such as LOINC or SNOMED CT, e.g. the LOINC code &lt;code&gt;8480-6&lt;/code&gt; represents the concept of &lt;em&gt;diastolic blood pressure&lt;/em&gt;.
+The &lt;code&gt;value&lt;/code&gt; elments holds information about the actual value of the observation in a unit such as &lt;em&gt;mmHg&lt;/em&gt; to describe the diastolic pressure.&lt;/p&gt;
+&lt;p&gt;The two components of blood pressure, i.e. systolic and diastolic, are each represented as an individual component.
+In order to differentiate between both components, slices have **discriminators*.
+Discriminators are elements within the parent element and have a path and a type.
+The type describes the kind of the slice and the path is a FHIR path of an element which actually discrinates.&lt;/p&gt;
+&lt;p&gt;The blood pressure profile uses the &lt;code&gt;code.coding.code&lt;/code&gt; element as discriminator by specifing a value.
+The discriminator of of the blood pressure profile is the element &lt;code&gt;code.coding.code&lt;/code&gt;, represented as a FHIR path.
+As the name of the path suggests, the discriminator element is defined by a certain &lt;em&gt;code value&lt;/em&gt;.
+In this example, the profile uses &lt;em&gt;LOINC&lt;/em&gt; as code system and the codes &lt;code&gt;8480-6&lt;/code&gt; and &lt;code&gt;8480-6&lt;/code&gt; to represent diastolic and systolic blood pressure respectivly.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;another-slice-in-component---but-why&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Another slice in component - but why?&lt;/h1&gt;
-&lt;p&gt;Additionally, the profile &lt;em&gt;blood pressure&lt;/em&gt; has also slices on the &lt;code&gt;code.coding&lt;/code&gt;. This element is part of the &lt;code&gt;component&lt;/code&gt; element. element of the parent element &lt;code&gt;component&lt;/code&gt; (The &lt;code&gt;componenent&lt;/code&gt; element furthermore has child elements &lt;code&gt;value[x]&lt;/code&gt;, &lt;code&gt;dataAbsentReason&lt;/code&gt;, &lt;code&gt;interpretation&lt;/code&gt; and &lt;code&gt;referenceRange&lt;/code&gt;). To make it more complicated, the abovementioned &lt;code&gt;code.coding&lt;/code&gt; element contains another &lt;code&gt;code&lt;/code&gt; element. I want to emphasise that two things:&lt;/p&gt;
+&lt;p&gt;Additionally, the profile &lt;em&gt;blood pressure&lt;/em&gt; has also slices on the &lt;code&gt;code.coding&lt;/code&gt;.
+This element is part of the &lt;code&gt;component&lt;/code&gt; element. element of the parent element &lt;code&gt;component&lt;/code&gt;
+(The &lt;code&gt;componenent&lt;/code&gt; element furthermore has child elements &lt;code&gt;value[x]&lt;/code&gt;, &lt;code&gt;dataAbsentReason&lt;/code&gt;, &lt;code&gt;interpretation&lt;/code&gt; and &lt;code&gt;referenceRange&lt;/code&gt;).
+To make it more complicated, the abovementioned &lt;code&gt;code.coding&lt;/code&gt; element contains another &lt;code&gt;code&lt;/code&gt; element.
+I want to emphasise that two things:&lt;/p&gt;
 &lt;p&gt;1.) This specific element is the discriminator of the first slice on &lt;code&gt;component&lt;/code&gt; (to be specific, the FHIR path is &lt;code&gt;code.coding.code&lt;/code&gt; which we have already seen above as the path of the first discriminator).&lt;/p&gt;
 &lt;p&gt;2.) This element &lt;code&gt;code.coding.code&lt;/code&gt; is sliced again in the core FIHR profile of &lt;em&gt;blood pressure&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;During the time when I familiarized myself with this &lt;em&gt;blood pressure&lt;/em&gt; profile this seemed unreasonable to me. In my eyes the second slice on &lt;code&gt;code.coding&lt;/code&gt; was not nessecary at all. However, since this profile is published as part of the official core FHIR profiles, there must be a good reason for them to do so.&lt;/p&gt;
+&lt;p&gt;During the time when I familiarized myself with this &lt;em&gt;blood pressure&lt;/em&gt; profile this seemed unreasonable to me.
+In my eyes the second slice on &lt;code&gt;code.coding&lt;/code&gt; was not nessecary at all.
+However, since this profile is published as part of the official core FHIR profiles, there must be a good reason for them to do so.&lt;/p&gt;
 &lt;p&gt;In this section I will present my explaination why I think the authors of the FHIR core profile &lt;em&gt;blood pressure&lt;/em&gt; decided to choose to do so, that is, slice again on the sliced element.&lt;/p&gt;
-&lt;p&gt;In the previous section of this post, I compared the process of slicing with copying an element we want to use in a profile multiple times. I think this is the reason why the authors sliced &lt;code&gt;code.coding.code&lt;/code&gt; again: In slicing this element, the profile enables the use of multiple elements of the specific &lt;code&gt;component&lt;/code&gt;. Here, an example might provide a clearer view on the described situation.&lt;/p&gt;
-&lt;p&gt;In the use case of &lt;em&gt;blood pressure&lt;/em&gt;, we now know that it has two components, one of them is diastolic blood pressure. To map the sliced component with the concept of diastolic blood pressure, a code from a code system can be used. In this scenario, the authors choosed to represent diastolic blood pressure with a LOINC code and is used as a fixed value of the &lt;code&gt;code.coding.code&lt;/code&gt; element, which, remember, is the discriminator of the sliced &lt;code&gt;component&lt;/code&gt; element.&lt;/p&gt;
-&lt;p&gt;However, it is possible to represent the concept of &lt;em&gt;diastolic blood pressure&lt;/em&gt; with other code systems, such as SNOMED CT or even MeSH Terms. By slicing the &lt;code&gt;code.coding.code&lt;/code&gt; element, the strategy of slicing again enables future implementers of this profile to define and use further codes. This means, that this profile will always represent &lt;em&gt;diastolic blood pressure&lt;/em&gt; with a LOINC code, but other code can used as well. If instead the &lt;code&gt;code.coding.code&lt;/code&gt; element is not sliced, future implementers cannot add synonymous codes to the component &lt;em&gt;diastolic blood pressure&lt;/em&gt; and I will illustrate both situations by providing profiles.&lt;/p&gt;
+&lt;p&gt;In the previous section of this post, I compared the process of slicing with copying an element we want to use in a profile multiple times.
+I think this is the reason why the authors sliced &lt;code&gt;code.coding.code&lt;/code&gt; again:
+In slicing this element, the profile enables the use of multiple elements of the specific &lt;code&gt;component&lt;/code&gt;.
+Here, an example might provide a clearer view on the described situation.&lt;/p&gt;
+&lt;p&gt;In the use case of &lt;em&gt;blood pressure&lt;/em&gt;, we now know that it has two components, one of them is diastolic blood pressure.
+To map the sliced component with the concept of diastolic blood pressure, a code from a code system can be used.
+In this scenario, the authors choosed to represent diastolic blood pressure with a LOINC code and is used as a fixed value of the &lt;code&gt;code.coding.code&lt;/code&gt; element, which, remember, is the discriminator of the sliced &lt;code&gt;component&lt;/code&gt; element.&lt;/p&gt;
+&lt;p&gt;However, it is possible to represent the concept of &lt;em&gt;diastolic blood pressure&lt;/em&gt; with other code systems, such as SNOMED CT or even MeSH Terms.
+By slicing the &lt;code&gt;code.coding.code&lt;/code&gt; element, the strategy of slicing again enables future implementers of this profile to define and use further codes.
+This means, that this profile will always represent &lt;em&gt;diastolic blood pressure&lt;/em&gt; with a LOINC code, but other code can used as well.
+If instead the &lt;code&gt;code.coding.code&lt;/code&gt; element is not sliced, future implementers cannot add synonymous codes to the component &lt;em&gt;diastolic blood pressure&lt;/em&gt; and I will illustrate both situations by providing profiles.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;example-profiles&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Example Profiles&lt;/h1&gt;
-&lt;p&gt;The first profile will be derived from the core FHIR &lt;em&gt;blood pressure&lt;/em&gt; profile and provide additional SNOMED CT codes. This type of profile is called a derived profile, since it is based on another profile. The second example profile does not derive from the core profile but rather will be base on the core FHIR resource &lt;code&gt;observation&lt;/code&gt;. The profile represent a &lt;em&gt;blood pressure&lt;/em&gt; observation, by providing components for diastolic and systolic blood pressure values by slicing the &lt;code&gt;component&lt;/code&gt; element. However in this case, the discriminator will be the value of the &lt;code&gt;code.coding&lt;/code&gt; value. As a result, the code of the e.g. &lt;em&gt;diastolic blood pressure&lt;/em&gt; will be fixed and future implementers cannot add any code when using this profile.&lt;/p&gt;
+&lt;p&gt;The first profile will be derived from the core FHIR &lt;em&gt;blood pressure&lt;/em&gt; profile and provide additional SNOMED CT codes. This type of profile is called a derived profile, since it is based on another profile.
+The second example profile does not derive from the core profile but rather will be base on the core FHIR resource &lt;code&gt;observation&lt;/code&gt;.
+The profile represent a &lt;em&gt;blood pressure&lt;/em&gt; observation, by providing components for diastolic and systolic blood pressure values by slicing the &lt;code&gt;component&lt;/code&gt; element. However in this case, the discriminator will be the value of the &lt;code&gt;code.coding&lt;/code&gt; value.
+As a result, the code of the e.g. &lt;em&gt;diastolic blood pressure&lt;/em&gt; will be fixed and future implementers cannot add any code when using this profile.&lt;/p&gt;
 &lt;p&gt;Both examples will be a StructureDefinition, which is a FHIR resource representing a FHIR profile, in this context a profile to represent blood pressure values.&lt;/p&gt;
 &lt;p&gt;You can find the simple example using only LOINC codes &lt;a href=&#34;https://simplifier.net/profilingacademytasks/bloodpresssureloinc&#34;&gt;here&lt;/a&gt; and my derived profile on the FHIR core profile of blood pressure supporting SNOMED CT codes additional to LOINC codes &lt;a href=&#34;https://simplifier.net/profilingacademytasks/vitalsignsprofile&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;update-29.04.2019&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Update (29.04.2019)&lt;/h1&gt;
-&lt;p&gt;As I continued to go through the &lt;a href=&#34;https://simplifier.net/guide/profilingacademy/modules&#34;&gt;FHIR profiling academy&lt;/a&gt; by &lt;a href=&#34;https://simplifier.net/guide/ProfilingAcademy/AboutFirely&#34;&gt;Firely&lt;/a&gt; I read the “Advanced Slicing” Module. In this module the process of nested slicing, as I described in my own words in this blog post, is explained in depth. So to get further and “official” information on this topic, the link about to the chapter is a great resource!&lt;/p&gt;
+&lt;p&gt;As I continued to go through the &lt;a href=&#34;https://simplifier.net/guide/profilingacademy/modules&#34;&gt;FHIR profiling academy&lt;/a&gt; by &lt;a href=&#34;https://simplifier.net/guide/ProfilingAcademy/AboutFirely&#34;&gt;Firely&lt;/a&gt; I read the “Advanced Slicing” Module.
+In this module the process of nested slicing, as I described in my own words in this blog post, is explained in depth. So to get further and “official” information on this topic, the link about to the chapter is a great resource!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;update-30.04.2019&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Update (30.04.2019)&lt;/h1&gt;
@@ -250,19 +347,32 @@ This operation can be done using Postman or just a browser were you simply paste
       <guid>/post/2019-01-25-finalizing-glmnet-models/</guid>
       <description></description>
       
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
 &lt;!-- Just one possible MathJax CDN below. You may use others. --&gt;
 &lt;script async
   src=&#34;//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
 &lt;/script&gt;
 &lt;div id=&#34;evaluating-hyperparameter-with-cross-validation&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Evaluating hyperparameter with Cross Validation&lt;/h1&gt;
-&lt;p&gt;In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.&lt;/p&gt;
-&lt;p&gt;Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage. Briefly, shrinkage decreases model variance in exchange for some increased model bias, and thus limiting overfitting of a model.&lt;/p&gt;
-&lt;p&gt;To figure out the appropriate hyperparameter, in this case the regularization parameter &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; (lambda), cross-validation is applied. Cross-validation is a method to simulate the model performance by separating all available data into &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds, train a model on all but one fold (test fold), where the whitholded fold (test set) is used consecutively to evaluate the models performance using the model which is trained by all other folds. This approach gives us an impression on the model performance on unseen data. In the iterative process of cross-validation, each of the &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds serves as the test set, so that we will go through the process of model fitting &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; times. For model evaluation performance metrics are used, e.g. the residual mean squared error (RMSE) in a regression problem. As a result we get &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; test set metrics, which we subsequently average after &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; iterations yielding the final model performance metric.&lt;/p&gt;
+&lt;p&gt;In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data.
+When building models we can use hyperparameters of the algorithms to increase model performance.&lt;/p&gt;
+&lt;p&gt;Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage.
+Briefly, shrinkage decreases model variance in exchange for some increased model bias, and thus limiting overfitting of a model.&lt;/p&gt;
+&lt;p&gt;To figure out the appropriate hyperparameter, in this case the regularization parameter &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; (lambda), cross-validation is applied.
+Cross-validation is a method to simulate the model performance by separating all available data into &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds, train a model on all but one fold (test fold), where the whitholded fold (test set) is used consecutively to evaluate the models performance using the model which is trained by all other folds.
+This approach gives us an impression on the model performance on unseen data.
+In the iterative process of cross-validation, each of the &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; folds serves as the test set, so that we will go through the process of model fitting &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; times.
+For model evaluation performance metrics are used,
+e.g. the residual mean squared error (RMSE) in a regression problem.
+As a result we get &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; test set metrics, which we subsequently average after &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt; iterations yielding the final model performance metric.&lt;/p&gt;
 &lt;p&gt;This cross-validation process is done for each hyperparameter, in lasso regression it is a set of proposed regularization values &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;For each proposed hyperparameter, the metric is calculated using the test set, resp. hold-out fold, as described above. The hyperparameter suppling the best metric, e.g. lowest RMSE, is used to create the final model.&lt;/p&gt;
-&lt;p&gt;Before doing so, we will conduct model training using the lasso regression to get the best hyperparameter of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;. We will use the &lt;code&gt;caret&lt;/code&gt;package to train a model predicting Income using different variable of the &lt;code&gt;ILSL::Credit&lt;/code&gt; dataset, e.g. credit card limit, age and further more.&lt;/p&gt;
+&lt;p&gt;For each proposed hyperparameter, the metric is calculated using the test set, resp. hold-out fold, as described above.
+The hyperparameter suppling the best metric, e.g. lowest RMSE, is used to create the final model.&lt;/p&gt;
+&lt;p&gt;Before doing so, we will conduct model training using the lasso regression to get the best hyperparameter of &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt;.
+We will use the &lt;code&gt;caret&lt;/code&gt;package to train a model predicting Income using different variable of the &lt;code&gt;ILSL::Credit&lt;/code&gt; dataset, e.g. credit card limit, age and further more.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data &amp;lt;- ISLR::Credit %&amp;gt;% 
   select(-ID) %&amp;gt;% 
   mutate(random_noise = rnorm(n = nrow(.), sd = 10))
@@ -293,9 +403,9 @@ cv_models &amp;lt;- caret::train(x = X,
                           metric = &amp;quot;RMSE&amp;quot;,
                           method = &amp;quot;glmnet&amp;quot;,
                           trControl = tr_ctrl,
-                          tuneGrid = hyperparams)
-
-# Extracting the best hyperparameters (yielded lowest  RMSE)
+                          tuneGrid = hyperparams)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;lattice&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Extracting the best hyperparameters (yielded lowest  RMSE)
 best_tune &amp;lt;- pluck(cv_models, &amp;quot;bestTune&amp;quot;)
 
 
@@ -326,7 +436,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.33&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.87&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -334,35 +444,35 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Rating&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.13&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.12&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.16&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.25&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.13&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.11&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.24&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.23&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;39.81&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;40.28&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.05&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.30&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.96&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.02&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.06&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.11&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
@@ -370,7 +480,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.08&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.10&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -382,13 +492,17 @@ y_hat &amp;lt;- matrix(X, ncol = ncol(X)) %*% as.matrix(coefs, nrow = 6)
 
 # R-Squared
 r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic; In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.72, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation, and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
+&lt;p&gt;Following the hyperparameter tuning of lambda, the regularization parameter of the Lasso-Regression we eventually fitted the final model using the hyperparameter lambda which yielded the highest cross-validated R-Squared statistic;
+In this example the value of lambda was &lt;span class=&#34;math inline&#34;&gt;\(\lambda\)&lt;/span&gt; = 0.1 with a final RMSE value of 10.68, however we do not bother about this value, since we estimated the R-Squared statistic for unseen data using cross-validation,
+and we except the model to performe as indicated by the cross-validation procedure.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bottomline&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Bottomline&lt;/h1&gt;
 &lt;p&gt;The bottom line of this post is, that we use cross-validation to investigate possible hyperparameters and their performance on unseen data, simulating this scenario by partioning the dataset into folds, withholding a fold and use this fold as the test set.&lt;/p&gt;
 &lt;p&gt;We compare the cross-validated metric of each cross-validation process and choose the one with the best metric value, e.g. lowest RMSE.&lt;/p&gt;
-&lt;p&gt;We then use all the data in our dataset to fit the final model. This final model will be used to predict future data. In our case our model estimates the income of people with variable such as age, gender and others.&lt;/p&gt;
+&lt;p&gt;We then use all the data in our dataset to fit the final model.
+This final model will be used to predict future data.
+In our case our model estimates the income of people with variable such as age, gender and others.&lt;/p&gt;
 &lt;/div&gt;
 </content>
       
@@ -402,7 +516,10 @@ r_sq &amp;lt;- 1 - (sum((y_hat[, 1] - y)^2) / sum((y - mean(y))^2))&lt;/code&gt;
       <guid>/post/estimating-the-bass-model/</guid>
       <description></description>
       
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
 &lt;script async
 src=&#34;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
 &lt;/script&gt;
@@ -511,85 +628,6 @@ Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die 
     </item>
     
     <item>
-      <title>Marktentwicklung von Innovationen</title>
-      <link>/post/marktentwicklung-von-innovationen/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      <author>Jens Hüsers</author>
-      <guid>/post/marktentwicklung-von-innovationen/</guid>
-      <description></description>
-      
-      <content>&lt;p&gt;Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.&lt;/p&gt;
-&lt;p&gt;Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen. Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann. Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.&lt;/p&gt;
-&lt;p&gt;Das Bass Modell hat sich in der Vergangenheit als nützlich herausgestellt und wird auch heute noch zur Erforschung der Digitalisierung in verschiedenen wissenschaftlichen Publikationen genutzt. Zudem wird das Modell auch für die Absatzplanung in Unternehmen eingesetzt.&lt;/p&gt;
-&lt;p&gt;Es gibt verschiedene Softwarelösungen, welche eine Schätzung des Modells vornehmen. R bietet sich als Open Source Lösung an, denn das Programm hält die Funktionen zur Modellschätzung bereit. Zudem exisiteren Programmerweiterungen, die den Umgang mit dem Bass-Modell erleichtern.&lt;/p&gt;
-&lt;p&gt;In diesem Beispiel möchte ich ein kurzes Beispiel demonstrieren, wie mit den Basisfunktionen in R ein Bass-Modell erstellt werden kann, das auf den beobachteten kumulierten Adoptionsraten eines Produktes basieren.&lt;/p&gt;
-&lt;p&gt;Für die Modellschätzung werden die Marktdaten benötigt. Dabei ist zu beachten, dass diese Daten in jeweils gleichen Zeitabständen vorliegen. Zum beispiel jährlich, quartalsweise oder monatlich. Fehlende Daten können unter Umständen ersetzt werden.&lt;/p&gt;
-&lt;p&gt;We try to model the cumulative proportions of adopters. Therfore we model the cumulative proporitions of adopters by using the differential function of the of the Bass Model Curve to estimate the coefficient of innovation p and coefficient of immitation q.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# bass function
-bass_F &amp;lt;- function(Time, p, q) {
-  (1 - exp(-(p + q)*Time))/(1 + (q/p)*exp(-(p+q)*Time))
-}
-
-x &amp;lt;- 1:10
-y &amp;lt;- c(.1, .2, .3, .35, .5, .6, .66, .78, .8, .84)
-Time = x
-fit &amp;lt;- stats::nls(y ~ bass_F(Time, p, q), start=list(p = .1, q = .5 ))
-
-plot(x, y)
-fit &amp;lt;- nls(formula = y ~ bass_F(Time = x, p, q), start=list(p=.1, q=.5))
-summary(fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Formula: y ~ bass_F(Time = x, p, q)
-## 
-## Parameters:
-##   Estimate Std. Error t value Pr(&amp;gt;|t|)    
-## p 0.080839   0.007181  11.258 3.48e-06 ***
-## q 0.234345   0.028850   8.123 3.91e-05 ***
-## ---
-## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
-## 
-## Residual standard error: 0.02264 on 8 degrees of freedom
-## 
-## Number of iterations to convergence: 6 
-## Achieved convergence tolerance: 8.376e-07&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stats::AIC(fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] -43.61239&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;f &amp;lt;- broom::augment(fit)$.fitted&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mean(sum(f^2)) / mean(x)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.5923237&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sd(f) / sqrt(length(Time))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.08442616&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
-## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
-## ✔ readr   1.3.1       ✔ forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;forcats&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;broom::augment(fit) %&amp;gt;% 
-  mutate(y = y) %&amp;gt;% 
-  ggplot(aes(Time, y)) +
-  geom_point() +
-  geom_line(aes(x = Time, y = .fitted)) +
-  geom_linerange(aes(ymin = .fitted, ymax = y))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We used the statistical computing language R to etimate the model’s parameters p and q based on the observed cumulated proportions of adopters. In more detail, we used the &lt;code&gt;nls&lt;/code&gt; Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm. To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.&lt;/p&gt;
-</content>
-      
-    </item>
-    
-    <item>
       <title>HL7 FHIR Fundamentals - Creating an Observation Resource</title>
       <link>/post/hl7-fhir-fundamentale-create-an-observation-resource/</link>
       <pubDate>Tue, 06 Nov 2018 00:00:00 +0000</pubDate>
@@ -597,12 +635,34 @@ summary(fit)&lt;/code&gt;&lt;/pre&gt;
       <guid>/post/hl7-fhir-fundamentale-create-an-observation-resource/</guid>
       <description></description>
       
-      <content>&lt;p&gt;In the last post I talked about the central FHIR resource &lt;a href=&#34;https://www.hl7.org/fhir/patient.html&#34;&gt;Patient&lt;/a&gt; which captures all the information of a patient, such as name, date of birth and so forth. Another important resource it &lt;a href=&#34;https://www.hl7.org/fhir/observation.html&#34;&gt;Observation&lt;/a&gt;. This resource is used to give details about a specific observation such as &lt;em&gt;blood pressure&lt;/em&gt; or &lt;em&gt;heart rate&lt;/em&gt;. According to the specification, we use the element &lt;code&gt;code&lt;/code&gt; which has the datatype &lt;a href=&#34;https://www.hl7.org/fhir/datatypes.html#CodeableConcept&#34;&gt;CodeableConcept&lt;/a&gt;. We can use Terminologies like LOINC or SNOMED CT to specifiy the observation type. In the example of my last post about FHIR is observed the width of a wound. So we use the SNOMED CT code &lt;code&gt;401239006&lt;/code&gt; which encodes &lt;em&gt;Width of Wound&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;To record the actual value we use the &lt;code&gt;value&lt;/code&gt; element. More specific we use the &lt;code&gt;valueQuantity&lt;/code&gt; element, since we measured the width in centimeters and the quantity element can capture this information.&lt;/p&gt;
-&lt;p&gt;Furthermore I used the &lt;code&gt;subject&lt;/code&gt; element to refer to the patient with the wound. We could actually populate more elements such as &lt;code&gt;bodySite&lt;/code&gt; to record the location of that wound we are talking about. This is especially important when a patient has more than one wound.&lt;/p&gt;
-&lt;p&gt;This example shows how we can use FHIR to record the width of a wound. However, in most cases we have multiple observations of one wound, such as width, length or depth of a wound. In this scenario it is not recommented to use an observation resource for each wound characteristic but rather use the &lt;code&gt;component&lt;/code&gt; element of the &lt;em&gt;observation&lt;/em&gt; resource.&lt;/p&gt;
-&lt;p&gt;We can use this element to record more than one observation. The &lt;code&gt;component&lt;/code&gt; element has one child for each observation. This child can have the elements &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt;. Both elements are used as decribed above. The &lt;code&gt;code&lt;/code&gt; tells us what we observed using a code e.g. a SNOMED CT concept. The value tells us the measured or observed value.&lt;/p&gt;
-&lt;p&gt;In our use case we observe the length and width of wound. So for each observation we create a child in the &lt;code&gt;component&lt;/code&gt; element. The elements of each child are &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;valueQuantity&lt;/code&gt;. You can see an example below (it is just a subset of the fullresource, though).&lt;/p&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;In the last post I talked about the central FHIR resource &lt;a href=&#34;https://www.hl7.org/fhir/patient.html&#34;&gt;Patient&lt;/a&gt; which captures all the information of a patient, such as name, date of birth and so forth.
+Another important resource it &lt;a href=&#34;https://www.hl7.org/fhir/observation.html&#34;&gt;Observation&lt;/a&gt;.
+This resource is used to give details about a specific observation such as &lt;em&gt;blood pressure&lt;/em&gt; or &lt;em&gt;heart rate&lt;/em&gt;.
+According to the specification, we use the element &lt;code&gt;code&lt;/code&gt; which has the datatype &lt;a href=&#34;https://www.hl7.org/fhir/datatypes.html#CodeableConcept&#34;&gt;CodeableConcept&lt;/a&gt;.
+We can use Terminologies like LOINC or SNOMED CT to specifiy the observation type.
+In the example of my last post about FHIR is observed the width of a wound.
+So we use the SNOMED CT code &lt;code&gt;401239006&lt;/code&gt; which encodes &lt;em&gt;Width of Wound&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;To record the actual value we use the &lt;code&gt;value&lt;/code&gt; element.
+More specific we use the &lt;code&gt;valueQuantity&lt;/code&gt; element, since we measured the width in centimeters and the quantity element can capture this information.&lt;/p&gt;
+&lt;p&gt;Furthermore I used the &lt;code&gt;subject&lt;/code&gt; element to refer to the patient with the wound.
+We could actually populate more elements such as &lt;code&gt;bodySite&lt;/code&gt; to record the location of that wound we are talking about.
+This is especially important when a patient has more than one wound.&lt;/p&gt;
+&lt;p&gt;This example shows how we can use FHIR to record the width of a wound.
+However, in most cases we have multiple observations of one wound, such as width, length or depth of a wound.
+In this scenario it is not recommented to use an observation resource for each wound characteristic but rather use the &lt;code&gt;component&lt;/code&gt; element of the &lt;em&gt;observation&lt;/em&gt; resource.&lt;/p&gt;
+&lt;p&gt;We can use this element to record more than one observation.
+The &lt;code&gt;component&lt;/code&gt; element has one child for each observation.
+This child can have the elements &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt;.
+Both elements are used as decribed above.
+The &lt;code&gt;code&lt;/code&gt; tells us what we observed using a code e.g. a SNOMED CT concept.
+The value tells us the measured or observed value.&lt;/p&gt;
+&lt;p&gt;In our use case we observe the length and width of wound.
+So for each observation we create a child in the &lt;code&gt;component&lt;/code&gt; element.
+The elements of each child are &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;valueQuantity&lt;/code&gt;.
+You can see an example below (it is just a subset of the fullresource, though).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;&amp;quot;component&amp;quot;: [
   {
     &amp;quot;code&amp;quot;: {
@@ -648,7 +708,12 @@ summary(fit)&lt;/code&gt;&lt;/pre&gt;
   }
 ]
 }&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So in this example we use the &lt;code&gt;component&lt;/code&gt; element instead of the direct &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt; elements of the &lt;a href=&#34;https://www.hl7.org/fhir/observation.html&#34;&gt;Observation&lt;/a&gt; resource as we did in the first example where we recorded just one observation namely the width of a wound. However, we can use both elements to state that this observation is actually about a wound. So in my example I use the &lt;code&gt;code&lt;/code&gt; element with the SNOMED CT code &lt;code&gt;95344007&lt;/code&gt; which encodes the concept of a ulcer of lower extremity. You can see an example of this element below. It now refers to the wound being examed. We can furthermore specify the location of the wound using the &lt;code&gt;bodySite&lt;/code&gt; element.&lt;/p&gt;
+&lt;p&gt;So in this example we use the &lt;code&gt;component&lt;/code&gt; element instead of the direct &lt;code&gt;code&lt;/code&gt; and &lt;code&gt;value&lt;/code&gt; elements of the &lt;a href=&#34;https://www.hl7.org/fhir/observation.html&#34;&gt;Observation&lt;/a&gt; resource as we did in the first example where we recorded just one observation namely the width of a wound.
+However, we can use both elements to state that this observation is actually about a wound.
+So in my example I use the &lt;code&gt;code&lt;/code&gt; element with the SNOMED CT code &lt;code&gt;95344007&lt;/code&gt; which encodes the concept of a ulcer of lower extremity.
+You can see an example of this element below.
+It now refers to the wound being examed.
+We can furthermore specify the location of the wound using the &lt;code&gt;bodySite&lt;/code&gt; element.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;&amp;quot;code&amp;quot;: {
   &amp;quot;coding&amp;quot;: [
     {
@@ -658,8 +723,11 @@ summary(fit)&lt;/code&gt;&lt;/pre&gt;
     }
   ]
 }&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This observation records what a practitioner has examed in the &lt;code&gt;code&lt;/code&gt; element and lists all observations in the &lt;code&gt;component&lt;/code&gt; element. To complete the resource I populated the &lt;code&gt;subject&lt;/code&gt; and &lt;code&gt;performer&lt;/code&gt; elements by referting to a patient resp. to a practitioner. I post the resource to a public FHIR server. You can find the resource in the appendix or get it by using the following query:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259&#34; class=&#34;uri&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This observation records what a practitioner has examed in the &lt;code&gt;code&lt;/code&gt; element and lists all observations in the &lt;code&gt;component&lt;/code&gt; element.
+To complete the resource I populated the &lt;code&gt;subject&lt;/code&gt; and &lt;code&gt;performer&lt;/code&gt; elements by referting to a patient resp. to a practitioner.
+I post the resource to a public FHIR server.
+You can find the resource in the appendix or get it by using the following query:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259&lt;/a&gt;&lt;/p&gt;
 &lt;div id=&#34;appendix&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Appendix&lt;/h1&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;{
@@ -768,23 +836,41 @@ summary(fit)&lt;/code&gt;&lt;/pre&gt;
       <guid>/post/hl-fhir-fundamentale-creating-resources/</guid>
       <description></description>
       
-      <content>&lt;div id=&#34;fhir-fundamentals-class&#34; class=&#34;section level1&#34;&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;fhir-fundamentals-class&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;FHIR Fundamentals Class&lt;/h1&gt;
-&lt;p&gt;On November 1st 2018 I started an online course on the HL7 FHIR Standard. This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.&lt;/p&gt;
+&lt;p&gt;On November 1st 2018 I started an online course on the HL7 FHIR Standard.
+This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.&lt;/p&gt;
 &lt;p&gt;This standard used RESTful services and json or xml-documents to transfer information.&lt;/p&gt;
-&lt;p&gt;As the name FHIR suggests this standard is all about resources which are the main building blocks in FHIR to capture information. Right now there are more than 100 resources and an example it the patient resource which is one of the most common resources. So this resource is used to capture information about a patient such as family name, given name, contact information or date of birth.&lt;/p&gt;
-&lt;p&gt;In this course we were asked to create a patient resource on our own. You can see the results in the appendix of this post. As you can see, FHIR used single elements which represent key value pairs to capture information. This elements capture the information about family name and so forth.&lt;/p&gt;
-&lt;p&gt;As we currently working on a digital document for wound care I was curious how to capture information about a wound of a patient. We can use the FHIR resource observation which is able to capture information about wounds. To accomplish this, we can use terminology codes, e.g. SNOMED CT or LOINC, to state what the observation resource captures in connection with an actual value.&lt;/p&gt;
-&lt;p&gt;In this example I wanted to capture the with of a wound. So we use the SNOMED CT concept “401239006” wich is the “Width of Wound”. We use the data element code to express the kind of observation. The actual value of the “Width of Wound” is stored in the “value” element. This element can capture the value in many ways but in this use case we use the element valueQuantity to represent the Width of Wound in centimeters.&lt;/p&gt;
-&lt;p&gt;Most important we can use the element subject to refer to the patient with the wound. The data type of this element is called reference since it refers to the Patient. In my example the subject of this observation is my patient resource.&lt;/p&gt;
+&lt;p&gt;As the name FHIR suggests this standard is all about resources which are the main building blocks in FHIR to capture information.
+Right now there are more than 100 resources and an example it the patient resource which is one of the most common resources.
+So this resource is used to capture information about a patient such as family name, given name, contact information or date of birth.&lt;/p&gt;
+&lt;p&gt;In this course we were asked to create a patient resource on our own.
+You can see the results in the appendix of this post.
+As you can see, FHIR used single elements which represent key value pairs to capture information.
+This elements capture the information about family name and so forth.&lt;/p&gt;
+&lt;p&gt;As we currently working on a digital document for wound care I was curious how to capture information about a wound of a patient.
+We can use the FHIR resource observation which is able to capture information about wounds.
+To accomplish this, we can use terminology codes, e.g. SNOMED CT or LOINC, to state what the observation resource captures in connection with an actual value.&lt;/p&gt;
+&lt;p&gt;In this example I wanted to capture the with of a wound.
+So we use the SNOMED CT concept “401239006” wich is the “Width of Wound”.
+We use the data element code to express the kind of observation.
+The actual value of the “Width of Wound” is stored in the “value” element.
+This element can capture the value in many ways but in this use case we use the element valueQuantity to represent the Width of Wound in centimeters.&lt;/p&gt;
+&lt;p&gt;Most important we can use the element subject to refer to the patient with the wound.
+The data type of this element is called reference since it refers to the Patient.
+In my example the subject of this observation is my patient resource.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;using-fhir-servers&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Using FHIR Servers&lt;/h1&gt;
-&lt;p&gt;I used public available FHIR servers to upload my resources. Since they are public and the servers offer RESTful queries you can query them as well.&lt;/p&gt;
+&lt;p&gt;I used public available FHIR servers to upload my resources.
+Since they are public and the servers offer RESTful queries you can query them as well.&lt;/p&gt;
 &lt;p&gt;To get my patient information you can use the lastname, given name or the id of the resource which is &lt;code&gt;428166&lt;/code&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166&#34; class=&#34;uri&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;To get all the observations of this patients, you can use the id of the patient resource.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166&#34; class=&#34;uri&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166&#34;&gt;http://fhirtest.uhn.ca/baseDstu3/Observation?patient=428166&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;appendix&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Appendix&lt;/h1&gt;
@@ -894,7 +980,10 @@ summary(fit)&lt;/code&gt;&lt;/pre&gt;
       <guid>/post/exploring-the-cost-function-of-logistic-regression/</guid>
       <description></description>
       
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
 &lt;!-- Just one possible MathJax CDN below. You may use others. --&gt;
 &lt;script async
   src=&#34;//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
@@ -904,11 +993,17 @@ summary(fit)&lt;/code&gt;&lt;/pre&gt;
 library(tidyverse)
 library(plotly)
 library(latex2exp)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I want to get a deeper understanding of the connection between the logistic regresssion and its cost function. Therefore I created a function in R and conducted a grid approximation with this function. The results are presented below.&lt;/p&gt;
-&lt;p&gt;The logistic regression can be applied to data where the dependent variable is coded binary where the referent class is coded as a 1 and as 0 otherwise. We can model the relationship of this binary outcome variable with metric and categorical predictor variables. As a result, we can then compute the predicted probability that a datapoint is a member of the referent class coded as 1.&lt;/p&gt;
+&lt;p&gt;I want to get a deeper understanding of the connection between the logistic regresssion and its cost function.
+Therefore I created a function in R and conducted a grid approximation with this function.
+The results are presented below.&lt;/p&gt;
+&lt;p&gt;The logistic regression can be applied to data where the dependent variable is coded binary where the referent class is coded as a 1 and as 0 otherwise.
+We can model the relationship of this binary outcome variable with metric and categorical predictor variables.
+As a result, we can then compute the predicted probability that a datapoint is a member of the referent class coded as 1.&lt;/p&gt;
 &lt;p&gt;The logistic regression model with an intercept and one depentent variable is as follows:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\log(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;This formula models the Logarithm of the Odds-Ratio. This is the logistic regression model with an intercept and one predictor variable. To find the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.&lt;/p&gt;
+&lt;p&gt;This formula models the Logarithm of the Odds-Ratio.
+This is the logistic regression model with an intercept and one predictor variable.
+To find the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) - (1 - y_i)\log(p(x_i)))}\]&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Since the linear equation of logistic regression predicts the Logit, this equation can be rearranged to get a prediction of &lt;span class=&#34;math inline&#34;&gt;\(p(x)\)&lt;/span&gt; which is basically the probability that a observation belongs to the reference group:&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[p(x) = \frac{1}{(1 + e^{-(\beta_0 + \beta_1x_i)})}\]&lt;/span&gt;&lt;/p&gt;
@@ -922,7 +1017,8 @@ logistic_cost &amp;lt;- function(y, D, b){
   y_hat &amp;lt;- logistic_function(D, b)
   1/length(y_hat) * sum(-y * -log(y_hat) - (1 - y) * -log((1 - y_hat)))
 }&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To conduct the grid approximation, I write another function that takes the grid containing parameters, the predictor matrix and the outcome variable y as arguments and them computes the cost for every parameter combination. The function returns a matrix containing the grid and the corresponding cost.&lt;/p&gt;
+&lt;p&gt;To conduct the grid approximation, I write another function that takes the grid containing parameters, the predictor matrix and the outcome variable y as arguments and them computes the cost for every parameter combination.
+The function returns a matrix containing the grid and the corresponding cost.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Compute the cost for different combinations of regression weights
 # Returns the costs in a vector
 grid_approx_logistic &amp;lt;- function(grid, data, outcome) {
@@ -942,7 +1038,8 @@ create_weight_matrix &amp;lt;- function(weights) {
   betas &amp;lt;- matrix(weights, nrow = length(weights))
   return(betas)
 }&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I will use the &lt;code&gt;mtcars&lt;/code&gt; dataset and I choose to model the probability beeing an automatic car as a function of miles per hour. First I set the grid with plausible values (I got them from running the glm function in the first place).&lt;/p&gt;
+&lt;p&gt;I will use the &lt;code&gt;mtcars&lt;/code&gt; dataset and I choose to model the probability beeing an automatic car as a function of miles per hour.
+First I set the grid with plausible values (I got them from running the glm function in the first place).&lt;/p&gt;
 &lt;p&gt;After that I create the predictor matrix, containing the intercept and the &lt;code&gt;mpg&lt;/code&gt; data, and subset the variable &lt;code&gt;am&lt;/code&gt; as outcome &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create grid
 grid &amp;lt;- expand.grid(seq(-20, 0, length.out = 50), seq(0, 1, length.out = 50))
@@ -998,7 +1095,10 @@ as.data.frame(cost) %&amp;gt;%
       <guid>/post/gmds-tutorium-2018-datenvisualisierung-in-r-mit-ggplot2/</guid>
       <description>Workbook of my tutorial on ‘Data Visualisation in R with ggplot2’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück.</description>
       
-      <content>&lt;p&gt;Dieses Dokument enthält die Aufgaben zu meinem Tutorial “Datenvisualisierung in R mit ggplot2” auf der 63. Jahrestagung der GMDS am 6. September 2018 in Osnabrück.&lt;/p&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Dieses Dokument enthält die Aufgaben zu meinem Tutorial “Datenvisualisierung in R mit ggplot2” auf der 63. Jahrestagung der GMDS am 6. September 2018 in Osnabrück.&lt;/p&gt;
 &lt;p&gt;Die Präsentation zum Workshop sind &lt;a href=&#34;https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html&#34; title=&#34;Slides des Tutoriums&#34;&gt;hier&lt;/a&gt; zu finden. Das Repository mit den Dateien sind &lt;a href=&#34;github.com/jnshsrs/gmds18-tutorium-ggplot2&#34;&gt;hier&lt;/a&gt; zu finden.&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
 &lt;iframe src=&#34;https://jnshsrs.github.io/gmds18-tutorium-ggplot2/slides-ggplot-gmds18.html&#34; width=&#34;720&#34; height=&#34;450&amp;quot;&#34;&gt;
@@ -1058,7 +1158,7 @@ In der R-Konsole kann die Dokumentation mit folgdendem Code aufgerufen werden: &
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Erstellen Sie erneut ein Punktdiagramm, wie oben beschrieben jedoch ohne die &lt;code&gt;color&lt;/code&gt; zu verknüpfen.
-Fügen Sie nun zusätzlich das geometrische Element &lt;code&gt;geom_smooth&lt;/code&gt; hinzu und spezifizieren sie das Funktionsargument wie folgt: &lt;code&gt;method = &amp;quot;lm&amp;quot;&lt;/code&gt; um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.&lt;/p&gt;
+Fügen Sie nun zusätzlich das geometrische Element &lt;code&gt;geom_smooth&lt;/code&gt; hinzu und spezifizieren sie das Funktionsargument wie folgt: &lt;code&gt;method = &#34;lm&#34;&lt;/code&gt; um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.&lt;/p&gt;
 &lt;p&gt;Besteht ein Zusammenhang zwischen diesen beiden Variablen?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
        mapping = aes(x = age, y = fare)
@@ -1078,9 +1178,9 @@ Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.&lt;/p&
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;Erstellen Sie ein entprechendes Balkendiagramm mit ggplot2 in dem sie die x-Achse mit der entsprechenden Variablen verknüpfen.&lt;/li&gt;
 &lt;li&gt;Verknüpfen Sie die ‘fill-aesthetic’ mit der Variable &lt;code&gt;survived&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Nutzen sie den Funktionsparameter &lt;code&gt;position&lt;/code&gt; der Funktion &lt;code&gt;geom_bar&lt;/code&gt; und setzten ihn auf &lt;code&gt;&amp;quot;fill&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Nutzen sie den Funktionsparameter &lt;code&gt;position&lt;/code&gt; der Funktion &lt;code&gt;geom_bar&lt;/code&gt; und setzten ihn auf &lt;code&gt;&#34;fill&#34;&lt;/code&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Was ist der Unterschied zwischen beiden Grafiken? Welche Vor- und Nachteile entstehten durch den Einsatz der Option &lt;code&gt;&amp;quot;fill&amp;quot;&lt;/code&gt;?&lt;/p&gt;
+&lt;p&gt;Was ist der Unterschied zwischen beiden Grafiken? Welche Vor- und Nachteile entstehten durch den Einsatz der Option &lt;code&gt;&#34;fill&#34;&lt;/code&gt;?&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic, 
        mapping = aes(x = pclass, fill = survived)) +
   geom_bar()&lt;/code&gt;&lt;/pre&gt;
@@ -1109,7 +1209,7 @@ Nutzen Sie dafür Boxplots.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Erstelle ein Histogramm um die Verteilung der Variablen &lt;code&gt;age&lt;/code&gt; darzustellen.
 Experimentieren mit den Funktionsparameter &lt;code&gt;bins&lt;/code&gt;, der die Anzahl der Balken des Diagramms definiert.&lt;/p&gt;
-&lt;p&gt;Um die Balkenfarbe zu ändern setze den Parameter &lt;code&gt;fill=&amp;quot;darkgrey&amp;quot;&lt;/code&gt; direkt in der Funktion &lt;code&gt;geom_histogram&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Um die Balkenfarbe zu ändern setze den Parameter &lt;code&gt;fill=&#34;darkgrey&#34;&lt;/code&gt; direkt in der Funktion &lt;code&gt;geom_histogram&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Zusätzlich füge die Funktion &lt;code&gt;theme_minimal()&lt;/code&gt; dem Plot hinzu um das Aussehen des Histogramms zu ändern.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = titanic,
        mapping = aes(x = age)) +
@@ -1167,7 +1267,10 @@ MASS::mammals %&amp;gt;%
       <guid>/post/r-tutorium-gmds-2018/</guid>
       <description>My tutorial on ‘Introduction in R’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück.</description>
       
-      <content>&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;script src=&#34;//yihui.name/js/math-code.js&#34;&gt;&lt;/script&gt;
 &lt;!-- Just one possible MathJax CDN below. You may use others. --&gt;
 &lt;script async src=&#34;//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML&#34;&gt;
 &lt;/script&gt;
@@ -1188,9 +1291,9 @@ Die aktuelle Version kann auf der offiziellen R-Website heruntergeladen werden (
 Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten.&lt;/p&gt;
 &lt;p&gt;Welche Vorteile bieten Programmiersprachen im Vergleich zu den Statistiksoftwaretools wie SPSS und SAS?&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Kostenlos mit vielen Erweiterungen und Unterstützung einer breiten R-Nutzergruppe (z.B. auf Stackoverflow)&lt;/li&gt;
-&lt;li&gt;Dokumentation durch Computer Code&lt;/li&gt;
-&lt;li&gt;Reproduzierbarkeit der Analysen&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Kostenlos mit vielen Erweiterungen und Unterstützung einer breiten R-Nutzergruppe (z.B. auf Stackoverflow)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Dokumentation durch Computer Code&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Reproduzierbarkeit der Analysen&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Möglichkeit fremde Pakete zu nutzten oder eigene Pakete zu schreiben um eigenen Arbeits- und Analyseprozesse zu standardisieren.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;R ist auch ein Werkzeug bzw. ein Werkzeugkoffer, um “Statistik” zu verstehen und neue statistische Konzepte zu lernen.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -1226,18 +1329,18 @@ Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten
 &lt;ul&gt;
 &lt;li&gt;Datentypen (Numerisch, Integer, String, Faktoren, Boolean)
 &lt;ul&gt;
-&lt;li&gt;Integer (Ganzzahl) z.B. &lt;code&gt;100&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Numerisch (Float, Kommazahl) &lt;code&gt;0.12&lt;/code&gt; oder Ratio zweier Integer &lt;code&gt;1/10&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Boolean &lt;code&gt;TRUE&lt;/code&gt; or &lt;code&gt;FALSE&lt;/code&gt; (oder entprechend 1 und 0), werden in R als Datentyp &lt;code&gt;logical&lt;/code&gt; bezeichnet&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Zeichenkette, String &lt;code&gt;&amp;quot;Dies ist eine Zeichenkette&amp;quot;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Datetime Datentyp (z.B. &lt;code&gt;as.Date(&amp;quot;2017-05-05&amp;quot;)&lt;/code&gt;, hier ist die Funktionseingabe eine Zeichenkette in einer bestimmten Reihenfolge Jahr-Monat-Tag)&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;Besondere Datenwerte sind fehlende Werte z.B. &lt;code&gt;NA&lt;/code&gt; (Not available) oder &lt;code&gt;NaN&lt;/code&gt; (Not a Number z.B. &lt;code&gt;log(-10)&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Integer (Ganzzahl) z.B. &lt;code&gt;100&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Numerisch (Float, Kommazahl) &lt;code&gt;0.12&lt;/code&gt; oder Ratio zweier Integer &lt;code&gt;1/10&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Boolean &lt;code&gt;TRUE&lt;/code&gt; or &lt;code&gt;FALSE&lt;/code&gt; (oder entprechend 1 und 0), werden in R als Datentyp &lt;code&gt;logical&lt;/code&gt; bezeichnet&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Zeichenkette, String &lt;code&gt;&#34;Dies ist eine Zeichenkette&#34;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Datetime Datentyp (z.B. &lt;code&gt;as.Date(&#34;2017-05-05&#34;)&lt;/code&gt;, hier ist die Funktionseingabe eine Zeichenkette in einer bestimmten Reihenfolge Jahr-Monat-Tag)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Besondere Datenwerte sind fehlende Werte z.B. &lt;code&gt;NA&lt;/code&gt; (Not available) oder &lt;code&gt;NaN&lt;/code&gt; (Not a Number z.B. &lt;code&gt;log(-10)&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;NULL&lt;/code&gt; Wert&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Zum Überprüfen des Datentyps gibt es verschiedene Funktionen z.B. &lt;code&gt;is.character()&lt;/code&gt;, &lt;code&gt;is.numeric()&lt;/code&gt; oder &lt;code&gt;is.logical()&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;(Build-In) Funktionen
+&lt;li&gt;&lt;p&gt;(Build-In) Funktionen&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;z.B. &lt;code&gt;abs()&lt;/code&gt;, &lt;code&gt;sqrt()&lt;/code&gt;, &lt;code&gt;nchar()&lt;/code&gt;, &lt;code&gt;mean()&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Dokumentation &lt;code&gt;?abs&lt;/code&gt;&lt;/li&gt;
@@ -1266,7 +1369,7 @@ Da R Methoden für das objekt-orientierte Programmieren anbietet, können auch e
 sqrt(9) + 3
 sqrt(2)^2&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In R ist es üblich Ergebnisse in einer Variable zu speichern.
-Das ist mit einem “Pfeil”&amp;quot; als Zuweisungsoperator &lt;code&gt;&amp;lt;-&lt;/code&gt; (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich.
+Das ist mit einem “Pfeil”&#34; als Zuweisungsoperator &lt;code&gt;&amp;lt;-&lt;/code&gt; (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich.
 Auch &lt;code&gt;=&lt;/code&gt; ist möglich, in R aber unüblich.&lt;/p&gt;
 &lt;p&gt;Zum Beispiel kann die Summe aus der ersten Berechnung in einer Variablen &lt;code&gt;x&lt;/code&gt; und die Summe aus Berechnung zwei in &lt;code&gt;y&lt;/code&gt; gespeichert werden.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;x &amp;lt;- 1 + 1&lt;/code&gt; und &lt;code&gt;y &amp;lt;- 2 * 4&lt;/code&gt;, wobei x und y die Ergebnisse der Berechnung in Form eines numerischen Datentyps (s.u) speichern.&lt;/p&gt;
@@ -1328,7 +1431,7 @@ print(temperaturen_fahrenheit)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;kapitel-2---funktionen&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Kapitel 2 - Funktionen&lt;/h1&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/tut1-r-function.png&#34; alt=&#34;Syntaktische Aufbau einer Funktion in R&#34; /&gt;
+&lt;img src=&#34;/img/tut1-r-function.png&#34; alt=&#34;&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Syntaktische Aufbau einer Funktion in R&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;anwendungsbeispiel-mittelwert&#34; class=&#34;section level2&#34;&gt;
@@ -1431,7 +1534,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fa4228048c8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fb71f4e55c8&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1463,7 +1566,7 @@ nrow(temperaturen) # Anzahl der Zeilen des Datensatzes&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(temperaturen) # Klasse des Objekts (in diesem Fall `data.frame`)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;data.frame&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;operationen-mit-datensatzen-data.frames&#34; class=&#34;section level2&#34;&gt;
+&lt;div id=&#34;operationen-mit-datensätzen-data.frames&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Operationen mit Datensätzen (data.frames)&lt;/h2&gt;
 &lt;p&gt;Oft möchte man nur mit Ausschnitten des Datensatzes arbeiten.
 R bietet die Möglichkeit einzelne Spalten (Variablen) des Datensatzes auszuwählen sowie einzelne Zeilen auszuwählen.
@@ -1491,27 +1594,32 @@ So können zum Beispiel &lt;code&gt;data.frames&lt;/code&gt; aus Excel, SPSS ode
 Mit Hilfe der Funktion &lt;code&gt;read.csv&lt;/code&gt; können Dateien im CSV-Format in R eingelesen werden.&lt;/p&gt;
 &lt;p&gt;Wir verwenden in diesem Tutorial den &lt;a href=&#34;https://www.kaggle.com/c/titanic&#34;&gt;Titanic Datensatz&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/titanic-new-york-herald.jpeg&#34; alt=&#34;Headline of THE NEW YORK HERALD 15th of April 1912&#34; /&gt;
+&lt;img src=&#34;/img/titanic-new-york-herald.jpeg&#34; alt=&#34;&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Headline of THE NEW YORK HERALD 15th of April 1912&lt;/p&gt;
 &lt;/div&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic &amp;lt;- read.csv(&amp;quot;data/titanic.csv&amp;quot;)
 
-library(tidyverse)
-head(titanic)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##   pclass survived                                            name    sex
-## 1      1        1                   Allen, Miss. Elisabeth Walton female
-## 2      1        1                  Allison, Master. Hudson Trevor   male
-## 3      1        0                    Allison, Miss. Helen Loraine female
-## 4      1        0            Allison, Mr. Hudson Joshua Creighton   male
-## 5      1        0 Allison, Mrs. Hudson J C (Bessie Waldo Daniels) female
-## 6      1        1                             Anderson, Mr. Harry   male
-##     age sibsp parch ticket     fare   cabin embarked boat body
-## 1 29.00     0     0  24160 211.3375      B5        S    2   NA
-## 2  0.92     1     2 113781 151.5500 C22 C26        S   11   NA
-## 3  2.00     1     2 113781 151.5500 C22 C26        S   NA   NA
-## 4 30.00     1     2 113781 151.5500 C22 C26        S   NA  135
-## 5 25.00     1     2 113781 151.5500 C22 C26        S   NA   NA
-## 6 48.00     0     0  19952  26.5500     E12        S    3   NA
+library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(titanic)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   pclass survived                                            name    sex   age
+## 1      1        1                   Allen, Miss. Elisabeth Walton female 29.00
+## 2      1        1                  Allison, Master. Hudson Trevor   male  0.92
+## 3      1        0                    Allison, Miss. Helen Loraine female  2.00
+## 4      1        0            Allison, Mr. Hudson Joshua Creighton   male 30.00
+## 5      1        0 Allison, Mrs. Hudson J C (Bessie Waldo Daniels) female 25.00
+## 6      1        1                             Anderson, Mr. Harry   male 48.00
+##   sibsp parch ticket     fare   cabin embarked boat body
+## 1     0     0  24160 211.3375      B5        S    2   NA
+## 2     1     2 113781 151.5500 C22 C26        S   11   NA
+## 3     1     2 113781 151.5500 C22 C26        S   NA   NA
+## 4     1     2 113781 151.5500 C22 C26        S   NA  135
+## 5     1     2 113781 151.5500 C22 C26        S   NA   NA
+## 6     0     0  19952  26.5500     E12        S    3   NA
 ##                         home.dest
 ## 1                    St Louis, MO
 ## 2 Montreal, PQ / Chesterville, ON
@@ -1527,7 +1635,7 @@ In die folgenden eckigen Klammern wird die Auswahl des Datensatzes spezifiziert.
 Vor dem Komma wird der Zeilenfilter gesetzt, nach der Klammer ein &lt;code&gt;character&lt;/code&gt; Vektor, der die Namen der ausgewählten Spalten enthält.
 Das Resultat ist ein neuer Datensatz, ausschließlich mit den Zeilen und Spalten, die ausgewählt wurden.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;auswahlen-von-zeilen-und-spalten&#34; class=&#34;section level2&#34;&gt;
+&lt;div id=&#34;auswählen-von-zeilen-und-spalten&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Auswählen von Zeilen und Spalten&lt;/h2&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic[, &amp;quot;age&amp;quot;] # Nur Spalte Age
 titanic[1, ] # Nur erste Zeile
@@ -1583,8 +1691,8 @@ Die Dokumentation erhalten wir durch &lt;code&gt;?read_csv&lt;/code&gt;.&lt;/p&g
 titanic &amp;lt;- read_csv(&amp;quot;data/titanic.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Es existieren in R Erweiterung die Schnittstellen und Importmöglichkeiten für andere Datenformate bieten:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;SPSS &lt;code&gt;haven::read_sav(file = &amp;quot;data/titanic.sav&amp;quot;)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Excel &lt;code&gt;readxl::read_xlsx(file = &amp;quot;data/titanic.xlsx&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;SPSS &lt;code&gt;haven::read_sav(file = &#34;data/titanic.sav&#34;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Excel &lt;code&gt;readxl::read_xlsx(file = &#34;data/titanic.xlsx&#34;)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;task&#34;&gt;
 &lt;p&gt;&lt;strong&gt;Aufgabe&lt;/strong&gt;&lt;/p&gt;
@@ -1621,22 +1729,22 @@ head(titanic_sav) # ersten sechs Zeilen des Datensatzes&lt;/code&gt;&lt;/pre&gt;
 ##  3rd Qu.:39.00   3rd Qu.:1.0000   3rd Qu.:0.000                     
 ##  Max.   :80.00   Max.   :8.0000   Max.   :9.000                     
 ##  NA&amp;#39;s   :263                                                        
-##       fare            cabin             embarked        
-##  Min.   :  0.000   Length:1309        Length:1309       
-##  1st Qu.:  7.896   Class :character   Class :character  
-##  Median : 14.454   Mode  :character   Mode  :character  
-##  Mean   : 33.295                                        
-##  3rd Qu.: 31.275                                        
-##  Max.   :512.329                                        
-##  NA&amp;#39;s   :1                                              
-##      boat                body        home.dest        
-##  Length:1309        Min.   :  1.0   Length:1309       
-##  Class :character   1st Qu.: 72.0   Class :character  
-##  Mode  :character   Median :155.0   Mode  :character  
-##                     Mean   :160.8                     
-##                     3rd Qu.:256.0                     
-##                     Max.   :328.0                     
-##                     NA&amp;#39;s   :1188&lt;/code&gt;&lt;/pre&gt;
+##       fare            cabin             embarked             boat          
+##  Min.   :  0.000   Length:1309        Length:1309        Length:1309       
+##  1st Qu.:  7.896   Class :character   Class :character   Class :character  
+##  Median : 14.454   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 33.295                                                           
+##  3rd Qu.: 31.275                                                           
+##  Max.   :512.329                                                           
+##  NA&amp;#39;s   :1                                                                 
+##       body        home.dest        
+##  Min.   :  1.0   Length:1309       
+##  1st Qu.: 72.0   Class :character  
+##  Median :155.0   Mode  :character  
+##  Mean   :160.8                     
+##  3rd Qu.:256.0                     
+##  Max.   :328.0                     
+##  NA&amp;#39;s   :1188&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# einlesen des Excel Datensatzes
 titanic_xlsx &amp;lt;- readxl::read_xlsx(&amp;quot;data/titanic.xlsx&amp;quot;)
 
@@ -1658,7 +1766,7 @@ Der Pipe Operator wird mit der Syntax &lt;code&gt;%&amp;gt;%&lt;/code&gt; (Proze
 Fast alle Funktionen im tidyverse erwarten einen &lt;code&gt;data.frame&lt;/code&gt; als Funktionsinput und geben einen manipulierten &lt;code&gt;data.frame&lt;/code&gt; zurück.&lt;/p&gt;
 &lt;p&gt;Die fünf zentralen Funktionen sind Verben, die ausdrücken, was die jeweilige Funktion “tut”.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/tut1-r-dplyr-functions.png&#34; alt=&#34;Auswahl wichtiger dplyr-Funktionen&#34; /&gt;
+&lt;img src=&#34;/img/tut1-r-dplyr-functions.png&#34; alt=&#34;&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Auswahl wichtiger dplyr-Funktionen&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;beispiele&#34; class=&#34;section level4&#34;&gt;
@@ -1733,7 +1841,7 @@ Fast alle Funktionen im tidyverse erwarten einen &lt;code&gt;data.frame&lt;/code
   summarise(age_mean = mean(age, na.rm = T), age_sd = sd(age, na.rm = T), n = n())&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    age_mean age_sd     n
-##   &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
+## * &amp;lt;chr&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
 ## 1 female     28.7   14.6   466
 ## 2 male       30.6   14.3   843&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;task&#34;&gt;
@@ -1744,7 +1852,7 @@ Fast alle Funktionen im tidyverse erwarten einen &lt;code&gt;data.frame&lt;/code
   summarise(durchschnittl_fahrpreis = mean(fare, na.rm = TRUE))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 2
 ##   pclass durchschnittl_fahrpreis
-##    &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
+## *  &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
 ## 1      1                    87.5
 ## 2      2                    21.2
 ## 3      3                    13.3&lt;/code&gt;&lt;/pre&gt;
@@ -1785,7 +1893,7 @@ auslastung_aller_boote &amp;lt;- auslastung_pro_boot %&amp;gt;%
 print(auslastung_pro_boot) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 16 x 3
 ##     boat     n auslastung
-##    &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;      &amp;lt;dbl&amp;gt;
+##  * &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;      &amp;lt;dbl&amp;gt;
 ##  1     1     5     0.0769
 ##  2     2    13     0.2   
 ##  3     3    26     0.4   
@@ -1845,13 +1953,13 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;ruckblick-und-ausblick&#34; class=&#34;section level1&#34;&gt;
+&lt;div id=&#34;rückblick-und-ausblick&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Rückblick und Ausblick&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;Vom elementaren Datentyp über Vektoren zu Listen und data.frames&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;data.frames&lt;/code&gt; stellen das zentrale Datenelement im tidyverse dar&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Vom elementaren Datentyp über Vektoren zu Listen und data.frames&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;data.frames&lt;/code&gt; stellen das zentrale Datenelement im tidyverse dar&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Das &lt;code&gt;tidyverse&lt;/code&gt; ist der Werkzeigkasten in R zur Datenmanipulation&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;Weiter wichtige Funktionen z.B. aus der Inferenzstatistik sind in R vorhanden z.B. &lt;code&gt;?t.test&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Weiter wichtige Funktionen z.B. aus der Inferenzstatistik sind in R vorhanden z.B. &lt;code&gt;?t.test&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Ein großer Funktionsumfrang zum Modellieren von Daten z.B. von Lineare Regression bis zur Neuronalen Netzen&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Weitere statistische Operationen wie z.B. Konfidenzintervalle und Inferenzstatistik (t.tests)&lt;/p&gt;
@@ -1866,14 +1974,14 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
 ## 1 female  31.9  33.2  34.5
-## 2 male    32.6  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
+## 2 male    32.7  33.6  34.7&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;img src=&#34;/img/tut1-r-decision-tree.png&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(rpart) # Paket mit dem Entscheidungsbäume erstellt werden können
-library(rattle) # Paket mit dem Entscheidungsbäume visualisiert werden können
-
-titanic %&amp;gt;% 
+library(rattle) # Paket mit dem Entscheidungsbäume visualisiert werden können&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;rattle&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic %&amp;gt;% 
   ggplot(aes(x = factor(pclass), y = fare)) + 
   stat_summary(fun.data = mean_cl_boot, geom = &amp;quot;errorbar&amp;quot;, width = .15, size = 1.25) + 
   stat_summary(fun.y = mean, geom = &amp;quot;point&amp;quot;, size = 2) +
@@ -1884,6 +1992,7 @@ titanic %&amp;gt;%
   theme_bw() +
   theme(axis.title.x = element_blank(), 
         axis.text = element_text(size = 12))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: `fun.y` is deprecated. Use `fun` instead.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 68 rows containing non-finite values (stat_summary).
 
 ## Warning: Removed 68 rows containing non-finite values (stat_summary).&lt;/code&gt;&lt;/pre&gt;
@@ -1909,24 +2018,26 @@ fancyRpartPlot(decision_tree, main = &amp;quot;&amp;quot;, sub = &amp;quot;Welch
       <guid>/post/join-by-rows/</guid>
       <description></description>
       
-      <content>&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;In a recent project I find myself often in the situation to deal with similar but not equal datasets.
+I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.&lt;/p&gt;
 &lt;p&gt;Some of them share the same information stored in columns and I had to combine them in a single dataframe.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)  &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
-## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
-## ✔ readr   1.3.1       ✔ forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringr&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;forcats&amp;#39; was built under R version 3.5.2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# create two dataframes
 widths &amp;lt;- iris %&amp;gt;% 
   select(Species, ends_with(&amp;quot;Width&amp;quot;))
@@ -1949,8 +2060,10 @@ dplyr::union_all(widths, lengths) %&amp;gt;% head # works, combines data.frames 
 ## 6  setosa         3.9         0.4           NA           NA&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Since this set operations work in most of the cases, it will not in the case that I want to combine dataframes and only keep columns which are present in each dataframe.&lt;/p&gt;
 &lt;p&gt;Therefore, I wrote the following function to handle this special case, which occures multiple times in my current project.&lt;/p&gt;
-&lt;p&gt;The function &lt;code&gt;join_rows&lt;/code&gt; takes two or more data.frames and combines them in the fashion described above. Although the name might be misleading, since it is not a join by itself, for me it is a good description the task it does.&lt;/p&gt;
-&lt;p&gt;The function takes multiple data.frames and returns a data.frame containing all columns which all data.frame share. The function furthermore adds an ID column to keep the source dataset.&lt;/p&gt;
+&lt;p&gt;The function &lt;code&gt;join_rows&lt;/code&gt; takes two or more data.frames and combines them in the fashion described above.
+Although the name might be misleading, since it is not a join by itself, for me it is a good description the task it does.&lt;/p&gt;
+&lt;p&gt;The function takes multiple data.frames and returns a data.frame containing all columns which all data.frame share.
+The function furthermore adds an ID column to keep the source dataset.&lt;/p&gt;
 &lt;p&gt;Notice that it does not reduce any duplicated rows, but keeps them.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;join_rows &amp;lt;- function(...) {
   dots &amp;lt;- rlang::exprs(...)
@@ -1965,6 +2078,10 @@ dplyr::union_all(widths, lengths) %&amp;gt;% head # works, combines data.frames 
 
 # gives us one column (species) since that is the only column(-name) that is shared across both dataframes
 join_rows(lengths, widths) %&amp;gt;% head&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Note: Using an external vector in selections is ambiguous.
+## ℹ Use `all_of(cols)` instead of `cols` to silence this message.
+## ℹ See &amp;lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&amp;gt;.
+## This message is displayed once per session.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##        id Species
 ## 1 lengths  setosa
 ## 2 lengths  setosa
@@ -1986,15 +2103,25 @@ join_rows(lengths, widths) %&amp;gt;% head&lt;/code&gt;&lt;/pre&gt;
       <guid>/post/import-ordered-spss-factors-into-r/</guid>
       <description></description>
       
-      <content>&lt;div id=&#34;spss-factor-variables&#34; class=&#34;section level2&#34;&gt;
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;spss-factor-variables&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;SPSS Factor Variables&lt;/h2&gt;
-&lt;p&gt;Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the &lt;code&gt;haven&lt;/code&gt; package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means. For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female. Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string. R people know this as factor varible where numeric numbers are mapped to the factor labels.&lt;/p&gt;
+&lt;p&gt;Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables.
+Since I work with R, I have to import them.
+On the one hand, fortunatly, there is the &lt;code&gt;haven&lt;/code&gt; package, which makes importing SPSS files an easy taks.
+On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label.
+In consequence, it is very hard to tell what a integer value of a factor variable means.
+For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female.
+Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string.
+R people know this as factor varible where numeric numbers are mapped to the factor labels.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;haven&lt;/code&gt; package is able to read the associated labels with a numeric value of a factor variable, we can map both. Since I didn’t find an option to do this mapping and convertion with the functions in the &lt;code&gt;haven&lt;/code&gt; package, I wrote a function to complete the desired task.&lt;/p&gt;
 &lt;p&gt;I created the following work around to directly import ordered SPSS factors as factors in R with its associated factor order and factor label.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# load magrittr to enable pipe operator
-library(magrittr)
-
-relabel_spss_variable &amp;lt;- function(x) {
+library(magrittr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;magrittr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;relabel_spss_variable &amp;lt;- function(x) {
   a &amp;lt;- base::attr(x = x, &amp;quot;labels&amp;quot;) 
   if(!is.null(a)) {
     labels = base::names(a)
@@ -2027,14 +2154,10 @@ base::table(spss$edlevel)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# factor variable with (ordered) labels
 base::table(spss$edlevel_converted)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 
-##                          primary school 
-##                                       3 
-##                        secondary school 
-##                                      33 
-## trade training/ post secondary training 
-##                                      30 
-##                    undergraduate degree 
-##                                      71 
+##                          primary school                        secondary school 
+##                                       3                                      33 
+## trade training/ post secondary training                    undergraduate degree 
+##                                      30                                      71 
 ##                     postgraduate degree 
 ##                                     132&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We can use functional programming to relabel every labeled variable in the dataframe.&lt;/p&gt;
@@ -2045,14 +2168,14 @@ base::table(spss$edlevel_converted)&lt;/code&gt;&lt;/pre&gt;
 
 ## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 6
-##      id sex      age marital         edlevel            edlevel_converted  
-##   &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;           &amp;lt;ord&amp;gt;              &amp;lt;ord&amp;gt;              
-## 1    83 female    42 married/defacto secondary school   secondary school   
-## 2   294 female    54 married/defacto postgraduate degr… postgraduate degree
-## 3   425 male      NA married/defacto secondary school   secondary school   
-## 4    64 female    41 married/defacto postgraduate degr… postgraduate degree
-## 5   536 female    39 married/defacto postgraduate degr… postgraduate degree
-## 6    57 female    66 married/defacto undergraduate deg… undergraduate degr…&lt;/code&gt;&lt;/pre&gt;
+##      id sex      age marital         edlevel              edlevel_converted   
+##   &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;ord&amp;gt;           &amp;lt;ord&amp;gt;                &amp;lt;ord&amp;gt;               
+## 1    83 female    42 married/defacto secondary school     secondary school    
+## 2   294 female    54 married/defacto postgraduate degree  postgraduate degree 
+## 3   425 male      NA married/defacto secondary school     secondary school    
+## 4    64 female    41 married/defacto postgraduate degree  postgraduate degree 
+## 5   536 female    39 married/defacto postgraduate degree  postgraduate degree 
+## 6    57 female    66 married/defacto undergraduate degree undergraduate degree&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </content>
       

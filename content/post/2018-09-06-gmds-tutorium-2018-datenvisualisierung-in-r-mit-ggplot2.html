@@ -8,6 +8,7 @@ tags: []
 description: "Workbook of my tutorial on ‘Data Visualisation in R with ggplot2’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück."
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>Dieses Dokument enthält die Aufgaben zu meinem Tutorial “Datenvisualisierung in R mit ggplot2” auf der 63. Jahrestagung der GMDS am 6. September 2018 in Osnabrück.</p>
@@ -70,7 +71,7 @@ In der R-Konsole kann die Dokumentation mit folgdendem Code aufgerufen werden: <
 <div class="task">
 <p><strong>Aufgabe</strong></p>
 <p>Erstellen Sie erneut ein Punktdiagramm, wie oben beschrieben jedoch ohne die <code>color</code> zu verknüpfen.
-Fügen Sie nun zusätzlich das geometrische Element <code>geom_smooth</code> hinzu und spezifizieren sie das Funktionsargument wie folgt: <code>method = &quot;lm&quot;</code> um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.</p>
+Fügen Sie nun zusätzlich das geometrische Element <code>geom_smooth</code> hinzu und spezifizieren sie das Funktionsargument wie folgt: <code>method = "lm"</code> um den bivariaten, linearen Trend zwischen dem Alter und dem Fahrpreis zu visualisieren.</p>
 <p>Besteht ein Zusammenhang zwischen diesen beiden Variablen?</p>
 <pre class="r"><code>ggplot(data = titanic,
        mapping = aes(x = age, y = fare)
@@ -90,9 +91,9 @@ Zusätzlich soll die Anzahl der Überlebende farblich dargestellt werden.</p>
 <ol style="list-style-type: decimal">
 <li>Erstellen Sie ein entprechendes Balkendiagramm mit ggplot2 in dem sie die x-Achse mit der entsprechenden Variablen verknüpfen.</li>
 <li>Verknüpfen Sie die ‘fill-aesthetic’ mit der Variable <code>survived</code>.</li>
-<li>Nutzen sie den Funktionsparameter <code>position</code> der Funktion <code>geom_bar</code> und setzten ihn auf <code>&quot;fill&quot;</code>.</li>
+<li>Nutzen sie den Funktionsparameter <code>position</code> der Funktion <code>geom_bar</code> und setzten ihn auf <code>"fill"</code>.</li>
 </ol>
-<p>Was ist der Unterschied zwischen beiden Grafiken? Welche Vor- und Nachteile entstehten durch den Einsatz der Option <code>&quot;fill&quot;</code>?</p>
+<p>Was ist der Unterschied zwischen beiden Grafiken? Welche Vor- und Nachteile entstehten durch den Einsatz der Option <code>"fill"</code>?</p>
 <pre class="r"><code>ggplot(data = titanic, 
        mapping = aes(x = pclass, fill = survived)) +
   geom_bar()</code></pre>
@@ -121,7 +122,7 @@ Nutzen Sie dafür Boxplots.</p>
 <p><strong>Aufgabe</strong></p>
 <p>Erstelle ein Histogramm um die Verteilung der Variablen <code>age</code> darzustellen.
 Experimentieren mit den Funktionsparameter <code>bins</code>, der die Anzahl der Balken des Diagramms definiert.</p>
-<p>Um die Balkenfarbe zu ändern setze den Parameter <code>fill=&quot;darkgrey&quot;</code> direkt in der Funktion <code>geom_histogram</code>.</p>
+<p>Um die Balkenfarbe zu ändern setze den Parameter <code>fill="darkgrey"</code> direkt in der Funktion <code>geom_histogram</code>.</p>
 <p>Zusätzlich füge die Funktion <code>theme_minimal()</code> dem Plot hinzu um das Aussehen des Histogramms zu ändern.</p>
 <pre class="r"><code>ggplot(data = titanic,
        mapping = aes(x = age)) +

@@ -1,0 +1,62 @@
+---
+title: Risk Prediction for FHIR
+author: Jens Hüsers
+date: '2021-03-12'
+slug: risk-prediction-for-fhir
+categories:
+  - machine learning
+  - regression
+  - R
+  - predictive analysis
+tags:
+  - logistic-regression
+  - HL7
+  - FHIR
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="risk-prediction" class="section level1">
+<h1>Risk Prediction</h1>
+<p>Based on clinical observations and classifications, clinical risk prediction models suppport clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long term complications, such as heart attack or lower limb amputations.</p>
+<p>Lower limb amputations are a feared complication with patients with an diabetic foot ulcer (DFU). In a recent effort, I developed a clincal prediction tool that estimates the patient’s risk of a lower-leg amputation, i.e., amputation line below the knee and above the ankle, six months after an initial assessment.</p>
+<p>This initial assessment was based on an international DFU classification known as PEDIS system, whereas PEDIS is an acronym for the five wound characteristics assessed (perfusion, extent, depth, infection, sensation).</p>
+<p>A Bayesian Logistic Regression was trained and validated to calculate the patient’s individual amputation risk given the PEDIS classification.</p>
+<p>We describe the model and the development thereof in an scientific article published in the journal BMC Medical Informatics and Decision Making. The article is available as an open-source resource under:</p>
+<p><a href="https://www.researchsquare.com/article/rs-18368/v1">Scientific Publication in BMC MedInfDecMak</a></p>
+</div>
+<div id="fhir-and-risk-assessments" class="section level1">
+<h1>FHIR and Risk Assessments</h1>
+<p>To provide clinicians access to the prediction, we provide an API to request risk prediction based on the PEDIS classification.</p>
+<p>The server responses the request by providing an FHIR resource, basically a json object that conforms to the FHIR specification. FHIR is an standard for health information that structes data in resourses. To return a risk value based on a prediction system we use the resource <a href="https://www.hl7.org/fhir/riskassessment.html">RiskAssessment</a> This risk value has to be associated to a specific patient (through an Id). Furthermore, we provide information about the predited outcome, which in this case is a “major” amputation (amputation line above ankle). This information is expressed in the code element as an SNOMED CT code (SNOMED CT is an international semantic standard and terminologie for health care).</p>
+<p>This is an example of the response (FHIR resource):</p>
+<pre class="json"><code>{
+  &quot;resourceType&quot;: &quot;RiskAssessment&quot;,
+  &quot;id&quot;: &quot;Fo4h3alEB5SDxvwy7pjGJqR8mAnifZVXKCWdPuc0&quot;,
+  &quot;status&quot;: &quot;preliminary&quot;,
+  &quot;subject&quot;: {
+    &quot;reference&quot;: &quot;Patient/123&quot;
+  },
+  &quot;occurrenceDateTime&quot;: &quot;2021-03-12&quot;,
+  &quot;prediction&quot;: [
+    {
+      &quot;outcome&quot;: {
+        &quot;coding&quot;: [
+          {
+            &quot;system&quot;: &quot;http://snomed.info/sct&quot;,
+            &quot;code&quot;: &quot;61685007 | Lower limb structure (body structure) |: 363704007 | Procedure site (attribute) | = 30021000 | Structure of lower extremity from knee to ankle (body structure) |&quot;
+          }
+        ],
+        &quot;text&quot;: &quot;Riks for Major Ampuatation, Amputation of the lower leg (from knee to ankle)&quot;
+      },
+      &quot;probabilityDecimal&quot;: 0.0107,
+      &quot;whenPeriod&quot;: {
+        &quot;start&quot;: &quot;2019-05-17&quot;,
+        &quot;end&quot;: &quot;2019-11-15&quot;
+      }
+    }
+  ]
+}</code></pre>
+<p>Sometimes, resources are profiled to suit up a resource for specific uses cases, however, this resource conforms to the basic FHIR specification.</p>
+</div>

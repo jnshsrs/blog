@@ -11,6 +11,7 @@ tags:
 description: "My tutorial on ‘Introduction in R’ at the 63rd Annual Conference of the GMDS e.V. on Sep. 6th 2018 in Osnabrück."
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <script src="//yihui.name/js/math-code.js"></script>
@@ -34,9 +35,9 @@ Die aktuelle Version kann auf der offiziellen R-Website heruntergeladen werden (
 Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten.</p>
 <p>Welche Vorteile bieten Programmiersprachen im Vergleich zu den Statistiksoftwaretools wie SPSS und SAS?</p>
 <ul>
-<li>Kostenlos mit vielen Erweiterungen und Unterstützung einer breiten R-Nutzergruppe (z.B. auf Stackoverflow)</li>
-<li>Dokumentation durch Computer Code</li>
-<li>Reproduzierbarkeit der Analysen</li>
+<li><p>Kostenlos mit vielen Erweiterungen und Unterstützung einer breiten R-Nutzergruppe (z.B. auf Stackoverflow)</p></li>
+<li><p>Dokumentation durch Computer Code</p></li>
+<li><p>Reproduzierbarkeit der Analysen</p></li>
 <li><p>Möglichkeit fremde Pakete zu nutzten oder eigene Pakete zu schreiben um eigenen Arbeits- und Analyseprozesse zu standardisieren.</p></li>
 <li><p>R ist auch ein Werkzeug bzw. ein Werkzeugkoffer, um “Statistik” zu verstehen und neue statistische Konzepte zu lernen.</p></li>
 </ul>
@@ -72,18 +73,18 @@ Jedoch zahlt sich das Lernen für Personen aus, die in der Wissenschaft arbeiten
 <ul>
 <li>Datentypen (Numerisch, Integer, String, Faktoren, Boolean)
 <ul>
-<li>Integer (Ganzzahl) z.B. <code>100</code></li>
-<li>Numerisch (Float, Kommazahl) <code>0.12</code> oder Ratio zweier Integer <code>1/10</code></li>
-<li>Boolean <code>TRUE</code> or <code>FALSE</code> (oder entprechend 1 und 0), werden in R als Datentyp <code>logical</code> bezeichnet</li>
-<li><p>Zeichenkette, String <code>&quot;Dies ist eine Zeichenkette&quot;</code></p></li>
-<li><p>Datetime Datentyp (z.B. <code>as.Date(&quot;2017-05-05&quot;)</code>, hier ist die Funktionseingabe eine Zeichenkette in einer bestimmten Reihenfolge Jahr-Monat-Tag)</p></li>
-<li>Besondere Datenwerte sind fehlende Werte z.B. <code>NA</code> (Not available) oder <code>NaN</code> (Not a Number z.B. <code>log(-10)</code>)</li>
+<li><p>Integer (Ganzzahl) z.B. <code>100</code></p></li>
+<li><p>Numerisch (Float, Kommazahl) <code>0.12</code> oder Ratio zweier Integer <code>1/10</code></p></li>
+<li><p>Boolean <code>TRUE</code> or <code>FALSE</code> (oder entprechend 1 und 0), werden in R als Datentyp <code>logical</code> bezeichnet</p></li>
+<li><p>Zeichenkette, String <code>"Dies ist eine Zeichenkette"</code></p></li>
+<li><p>Datetime Datentyp (z.B. <code>as.Date("2017-05-05")</code>, hier ist die Funktionseingabe eine Zeichenkette in einer bestimmten Reihenfolge Jahr-Monat-Tag)</p></li>
+<li><p>Besondere Datenwerte sind fehlende Werte z.B. <code>NA</code> (Not available) oder <code>NaN</code> (Not a Number z.B. <code>log(-10)</code>)</p></li>
 <li><p><code>NULL</code> Wert</p></li>
 </ul></li>
 </ul>
 <p>Zum Überprüfen des Datentyps gibt es verschiedene Funktionen z.B. <code>is.character()</code>, <code>is.numeric()</code> oder <code>is.logical()</code></p>
 <ul>
-<li>(Build-In) Funktionen
+<li><p>(Build-In) Funktionen</p>
 <ul>
 <li>z.B. <code>abs()</code>, <code>sqrt()</code>, <code>nchar()</code>, <code>mean()</code></li>
 <li>Dokumentation <code>?abs</code></li>
@@ -112,7 +113,7 @@ Da R Methoden für das objekt-orientierte Programmieren anbietet, können auch e
 sqrt(9) + 3
 sqrt(2)^2</code></pre>
 <p>In R ist es üblich Ergebnisse in einer Variable zu speichern.
-Das ist mit einem “Pfeil”&quot; als Zuweisungsoperator <code>&lt;-</code> (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich.
+Das ist mit einem “Pfeil”" als Zuweisungsoperator <code>&lt;-</code> (ein kleiner als Zeichen gefolgt von einem Minuszeichen) möglich.
 Auch <code>=</code> ist möglich, in R aber unüblich.</p>
 <p>Zum Beispiel kann die Summe aus der ersten Berechnung in einer Variablen <code>x</code> und die Summe aus Berechnung zwei in <code>y</code> gespeichert werden.</p>
 <p><code>x &lt;- 1 + 1</code> und <code>y &lt;- 2 * 4</code>, wobei x und y die Ergebnisse der Berechnung in Form eines numerischen Datentyps (s.u) speichern.</p>
@@ -174,7 +175,7 @@ print(temperaturen_fahrenheit)</code></pre>
 <div id="kapitel-2---funktionen" class="section level1">
 <h1>Kapitel 2 - Funktionen</h1>
 <div class="figure">
-<img src="/img/tut1-r-function.png" alt="Syntaktische Aufbau einer Funktion in R" />
+<img src="/img/tut1-r-function.png" alt="" />
 <p class="caption">Syntaktische Aufbau einer Funktion in R</p>
 </div>
 <div id="anwendungsbeispiel-mittelwert" class="section level2">
@@ -277,7 +278,7 @@ str(sinnlosse_beispielliste)</code></pre>
 ##   ..$ : chr &quot;B&quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &quot;srcref&quot;)= &#39;srcref&#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7fa4228048c8&gt;</code></pre>
+##   .. ..- attr(*, &quot;srcfile&quot;)=Classes &#39;srcfilecopy&#39;, &#39;srcfile&#39; &lt;environment: 0x7fb71f4e55c8&gt;</code></pre>
 </div>
 <div id="datensatz-aka-data.frame" class="section level2">
 <h2>Datensatz aka data.frame</h2>
@@ -309,7 +310,7 @@ nrow(temperaturen) # Anzahl der Zeilen des Datensatzes</code></pre>
 <pre class="r"><code>class(temperaturen) # Klasse des Objekts (in diesem Fall `data.frame`)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
-<div id="operationen-mit-datensatzen-data.frames" class="section level2">
+<div id="operationen-mit-datensätzen-data.frames" class="section level2">
 <h2>Operationen mit Datensätzen (data.frames)</h2>
 <p>Oft möchte man nur mit Ausschnitten des Datensatzes arbeiten.
 R bietet die Möglichkeit einzelne Spalten (Variablen) des Datensatzes auszuwählen sowie einzelne Zeilen auszuwählen.
@@ -337,27 +338,32 @@ So können zum Beispiel <code>data.frames</code> aus Excel, SPSS oder SAS direkt
 Mit Hilfe der Funktion <code>read.csv</code> können Dateien im CSV-Format in R eingelesen werden.</p>
 <p>Wir verwenden in diesem Tutorial den <a href="https://www.kaggle.com/c/titanic">Titanic Datensatz</a>.</p>
 <div class="figure">
-<img src="/img/titanic-new-york-herald.jpeg" alt="Headline of THE NEW YORK HERALD 15th of April 1912" />
+<img src="/img/titanic-new-york-herald.jpeg" alt="" />
 <p class="caption">Headline of THE NEW YORK HERALD 15th of April 1912</p>
 </div>
 <pre class="r"><code>titanic &lt;- read.csv(&quot;data/titanic.csv&quot;)
 
-library(tidyverse)
-head(titanic)</code></pre>
-<pre><code>##   pclass survived                                            name    sex
-## 1      1        1                   Allen, Miss. Elisabeth Walton female
-## 2      1        1                  Allison, Master. Hudson Trevor   male
-## 3      1        0                    Allison, Miss. Helen Loraine female
-## 4      1        0            Allison, Mr. Hudson Joshua Creighton   male
-## 5      1        0 Allison, Mrs. Hudson J C (Bessie Waldo Daniels) female
-## 6      1        1                             Anderson, Mr. Harry   male
-##     age sibsp parch ticket     fare   cabin embarked boat body
-## 1 29.00     0     0  24160 211.3375      B5        S    2   NA
-## 2  0.92     1     2 113781 151.5500 C22 C26        S   11   NA
-## 3  2.00     1     2 113781 151.5500 C22 C26        S   NA   NA
-## 4 30.00     1     2 113781 151.5500 C22 C26        S   NA  135
-## 5 25.00     1     2 113781 151.5500 C22 C26        S   NA   NA
-## 6 48.00     0     0  19952  26.5500     E12        S    3   NA
+library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.6.2</code></pre>
+<pre class="r"><code>head(titanic)</code></pre>
+<pre><code>##   pclass survived                                            name    sex   age
+## 1      1        1                   Allen, Miss. Elisabeth Walton female 29.00
+## 2      1        1                  Allison, Master. Hudson Trevor   male  0.92
+## 3      1        0                    Allison, Miss. Helen Loraine female  2.00
+## 4      1        0            Allison, Mr. Hudson Joshua Creighton   male 30.00
+## 5      1        0 Allison, Mrs. Hudson J C (Bessie Waldo Daniels) female 25.00
+## 6      1        1                             Anderson, Mr. Harry   male 48.00
+##   sibsp parch ticket     fare   cabin embarked boat body
+## 1     0     0  24160 211.3375      B5        S    2   NA
+## 2     1     2 113781 151.5500 C22 C26        S   11   NA
+## 3     1     2 113781 151.5500 C22 C26        S   NA   NA
+## 4     1     2 113781 151.5500 C22 C26        S   NA  135
+## 5     1     2 113781 151.5500 C22 C26        S   NA   NA
+## 6     0     0  19952  26.5500     E12        S    3   NA
 ##                         home.dest
 ## 1                    St Louis, MO
 ## 2 Montreal, PQ / Chesterville, ON
@@ -373,7 +379,7 @@ In die folgenden eckigen Klammern wird die Auswahl des Datensatzes spezifiziert.
 Vor dem Komma wird der Zeilenfilter gesetzt, nach der Klammer ein <code>character</code> Vektor, der die Namen der ausgewählten Spalten enthält.
 Das Resultat ist ein neuer Datensatz, ausschließlich mit den Zeilen und Spalten, die ausgewählt wurden.</p>
 </div>
-<div id="auswahlen-von-zeilen-und-spalten" class="section level2">
+<div id="auswählen-von-zeilen-und-spalten" class="section level2">
 <h2>Auswählen von Zeilen und Spalten</h2>
 <pre class="r"><code>titanic[, &quot;age&quot;] # Nur Spalte Age
 titanic[1, ] # Nur erste Zeile
@@ -429,8 +435,8 @@ Die Dokumentation erhalten wir durch <code>?read_csv</code>.</p>
 titanic &lt;- read_csv(&quot;data/titanic.csv&quot;)</code></pre>
 <p>Es existieren in R Erweiterung die Schnittstellen und Importmöglichkeiten für andere Datenformate bieten:</p>
 <ul>
-<li>SPSS <code>haven::read_sav(file = &quot;data/titanic.sav&quot;)</code></li>
-<li>Excel <code>readxl::read_xlsx(file = &quot;data/titanic.xlsx&quot;)</code></li>
+<li>SPSS <code>haven::read_sav(file = "data/titanic.sav")</code></li>
+<li>Excel <code>readxl::read_xlsx(file = "data/titanic.xlsx")</code></li>
 </ul>
 <div class="task">
 <p><strong>Aufgabe</strong></p>
@@ -467,22 +473,22 @@ head(titanic_sav) # ersten sechs Zeilen des Datensatzes</code></pre>
 ##  3rd Qu.:39.00   3rd Qu.:1.0000   3rd Qu.:0.000                     
 ##  Max.   :80.00   Max.   :8.0000   Max.   :9.000                     
 ##  NA&#39;s   :263                                                        
-##       fare            cabin             embarked        
-##  Min.   :  0.000   Length:1309        Length:1309       
-##  1st Qu.:  7.896   Class :character   Class :character  
-##  Median : 14.454   Mode  :character   Mode  :character  
-##  Mean   : 33.295                                        
-##  3rd Qu.: 31.275                                        
-##  Max.   :512.329                                        
-##  NA&#39;s   :1                                              
-##      boat                body        home.dest        
-##  Length:1309        Min.   :  1.0   Length:1309       
-##  Class :character   1st Qu.: 72.0   Class :character  
-##  Mode  :character   Median :155.0   Mode  :character  
-##                     Mean   :160.8                     
-##                     3rd Qu.:256.0                     
-##                     Max.   :328.0                     
-##                     NA&#39;s   :1188</code></pre>
+##       fare            cabin             embarked             boat          
+##  Min.   :  0.000   Length:1309        Length:1309        Length:1309       
+##  1st Qu.:  7.896   Class :character   Class :character   Class :character  
+##  Median : 14.454   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 33.295                                                           
+##  3rd Qu.: 31.275                                                           
+##  Max.   :512.329                                                           
+##  NA&#39;s   :1                                                                 
+##       body        home.dest        
+##  Min.   :  1.0   Length:1309       
+##  1st Qu.: 72.0   Class :character  
+##  Median :155.0   Mode  :character  
+##  Mean   :160.8                     
+##  3rd Qu.:256.0                     
+##  Max.   :328.0                     
+##  NA&#39;s   :1188</code></pre>
 <pre class="r"><code># einlesen des Excel Datensatzes
 titanic_xlsx &lt;- readxl::read_xlsx(&quot;data/titanic.xlsx&quot;)
 
@@ -504,7 +510,7 @@ Der Pipe Operator wird mit der Syntax <code>%&gt;%</code> (Prozentzeichen, grö�
 Fast alle Funktionen im tidyverse erwarten einen <code>data.frame</code> als Funktionsinput und geben einen manipulierten <code>data.frame</code> zurück.</p>
 <p>Die fünf zentralen Funktionen sind Verben, die ausdrücken, was die jeweilige Funktion “tut”.</p>
 <div class="figure">
-<img src="/img/tut1-r-dplyr-functions.png" alt="Auswahl wichtiger dplyr-Funktionen" />
+<img src="/img/tut1-r-dplyr-functions.png" alt="" />
 <p class="caption">Auswahl wichtiger dplyr-Funktionen</p>
 </div>
 <div id="beispiele" class="section level4">
@@ -579,7 +585,7 @@ Fast alle Funktionen im tidyverse erwarten einen <code>data.frame</code> als Fun
   summarise(age_mean = mean(age, na.rm = T), age_sd = sd(age, na.rm = T), n = n())</code></pre>
 <pre><code>## # A tibble: 2 x 4
 ##   sex    age_mean age_sd     n
-##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
+## * &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
 ## 1 female     28.7   14.6   466
 ## 2 male       30.6   14.3   843</code></pre>
 <div class="task">
@@ -590,7 +596,7 @@ Fast alle Funktionen im tidyverse erwarten einen <code>data.frame</code> als Fun
   summarise(durchschnittl_fahrpreis = mean(fare, na.rm = TRUE))</code></pre>
 <pre><code>## # A tibble: 3 x 2
 ##   pclass durchschnittl_fahrpreis
-##    &lt;dbl&gt;                   &lt;dbl&gt;
+## *  &lt;dbl&gt;                   &lt;dbl&gt;
 ## 1      1                    87.5
 ## 2      2                    21.2
 ## 3      3                    13.3</code></pre>
@@ -631,7 +637,7 @@ auslastung_aller_boote &lt;- auslastung_pro_boot %&gt;%
 print(auslastung_pro_boot) </code></pre>
 <pre><code>## # A tibble: 16 x 3
 ##     boat     n auslastung
-##    &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;
+##  * &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;
 ##  1     1     5     0.0769
 ##  2     2    13     0.2   
 ##  3     3    26     0.4   
@@ -691,13 +697,13 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) </code></pre>
 <p><img src="/post/2018-09-06-r-tutorium-gmds-2018_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="ruckblick-und-ausblick" class="section level1">
+<div id="rückblick-und-ausblick" class="section level1">
 <h1>Rückblick und Ausblick</h1>
 <ul>
-<li>Vom elementaren Datentyp über Vektoren zu Listen und data.frames</li>
-<li><code>data.frames</code> stellen das zentrale Datenelement im tidyverse dar</li>
+<li><p>Vom elementaren Datentyp über Vektoren zu Listen und data.frames</p></li>
+<li><p><code>data.frames</code> stellen das zentrale Datenelement im tidyverse dar</p></li>
 <li><p>Das <code>tidyverse</code> ist der Werkzeigkasten in R zur Datenmanipulation</p></li>
-<li>Weiter wichtige Funktionen z.B. aus der Inferenzstatistik sind in R vorhanden z.B. <code>?t.test</code></li>
+<li><p>Weiter wichtige Funktionen z.B. aus der Inferenzstatistik sind in R vorhanden z.B. <code>?t.test</code></p></li>
 <li><p>Ein großer Funktionsumfrang zum Modellieren von Daten z.B. von Lineare Regression bis zur Neuronalen Netzen</p></li>
 </ul>
 <p>Weitere statistische Operationen wie z.B. Konfidenzintervalle und Inferenzstatistik (t.tests)</p>
@@ -712,14 +718,14 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) </code></pre>
 ##   sex    Lower  Mean Upper
 ##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 female  31.9  33.2  34.5
-## 2 male    32.6  33.6  34.6</code></pre>
+## 2 male    32.7  33.6  34.7</code></pre>
 <img src="/img/tut1-example-plot.png" />
 <hr>
 <p><img src="/img/tut1-r-decision-tree.png" /></p>
 <pre class="r"><code>library(rpart) # Paket mit dem Entscheidungsbäume erstellt werden können
-library(rattle) # Paket mit dem Entscheidungsbäume visualisiert werden können
-
-titanic %&gt;% 
+library(rattle) # Paket mit dem Entscheidungsbäume visualisiert werden können</code></pre>
+<pre><code>## Warning: package &#39;rattle&#39; was built under R version 3.6.2</code></pre>
+<pre class="r"><code>titanic %&gt;% 
   ggplot(aes(x = factor(pclass), y = fare)) + 
   stat_summary(fun.data = mean_cl_boot, geom = &quot;errorbar&quot;, width = .15, size = 1.25) + 
   stat_summary(fun.y = mean, geom = &quot;point&quot;, size = 2) +
@@ -730,6 +736,7 @@ titanic %&gt;%
   theme_bw() +
   theme(axis.title.x = element_blank(), 
         axis.text = element_text(size = 12))</code></pre>
+<pre><code>## Warning: `fun.y` is deprecated. Use `fun` instead.</code></pre>
 <pre><code>## Warning: Removed 68 rows containing non-finite values (stat_summary).
 
 ## Warning: Removed 68 rows containing non-finite values (stat_summary).</code></pre>

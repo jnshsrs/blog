@@ -23,7 +23,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="/"><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
+        <a class="nav-item" href=""><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
@@ -79,17 +79,32 @@
     <article>
       <div class="subtitle tags is-6 is-pulled-right">
         
+        
+<a class="subtitle is-6" href="/tags/rstat">#rstat</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/bass-model">#bass-model</a>
+  
+  | <a class="subtitle is-6" href="/tags/innovation-research">#innovation-research</a>
+  
+  | <a class="subtitle is-6" href="/tags/nonlinear-model">#nonlinear-model</a>
+  
+
+        
       </div>
       <h2 class="subtitle is-6">November 7, 2018</h2>
-      <h1 class="title"><a href="/post/marktentwicklung-von-innovationen/">Marktentwicklung von Innovationen</a> ::Draft</h1>
+      <h1 class="title"><a href="/post/estimating-the-bass-model/">Koeffizienten des Bass-Models</a></h1>
       <div class="content">
         
               
       
-    Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.
-Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der &hellip;
+    In diesem Post möchte ich den Effekt der Modelparameter darstellen, da diese ohne Kontext oftmals schwierig zu verstehen sind.
+[&hellip;] \(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)
+[&hellip;] Diese beiden Koeffizienten erklären, in wie fern Innovatoren und Immitatoren auf die &hellip;
         
-        <a class="button is-link" href="/post/marktentwicklung-von-innovationen/" style="height:28px">
+        <a class="button is-link" href="/post/estimating-the-bass-model/" style="height:28px">
           Read more
           <span class="icon is-small">
             <i class="fa fa-angle-double-right"></i>
@@ -119,7 +134,8 @@ Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um e
         
               
       
-    In the last post I talked about the central FHIR resource Patient which captures all the information of a patient, such as name, date of birth and so forth. Another important resource it Observation. This resource is used to give details about a specific observation such as blood pressure or heart &hellip;
+    http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259
+
         
         <a class="button is-link" href="/post/hl7-fhir-fundamentale-create-an-observation-resource/" style="height:28px">
           Read more
@@ -151,8 +167,10 @@ Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um e
         
               
       
-    On November 1st 2018 I started an online course on the HL7 FHIR Standard. This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.
-This standard &hellip;
+    This standard used RESTful services and json or xml-documents to transfer information.
+[&hellip;] To get my patient information you can use the lastname, given name or the id of the resource which is 428166:
+http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166
+To get all the observations of this &hellip;
         
         <a class="button is-link" href="/post/hl-fhir-fundamentale-creating-resources/" style="height:28px">
           Read more
@@ -189,7 +207,9 @@ This standard &hellip;
               
       
     This post is about exploring the cost function and its connection to the logistic regression function.
-[&hellip;] I want to get a deeper understanding of the connection between the logistic regresssion and its cost function. Therefore I created a function in R and conducted a grid approximation with &hellip;
+[&hellip;] The logistic regression model with an intercept and one depentent variable is as follows:
+\[\log(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\]
+[&hellip;] \[Cost(p(x), y) = &hellip;
         
         <a class="button is-link" href="/post/exploring-the-cost-function-of-logistic-regression/" style="height:28px">
           Read more

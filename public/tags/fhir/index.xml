@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Thu, 02 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/fhir/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Risk Prediction for FHIR</title>
+      <link>/post/risk-prediction-for-fhir/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/risk-prediction-for-fhir/</guid>
+      <description>Risk Prediction Based on clinical observations and classifications, clinical risk prediction models suppport clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long term complications, such as heart attack or lower limb amputations.
+Lower limb amputations are a feared complication with patients with an diabetic foot ulcer (DFU). In a recent effort, I developed a clincal prediction tool that estimates the patient’s risk of a lower-leg amputation, i.</description>
+    </item>
     
     <item>
       <title>Upload a Resource to a FHIR Server</title>

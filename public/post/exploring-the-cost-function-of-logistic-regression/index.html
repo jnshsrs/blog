@@ -23,7 +23,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="/"><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
+        <a class="nav-item" href=""><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
@@ -95,7 +95,10 @@
     <h1 class="title">Exploring the Cost Function of Logistic Regression</h1>
     
     <div class="content">
-      <script src="//yihui.name/js/math-code.js"></script>
+      <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<script src="//yihui.name/js/math-code.js"></script>
 <!-- Just one possible MathJax CDN below. You may use others. -->
 <script async
   src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -105,11 +108,17 @@
 library(tidyverse)
 library(plotly)
 library(latex2exp)</code></pre>
-<p>I want to get a deeper understanding of the connection between the logistic regresssion and its cost function. Therefore I created a function in R and conducted a grid approximation with this function. The results are presented below.</p>
-<p>The logistic regression can be applied to data where the dependent variable is coded binary where the referent class is coded as a 1 and as 0 otherwise. We can model the relationship of this binary outcome variable with metric and categorical predictor variables. As a result, we can then compute the predicted probability that a datapoint is a member of the referent class coded as 1.</p>
+<p>I want to get a deeper understanding of the connection between the logistic regresssion and its cost function.
+Therefore I created a function in R and conducted a grid approximation with this function.
+The results are presented below.</p>
+<p>The logistic regression can be applied to data where the dependent variable is coded binary where the referent class is coded as a 1 and as 0 otherwise.
+We can model the relationship of this binary outcome variable with metric and categorical predictor variables.
+As a result, we can then compute the predicted probability that a datapoint is a member of the referent class coded as 1.</p>
 <p>The logistic regression model with an intercept and one depentent variable is as follows:</p>
 <p><span class="math display">\[\log(\frac{p(x)}{1 - p(x)}) = \beta_0 + \beta_1x_i\]</span></p>
-<p>This formula models the Logarithm of the Odds-Ratio. This is the logistic regression model with an intercept and one predictor variable. To find the <span class="math inline">\(\beta\)</span>-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.</p>
+<p>This formula models the Logarithm of the Odds-Ratio.
+This is the logistic regression model with an intercept and one predictor variable.
+To find the <span class="math inline">\(\beta\)</span>-Coefficients that fit the data best we optimize the following cost-function, the Log-Likelihood function.</p>
 <p><span class="math display">\[Cost(p(x), y) = \frac{1}{n}\sum{-y_i \log(p(x_i) - (1 - y_i)\log(p(x_i)))}\]</span></p>
 <p>Since the linear equation of logistic regression predicts the Logit, this equation can be rearranged to get a prediction of <span class="math inline">\(p(x)\)</span> which is basically the probability that a observation belongs to the reference group:</p>
 <p><span class="math display">\[p(x) = \frac{1}{(1 + e^{-(\beta_0 + \beta_1x_i)})}\]</span></p>
@@ -123,7 +132,8 @@ logistic_cost &lt;- function(y, D, b){
   y_hat &lt;- logistic_function(D, b)
   1/length(y_hat) * sum(-y * -log(y_hat) - (1 - y) * -log((1 - y_hat)))
 }</code></pre>
-<p>To conduct the grid approximation, I write another function that takes the grid containing parameters, the predictor matrix and the outcome variable y as arguments and them computes the cost for every parameter combination. The function returns a matrix containing the grid and the corresponding cost.</p>
+<p>To conduct the grid approximation, I write another function that takes the grid containing parameters, the predictor matrix and the outcome variable y as arguments and them computes the cost for every parameter combination.
+The function returns a matrix containing the grid and the corresponding cost.</p>
 <pre class="r"><code># Compute the cost for different combinations of regression weights
 # Returns the costs in a vector
 grid_approx_logistic &lt;- function(grid, data, outcome) {
@@ -143,7 +153,8 @@ create_weight_matrix &lt;- function(weights) {
   betas &lt;- matrix(weights, nrow = length(weights))
   return(betas)
 }</code></pre>
-<p>I will use the <code>mtcars</code> dataset and I choose to model the probability beeing an automatic car as a function of miles per hour. First I set the grid with plausible values (I got them from running the glm function in the first place).</p>
+<p>I will use the <code>mtcars</code> dataset and I choose to model the probability beeing an automatic car as a function of miles per hour.
+First I set the grid with plausible values (I got them from running the glm function in the first place).</p>
 <p>After that I create the predictor matrix, containing the intercept and the <code>mpg</code> data, and subset the variable <code>am</code> as outcome <span class="math inline">\(y\)</span>.</p>
 <pre class="r"><code># create grid
 grid &lt;- expand.grid(seq(-20, 0, length.out = 50), seq(0, 1, length.out = 50))

@@ -23,7 +23,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="/"><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
+        <a class="nav-item" href=""><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
@@ -91,24 +91,26 @@
     <h1 class="title">Join by rows</h1>
     
     <div class="content">
-      <p>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.</p>
+      <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>In a recent project I find myself often in the situation to deal with similar but not equal datasets.
+I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.</p>
 <p>Some of them share the same information stored in columns and I had to combine them in a single dataframe.</p>
 <pre class="r"><code>library(tidyverse)  </code></pre>
-<pre><code>## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 3.1.1       ✔ purrr   0.3.2  
-## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
-## ✔ readr   1.3.1       ✔ forcats 0.4.0</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;stringr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## Warning: package &#39;forcats&#39; was built under R version 3.5.2</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.6.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code># create two dataframes
 widths &lt;- iris %&gt;% 
   select(Species, ends_with(&quot;Width&quot;))
@@ -131,8 +133,10 @@ dplyr::union_all(widths, lengths) %&gt;% head # works, combines data.frames and 
 ## 6  setosa         3.9         0.4           NA           NA</code></pre>
 <p>Since this set operations work in most of the cases, it will not in the case that I want to combine dataframes and only keep columns which are present in each dataframe.</p>
 <p>Therefore, I wrote the following function to handle this special case, which occures multiple times in my current project.</p>
-<p>The function <code>join_rows</code> takes two or more data.frames and combines them in the fashion described above. Although the name might be misleading, since it is not a join by itself, for me it is a good description the task it does.</p>
-<p>The function takes multiple data.frames and returns a data.frame containing all columns which all data.frame share. The function furthermore adds an ID column to keep the source dataset.</p>
+<p>The function <code>join_rows</code> takes two or more data.frames and combines them in the fashion described above.
+Although the name might be misleading, since it is not a join by itself, for me it is a good description the task it does.</p>
+<p>The function takes multiple data.frames and returns a data.frame containing all columns which all data.frame share.
+The function furthermore adds an ID column to keep the source dataset.</p>
 <p>Notice that it does not reduce any duplicated rows, but keeps them.</p>
 <pre class="r"><code>join_rows &lt;- function(...) {
   dots &lt;- rlang::exprs(...)
@@ -147,6 +151,10 @@ dplyr::union_all(widths, lengths) %&gt;% head # works, combines data.frames and 
 
 # gives us one column (species) since that is the only column(-name) that is shared across both dataframes
 join_rows(lengths, widths) %&gt;% head</code></pre>
+<pre><code>## Note: Using an external vector in selections is ambiguous.
+## ℹ Use `all_of(cols)` instead of `cols` to silence this message.
+## ℹ See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
+## This message is displayed once per session.</code></pre>
 <pre><code>##        id Species
 ## 1 lengths  setosa
 ## 2 lengths  setosa

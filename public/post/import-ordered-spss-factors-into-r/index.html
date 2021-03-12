@@ -23,7 +23,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="/"><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
+        <a class="nav-item" href=""><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
@@ -95,15 +95,25 @@
     <h1 class="title">Import ordered SPSS factors into R</h1>
     
     <div class="content">
-      <div id="spss-factor-variables" class="section level2">
+      <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="spss-factor-variables" class="section level2">
 <h2>SPSS Factor Variables</h2>
-<p>Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the <code>haven</code> package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means. For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female. Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string. R people know this as factor varible where numeric numbers are mapped to the factor labels.</p>
+<p>Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables.
+Since I work with R, I have to import them.
+On the one hand, fortunatly, there is the <code>haven</code> package, which makes importing SPSS files an easy taks.
+On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label.
+In consequence, it is very hard to tell what a integer value of a factor variable means.
+For example, when gender is stored as ordered factor variable, both genders are encoded as 1 for male and 2 for female.
+Since the mapping between the semantic of an encoded value is not explicit, SPSS associates those codes with there description expresst as string.
+R people know this as factor varible where numeric numbers are mapped to the factor labels.</p>
 <p>The <code>haven</code> package is able to read the associated labels with a numeric value of a factor variable, we can map both. Since I didn’t find an option to do this mapping and convertion with the functions in the <code>haven</code> package, I wrote a function to complete the desired task.</p>
 <p>I created the following work around to directly import ordered SPSS factors as factors in R with its associated factor order and factor label.</p>
 <pre class="r"><code># load magrittr to enable pipe operator
-library(magrittr)
-
-relabel_spss_variable &lt;- function(x) {
+library(magrittr)</code></pre>
+<pre><code>## Warning: package &#39;magrittr&#39; was built under R version 3.6.2</code></pre>
+<pre class="r"><code>relabel_spss_variable &lt;- function(x) {
   a &lt;- base::attr(x = x, &quot;labels&quot;) 
   if(!is.null(a)) {
     labels = base::names(a)
@@ -136,14 +146,10 @@ base::table(spss$edlevel)</code></pre>
 <pre class="r"><code># factor variable with (ordered) labels
 base::table(spss$edlevel_converted)</code></pre>
 <pre><code>## 
-##                          primary school 
-##                                       3 
-##                        secondary school 
-##                                      33 
-## trade training/ post secondary training 
-##                                      30 
-##                    undergraduate degree 
-##                                      71 
+##                          primary school                        secondary school 
+##                                       3                                      33 
+## trade training/ post secondary training                    undergraduate degree 
+##                                      30                                      71 
 ##                     postgraduate degree 
 ##                                     132</code></pre>
 <p>We can use functional programming to relabel every labeled variable in the dataframe.</p>
@@ -154,14 +160,14 @@ base::table(spss$edlevel_converted)</code></pre>
 
 ## Warning in .f(.x[[i]], ...): x is not label. No relabelling done.</code></pre>
 <pre><code>## # A tibble: 6 x 6
-##      id sex      age marital         edlevel            edlevel_converted  
-##   &lt;dbl&gt; &lt;ord&gt;  &lt;dbl&gt; &lt;ord&gt;           &lt;ord&gt;              &lt;ord&gt;              
-## 1    83 female    42 married/defacto secondary school   secondary school   
-## 2   294 female    54 married/defacto postgraduate degr… postgraduate degree
-## 3   425 male      NA married/defacto secondary school   secondary school   
-## 4    64 female    41 married/defacto postgraduate degr… postgraduate degree
-## 5   536 female    39 married/defacto postgraduate degr… postgraduate degree
-## 6    57 female    66 married/defacto undergraduate deg… undergraduate degr…</code></pre>
+##      id sex      age marital         edlevel              edlevel_converted   
+##   &lt;dbl&gt; &lt;ord&gt;  &lt;dbl&gt; &lt;ord&gt;           &lt;ord&gt;                &lt;ord&gt;               
+## 1    83 female    42 married/defacto secondary school     secondary school    
+## 2   294 female    54 married/defacto postgraduate degree  postgraduate degree 
+## 3   425 male      NA married/defacto secondary school     secondary school    
+## 4    64 female    41 married/defacto postgraduate degree  postgraduate degree 
+## 5   536 female    39 married/defacto postgraduate degree  postgraduate degree 
+## 6    57 female    66 married/defacto undergraduate degree undergraduate degree</code></pre>
 </div>
 
       

@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Fri, 02 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Risk Prediction for FHIR</title>
+      <link>/post/risk-prediction-for-fhir/</link>
+      <pubDate>Fri, 12 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/risk-prediction-for-fhir/</guid>
+      <description>Risk Prediction Based on clinical observations and classifications, clinical risk prediction models suppport clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long term complications, such as heart attack or lower limb amputations.
+Lower limb amputations are a feared complication with patients with an diabetic foot ulcer (DFU). In a recent effort, I developed a clincal prediction tool that estimates the patient’s risk of a lower-leg amputation, i.</description>
+    </item>
     
     <item>
       <title>Interpreting Logistic Regression Coefficients - Odds Ratios</title>
@@ -49,7 +59,7 @@ In this specific example I will show how to post a ValueSet I created to capture
       
       <guid>/post/2019-01-25-finalizing-glmnet-models/</guid>
       <description>Evaluating hyperparameter with Cross Validation In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.
-Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage.</description>
+Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage.</description>
     </item>
     
     <item>
@@ -59,16 +69,6 @@ Lasso regression, which puts a penalty on large model coefficients (see James et
       
       <guid>/post/estimating-the-bass-model/</guid>
       <description>Untersuchung von Innovationen Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse. Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik. Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen. Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.</description>
-    </item>
-    
-    <item>
-      <title>Marktentwicklung von Innovationen</title>
-      <link>/post/marktentwicklung-von-innovationen/</link>
-      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/marktentwicklung-von-innovationen/</guid>
-      <description>Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.
-Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen. Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann. Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.</description>
     </item>
     
     <item>
@@ -133,7 +133,7 @@ Zunächst muss die Programmiersprache R installiert werden.</description>
       <guid>/post/join-by-rows/</guid>
       <description>In a recent project I find myself often in the situation to deal with similar but not equal datasets. I am working with the German Hospital Registers for the years since 2005 and there is a dataset for each year.
 Some of them share the same information stored in columns and I had to combine them in a single dataframe.
-library(tidyverse)  ## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ── ## ✔ ggplot2 3.</description>
+library(tidyverse)  ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.</description>
     </item>
     
     <item>
@@ -142,7 +142,7 @@ library(tidyverse)  ## ── Attaching packages ──────────�
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/import-ordered-spss-factors-into-r/</guid>
-      <description>SPSS Factor Variables Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the haven package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label. In consequence, it is very hard to tell what a integer value of a factor variable means.</description>
+      <description>SPSS Factor Variables Recently I have to work with data stored in SPSS files, most variables stored as ordered factor variables. Since I work with R, I have to import them. On the one hand, fortunatly, there is the haven package, which makes importing SPSS files an easy taks. On the other hand, unfortunatly, ordered factors are imported as integer values which are not associated with the corresponding factor label.</description>
     </item>
     
     <item>

@@ -23,7 +23,7 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item" href="/"><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
+        <a class="nav-item" href=""><h1 class="title is-4">Science, Physiotherapy and Stats</h1></a>
       </div>
       <div class="nav-right">
         <nav class="nav-item level is-mobile"><a class="level-item" aria-label="email" href='mailto:jenshuesers@gmail.com' target='_blank' rel='noopener'>
@@ -75,6 +75,40 @@
 <section class="section">
   <div class="container">
     
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+        
+<a class="subtitle is-6" href="/tags/logistic-regression">#logistic-regression</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/hl7">#HL7</a>
+  
+  | <a class="subtitle is-6" href="/tags/fhir">#FHIR</a>
+  
+
+        
+      </div>
+      <h2 class="subtitle is-6">March 12, 2021</h2>
+      <h1 class="title"><a href="/post/risk-prediction-for-fhir/">Risk Prediction for FHIR</a></h1>
+      <div class="content">
+        
+              
+      
+    Based on clinical observations and classifications, clinical risk prediction models suppport clinicians to detect risk patients in an early stage of an amputation. Those patients may have a high likelihood of developing severe short or long term complications, such as heart attack or lower limb &hellip;
+        
+        <a class="button is-link" href="/post/risk-prediction-for-fhir/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
     
     <article>
       <div class="subtitle tags is-6 is-pulled-right">
@@ -136,7 +170,7 @@
       
     This post is about creating FHIR profiles and slicing in particular. So, just before I start I want to introduce with a few bullet points to show from where this post starts.
 [&hellip;] The next section discusses some parts of the profiling process and focusses on the slicing procedure
-[&hellip;] As &hellip;
+[&hellip;] &hellip;
         
         <a class="button is-link" href="/post/profiling-and-slicing-an-fhir-observation-resource/" style="height:28px">
           Read more
@@ -168,7 +202,8 @@
         
               
       
-    In the last post I talked about the central FHIR resource Patient which captures all the information of a patient, such as name, date of birth and so forth. Another important resource it Observation. This resource is used to give details about a specific observation such as blood pressure or heart &hellip;
+    http://fhirtest.uhn.ca/baseDstu3/Observation?_id=429259
+
         
         <a class="button is-link" href="/post/hl7-fhir-fundamentale-create-an-observation-resource/" style="height:28px">
           Read more
@@ -200,8 +235,10 @@
         
               
       
-    On November 1st 2018 I started an online course on the HL7 FHIR Standard. This course is offerd by the HL7 which is an international organization for standardization in healthcare and it is all about the latest standard called Fast Healthcare Interoperablity Resources or short: FHIR.
-This standard &hellip;
+    This standard used RESTful services and json or xml-documents to transfer information.
+[&hellip;] To get my patient information you can use the lastname, given name or the id of the resource which is 428166:
+http://fhirtest.uhn.ca/baseDstu3/Patient?_id=428166
+To get all the observations of this &hellip;
         
         <a class="button is-link" href="/post/hl-fhir-fundamentale-creating-resources/" style="height:28px">
           Read more

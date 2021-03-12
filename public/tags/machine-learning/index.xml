@@ -19,7 +19,7 @@
       
       <guid>/post/2019-01-25-finalizing-glmnet-models/</guid>
       <description>Evaluating hyperparameter with Cross Validation In machine learning we develop algorithms to map from predictive variables to an output variable which we wish to predict using unseen data. When building models we can use hyperparameters of the algorithms to increase model performance.
-Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage.</description>
+Lasso regression, which puts a penalty on large model coefficients (see James et al. text book “Introduction to Staticial Learning” for more details), is an example of an algorithm using hyperparameters, to control and find the best amount of shrinkage.</description>
     </item>
     
   </channel>
