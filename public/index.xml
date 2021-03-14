@@ -23,17 +23,67 @@
       <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;p&gt;In digital health products, it is essential to reliably find health information. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.&lt;/p&gt;
-&lt;p&gt;Among those mechanism, one important FHIR-feature is the chaining of search parameter, which allows to combine searches across referenced FHIR-resources.&lt;/p&gt;
+&lt;p&gt;In digital health products, it is essential to find health information reliably. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.&lt;/p&gt;
+&lt;p&gt;Among those mechanisms, one important FHIR-feature is the chaining of the search parameters, which allows combining searches across referenced FHIR-resources.&lt;/p&gt;
 &lt;p&gt;For example, a patient has several clinical encounters, such as an appointment with the local physician. When a physician makes a diagnosis, it is valuable that a system connects this diagnosis with the associated encounter.&lt;/p&gt;
-&lt;p&gt;In FHIR, the information about the diagnosis made is stored in a &lt;code&gt;Condition&lt;/code&gt; resource. This resource references the encounter which is stored in a &lt;code&gt;Encounter&lt;/code&gt; resource. This &lt;code&gt;Encounter&lt;/code&gt; can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses &lt;a href=&#34;https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html&#34;&gt;the HL7 v3 SetActEncounterCode Value Set&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;In FHIR, the information about the diagnosis made is stored in a &lt;code&gt;Condition&lt;/code&gt; resource. This resource references the encounter, which is stored in an &lt;code&gt;Encounter&lt;/code&gt; resource. This &lt;code&gt;Encounter&lt;/code&gt; can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses &lt;a href=&#34;https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html&#34;&gt;the HL7 v3 SetActEncounterCode Value Set&lt;/a&gt;)&lt;/p&gt;
 &lt;p&gt;If a scenario emerges in which a list of all conditions that were part of an emergency encounter is requested, this information is available only through chaining FHIR search parameters.&lt;/p&gt;
-&lt;p&gt;In the figure below, we have a patient with an ambulatory encounter (FHIR resource &lt;code&gt;Encounter&lt;/code&gt;) in which the diagnosis diabetes (encoded as &lt;code&gt;Condition&lt;/code&gt;) was made. Furthermore, there is a emergency encounter in which the diagnosis (&lt;code&gt;Condition&lt;/code&gt;) was made.&lt;/p&gt;
+&lt;p&gt;In the figure below, we have a patient with an ambulatory encounter (FHIR resource &lt;code&gt;Encounter&lt;/code&gt;) in which the diagnosis of diabetes (encoded as &lt;code&gt;Condition&lt;/code&gt;) was made. Furthermore, there is an emergency encounter in which the diagnosis (&lt;code&gt;Condition&lt;/code&gt;) was made.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img src=&#34;/post/2021-03-14-chaining-in-a-fhir-query_files/fhir-query.jpg&#34; alt=&#34;&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Use Cases&lt;/p&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;em&gt;To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the &lt;code&gt;Condition&lt;/code&gt; resource but rather part of resources that it references (in this case it references the encounter).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the &lt;code&gt;Condition&lt;/code&gt; resource but rather part of resources that it references (in this case, it references the encounter).&lt;/em&gt;&lt;/p&gt;
+&lt;div id=&#34;use-case&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Use Case&lt;/h1&gt;
+&lt;p&gt;A patient had an ambulatory encounter in which he was diagnosed with diabetes. Then, after a car accident, he had an emergency encounter. There he was diagnosed with an open fracture of the ulna and a fracture of the radius.&lt;/p&gt;
+&lt;p&gt;I posted the original resources to the public HAPI FHIR Server:&lt;/p&gt;
+&lt;p&gt;You can follow this example with this &lt;a href=&#34;https://github.com/jnshsrs/blog/code/post-resources&#34; title=&#34;Posting Resources to HAPI Server&#34;&gt;python script&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The aim is to request conditions that were part of an emergency encounter. To do so, we will chain parameters.&lt;/p&gt;
+&lt;div id=&#34;get-patient&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Get Patient:&lt;/h2&gt;
+&lt;p&gt;A simple query returns the patient that was uploaded for this use-case:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Patient/1943704&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Patient/1943704&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Next, we request all conditions on the server.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Conditions&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Conditions&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Further, we can request Conditions with a specific encounter, as the condition resource has the search parameter &lt;code&gt;encounter&lt;/code&gt;. We request this reference by using the ID above.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In this case, we see that for this encounter, two conditions exist.&lt;/p&gt;
+&lt;p&gt;However, in many cases, we want all Condition resources of a specific encounter class, e.g. emergency.&lt;/p&gt;
+&lt;p&gt;**Because the condition resource does not contain information about the encounter class but references it, we can access the class information via chaining within the &lt;code&gt;encounter&lt;/code&gt; search parameter.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We request &lt;code&gt;conditions&lt;/code&gt; (&lt;code&gt;base url + /Condition&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;We use the search parameter &lt;code&gt;encounter&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Encounter itself has the search parameter &lt;code&gt;class&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;We chain both search parameters within the search parameter &lt;code&gt;encounter&lt;/code&gt; using the &lt;code&gt;.&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The final GET request return all Conditions that resulted from emergency encounters.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Condition?encounter.class=EMER&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Condition?encounter.class=EMER&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;appendix&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Appendix&lt;/h1&gt;
+&lt;div id=&#34;patient-resource&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Patient Resource&lt;/h2&gt;
+&lt;pre class=&#34;json&#34;&gt;&lt;code&gt;{
+    &amp;quot;resourceType&amp;quot;: &amp;quot;Patient&amp;quot;,
+    &amp;quot;id&amp;quot;: &amp;quot;1943704&amp;quot;,
+    &amp;quot;meta&amp;quot;: {
+        &amp;quot;versionId&amp;quot;: &amp;quot;1&amp;quot;,
+        &amp;quot;lastUpdated&amp;quot;: &amp;quot;2021-03-14T19:13:21.211+00:00&amp;quot;,
+        &amp;quot;source&amp;quot;: &amp;quot;#fhnuFlpS2QhU4Zje&amp;quot;
+    },
+    &amp;quot;name&amp;quot;: [
+        {
+            &amp;quot;use&amp;quot;: &amp;quot;nickname&amp;quot;,
+            &amp;quot;text&amp;quot;: &amp;quot;Patient with fracture and diabetes&amp;quot;
+        }
+    ],
+    &amp;quot;gender&amp;quot;: &amp;quot;male&amp;quot;,
+    &amp;quot;birthDate&amp;quot;: &amp;quot;2002-02-02&amp;quot;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 </content>
       
     </item>
@@ -462,7 +512,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.76&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.67&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -474,7 +524,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.21&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.22&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
@@ -486,19 +536,19 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;39.80&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.79&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.18&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.19&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.07&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.08&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.13&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.11&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
@@ -506,7 +556,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.00&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.02&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1560,7 +1610,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7f966c3d0990&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fe03ddc7190&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -1999,7 +2049,7 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.4
+## 1 female  31.9  33.2  34.6
 ## 2 male    32.6  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;

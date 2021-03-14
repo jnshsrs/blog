@@ -2,25 +2,74 @@
 title: Chaining in a FHIR Query
 author: Jens Hüsers
 date: '2021-03-14'
-slug: chaining-in-a-fhir-query
 categories:
-  - HL7
   - FHIR
+  - HL7
   - Interoperability
-tags: []
+slug: chaining-in-a-fhir-query
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<p>In digital health products, it is essential to reliably find health information. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.</p>
-<p>Among those mechanism, one important FHIR-feature is the chaining of search parameter, which allows to combine searches across referenced FHIR-resources.</p>
+<p>In digital health products, it is essential to find health information reliably. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.</p>
+<p>Among those mechanisms, one important FHIR-feature is the chaining of the search parameters, which allows combining searches across referenced FHIR-resources.</p>
 <p>For example, a patient has several clinical encounters, such as an appointment with the local physician. When a physician makes a diagnosis, it is valuable that a system connects this diagnosis with the associated encounter.</p>
-<p>In FHIR, the information about the diagnosis made is stored in a <code>Condition</code> resource. This resource references the encounter which is stored in a <code>Encounter</code> resource. This <code>Encounter</code> can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses <a href="https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html">the HL7 v3 SetActEncounterCode Value Set</a>)</p>
+<p>In FHIR, the information about the diagnosis made is stored in a <code>Condition</code> resource. This resource references the encounter, which is stored in an <code>Encounter</code> resource. This <code>Encounter</code> can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses <a href="https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html">the HL7 v3 SetActEncounterCode Value Set</a>)</p>
 <p>If a scenario emerges in which a list of all conditions that were part of an emergency encounter is requested, this information is available only through chaining FHIR search parameters.</p>
-<p>In the figure below, we have a patient with an ambulatory encounter (FHIR resource <code>Encounter</code>) in which the diagnosis diabetes (encoded as <code>Condition</code>) was made. Furthermore, there is a emergency encounter in which the diagnosis (<code>Condition</code>) was made.</p>
+<p>In the figure below, we have a patient with an ambulatory encounter (FHIR resource <code>Encounter</code>) in which the diagnosis of diabetes (encoded as <code>Condition</code>) was made. Furthermore, there is an emergency encounter in which the diagnosis (<code>Condition</code>) was made.</p>
 <div class="figure">
 <img src="/post/2021-03-14-chaining-in-a-fhir-query_files/fhir-query.jpg" alt="" />
 <p class="caption">Use Cases</p>
 </div>
-<p><em>To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the <code>Condition</code> resource but rather part of resources that it references (in this case it references the encounter).</em></p>
+<p><em>To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the <code>Condition</code> resource but rather part of resources that it references (in this case, it references the encounter).</em></p>
+<div id="use-case" class="section level1">
+<h1>Use Case</h1>
+<p>A patient had an ambulatory encounter in which he was diagnosed with diabetes. Then, after a car accident, he had an emergency encounter. There he was diagnosed with an open fracture of the ulna and a fracture of the radius.</p>
+<p>I posted the original resources to the public HAPI FHIR Server:</p>
+<p>You can follow this example with this <a href="https://github.com/jnshsrs/blog/code/post-resources" title="Posting Resources to HAPI Server">python script</a>.</p>
+<p>The aim is to request conditions that were part of an emergency encounter. To do so, we will chain parameters.</p>
+<div id="get-patient" class="section level2">
+<h2>Get Patient:</h2>
+<p>A simple query returns the patient that was uploaded for this use-case:</p>
+<p><a href="http://hapi.fhir.org/baseR4/Patient/1943704" class="uri">http://hapi.fhir.org/baseR4/Patient/1943704</a></p>
+<p>Next, we request all conditions on the server.</p>
+<p><a href="http://hapi.fhir.org/baseR4/Conditions" class="uri">http://hapi.fhir.org/baseR4/Conditions</a></p>
+<p>Further, we can request Conditions with a specific encounter, as the condition resource has the search parameter <code>encounter</code>. We request this reference by using the ID above.</p>
+<p><a href="http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705" class="uri">http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705</a></p>
+<p>In this case, we see that for this encounter, two conditions exist.</p>
+<p>However, in many cases, we want all Condition resources of a specific encounter class, e.g. emergency.</p>
+<p>**Because the condition resource does not contain information about the encounter class but references it, we can access the class information via chaining within the <code>encounter</code> search parameter.</p>
+<ul>
+<li>We request <code>conditions</code> (<code>base url + /Condition</code>)</li>
+<li>We use the search parameter <code>encounter</code></li>
+<li>Encounter itself has the search parameter <code>class</code></li>
+<li>We chain both search parameters within the search parameter <code>encounter</code> using the <code>.</code></li>
+</ul>
+<p>The final GET request return all Conditions that resulted from emergency encounters.</p>
+<p><a href="http://hapi.fhir.org/baseR4/Condition?encounter.class=EMER" class="uri">http://hapi.fhir.org/baseR4/Condition?encounter.class=EMER</a></p>
+</div>
+</div>
+<div id="appendix" class="section level1">
+<h1>Appendix</h1>
+<div id="patient-resource" class="section level2">
+<h2>Patient Resource</h2>
+<pre class="json"><code>{
+    &quot;resourceType&quot;: &quot;Patient&quot;,
+    &quot;id&quot;: &quot;1943704&quot;,
+    &quot;meta&quot;: {
+        &quot;versionId&quot;: &quot;1&quot;,
+        &quot;lastUpdated&quot;: &quot;2021-03-14T19:13:21.211+00:00&quot;,
+        &quot;source&quot;: &quot;#fhnuFlpS2QhU4Zje&quot;
+    },
+    &quot;name&quot;: [
+        {
+            &quot;use&quot;: &quot;nickname&quot;,
+            &quot;text&quot;: &quot;Patient with fracture and diabetes&quot;
+        }
+    ],
+    &quot;gender&quot;: &quot;male&quot;,
+    &quot;birthDate&quot;: &quot;2002-02-02&quot;
+}</code></pre>
+</div>
+</div>
