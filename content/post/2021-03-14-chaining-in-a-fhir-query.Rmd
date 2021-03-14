@@ -9,21 +9,22 @@ categories:
 slug: chaining-in-a-fhir-query
 ---
 
-In digital health products, it is essential to reliably find health information. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.
 
-Among those mechanism, one important FHIR-feature is the chaining of search parameter, which allows to combine searches across referenced FHIR-resources.
+In digital health products, it is essential to find health information reliably. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.
+
+Among those mechanisms, one important FHIR-feature is the chaining of the search parameters, which allows combining searches across referenced FHIR-resources.
 
 For example, a patient has several clinical encounters, such as an appointment with the local physician. When a physician makes a diagnosis, it is valuable that a system connects this diagnosis with the associated encounter.
 
-In FHIR, the information about the diagnosis made is stored in a `Condition` resource. This resource references the encounter which is stored in a `Encounter` resource. This `Encounter` can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses [the HL7 v3 SetActEncounterCode Value Set](https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html))
+In FHIR, the information about the diagnosis made is stored in a `Condition` resource. This resource references the encounter, which is stored in an `Encounter` resource. This `Encounter` can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses [the HL7 v3 SetActEncounterCode Value Set](https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html))
 
 If a scenario emerges in which a list of all conditions that were part of an emergency encounter is requested, this information is available only through chaining FHIR search parameters.
 
-In the figure below, we have a patient with an ambulatory encounter (FHIR resource `Encounter`) in which the diagnosis diabetes (encoded as `Condition`) was made. Furthermore, there is a emergency encounter in which the diagnosis (`Condition`) was made.
+In the figure below, we have a patient with an ambulatory encounter (FHIR resource `Encounter`) in which the diagnosis of diabetes (encoded as `Condition`) was made. Furthermore, there is an emergency encounter in which the diagnosis (`Condition`) was made.
 
 ![Use Cases](/post/2021-03-14-chaining-in-a-fhir-query_files/fhir-query.jpg)
 
-*To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the `Condition` resource but rather part of resources that it references (in this case it references the encounter).*
+*To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the `Condition` resource but rather part of resources that it references (in this case, it references the encounter).*
 
 # Use Case
 
@@ -45,21 +46,21 @@ Encounters:
 
 ## Get Patient:
 
-A simple query returns the patient that was uploaded for this usecase:
+A simple query returns the patient that was uploaded for this use-case:
 
 <http://hapi.fhir.org/baseR4/Patient/1943704>
 
-Next, we request all conditions on the server
+Next, we request all conditions on the server.
 
 <http://hapi.fhir.org/baseR4/Conditions>
 
-Further, we can request Conditions with a specific encounter, as the condition resource has the search parameter `encounter`. We request this reference by using the ID above
+Further, we can request Conditions with a specific encounter, as the condition resource has the search parameter `encounter`. We request this reference by using the ID above.
 
 <http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705>
 
-In this case, we see that for this encounter two conditions exist.
+In this case, we see that for this encounter, two conditions exist.
 
-However, in many cases, we do want all Condition resources of a specifc encounter class, e.g. emergency.
+However, in many cases, we want all Condition resources of a specific encounter class, e.g. emergency.
 
 \*\*Because the condition resource does not contain information about the encounter class but references it, we can access the class information via chaining within the `encounter` search parameter.
 
@@ -71,7 +72,6 @@ However, in many cases, we do want all Condition resources of a specifc encounte
 The final GET request return all Conditions that resulted from emergency encounters.
 
 <http://hapi.fhir.org/baseR4/Condition?encounter.class=EMER>
-
 
 # Appendix
 
