@@ -2,12 +2,11 @@
 title: Chaining in a FHIR Query
 author: Jens Hüsers
 date: '2021-03-14'
-slug: chaining-in-a-fhir-query
 categories:
-  - HL7
   - FHIR
+  - HL7
   - Interoperability
-tags: []
+slug: chaining-in-a-fhir-query
 ---
 
 In digital health products, it is essential to reliably find health information. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.
@@ -25,3 +24,75 @@ In the figure below, we have a patient with an ambulatory encounter (FHIR resour
 ![Use Cases](/post/2021-03-14-chaining-in-a-fhir-query_files/fhir-query.jpg)
 
 *To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the `Condition` resource but rather part of resources that it references (in this case it references the encounter).*
+
+# Use Case
+
+A patient had an ambulatory encounter in which he was diagnosed with diabetes. Then, after a car accident, he had an emergency encounter. There he was diagnosed with an open fracture of the ulna and a fracture of the radius.
+
+I posted the original resources to the public HAPI FHIR Server:
+
+You can follow this example with this [python script](https://github.com/jnshsrs/blog/code/post-resources "Posting Resources to HAPI Server").
+
+The aim is to request conditions that were part of an emergency encounter. To do so, we will chain parameters.
+
+---
+Patient ID: 1943704
+
+Encounters:
+  Emergency Encounter ID: 1943705
+  Ambulatory ID: 1943706
+---
+
+## Get Patient:
+
+A simple query returns the patient that was uploaded for this usecase:
+
+<http://hapi.fhir.org/baseR4/Patient/1943704>
+
+Next, we request all conditions on the server
+
+<http://hapi.fhir.org/baseR4/Conditions>
+
+Further, we can request Conditions with a specific encounter, as the condition resource has the search parameter `encounter`. We request this reference by using the ID above
+
+<http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705>
+
+In this case, we see that for this encounter two conditions exist.
+
+However, in many cases, we do want all Condition resources of a specifc encounter class, e.g. emergency.
+
+\*\*Because the condition resource does not contain information about the encounter class but references it, we can access the class information via chaining within the `encounter` search parameter.
+
+-   We request `conditions` (`base url + /Condition`)
+-   We use the search parameter `encounter`
+-   Encounter itself has the search parameter `class`
+-   We chain both search parameters within the search parameter `encounter` using the `.`
+
+The final GET request return all Conditions that resulted from emergency encounters.
+
+<http://hapi.fhir.org/baseR4/Condition?encounter.class=EMER>
+
+
+# Appendix
+
+## Patient Resource
+
+``` {.json}
+{
+    "resourceType": "Patient",
+    "id": "1943704",
+    "meta": {
+        "versionId": "1",
+        "lastUpdated": "2021-03-14T19:13:21.211+00:00",
+        "source": "#fhnuFlpS2QhU4Zje"
+    },
+    "name": [
+        {
+            "use": "nickname",
+            "text": "Patient with fracture and diabetes"
+        }
+    ],
+    "gender": "male",
+    "birthDate": "2002-02-02"
+}
+```
