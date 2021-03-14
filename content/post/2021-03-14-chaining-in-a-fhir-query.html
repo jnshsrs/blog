@@ -1,0 +1,26 @@
+---
+title: Chaining in a FHIR Query
+author: Jens Hüsers
+date: '2021-03-14'
+slug: chaining-in-a-fhir-query
+categories:
+  - HL7
+  - FHIR
+  - Interoperability
+tags: []
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>In digital health products, it is essential to reliably find health information. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.</p>
+<p>Among those mechanism, one important FHIR-feature is the chaining of search parameter, which allows to combine searches across referenced FHIR-resources.</p>
+<p>For example, a patient has several clinical encounters, such as an appointment with the local physician. When a physician makes a diagnosis, it is valuable that a system connects this diagnosis with the associated encounter.</p>
+<p>In FHIR, the information about the diagnosis made is stored in a <code>Condition</code> resource. This resource references the encounter which is stored in a <code>Encounter</code> resource. This <code>Encounter</code> can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses <a href="https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html">the HL7 v3 SetActEncounterCode Value Set</a>)</p>
+<p>If a scenario emerges in which a list of all conditions that were part of an emergency encounter is requested, this information is available only through chaining FHIR search parameters.</p>
+<p>In the figure below, we have a patient with an ambulatory encounter (FHIR resource <code>Encounter</code>) in which the diagnosis diabetes (encoded as <code>Condition</code>) was made. Furthermore, there is a emergency encounter in which the diagnosis (<code>Condition</code>) was made.</p>
+<div class="figure">
+<img src="/post/2021-03-14-chaining-in-a-fhir-query_files/fhir-query.jpg" alt="" />
+<p class="caption">Use Cases</p>
+</div>
+<p><em>To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the <code>Condition</code> resource but rather part of resources that it references (in this case it references the encounter).</em></p>

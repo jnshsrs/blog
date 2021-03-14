@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Fri, 12 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chaining in a FHIR Query</title>
+      <link>/post/chaining-in-a-fhir-query/</link>
+      <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/chaining-in-a-fhir-query/</guid>
+      <description>In digital health products, it is essential to reliably find health information. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.
+Among those mechanism, one important FHIR-feature is the chaining of search parameter, which allows to combine searches across referenced FHIR-resources.
+For example, a patient has several clinical encounters, such as an appointment with the local physician.</description>
+    </item>
     
     <item>
       <title>Risk Prediction for FHIR</title>

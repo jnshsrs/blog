@@ -1,0 +1,27 @@
+---
+title: Chaining in a FHIR Query
+author: Jens Hüsers
+date: '2021-03-14'
+slug: chaining-in-a-fhir-query
+categories:
+  - HL7
+  - FHIR
+  - Interoperability
+tags: []
+---
+
+In digital health products, it is essential to reliably find health information. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.
+
+Among those mechanism, one important FHIR-feature is the chaining of search parameter, which allows to combine searches across referenced FHIR-resources.
+
+For example, a patient has several clinical encounters, such as an appointment with the local physician. When a physician makes a diagnosis, it is valuable that a system connects this diagnosis with the associated encounter.
+
+In FHIR, the information about the diagnosis made is stored in a `Condition` resource. This resource references the encounter which is stored in a `Encounter` resource. This `Encounter` can provide further valuable information, e.g. its class. A class describes the setting of the encounter, e.g. ambulatory or emergency setting (as a code element, it uses [the HL7 v3 SetActEncounterCode Value Set](https://www.hl7.org/fhir/v3/ActEncounterCode/vs.html))
+
+If a scenario emerges in which a list of all conditions that were part of an emergency encounter is requested, this information is available only through chaining FHIR search parameters.
+
+In the figure below, we have a patient with an ambulatory encounter (FHIR resource `Encounter`) in which the diagnosis diabetes (encoded as `Condition`) was made. Furthermore, there is a emergency encounter in which the diagnosis (`Condition`) was made.
+
+![Use Cases](/post/2021-03-14-chaining-in-a-fhir-query_files/fhir-query.jpg)
+
+*To get all conditions that were made in an emergency setting, we have to chain parameters, as this information is not part of the `Condition` resource but rather part of resources that it references (in this case it references the encounter).*
