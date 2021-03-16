@@ -38,14 +38,14 @@
 &lt;h1&gt;Use Case&lt;/h1&gt;
 &lt;p&gt;A patient had an ambulatory encounter in which he was diagnosed with diabetes. Then, after a car accident, he had an emergency encounter. There he was diagnosed with an open fracture of the ulna and a fracture of the radius.&lt;/p&gt;
 &lt;p&gt;I posted the original resources to the public HAPI FHIR Server:&lt;/p&gt;
-&lt;p&gt;You can follow this example with this &lt;a href=&#34;https://github.com/jnshsrs/blog/code/post-resources&#34; title=&#34;Posting Resources to HAPI Server&#34;&gt;python script&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can follow this example with this &lt;a href=&#34;https://raw.githubusercontent.com/jnshsrs/blog/master/code/post-resources.py&#34; title=&#34;Posting Resources to HAPI Server&#34;&gt;python script&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The aim is to request conditions that were part of an emergency encounter. To do so, we will chain parameters.&lt;/p&gt;
 &lt;div id=&#34;get-patient&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Get Patient:&lt;/h2&gt;
 &lt;p&gt;A simple query returns the patient that was uploaded for this use-case:&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Patient/1943704&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Patient/1943704&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Next, we request all conditions on the server.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Conditions&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Conditions&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Condition&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Condition&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Further, we can request Conditions with a specific encounter, as the condition resource has the search parameter &lt;code&gt;encounter&lt;/code&gt;. We request this reference by using the ID above.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705&#34; class=&#34;uri&#34;&gt;http://hapi.fhir.org/baseR4/Condition?encounter=Encounter/1943705&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In this case, we see that for this encounter, two conditions exist.&lt;/p&gt;
@@ -512,7 +512,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.67&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.72&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -524,7 +524,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Cards&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.22&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.21&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Education&lt;/td&gt;
@@ -532,19 +532,19 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.19&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.20&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;39.79&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.82&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.19&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.18&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.08&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.06&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
@@ -556,7 +556,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.02&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.01&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1610,7 +1610,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fe03ddc7190&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fb9de1bea80&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;

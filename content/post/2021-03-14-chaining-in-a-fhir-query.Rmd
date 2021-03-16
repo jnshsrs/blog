@@ -9,7 +9,6 @@ categories:
 slug: chaining-in-a-fhir-query
 ---
 
-
 In digital health products, it is essential to find health information reliably. As health care data is complex, searching for information in health databases, requests should be flexible. The FHIR specification offers multiple mechanisms to ensure reliable and flexible data queries.
 
 Among those mechanisms, one important FHIR-feature is the chaining of the search parameters, which allows combining searches across referenced FHIR-resources.
@@ -32,7 +31,7 @@ A patient had an ambulatory encounter in which he was diagnosed with diabetes. T
 
 I posted the original resources to the public HAPI FHIR Server:
 
-You can follow this example with this [python script](https://github.com/jnshsrs/blog/code/post-resources "Posting Resources to HAPI Server").
+You can follow this example with this [python script](https://raw.githubusercontent.com/jnshsrs/blog/master/code/post-resources.py "Posting Resources to HAPI Server").
 
 The aim is to request conditions that were part of an emergency encounter. To do so, we will chain parameters.
 
@@ -52,7 +51,7 @@ A simple query returns the patient that was uploaded for this use-case:
 
 Next, we request all conditions on the server.
 
-<http://hapi.fhir.org/baseR4/Conditions>
+<http://hapi.fhir.org/baseR4/Condition>
 
 Further, we can request Conditions with a specific encounter, as the condition resource has the search parameter `encounter`. We request this reference by using the ID above.
 
