@@ -31,7 +31,7 @@ A patient had an ambulatory encounter in which he was diagnosed with diabetes. T
 
 I posted the original resources to the public HAPI FHIR Server:
 
-You can follow this example with this [python script](https://raw.githubusercontent.com/jnshsrs/blog/master/code/post-resources.py "Posting Resources to HAPI Server").
+You can follow this example with this [Google Colab Script](https://colab.research.google.com/drive/1OSuqqACnCqw8h67E7DKDMyIGO1C2qbEq?usp=sharing). To make it work 
 
 The aim is to request conditions that were part of an emergency encounter. To do so, we will chain parameters.
 
