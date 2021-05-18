@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
-    <lastBuildDate>Sun, 14 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SNOMED CT für den interoperablen interdisziplinären elektronischen Informationsaustausch in der Wundversorgung</title>
+      <link>/post/snomed-ct/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/snomed-ct/</guid>
+      <description>Abstract für die Veranstaltung - BfArM im Dialog „Anwenderforum Snomed CT“ am 18. Mai 2021 Eine chronische Wunde ist ein anhaltender Hautdefekt, dessen spontane Abheilung fehlschlägt. Bei der überwiegender Anzahl der 4 Millionen betroffenen Patienten in Deutschland manifestiert sich eine chronische Wunde an der unteren Extremität [1]. Fortwährend hohe und tendenziell steigende Prävalenzen der Grunderkrankungen, zu denen kardiovaskuläre Erkrankungen und der Diabetes Mellitus zählen, manifestieren das Problem “Chronische Wunde” in einer alternden Bevölkerung.</description>
+    </item>
     
     <item>
       <title>Chaining in a FHIR Query</title>
@@ -80,6 +89,16 @@ Lasso regression, which puts a penalty on large model coefficients (see James et
       
       <guid>/post/estimating-the-bass-model/</guid>
       <description>Untersuchung von Innovationen Vor dem Hintergrund immer schneller verlaufender Innovationszyklen und der zunehmenden Digitalisierung sind Modelle die versuchen Innovationsmechanismen zu erklären von großem Interesse. Obwohl die Innovationsforschung, die sich mit diesem Thema befasst, heutzutage einen großen Stellenwert einnummt, befassten sich Forscher um 1960 mit der Thematik. Insbesondere Rogers und Bass befassten sich der Erklärung und Modellierung von Innovationen. Bass gelang es als Erster ein mathematisches Model zur Erklärung von Innovationen und der Produktentwicklung zu erstellen, die ursprünglich von Rogers in seiner “Diffusion of Innovation Theory” aufgestellt wurden.</description>
+    </item>
+    
+    <item>
+      <title>Marktentwicklung von Innovationen</title>
+      <link>/post/marktentwicklung-von-innovationen/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/marktentwicklung-von-innovationen/</guid>
+      <description>Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.
+Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt. Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen. Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann. Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.</description>
     </item>
     
     <item>

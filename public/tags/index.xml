@@ -87,7 +87,7 @@
     <item>
       <title>Interoperability</title>
       <link>/tags/interoperability/</link>
-      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/interoperability/</guid>
       <description></description>
@@ -184,6 +184,15 @@
     </item>
     
     <item>
+      <title>Snomed Ct</title>
+      <link>/tags/snomed-ct/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/snomed-ct/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Spss</title>
       <link>/tags/spss/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
@@ -198,6 +207,24 @@
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/survey-data/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terminology</title>
+      <link>/tags/terminology/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/terminology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Wunddokumentation</title>
+      <link>/tags/wunddokumentation/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/wunddokumentation/</guid>
       <description></description>
     </item>
     

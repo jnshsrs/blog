@@ -13,6 +13,44 @@
     
     
     <item>
+      <title>SNOMED CT für den interoperablen interdisziplinären elektronischen Informationsaustausch in der Wundversorgung</title>
+      <link>/post/snomed-ct/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/snomed-ct/</guid>
+      <description></description>
+      
+      <content>
+
+&lt;h2 id=&#34;abstract-für-die-veranstaltung-bfarm-im-dialog-anwenderforum-snomed-ct-am-18-mai-2021&#34;&gt;Abstract für die Veranstaltung - BfArM im Dialog „Anwenderforum Snomed CT“ am 18. Mai 2021&lt;/h2&gt;
+
+&lt;p&gt;Eine chronische Wunde ist ein anhaltender Hautdefekt, dessen spontane Abheilung fehlschlägt. Bei der überwiegender Anzahl der 4 Millionen betroffenen Patienten in Deutschland manifestiert sich eine chronische Wunde an der unteren Extremität [1]. Fortwährend hohe und tendenziell steigende Prävalenzen der Grunderkrankungen, zu denen kardiovaskuläre Erkrankungen und der Diabetes Mellitus zählen, manifestieren das Problem “Chronische Wunde” in einer alternden Bevölkerung.&lt;/p&gt;
+
+&lt;p&gt;Dieser Trend ist alarmierend, da die Wundversorgung einen hohen ökonomischen Druck auf das Gesundheitssystem ausübt und die Wunde für die Betroffenen eine hohe, langanhaltende Krankheitslast bedeutet. Zudem sind chronische Wunden mit schwerwiegenden Komplikationen wie Schmerz, Infektionen oder sogar Amputationen assoziiert.&lt;/p&gt;
+
+&lt;p&gt;Die Versorgung chronischer Wunden, an der mehrere Gesundheitsdienstleister beteiligt sind, erfolgt überwiegend ambulant. In dieser interdisziplinären und multi-organisatorischen charakterisierten Versorgungssituation ist der Informationsaustausch zwischen allen Beteiligten für den Behandlungserfolg entscheidend. Dieser Austausch kann durch den Einsatz elektronischer Patientenakten erleichtert werden, da diese die Informationen in Echtzeit ortsungebunden und datenschutzkonform in IT-Systemen bereitstellen können.&lt;/p&gt;
+
+&lt;p&gt;Für den organisationsübergreifenden elektronischen Austausch klinisch relevanter Wundinformationen bedarf es jedoch klinisch konsentierter Inhalte auf Basis semantischer Standards. Einer dieser Standards ist SNOMED CT, dessen Nutzung seit 2021 auf Basis einer nationalen Lizenz für alle Organisationen und Leistungserbringer in Deutschland möglich ist. Als führende Referenzterminologie verspricht SNOMED CT den interoperablen, elektronischen Informationsaustausch im Gesundheitswesen semantisch einheitlich zu ermöglichen.&lt;/p&gt;
+
+&lt;p&gt;Wir haben dieses Versprechen für den Bereich der Wundversorgung wissenschaftlich untersucht. Dazu haben wir einen klinisch konsentierten Datensatz, den “Nationalen Konsens zur Dokumentation des Ulcus Cruris” (NKDUC) [2], mit SNOMED CT als Zielterminologie nach dem ISO-Verfahren 12300 verknüpft [3]. Anschließend haben wir die semantische Äquivalenz (ebenfalls nach ISO 12300) bestimmt und die Abdeckungsrate des NKDUC durch SNOMED CT berechnet.&lt;/p&gt;
+
+&lt;p&gt;Es wurden insgesamt 268 Elemente mit SNOMED CT verknüpft. Das Verfahren der Konzeptverknüpfung erwies sich als reliabel. Der Abdeckungsgrad durch SNOMED CT betrug in unserer Studie insgesamt 67.2% und speziell für wundbezogene Informationselemente 64.3% [4].&lt;/p&gt;
+
+&lt;p&gt;Ein erheblicher Anteil (zwei Drittel) der Ausgangskonzepte des NKDUC konnten mit SNOMED CT verknüpft werden. Demgegenüber stehen die übrigen Konzepte, für die eine Entsprechung in SNOMED CT fehlt, obwohl sie wichtige klinische Informationselemente für die Wundversorgung darstellen. Auf Basis dieser Studie können jetzt diese semantischen Lücken analysiert und zum Beispiel durch Post-Koordination oder Einführung neuer Konzepte für die deutsche SNOMED CT Version geschlossen werden. Zudem ist geplant, die Ergebnisse in den eWundbericht, ein elektronisches Austauschdokument für die Wundversorgung, zu integrieren (&lt;a href=&#34;https://simplifier.net/eWundbericht/~introduction&#34; target=&#34;_blank&#34;&gt;https://simplifier.net/eWundbericht/~introduction&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h1 id=&#34;literatur&#34;&gt;Literatur&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Giebeler C, Riecke S, Riedl S. Versorgung von chronischen Wunden und Wundheilungsstörungen. Allg Visz Up2date. 2020;14:451–62.&lt;/li&gt;
+&lt;li&gt;Konsensusgruppe, Heyer K, Herberger K, Protz K, Mayer A, Dissemond J, et al. Nationaler Konsensus zu Wunddokumentation beim Ulcus cruris: Teil 1: Routineversorgung – „Standard- Dataset“ und „Minimum-Dataset“. Hautarzt. 2017;68:740–5.&lt;/li&gt;
+&lt;li&gt;International Organization for Standardisation (ISO). Health informatics — Principles of mapping between terminological systems. Standard 12300. Geneva: International Organization for Standardisation (ISO); 2014.&lt;/li&gt;
+&lt;li&gt;Jens Hüsers, Mareike Przysucha, Lisa Nolte et al. Expressiveness of SNOMED CT for wound Care – Mapping a Standardised item Set for Leg Ulcers to SNOMED CT, 30 December 2020, PREPRINT (Version 1) available at Research Square [&lt;a href=&#34;https://doi.org/10.21203/rs.3.rs-&#34; target=&#34;_blank&#34;&gt;https://doi.org/10.21203/rs.3.rs-&lt;/a&gt; 134228/v1]&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Chaining in a FHIR Query</title>
       <link>/post/chaining-in-a-fhir-query/</link>
       <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
@@ -512,7 +550,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;tbody&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-49.73&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-49.76&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Limit&lt;/td&gt;
@@ -532,23 +570,23 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;GenderFemale&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-1.21&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-1.19&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;StudentYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;39.81&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;39.80&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;MarriedYes&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;-0.16&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.18&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityAsian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;1.09&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.08&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;EthnicityCaucasian&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.17&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.14&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&#34;odd&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;Balance&lt;/td&gt;
@@ -556,7 +594,7 @@ broom::tidy(final_model)  %&amp;gt;%
 &lt;/tr&gt;
 &lt;tr class=&#34;even&#34;&gt;
 &lt;td align=&#34;left&#34;&gt;random_noise&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;0.02&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.01&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -699,6 +737,100 @@ Je höher der Koeffizient desto stärker der Effekt der Innovatoren.
 Der Imitationskoeffizient q interagiert mit p und bestimmt den Verlauf nach der Innovationsphase.
 Wenn der Imitationseffekt fehlt, also q sehr klein oder negativ ist, fehlen die Imitatoren und die Adoption wird ausgebremst.&lt;/p&gt;
 &lt;/div&gt;
+</content>
+      
+    </item>
+    
+    <item>
+      <title>Marktentwicklung von Innovationen</title>
+      <link>/post/marktentwicklung-von-innovationen/</link>
+      <pubDate>Wed, 07 Nov 2018 00:00:00 +0000</pubDate>
+      <author>Jens Hüsers</author>
+      <guid>/post/marktentwicklung-von-innovationen/</guid>
+      <description></description>
+      
+      <content>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Dazu kann auf Grundlage des Modells zusätzlich geschätzt werden, wie sich die Produktentwicklung am Marktniederschlägt.&lt;/p&gt;
+&lt;p&gt;Es ist jedoch zu beachten, dass es sich bei diesen Modellen im Wesentlichen um eine Vereinfachung der komplexen Marktrealität handelt.
+Zudem werden die Prognosen auf Basis der Marktverhältnisse der Vergangenheit getroffen.
+Verändern sich diese Verhältnisse ist das Modell nicht mehr statthaft, da es diese Veränderungen nicht modellieren kann.
+Dies ist jedoch ein Problem vieler Vorhersagemodelle und gilt nicht exklusiv für das Bass-Modell.&lt;/p&gt;
+&lt;p&gt;Das Bass Modell hat sich in der Vergangenheit als nützlich herausgestellt und wird auch heute noch zur Erforschung der Digitalisierung in verschiedenen wissenschaftlichen
+Publikationen genutzt.
+Zudem wird das Modell auch für die Absatzplanung in Unternehmen eingesetzt.&lt;/p&gt;
+&lt;p&gt;Es gibt verschiedene Softwarelösungen, welche eine Schätzung des Modells vornehmen.
+R bietet sich als Open Source Lösung an, denn das Programm hält die Funktionen zur Modellschätzung bereit.
+Zudem exisiteren Programmerweiterungen, die den Umgang mit dem Bass-Modell erleichtern.&lt;/p&gt;
+&lt;p&gt;In diesem Beispiel möchte ich ein kurzes Beispiel demonstrieren, wie mit den Basisfunktionen in R ein Bass-Modell erstellt werden kann,
+das auf den beobachteten kumulierten Adoptionsraten eines Produktes basieren.&lt;/p&gt;
+&lt;p&gt;Für die Modellschätzung werden die Marktdaten benötigt.
+Dabei ist zu beachten, dass diese Daten in jeweils gleichen Zeitabständen vorliegen.
+Zum beispiel jährlich, quartalsweise oder monatlich.
+Fehlende Daten können unter Umständen ersetzt werden.&lt;/p&gt;
+&lt;p&gt;We try to model the cumulative proportions of adopters.
+Therfore we model the cumulative proporitions of adopters by using the differential function of the of the Bass Model Curve to estimate the coefficient of innovation p and coefficient of immitation q.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(F(t) = 1 - \frac{e^{-(p + q)t}}{1 + \frac{q}{p}e^{-(p+q)t}}\)&lt;/span&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# bass function
+bass_F &amp;lt;- function(Time, p, q) {
+  (1 - exp(-(p + q)*Time))/(1 + (q/p)*exp(-(p+q)*Time))
+}
+
+x &amp;lt;- 1:10
+y &amp;lt;- c(.1, .2, .3, .35, .5, .6, .66, .78, .8, .84)
+Time = x
+fit &amp;lt;- stats::nls(y ~ bass_F(Time, p, q), start=list(p = .1, q = .5 ))
+
+plot(x, y)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fit &amp;lt;- nls(formula = y ~ bass_F(Time = x, p, q), start=list(p=.1, q=.5))
+summary(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Formula: y ~ bass_F(Time = x, p, q)
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## p 0.080839   0.007181  11.258 3.48e-06 ***
+## q 0.234345   0.028850   8.123 3.91e-05 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.02264 on 8 degrees of freedom
+## 
+## Number of iterations to convergence: 6 
+## Achieved convergence tolerance: 8.376e-07&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stats::AIC(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -43.61239&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;f &amp;lt;- broom::augment(fit)$.fitted
+mean(sum(f^2)) / mean(x)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5923237&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sd(f) / sqrt(length(Time))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.08442616&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;dplyr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;broom::augment(fit) %&amp;gt;% 
+  mutate(y = y) %&amp;gt;% 
+  ggplot(aes(Time, y)) +
+  geom_point() +
+  geom_line(aes(x = Time, y = .fitted)) +
+  geom_linerange(aes(ymin = .fitted, ymax = y))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2018-11-07-marktentwicklung-von-innovationen_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We used the statistical computing language R to etimate the model’s parameters p and q based on the observed cumulated proportions of adopters.
+In more detail, we used the &lt;code&gt;nls&lt;/code&gt; Function whicht fits a non linear model using ordinary least squares as the cost function with the Newton-Gauss algorithm.
+To compare both models we compared the Stanard Errors of the coefficients and calculated the Aikaikes Information Criterion for both models.&lt;/p&gt;
 </content>
       
     </item>
@@ -1610,7 +1742,7 @@ str(sinnlosse_beispielliste)&lt;/code&gt;&lt;/pre&gt;
 ##   ..$ : chr &amp;quot;B&amp;quot;
 ##  $ :function (x)  
 ##   ..- attr(*, &amp;quot;srcref&amp;quot;)= &amp;#39;srcref&amp;#39; int [1:8] 4 23 14 1 23 1 4 14
-##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fb83d573b60&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+##   .. ..- attr(*, &amp;quot;srcfile&amp;quot;)=Classes &amp;#39;srcfilecopy&amp;#39;, &amp;#39;srcfile&amp;#39; &amp;lt;environment: 0x7fb14f3c3648&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;datensatz-aka-data.frame&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Datensatz aka data.frame&lt;/h2&gt;
@@ -2049,8 +2181,8 @@ plot(titanic$age, titanic$fare, col = titanic$pclass) &lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 2 x 4
 ##   sex    Lower  Mean Upper
 ##   &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;
-## 1 female  31.8  33.2  34.6
-## 2 male    32.6  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
+## 1 female  31.9  33.2  34.5
+## 2 male    32.7  33.6  34.6&lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&#34;/img/tut1-example-plot.png&#34; /&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;img src=&#34;/img/tut1-r-decision-tree.png&#34; /&gt;&lt;/p&gt;

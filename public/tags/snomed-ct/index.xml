@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Snomed Ct on Science, Physiotherapy and Stats</title>
+    <link>/tags/snomed-ct/</link>
+    <description>Recent content in Snomed Ct on Science, Physiotherapy and Stats</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/jnshsrs&#34;&gt;Jens Hüsers&lt;/a&gt; 2018</copyright>
+    <lastBuildDate>Tue, 18 May 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/snomed-ct/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SNOMED CT für den interoperablen interdisziplinären elektronischen Informationsaustausch in der Wundversorgung</title>
+      <link>/post/snomed-ct/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/snomed-ct/</guid>
+      <description>Abstract für die Veranstaltung - BfArM im Dialog „Anwenderforum Snomed CT“ am 18. Mai 2021 Eine chronische Wunde ist ein anhaltender Hautdefekt, dessen spontane Abheilung fehlschlägt. Bei der überwiegender Anzahl der 4 Millionen betroffenen Patienten in Deutschland manifestiert sich eine chronische Wunde an der unteren Extremität [1]. Fortwährend hohe und tendenziell steigende Prävalenzen der Grunderkrankungen, zu denen kardiovaskuläre Erkrankungen und der Diabetes Mellitus zählen, manifestieren das Problem “Chronische Wunde” in einer alternden Bevölkerung.</description>
+    </item>
+    
+  </channel>
+</rss>
